@@ -35,7 +35,7 @@
             }
 
             #containParm{
-                width: 83%;
+                width: 98%;
                 height: 500px;
                 padding-left: 20px;
                 float: left;
@@ -88,16 +88,33 @@
             }
             .datepicker{
             }
+            .buttons {
+                display: flex;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            .buttons input[type="button"], .buttons input[type="submit"] {
+                padding: 8px 16px;
+                border: none;
+                background: #029c44;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            .buttons input:hover {
+                background: #027d36;
+            }
         </style>
 
         <script>
-            $.subscribe("myBeforeHandler", function(event, data) {
+            $.subscribe("myBeforeHandler", function (event, data) {
                 $("#loadingImageDiv").show();
             });
-            $.subscribe("myCompleteTopics", function(event, data) {
+            $.subscribe("myCompleteTopics", function (event, data) {
                 $("#loadingImageDiv").hide();
             });
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
             });
             function getposfromtreecheck()
@@ -136,13 +153,13 @@
                 }
             }
             var bsubmit = false;
-            $.subscribe('beforediv1', function(event, data) {
+            $.subscribe('beforediv1', function (event, data) {
                 $("#divExportReport").empty();
                 $("#divExportReport").hide();
                 $("#loadingImageDiv").show();
             });
 
-            $.subscribe('completediv1', function(event, data) {
+            $.subscribe('completediv1', function (event, data) {
                 $("#loadingImageDiv").hide();
                 $("#divExportReport").show();
             });
@@ -170,31 +187,25 @@
             //Disable enter key form submit            
             document.onkeypress = stopRKey;
 
-            var loadData = false;
-            function onLoadData()
-            {
-                if (!loadData)
-                {
-                    $("#loadsubmitform")[0].click();
-                    loadData = true;
-                    return true;
-                }
-                var r = confirm("Bạn có thật sự muốn tải lại dữ liệu không? (OK : Đồng ý, Cancel : Hủy bỏ)");
-                if (r == true) {
-                    $("#loadsubmitform")[0].click();
-                    loadData = true;
-                    return true;
-                }
-                else
-                    return false;
+            function onLoadData() {
+                $('#message_suc_err').empty();
+                $('#divExportReport').empty();
+                $('#divExportReportLink').empty();
+                $("#loadData")[0].click();
+                // Thực hiện lần click thứ hai sau 100ms
+//                setTimeout(function () {
+//                    $("#loadData")[0].click();
+//                }, 0, 00001);
+                bsubmit = true;
             }
+
 
             function submitloadData()
             {
                 var iSuccess = 0;
                 $("#containParm").hide();
                 $("#loadingImageDiv").show();
-                $("#frmDataDc input[type=checkbox]").each(function()
+                $("#frmDataDc input[type=checkbox]").each(function ()
                 {
                     var num_id = this.id;
                     var soku = $.trim($(this).val());
@@ -262,20 +273,19 @@
                     if (validateRequiredFields()) {
                         $("#idSaveDcNo")[0].click();
                     }
-                }
-                else {
+                } else {
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
-                setTimeout(setTime,1000);   
+                setTimeout(setTime, 1000);
             }
-            function setTime(){
+            function setTime() {
                 //Đoạn này chỉ để chứng minh đã xử lý xong phần load Image loading
                 $("#loadingImageDiv").hide();
                 $("#containParm").show();
             }
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
-                $(".number2").each(function(index) {
+                $(".number2").each(function (index) {
                     var value = $(this).val();
                     value = value.replace(/,/g, "");
                     if (parseFloat(value) > 999999999999) {
@@ -287,7 +297,7 @@
                 return result;
             }
             function keyPressEvent() {
-                $('#idsearch_soku').keypress(function(e) {
+                $('#idsearch_soku').keypress(function (e) {
                     if (e.keyCode == 13) {  // Detect the enter key
                         document.getElementById('idSearch').click();
                     }
@@ -309,117 +319,90 @@
     <body topmargin="0" leftmargin="5">
         <div id="container">
             <s:form id="formMainPLN"  name="formMainPLN" var="test" action="loadDataDcPLN.action" theme="simple">
-                <div id="navParam" >
-                    <div id="navParam2">   
-                        <table border="0">
-                            <tr>
-                                <td>
-                                    <s:label value="Ngày báo cáo " cssStyle="color: #029c44;"/>
-                                    <sj:datepicker name="ngay_dcpln" id="ngay_dcpln"
-                                                   value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
-                                                   placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
-                                                   cssStyle="vertical-align: middle;"/> 
-                                    &nbsp;
-                                    <s:url id="reloadData" action="reloadDvut_PLN" includeParams="post"></s:url>
-                                    <s:label value="Tổ chức hội " cssStyle="color: #029c44;" />
-                                    <sj:select href="%{reloadData}" 
-                                               onChangeTopics="reloadTotruong"                                                     
-                                               onchange="onReloadGroup()"
-                                               id="dvut_dcpln" 
-                                               name="dvut_dcpln"
-                                               list="lstDvutDcpln" 
-                                               listKey="sKey"
-                                               listValue="sDesc"           
-                                               headerKey="-1"
-                                               headerValue="-- Chọn --" 
-                                               cssStyle="width: 120px;vertical-align: middle;"
-                                               onBeforeTopics="myBeforeHandler_dvut" 
-                                               onCompleteTopics="myCompleteTopics_dvut">                    
-                                    </sj:select>
-                                    &nbsp;
-                                    <s:label value="Tổ trưởng " cssStyle="color: #029c44;" />
-                                    <sj:select href="%{reloadData}" 
-                                               reloadTopics="reloadTotruong"
-                                               id="totruong_dcpln" 
-                                               name="totruong_dcpln"
-                                               list="lstTotruongDcpln" 
-                                               listKey="sKey"
-                                               listValue="sDesc" 
-                                               headerKey="-1"
-                                               headerValue="-- Chọn --" 
-                                               cssStyle="width: 170px;vertical-align: middle;"
-                                               onBeforeTopics="myBeforeHandler" 
-                                               onCompleteTopics="myCompleteTopics">                    
-                                    </sj:select>
-                                    &nbsp;
-                                    <s:label value="Trạng thái " cssStyle="color: #029c44;" />
-                                    <s:select id="trangthai" name="trangthai" list="#{'N':'Chưa đối chiếu','R':'Không đối chiếu được','S':'Đã đối chiếu'}"
-                                              cssStyle="width: 103px; vertical-align: middle;"/>
-                                    &nbsp;
-                                    <s:label value="Nguồn vốn " cssStyle="color: #029c44;" />
-                                    <s:select
-                                        id="ngvon_dcpln"
-                                        name="ngvon_dcpln"
-                                        list="lstNguonvon" 
-                                        listKey="sKey"
-                                        listValue="sDesc" 
-                                        headerKey=""
-                                        headerValue="-- Chọn --"
-                                        cssStyle="width: 90px; vertical-align: middle;">                    
+                <fieldset>
+                    <legend><b>Tìm kiếm dữ liệu</b></legend> 
+                    <table>
+                        <tr>
+                            <td>
+                                <s:label value="Ngày báo cáo " cssStyle="color: #029c44;" />
+                                <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
+                                               placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
+                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_data"
+                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
+
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    &nbsp;<s:label value="Mã xã " cssStyle="color: #029c44;" />
+                                    <s:select  style="width: 180px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
+                                               onchange="reLoadValue(this.value)"></s:select>
+                                    &nbsp;<s:label value="Mã tổ " cssStyle="color: #029c44;" />
+                                    <s:select  style="width: 180px;"  list="lstMato" id="mato" name="mato" listKey="sKey" listValue="sDesc"></s:select>
+                                    <s:select  id="mato_data" list="lstMato" listKey="sKey" listValue="sDesc" headerKey="-1"  headerValue="--- Chọn ---"                                        
+                                               cssStyle="display:none;">
                                     </s:select>
-                                    &nbsp;
-                                    <s:label value="Chương trình " cssStyle="color: #029c44;" />
-                                    <s:select  
-                                        id="chtrinh_dcpln"
-                                        name="chtrinh_dcpln"
-                                        list="lstChuongtrinh" 
-                                        listKey="sKey"
-                                        listValue="sDesc" 
-                                        headerKey="-1"
-                                        headerValue="-- Chọn --"
-                                        cssStyle="width: 220px; vertical-align: middle;">                    
-                                    </s:select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <s:url id="idurlSearch" action="searchSearchLoanPLN.action"></s:url>
-                                    <s:label value="Mã khoản vay " id="namesoku" cssStyle="color: #029c44;"> </s:label>
-                                    <s:textfield id="idsearch_soku" name="soku_dcpln"  onkeypress="javascript:keyPressEvent();" 
-                                                 style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 140px; background: white;"></s:textfield>
-                                    <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch}" value="Tìm kiếm" targets="divExportReport"
-                                               onBeforeTopics="beforediv1"
-                                               onCompleteTopics="completediv1" onclick="onFindStatus()"/>
-                                    <input type="button" id="idReturn" name="nameReturn" 
-                                           onclick="onReturn()" value="Quay ra" style="float: right; width:81px;"/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                               onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none;"/>
-                                    <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
-                                    <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Lưu dữ liệu" targets="divExportReport"
-                                               onBeforeTopics="myBeforeHandler"
-                                               onCompleteTopics="completediv1" cssStyle="display: none"/>
-                                    <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Lưu dữ liệu"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>  <!--Hết div của navParam2-->
-                </div>
-                <div id="containTree">
-                    <sjt:tree
-                        name="poscd"
-                        id="treeDynamicCheckboxes"
-                        jstreetheme="apple"
-                        rootNode="nodes_pos"
-                        childCollectionProperty="children"
-                        nodeTitleProperty="title"
-                        nodeIdProperty="id"
-                        openAllOnLoad="true"
-                        checkbox="true"
-                        showThemeDots="false"
-                        showThemeIcons="true" 
-                        />
-                </div>
+                                </s:if>
+                                &nbsp;
+                                <s:label value="Trạng thái " cssStyle="color: #029c44;" />
+                                <select id="trangthai" name="trangthai">
+                                    <option value="N">Chưa đối chiếu</option>
+                                    <option value="R">Không đối chiếu được</option>
+                                    <option value="S">Đã đối chiếu</option>
+                                </select>
+                                &nbsp;
+                                <s:label value="Nguồn vốn " cssStyle="color: #029c44;" />
+                                <select id="nguonvon" name="nguonvon">
+                                    <option value="0">-- Chọn --</option>
+                                    <option value="1">Nguồn TW</option>
+                                    <option value="2">Nguồn ĐP</option>
+                                </select>
+                                &nbsp;
+                                <s:label value="Chương trình " cssStyle="color: #029c44;" />
+                                <select id="lstsDmkhac197" name="lstsDmkhac197" style="width: 200px">
+                                    <option value="0">-- Chọn --</option>
+                                    <s:iterator value="lstDmKhac197">                                    
+                                        <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
+                                    </s:iterator>   
+                                </select>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <s:url id="idurlSearch" action="searchSearchLoanPLN.action"></s:url>
+                                <s:label value="Mã khoản vay " id="namesoku" cssStyle="color: #029c44;"> </s:label>
+                                <s:textfield id="idsearch_soku" name="soku_dcpln"  onkeypress="javascript:keyPressEvent();" 
+                                             style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 140px; background: white;"></s:textfield>
+                                <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch}" value="Tìm kiếm" targets="divExportReport"
+                                           onBeforeTopics="beforediv1"
+                                           onCompleteTopics="completediv1" onclick="onFindStatus()"/>
+                                <!--                                    <input type="button" id="idReturn" name="nameReturn" 
+                                                                           onclick="onReturn()" value="Quay ra" style="float: right; width:81px;"/>-->
+                                <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+                                           onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none;"/>
+                                <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
+                                <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Lưu dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="myBeforeHandler"
+                                           onCompleteTopics="completediv1" cssStyle="display: none"/>
+                                <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Lưu dữ liệu"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+
+                <!--                <div id="containTree">
+                <sjt:tree
+                    name="poscd"
+                    id="treeDynamicCheckboxes"
+                    jstreetheme="apple"
+                    rootNode="nodes_pos"
+                    childCollectionProperty="children"
+                    nodeTitleProperty="title"
+                    nodeIdProperty="id"
+                    openAllOnLoad="true"
+                    checkbox="true"
+                    showThemeDots="false"
+                    showThemeIcons="true" 
+                    />
+            </div>-->
                 <%--<sj:submit onClickTopics="checkAllNodesTopic" value="Check all Nodes" button="true" onclick="onReloadGroup()" />--%>
                 <div id="loadingImageDiv" style="display: none;">
                     <h2 style='color: red'> Xin chờ đang tải dữ liệu ...</h2>
@@ -434,10 +417,27 @@
         </div>
     </p>
     <script>
-        $(document).ready(function () {            
+        $(document).ready(function () {
 //            $("#ngay_dcpln").val("31/12/2021");
-            document.getElementById('ngay_dcpln').value = "31/12/2021";
+            document.getElementById('ngay_bc_DATE').value = "31/07/2025";
         })
+        function reLoadValue(val) {
+            var var2, vartxt, selected;
+            $("#mato").children().remove().end();
+            $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+            $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
+            $("#mato_data > option").each(function () {
+                var2 = $(this).val().substr(0, 6);
+                if (val.trim() === var2.trim()) {
+                    $(this).val() === vartxt ? selected = " selected" : selected = "";
+                    $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                }
+            });
+            $("#mato").html($("#mato option").sort(function (a, b) {
+                return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
+            }));
+        }
+        ;
     </script>
 </body>
 </html>

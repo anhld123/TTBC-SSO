@@ -14,6 +14,10 @@ import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -29,6 +33,7 @@ import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.ListCommune;
+import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.util.DateUtil;
@@ -56,10 +61,19 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
     private String message;
     private String sCode;
     private String stype;
+    private List<ListOfValue> lstDmKhac;
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
 
     public List<ListCommune> getLstXa_API() {
         return lstXa_API;
+    }
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
     }
 
     public void setLstXa_API(List<ListCommune> lstXa_API) {
@@ -211,6 +225,12 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             String txtGetData = hmParameter.get("txtGetData").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            lstDmKhac = _serverAPI.getListOfValue("196", "TGTV_2025");
+            if (lstDmKhac.get(0).getValue().equals("1")) {
+                addActionError("Chương trình hiện tại chưa được quyền khai thác!");
+                return ERROR;
+            }
+//            System.out.println("11= " + lstDmKhac.get(0).getValue());
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TGTV_2025", main_pos_username, "M", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
@@ -449,6 +469,9 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            String reportDate2 = LocalDateTime.now().format(formatter);
+
             ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
             for (QT_DULIEU_NT tmp : lstDulieuNt) {
                 int Stt = 0;
@@ -460,9 +483,9 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setName(tmp.getTEN());
                 tempadd.setCode(tmp.getMA());
                 tempadd.setMakerId(UserName);
-                tempadd.setMakerDate(_reportDate1);
+                tempadd.setMakerDate(reportDate2);
                 tempadd.setAuthoriseId(UserName);
-                tempadd.setAuthoriseDate(_reportDate1);
+                tempadd.setAuthoriseDate(reportDate2);
                 tempadd.setReportDate(_reportDate1);
                 tempadd.setReportYear(Integer.valueOf(snambc));
                 tempadd.setPosCode(pos_cd_username);
