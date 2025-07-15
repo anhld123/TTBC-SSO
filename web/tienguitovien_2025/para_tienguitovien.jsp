@@ -18,53 +18,6 @@
 <html>
     <head>
         <style>
-            #menuBcttv_para{
-                width: 100%;
-                height: 25px;                
-                border: 1px solid; 
-                padding-bottom: 0px;
-                padding-top: 0px;
-            }
-
-            #containBcttv_para{
-                width: 100%;
-                min-height:390px;
-                border: 1px solid;
-                margin-top: 2px;
-            }
-
-            .metroButtonStyle {
-                font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
-                display: block;
-                color: rgb(255, 255, 255);
-                text-decoration: none;
-                text-align: center;
-                width: 70px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 0px 0px 5px;
-                font-size: 12px;
-                background: none repeat scroll 0 0 #808080;
-                color: #FFF;
-                border: 0px none;
-                border-radius: 1px 1px 1px 1px;
-                outline: 0px none;
-            }
-            .metroButtonStyle:hover {
-                background: #018c3b;
-            }
-            .metroButtonStyle:active {
-                background: #DCDCDC;
-            }
-
-            #container{
-                width: 100%;
-                height: 500px;
-                border: 0px solid;
-                padding-left: 0px;        
-                /*color: #FFE6B0*/
-            }
-
             #containTree{
                 width: 15%;
                 border-left: 1px solid;
@@ -74,45 +27,12 @@
                 overflow-x: scroll;
             }
 
-            #containTreeQD23_2{
-                width: 7%;
-                border-left: 1px solid;
-                border-right: 1px solid;
-                height: 450px;
-                float: left;
-                overflow-x: scroll;
-            }
-            #containTreeQD23_3{
-                width: 12%;
-                border-left: 1px solid;
-                border-right: 1px solid;
-                height: 450px;
-                float: left;
-                overflow-x: scroll;
-            }
-
-
             #containParm{
                 width: 84%;
                 height: 450px;
                 padding-left: 5px;
                 float: left;
                 overflow-x: scroll;
-            }
-
-            #containParmQD23_2{
-                width: 92%;
-                height: 450px;
-                padding-left: 5px;
-                float: left;
-                /*overflow-x: scroll;*/
-            }
-            #containParmQD23_3{
-                width: 87%;
-                height: 450px;
-                padding-left: 5px;
-                float: left;
-                /*overflow-x: scroll;*/
             }
 
             #containParm_full{
@@ -126,51 +46,6 @@
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; 
                 font-size: 12px;
             }
-
-            .report_group_form{
-                width: 100%;
-            }
-
-            #navParamUp{
-                height: 35px;
-                padding:0px;
-                padding-bottom: 0px;
-                padding-top: 0px;
-                /*margin:5px;*/
-                /*border-radius: 10px; //bo tron goc*/
-                border: 1px solid;                
-                /*                height: 50px;
-                                border: 1px solid;  
-                                border-radius: 10px; //bo tron goc
-                                -moz-border-radius: 10px;
-                                margin:5px;
-                                padding:5px;*/
-            }
-            #navParam{
-                height: 35px;
-                padding:0px;
-                padding-bottom: 0px;
-                padding-top: 0px;
-                /*margin:5px;*/
-                /*border-radius: 10px; //bo tron goc*/
-                border: 1px solid;                
-                /*                height: 50px;
-                                border: 1px solid;  
-                                border-radius: 10px; //bo tron goc
-                                -moz-border-radius: 10px;
-                                margin:5px;
-                                padding:5px;*/
-            }
-            #navParam3{
-                height: 35px;
-                border: 0px solid;
-                margin-left: 10px;
-                font-weight: bold;
-                border-left: 40px;
-                float: left;
-                padding-bottom: 0px;
-                padding-top: 0px;
-            }
             #message_suc_err
             {
                 height: 30px;
@@ -183,7 +58,23 @@
                 position: relative;
                 left: 1140px; /* Điều chỉnh khoảng cách theo nhu cầu */
             }
-
+            .buttons {
+                display: flex;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            .buttons input[type="button"], .buttons input[type="submit"] {
+                padding: 8px 16px;
+                border: none;
+                background: #029c44;
+                color: white;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            .buttons input:hover {
+                background: #027d36;
+            }
             @-webkit-keyframes my {
                 0% { color: red; } 
                 50% { color: #fff;  } 
@@ -261,27 +152,27 @@
                             allowedYear--;
                         }
                         var lastDayOfAllowedMonth = new Date(allowedYear, allowedMonth, 0).getDate();
-
-                        if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
-                            alert("Hết hạn nhập dữ liệu, chọn tháng "+currentDate.getMonth()+" để thao tác!");
-                            return;
-                        }
-                    } else {
-                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
-                        var nextMonth = currentMonth + 1;
-                        var nextYear = currentYear;
-                        if (nextMonth > 12) {
-                            nextMonth = 1;
-                            nextYear++;
-                        }
-
-                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
-                        var allowedDay = lastDayOfNextMonth - 1;
-
-                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
-                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
-                            return;
-                        }
+//
+//                        if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
+//                            alert("Hết hạn nhập dữ liệu, chọn tháng " + currentDate.getMonth() + " để thao tác!");
+//                            return;
+//                        }
+//                    } else {
+//                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
+//                        var nextMonth = currentMonth + 1;
+//                        var nextYear = currentYear;
+//                        if (nextMonth > 12) {
+//                            nextMonth = 1;
+//                            nextYear++;
+//                        }
+//
+//                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
+//                        var allowedDay = lastDayOfNextMonth - 1;
+//
+//                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
+//                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
+//                            return;
+//                        }
                     }
                     var chot = document.getElementById("chotsl").value;
                     if (chot === "2" || chot === "1") {
@@ -547,29 +438,35 @@
                     var year = currentDate.getFullYear();
                     var month = currentDate.getMonth(); // Tháng hiện tại (0-based)
 
-                    // Tính ngày cuối cùng của tháng hiện tại
-                    var lastDayOfMonth = new Date(year, month + 1, 0);
-                    var formattedDate = ('0' + lastDayOfMonth.getDate()).slice(-2) + '/' +
-                            ('0' + (lastDayOfMonth.getMonth() + 1)).slice(-2) + '/' +
-                            lastDayOfMonth.getFullYear();
+                    // Tính ngày cuối cùng của tháng trước
+                    var lastDayOfPreviousMonth = new Date(year, month, 0);
+                    var formattedDate = ('0' + lastDayOfPreviousMonth.getDate()).slice(-2) + '/' +
+                            ('0' + (lastDayOfPreviousMonth.getMonth() + 1)).slice(-2) + '/' +
+                            lastDayOfPreviousMonth.getFullYear();
+
                     // Đặt giá trị mặc định cho datepicker
                     datepicker.val(formattedDate);
-                    // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của tháng
+
+                    // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của các tháng
                     datepicker.datepicker("option", {
                         beforeShowDay: function (date) {
-                            var lastDayOfShownMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-                            return [date.getTime() === lastDayOfShownMonth.getTime(), ""];
+                            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                            var isLastDay = date.getTime() === lastDay.getTime();
+                            return [isLastDay, ""];
                         }
                     });
                 }
 
-                // Khởi tạo datepicker với cấu hình mới
+                // Khởi tạo datepicker
                 $('#ngay_bc_DATE').datepicker({
-                    dateFormat: 'dd/mm/yy' // Định dạng ngày
+                    dateFormat: 'dd/mm/yy'
                 });
+
                 // Gọi hàm cập nhật datepicker
                 updateDatepicker();
             });
+
+
             function callDirectLink(link) {
                 PopupCenter(link, 'Upload excel', 800, 400);
             }

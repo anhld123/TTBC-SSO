@@ -675,6 +675,19 @@
                 return _result;
             }
 
+            let userSelectedXa = false;
+
+            $('#lstXa').on('change', function () {
+                userSelectedXa = true;
+                
+                let selectedText = $('#lstXa option:selected').text();
+                if (selectedText.includes(' - ')) {
+                    let point = selectedText.split(' - ')[0]; // TX01
+                    $('#transactionPoint').val(point);
+                }
+            });
+
+
             function onSelectChange() {
                 let selectedValue = $('#lstCN').find(":selected").val();
                 let province = selectedValue;//.substring(0, 4);
@@ -713,7 +726,16 @@
                 selectElement.setAttribute("onmousedown", "return true;");
                 document.getElementById("lstPGD").style.backgroundColor = "#ffffff";
                 document.getElementById("lstPGD").disabled = false;
+                userSelectedXa = false;
+                let firstXa = $('#lstXa option:eq(1)'); // phần tử thứ 2, sau option mặc định
+                if (firstXa.length > 0 && !userSelectedXa) {
+                    let firstText = firstXa.text(); // "TX01 - Xã ABC"
+                    let point = firstText.split(' - ')[0];
+                    $('#transactionPoint').val(point);
+                    $('#lstXa').val(firstXa.val());
+                }
             }
+
 
             function onSelectChangeXa() {
                 let selectedValue = $('#lstPGD').find(":selected").val();
@@ -734,6 +756,15 @@
                 selectElement.setAttribute("onmousedown", "return true;");
                 document.getElementById("lstXa").style.backgroundColor = "#ffffff";
                 document.getElementById("lstXa").disabled = false;
+
+                userSelectedXa = false;
+                let firstXa = $('#lstXa option:eq(1)'); // phần tử thứ 2, sau option mặc định
+                if (firstXa.length > 0 && !userSelectedXa) {
+                    let firstText = firstXa.text(); // "TX01 - Xã ABC"
+                    let point = firstText.split(' - ')[0];
+                    $('#transactionPoint').val(point);
+                    $('#lstXa').val(firstXa.val());
+                }
             }
             function initTable() {
                 var Grade = document.getElementById("Grade").value;
@@ -813,8 +844,9 @@
                             <select id="lstXa" name="lstXa">
                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
                                 <s:iterator value="lstPoint_API">                                    
-                                    <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                         
+                                    <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option> 
                                 </s:iterator>   
+                                <input type="hidden" id="transactionPoint" name="transactionPoint" value="" />
                             </select>
                         </td>
                     </tr>
