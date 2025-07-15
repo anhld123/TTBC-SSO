@@ -15,21 +15,21 @@ $(document).ready(function () {
     $("#PARA_MAPGD").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	 /* Danh mục POS -> Xã, thôn, tổ */
     $("#PARA_POS").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	 /* Danh mục POS -> Xã, thôn, tổ */
     $("#PV_POS_CD_MAPGD").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	
@@ -37,27 +37,27 @@ $(document).ready(function () {
     $("#POS_CD").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	/* Danh mục POS -> Xã, thôn, tổ */
     $("#PV_POS_CD").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 
-	$("#PV_MAPGD").change(function () {
-		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
-		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+    $("#PV_MAPGD").change(function () {
+            func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
+            func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
+            func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	/* Danh mục POS -> Xa, thôn, tổ */
     $("#PARA_MAPGD_MAPGD").change(function () {
 		func_check_element(PRIDPGD, PRIDXA, 2, 4, 2, 4, 6);
 		func_check_element(PRIDPGD, PRIDTHON, 2, 4, 0, 4, 6);
-		func_check_element(PRIDPGD, PRIDTO, 2, 4, 0, 4, 8);
+		func_check_element(PRIDPGD, PRIDTO, 2, 4, 2, 4, 15);
     });
 	
 	
@@ -65,30 +65,30 @@ $(document).ready(function () {
 	/* Danh mục xã -> thôn, tổ */
     $("#PARA_MAXA").change(function () {
 		func_check_element(PRIDXA, PRIDTHON, 0, 7, 0, 6, 6);
-		func_check_element(PRIDXA, PRIDTO, 0, 7, 0, 6, 8);
+		func_check_element(PRIDXA, PRIDTO, 0, 6, 7, 6, 15);
     });
 
 	/* Danh mục xã -> thôn, tổ */
     $("#PV_MAXA").change(function () {
 		func_check_element(PRIDXA, PRIDTHON, 0, 7, 0, 6, 6);
-		func_check_element(PRIDXA, PRIDTO, 0, 7, 0, 6, 8);
+		func_check_element(PRIDXA, PRIDTO, 0, 6, 7, 6, 15);
     });
 	
 	/* Danh mục xã -> thôn, tổ */
     $("#PV_MAXAD").change(function () {
 		func_check_element(PRIDXA, PRIDTHON, 0, 7, 0, 6, 6);
-		func_check_element(PRIDXA, PRIDTO, 0, 7, 0, 6, 8);
+		func_check_element(PRIDXA, PRIDTO, 0, 6, 7, 6, 15);
     });
 
 	
 	/* Danh mục Thôn -> tổ */
     $("#PARA_MATHON").change(function () {
-		func_check_element(PRIDTHON, PRIDTO, 0, 9, 0, 8, 8);
+		func_check_element(PRIDTHON, PRIDTO, 0, 8, 7, 8, 15);
     });
 
 	/* Danh mục Thôn -> tổ */
     $("#PV_MATHON").change(function () {
-		func_check_element(PRIDTHON, PRIDTO, 0, 9, 0, 8, 8);
+		func_check_element(PRIDTHON, PRIDTO, 0, 8, 7, 8, 15);
     });
 	
 	

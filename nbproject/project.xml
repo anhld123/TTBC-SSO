@@ -8,6 +8,7 @@
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>IMS_REPORTS</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <explicit-platform explicit-source-supported="true"/>
             <web-module-libraries>
                 <library dirs="200">
                     <file>${libs.metro.classpath}</file>
@@ -223,10 +224,6 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.ognl-3.0.6.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.ojdbc6.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
