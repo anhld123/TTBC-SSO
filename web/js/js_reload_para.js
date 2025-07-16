@@ -1,22 +1,18 @@
-/*
- * Nguyễn Phú Vinh (0849.358.358) - 03/03/2021 -> cha đẻ
- * Lê Đức Anh sửa sau sát nhập
- * Xử lý báo cáo khi chọn đơn vị
- */
 $(document).ready(function () {
     const $pgd = $("#PARA_MAPGD, #PV_MAPGD, #PARA_MAPGD_MAPGD, #PV_POS_CD, #PV_POS_CD_MAPGD, #POS_CD, #PARA_POS");
     const $xa = $("#PARA_MAXA, #PV_MAXA, #PV_MAXAD, #PARA_COMMUNEID");
     const $to = $("#PARA_MATO, #PV_MATO");
     const $thon = $("#PARA_MATHON, #PV_MATHON");
 
-    const originalXaOptions = $xa.find("option").clone();
-    const originalToOptions = $to.find("option").clone();
-    const originalThonOptions = $thon.find("option").clone();
+    const originalXaOptions = $xa.length ? $xa.find("option").clone() : null;
+    const originalToOptions = $to.length ? $to.find("option").clone() : null;
+    const originalThonOptions = $thon.length ? $thon.find("option").clone() : null;
 
     function filterToByPgdXa(pgdVal, xaVal) {
+        if (!$to.length || !originalToOptions) return;
+
         $to.each(function () {
-            const $thisTo = $(this);
-            $thisTo.empty();
+            const $thisTo = $(this).empty();
 
             originalToOptions.each(function () {
                 const toText = $(this).text().trim();
@@ -30,7 +26,7 @@ $(document).ready(function () {
                     const xaMatch = xaVal === "000000" || xaCodeInText === xaVal;
 
                     if (pgdMatch && xaMatch) {
-                        const displayText = toText.slice(0, -15).trim(); // bỏ 15 ký tự cuối
+                        const displayText = toText.slice(0, -15).trim();
                         $thisTo.append(`<option value="${$(this).val()}">${displayText}</option>`);
                     }
                 }
@@ -41,9 +37,10 @@ $(document).ready(function () {
     }
 
     function filterThonByPgdXa(pgdVal, xaVal) {
+        if (!$thon.length || !originalThonOptions) return;
+
         $thon.each(function () {
-            const $thisThon = $(this);
-            $thisThon.empty();
+            const $thisThon = $(this).empty();
 
             originalThonOptions.each(function () {
                 const thonText = $(this).text().trim();
@@ -68,19 +65,17 @@ $(document).ready(function () {
     }
 
     function filterToByThon(thonVal) {
-        if (!thonVal)
-            return;
+        if (!thonVal || !$to.length || !originalToOptions) return;
+
         $to.each(function () {
-            const $thisTo = $(this);
-            $thisTo.empty();
+            const $thisTo = $(this).empty();
 
             originalToOptions.each(function () {
                 const toText = $(this).text().trim();
-                const toThonCode = toText.slice(-8); // Lấy 8 ký tự cuối để so sánh mã thôn
+                const toThonCode = toText.slice(-8);
 
-                const match = thonVal === "00000000" || toThonCode === thonVal;
-                if (match) {
-                    const displayText = toText.slice(0, -15).trim(); // Bỏ 15 ký tự cuối
+                if (thonVal === "00000000" || toThonCode === thonVal) {
+                    const displayText = toText.slice(0, -15).trim();
                     $thisTo.append(`<option value="${$(this).val()}">${displayText}</option>`);
                 }
             });
@@ -89,46 +84,57 @@ $(document).ready(function () {
         });
     }
 
+    // --- Gắn sự kiện khi có đủ PGD và XA ---
+    if ($pgd.length && $xa.length && originalXaOptions) {
+        $pgd.on("change", function () {
+            const pgdVal = $(this).val() ? $(this).val().trim() : "000000";
 
-    $pgd.on("change", function () {
-        const pgdVal = $(this).val().trim();
+            $xa.each(function () {
+                const $thisXa = $(this).empty();
 
-        $xa.each(function () {
-            const $thisXa = $(this);
-            $thisXa.empty();
+                originalXaOptions.each(function () {
+                    const val = $(this).val();
+                    const text = $(this).text().trim();
+                    const suffix = text.slice(-6);
 
-            originalXaOptions.each(function () {
-                const val = $(this).val();
-                const text = $(this).text().trim();
-                const suffix = text.slice(-6);
+                    if (suffix === pgdVal || pgdVal === "000000") {
+                        const displayText = text.slice(0, -6).trim();
+                        $thisXa.append(`<option value="${val}">${displayText}</option>`);
+                    }
+                });
 
-                if (suffix === pgdVal || pgdVal === "000000") {
-                    const displayText = text.slice(0, -6).trim();
-                    $thisXa.append(`<option value="${val}">${displayText}</option>`);
-                }
+                $thisXa.prepend(`<option value="000000" selected>--Tất cả--</option>`);
+                $thisXa.trigger("change");
             });
 
-            $thisXa.prepend(`<option value="000000" selected>--Tất cả--</option>`);
-            $thisXa.trigger("change");
+            const xaValRaw = $xa.first().val();
+            const xaVal = xaValRaw ? xaValRaw.trim() : "000000";
+            filterThonByPgdXa(pgdVal, xaVal);
         });
+    }
 
-        // Gọi lọc thôn
-        const xaVal = $xa.first().val().trim();
-        filterThonByPgdXa(pgdVal, xaVal);
-    });
+    // --- Gắn sự kiện khi có đủ XA và PGD ---
+    if ($xa.length && $pgd.length) {
+        $xa.on("change", function () {
+            const xaVal = $(this).val() ? $(this).val().trim() : "000000";
+            const pgdValRaw = $pgd.first().val();
+            const pgdVal = pgdValRaw ? pgdValRaw.trim() : "000000";
 
-    $xa.on("change", function () {
-        const xaVal = $(this).val().trim();
-        const pgdVal = $pgd.first().val().trim();
+            filterToByPgdXa(pgdVal, xaVal);
+            filterThonByPgdXa(pgdVal, xaVal);
+        });
+    }
 
-        filterToByPgdXa(pgdVal, xaVal);
-        filterThonByPgdXa(pgdVal, xaVal);
-    });
+    // --- Gắn sự kiện lọc tổ theo thôn nếu có ---
+    if ($thon.length && $to.length) {
+        $thon.on("change", function () {
+            const thonVal = $(this).val() ? $(this).val().trim() : "00000000";
+            filterToByThon(thonVal);
+        });
+    }
 
-    $thon.on("change", function () {
-        const thonVal = $(this).val().trim();
-        filterToByThon(thonVal);
-    });
-
-    $pgd.trigger("change");
+    // --- Trigger mặc định nếu có PGD ---
+    if ($pgd.length) {
+        $pgd.trigger("change");
+    }
 });

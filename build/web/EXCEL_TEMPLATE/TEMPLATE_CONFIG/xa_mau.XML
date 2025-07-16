@@ -5,5 +5,7 @@
    <date>18-Feb-2016 11:13:989</date>
    <parameter name="PARA_MAPGD" class="java.lang.String" description="ma pgd"/>
 
-<queryString id="1" maplist="data" description="eererere" key_group="STR3" value_group="STR4">select a.ma STR1, a.ten STR2, b.ma STR3, b.ten STR4 from dmxa a, dmhuyen b where substr(pgd_ql,1,4) = substr( $P{PARA_MAPGD},1,4) and substr(pgd_ql,3,4)=b.ma order by pgd_ql</queryString>
+<queryString id="1" maplist="data" description="eererere" key_group="STR3" value_group="STR4"><![CDATA[select a.ma STR1, a.ten STR2, b.ma STR3, b.ten STR4 from dmxa a, dmhuyen b where substr(pgd_ql,1,4) = substr( $P{PARA_MAPGD},1,4) and substr(pgd_ql,3,4)=b.ma order by pgd_ql]]></queryString>
+<parameter name="PV_MAXA" class="java.lang.String" description="Mã xã"/>
+<parameter name="PV_MATO" class="java.lang.String" description="Mã tổ"/>
 </excel_template>
