@@ -9,7 +9,8 @@ $(document).ready(function () {
     const originalThonOptions = $thon.length ? $thon.find("option").clone() : null;
 
     function filterToByPgdXa(pgdVal, xaVal) {
-        if (!$to.length || !originalToOptions) return;
+        if (!$to.length || !originalToOptions)
+            return;
 
         $to.each(function () {
             const $thisTo = $(this).empty();
@@ -37,7 +38,8 @@ $(document).ready(function () {
     }
 
     function filterThonByPgdXa(pgdVal, xaVal) {
-        if (!$thon.length || !originalThonOptions) return;
+        if (!$thon.length || !originalThonOptions)
+            return;
 
         $thon.each(function () {
             const $thisThon = $(this).empty();
@@ -65,7 +67,8 @@ $(document).ready(function () {
     }
 
     function filterToByThon(thonVal) {
-        if (!thonVal || !$to.length || !originalToOptions) return;
+        if (!thonVal || !$to.length || !originalToOptions)
+            return;
 
         $to.each(function () {
             const $thisTo = $(this).empty();
@@ -84,36 +87,69 @@ $(document).ready(function () {
         });
     }
 
-    // --- Gắn sự kiện khi có đủ PGD và XA ---
-    if ($pgd.length && $xa.length && originalXaOptions) {
-        $pgd.on("change", function () {
-            const pgdVal = $(this).val() ? $(this).val().trim() : "000000";
+    // Trường hợp chỉ có PGD và TỔ
+    function filterToByPgdOnly(pgdVal) {
+        if (!$to.length || !originalToOptions)
+            return;
 
-            $xa.each(function () {
-                const $thisXa = $(this).empty();
+        $to.each(function () {
+            const $thisTo = $(this).empty();
 
-                originalXaOptions.each(function () {
-                    const val = $(this).val();
-                    const text = $(this).text().trim();
-                    const suffix = text.slice(-6);
+            originalToOptions.each(function () {
+                const toText = $(this).text().trim();
+                const dollarIndex = toText.indexOf("$");
 
-                    if (suffix === pgdVal || pgdVal === "000000") {
-                        const displayText = text.slice(0, -6).trim();
-                        $thisXa.append(`<option value="${val}">${displayText}</option>`);
+                if (dollarIndex >= 6) {
+                    const pgdCodeInText = toText.substring(dollarIndex - 6, dollarIndex);
+
+                    if (pgdVal === "000000" || pgdCodeInText === pgdVal) {
+                        const displayText = toText.slice(0, -15).trim();
+                        $thisTo.append(`<option value="${$(this).val()}">${displayText}</option>`);
                     }
-                });
-
-                $thisXa.prepend(`<option value="000000" selected>--Tất cả--</option>`);
-                $thisXa.trigger("change");
+                }
             });
 
-            const xaValRaw = $xa.first().val();
-            const xaVal = xaValRaw ? xaValRaw.trim() : "000000";
-            filterThonByPgdXa(pgdVal, xaVal);
+            $thisTo.prepend(`<option value="000000" selected>--Tất cả--</option>`);
         });
     }
 
-    // --- Gắn sự kiện khi có đủ XA và PGD ---
+    // --- Khi PGD thay đổi ---
+    if ($pgd.length) {
+        $pgd.on("change", function () {
+            const pgdVal = $(this).val() ? $(this).val().trim() : "000000";
+
+            // Nếu có danh sách xã thì lọc xã
+            if ($xa.length && originalXaOptions) {
+                $xa.each(function () {
+                    const $thisXa = $(this).empty();
+
+                    originalXaOptions.each(function () {
+                        const val = $(this).val();
+                        const text = $(this).text().trim();
+                        const suffix = text.slice(-6);
+
+                        if (suffix === pgdVal || pgdVal === "000000") {
+                            const displayText = text.slice(0, -6).trim();
+                            $thisXa.append(`<option value="${val}">${displayText}</option>`);
+                        }
+                    });
+
+                    $thisXa.prepend(`<option value="000000" selected>--Tất cả--</option>`);
+                });
+
+                const xaValRaw = $xa.first().val();
+                const xaVal = xaValRaw ? xaValRaw.trim() : "000000";
+
+                filterToByPgdXa(pgdVal, xaVal);
+                filterThonByPgdXa(pgdVal, xaVal);
+            } else {
+                // Chỉ có PGD và tổ → gọi hàm riêng
+                filterToByPgdOnly(pgdVal);
+            }
+        });
+    }
+
+    // --- Khi xã thay đổi ---
     if ($xa.length && $pgd.length) {
         $xa.on("change", function () {
             const xaVal = $(this).val() ? $(this).val().trim() : "000000";
@@ -125,7 +161,7 @@ $(document).ready(function () {
         });
     }
 
-    // --- Gắn sự kiện lọc tổ theo thôn nếu có ---
+    // --- Khi thôn thay đổi thì lọc tổ theo thôn ---
     if ($thon.length && $to.length) {
         $thon.on("change", function () {
             const thonVal = $(this).val() ? $(this).val().trim() : "00000000";
@@ -133,7 +169,7 @@ $(document).ready(function () {
         });
     }
 
-    // --- Trigger mặc định nếu có PGD ---
+    // --- Trigger mặc định khi trang tải ---
     if ($pgd.length) {
         $pgd.trigger("change");
     }
