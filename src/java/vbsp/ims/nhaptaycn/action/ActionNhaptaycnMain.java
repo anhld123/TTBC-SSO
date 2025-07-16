@@ -806,43 +806,46 @@ public class ActionNhaptaycnMain extends ActionSupport {
             main_pos = posMainModel.getMainPosCd();
             //khoi tao cho treeview cac pos
 //            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
-            List<ModelTreeNode> lstModelTree = new ArrayList<>();
-            switch (Grade) {
-                case "3":
-                    lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
-                    break;
-                case "2":
-                    lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
-                    String MainName = lstCN_API.get(0).getProvinceName();
-                    lstPGD_API = _serverAPI.getListPgd(main_pos, "");
-                    for (ListPosCode item : lstPGD_API) {
-                        if (item.getStatus().equals("O")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getMainPos(), // strParentCd
-                                    item.getMainPos() + " -> " + MainName, // strParentDesc
-                                    item.getPosCode(), // strChildCd
-                                    item.getPosCode() + " -> " + item.getPosName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
+            
+                List<ModelTreeNode> lstModelTree = new ArrayList<>();
+                if (khoa_nhaptaycn.equals("HSSV_001")) {
+                switch (Grade) {
+                    case "3":
+                        lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
+                        break;
+                    case "2":
+                        lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
+                        String MainName = lstCN_API.get(0).getProvinceName();
+                        lstPGD_API = _serverAPI.getListPgd(main_pos, "");
+                        for (ListPosCode item : lstPGD_API) {
+                            if (item.getStatus().equals("O")) {
+                                ModelTreeNode row = new ModelTreeNode(
+                                        item.getMainPos(), // strParentCd
+                                        item.getMainPos() + " -> " + MainName, // strParentDesc
+                                        item.getPosCode(), // strChildCd
+                                        item.getPosCode() + " -> " + item.getPosName() // strChildDesc
+                                );
+                                lstModelTree.add(row);
+                            }
                         }
-                    }
-                    break;
-                default:
-                    lstPGD_API = _serverAPI.getListPgd("", pos_cd);
-                    String PosName = lstPGD_API.get(0).getPosName();
-                    lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
-                    for (ListCommune item : lstXa_API) {
-                        if (!item.getStatus().equals("C")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getPosCode(), // strParentCd
-                                    item.getCommuneCode() + " -> " + PosName, // strParentDesc
-                                    item.getCommuneCode(), // strChildCd
-                                    item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
+                        break;
+                    default:
+                        lstPGD_API = _serverAPI.getListPgd("", pos_cd);
+                        String PosName = lstPGD_API.get(0).getPosName();
+                        lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
+                        for (ListCommune item : lstXa_API) {
+                            if (!item.getStatus().equals("C")) {
+                                ModelTreeNode row = new ModelTreeNode(
+                                        item.getPosCode(), // strParentCd
+                                        item.getCommuneCode() + " -> " + PosName, // strParentDesc
+                                        item.getCommuneCode(), // strChildCd
+                                        item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
+                                );
+                                lstModelTree.add(row);
+                            }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
             lstNhaptaycnParams = daoMain.getReportParmamsNhaptaycn(conn, khoa_nhaptaycn, UserName, Grade);
 

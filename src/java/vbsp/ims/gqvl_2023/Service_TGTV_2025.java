@@ -351,18 +351,19 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
+//            System.out.println("main_pos_username =" + main_pos_username);
             String dateStr = hmParameter.get("ngay_bc").toString();
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
+            if (lstPGD_API == null || lstPGD_API.isEmpty()) {
+                addActionError("Hội sở Pos " + main_pos_username + " đã bị sát nhập không được xử dụng chương trình này!");
+                return ERROR;
+            }
             ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("TGTV_2025", main_pos_username, "M", _reportDate);
             try {
                 setChotsl(lstData_tmp.get(0).getStatus());
             } catch (Exception e) {
                 setChotsl("0");
-            }
-            if (lstPGD_API == null || lstPGD_API.isEmpty()) {
-                addActionError("Lỗi khi gọi API!");
-                return ERROR;
             }
 
             for (ListPosCode item : lstPGD_API) {
@@ -488,9 +489,9 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 tempadd.setAuthoriseDate(reportDate2);
                 tempadd.setReportDate(_reportDate1);
                 tempadd.setReportYear(Integer.valueOf(snambc));
-                tempadd.setPosCode(pos_cd_username);
+                tempadd.setPosCode(tmp.getMAPGD());
                 tempadd.setPosFlag("S");
-                tempadd.setBranchCode(main_pos_username);
+                tempadd.setBranchCode(tmp.getMACN());
                 tempadd.setD1(tmp.getD1());
                 tempadd.setD2(tmp.getD2());
                 tempadd.setD3(tmp.getD3());
