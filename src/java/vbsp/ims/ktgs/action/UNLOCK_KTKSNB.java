@@ -75,10 +75,10 @@ public class UNLOCK_KTKSNB extends ActionKtgsMain implements KtgsFunction {
 
     public String cancelAssign() {
         try {
-            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
-            String D7 = ServletActionContext.getRequest().getParameter("ssngaybc");
-            String D8 = ServletActionContext.getRequest().getParameter("ssngaybc");
-            String D9 = ServletActionContext.getRequest().getParameter("ssngaybc");
+            String D1 = ServletActionContext.getRequest().getParameter("macn");
+            String D7 = ServletActionContext.getRequest().getParameter("quybc");
+            String D8 = ServletActionContext.getRequest().getParameter("nambc");
+            String D9 = ServletActionContext.getRequest().getParameter("khoa");
 
             System.out.println(D1 + D7 + D8 + D9);
             DaoKtgsMain daoMain = new DaoKtgsMain();
