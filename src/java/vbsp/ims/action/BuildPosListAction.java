@@ -59,10 +59,7 @@ implements ServletRequestAware{
     public void setUserFuncList(List<ListValue> userFuncList) {
         this.userFuncList = userFuncList;
     }
-        
-    
-    
-    
+                    
     public String generatePosListCombo() {        
         String userName = request.getSession().getAttribute("username").toString();
         posList = IMSRptDao.getPosList(userName);
@@ -87,7 +84,7 @@ implements ServletRequestAware{
     
     public String buildTreeView_VB96()
             throws Exception {
-        if (request.getSession().getAttribute("startTreeGLKHTDRecursive") != null) {
+        if (request.getSession().getAttribute("startTreeVB96Recursive") != null) {
             return SUCCESS;
         } else {
             int reportGrade 
@@ -96,7 +93,23 @@ implements ServletRequestAware{
             BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(reportGrade, userName);
             buildPosTreeDao.build_vb96();
             this.nodes = buildPosTreeDao.getNodes();
-            request.getSession().setAttribute("startTreeGLKHTDRecursive", "false");
+            request.getSession().setAttribute("startTreeVB96Recursive", "false");
+            return SUCCESS;
+        }
+    }
+    
+    public String buildTreeView_2025()
+            throws Exception {
+        if (request.getSession().getAttribute("startTreeHistRecursive") != null) {
+            return SUCCESS;
+        } else {
+            int reportGrade 
+                    = Integer.parseInt(request.getSession().getAttribute("reportGrade").toString());
+            String userName = request.getSession().getAttribute("username").toString();
+            BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(reportGrade, userName);
+            buildPosTreeDao.build_2025();
+            this.nodes = buildPosTreeDao.getNodes();
+            request.getSession().setAttribute("startTreeHistRecursive", "false");
             return SUCCESS;
         }
     }

@@ -198,6 +198,13 @@
             </result>  
         </action>
         
+        <action name="buildPosTreeView_hist" class="vbsp.ims.action.BuildPosListAction"
+                method="buildTreeView_2025">
+            <result name="success" type="json" >
+                <param name="root">nodes</param>
+            </result>  
+        </action>
+        
         <action  name="buildPeriodCombo" class="vbsp.ims.action.BalanceSheetAction"
                  method="generatePeriodCombo" >                                            
             <result name="populate" type="json"></result>                          

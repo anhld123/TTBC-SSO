@@ -43,6 +43,8 @@
 
 <%
     session.setAttribute("startTreeGLKHTDRecursive", null);
+    session.setAttribute("startTreeVB96Recursive", null);
+    session.setAttribute("startTreeHistRecursive", null);
 %>  
 
 <script>
@@ -59,8 +61,13 @@
                 function () {
                     lstPos = lstPos + this.id + ',';
                 });
-        else 
+        else if (eco_area_type === '2')
             $('#treeView2').jstree("get_checked", null, true).each(
+                function () {
+                    lstPos = lstPos + this.id + ',';
+                });
+        else 
+            $('#treeView3').jstree("get_checked", null, true).each(
                 function () {
                     lstPos = lstPos + this.id + ',';
                 });
@@ -204,8 +211,12 @@
                                     Vùng kinh tế theo: 
                                     &nbsp;&nbsp;&nbsp;                                                    
                                     <input type="radio" name="eco_area" id="r1"  value="1" checked>
-                                    <font color="blue"> TT35  </font>
-                                    <input type="radio" name="eco_area" id="r2" value="2">VB96
+                                    <span><font color="blue"> TT35</font></span>
+                                    <input type="radio" name="eco_area" id="r2" value="2">
+                                    <span>VB96</span>
+                                    <input type="radio" name="eco_area" id="r3" value="3">
+                                    <span><font color="orange"> Trước sáp nhập</font></span>
+                                    
                                 </td>
                             </tr>
                         </table>
@@ -252,7 +263,30 @@
                         href="%{echo1}"
                         childCollectionProperty="children"
                         checkbox="true"
-                        />        
+                        />                                            
+                </div>
+                <div  style="
+                          float: left;
+                          height:600px;
+                          width: 30%;
+                          z-index:1;
+                          overflow:scroll;
+                                                 
+                          background: #ffffff;
+                          "
+                          id="treeview_div_hist"                          
+                          >                    
+                    <s:url var="echo2" action="buildPosTreeView_hist"/>
+                    <sjt:tree  
+                        id="treeView3"
+                        jstreetheme="apple"
+                        rootNode="nodes"
+                        nodeIdProperty="id"
+                        nodeTitleProperty="name"
+                        href="%{echo2}"
+                        childCollectionProperty="children"
+                        checkbox="true"
+                        />   
                 </div>
                 <s:hidden name="eco_area_type" id="eco_area_type" value="1"/>
                 <s:hidden name="selectedPos" id="selectedPos" value=""/>                
@@ -434,23 +468,29 @@
                     break;
             }
         });
-    });
-
-    
+    });   
 
     $(document).ready(function () {
         
         $( "#treeview_div_vb96" ).hide();
+        $( "#treeview_div_hist" ).hide();
         
         $("input[name=eco_area]:radio").change(function () {
             if ($(this).val() === '1') {
                 $( "#treeview_div_vb96" ).hide();
+                $( "#treeview_div_hist" ).hide();
                 $( "#treeview_div_tt35" ).show();         
                 $("#eco_area_type").val("1");
               } else if ($(this).val() === '2') {
                 $( "#treeview_div_vb96" ).show();
                 $( "#treeview_div_tt35" ).hide();                
+                $( "#treeview_div_hist" ).hide();
                 $("#eco_area_type").val("2");
+              } else if ($(this).val() === '3') {
+                $( "#treeview_div_hist" ).show();
+                $( "#treeview_div_tt35" ).hide();                
+                $( "#treeview_div_vb96" ).hide();
+                $("#eco_area_type").val("3");
               } 
         });
     });
