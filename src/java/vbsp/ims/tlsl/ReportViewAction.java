@@ -95,11 +95,20 @@ public class ReportViewAction extends ActionSupport
                 userName = request.getSession().getAttribute("username").toString();
                 BuildPosTreeDao buildPosTreeDao = new BuildPosTreeDao(reportGrade, userName);
                 
-                if (eco_area == null
-                        || eco_area.equals("1"))                
+                if (null
+                        == eco_area)                
                     buildPosTreeDao.build();
-                else 
-                    buildPosTreeDao.build_vb96();
+                else  switch (eco_area) {
+                    case "1":
+                        buildPosTreeDao.build();
+                        break;
+                    case "2":
+                        buildPosTreeDao.build_vb96();
+                        break;
+                    default:
+                        buildPosTreeDao.build_2025();
+                        break;
+                }
                 
                 this.searchNodes = buildPosTreeDao.getNodes();
             } catch (SQLException ex) {
@@ -136,7 +145,13 @@ public class ReportViewAction extends ActionSupport
                 listOfPos, 
                 consolidateFlag);
             exporter.setReport_type(report_type);
-            exporter.setEco_area(eco_area);
+            String reportEcoArea = "1";
+            if ("1".equals(eco_area) || "3".equals(eco_area)){
+                reportEcoArea = "1";
+            } else {
+                reportEcoArea = "2";
+            }
+            exporter.setEco_area(reportEcoArea);
         }
         else {
             
@@ -150,7 +165,14 @@ public class ReportViewAction extends ActionSupport
                 listOfPos, 
                 consolidateFlag);
             exporter.setReport_type(report_type);
-            exporter.setEco_area(eco_area);
+            //exporter.setEco_area(eco_area);
+            String reportEcoArea = "1";
+            if ("1".equals(eco_area) || "3".equals(eco_area)){
+                reportEcoArea = "1";
+            } else {
+                reportEcoArea = "2";
+            }
+            exporter.setEco_area(reportEcoArea);
         }
 
         System.err.println("Export file...."+selectedNo+"~" + group+"~"
