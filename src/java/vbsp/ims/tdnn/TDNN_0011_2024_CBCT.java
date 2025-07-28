@@ -326,6 +326,8 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             String s = hmParameter.get("ngay_bc").toString();
             String mapgd = hmParameter.get("lstPGD").toString();
             String maxa = hmParameter.get("lstXa").toString();
+            String tranPoint = hmParameter.get("transactionPoint").toString();
+            String conditions = "D7=" + tranPoint + "|";
             Date date1 = new SimpleDateFormat("dd-MMM-yyyy").parse(hmParameter.get("ngay_bc").toString());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dateStr = sdf.format(date1);
@@ -353,59 +355,60 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
             }
             setCheck_Flag(CO_TONGHOP);
             setCheck_form(check);
-
+ String defaultListFlag = "0";
             _server = new Service_GQVL2023();
             if (check == "1") {
-
-                SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-                Date inputDate = sdfInput.parse(s);
-
-                // Lấy ngày đầu tiên của tháng của ngày s truyền vào
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(inputDate);
-                calendar.set(Calendar.DAY_OF_MONTH, 1);
-                Date startDate = calendar.getTime();
-
-                // Lấy ngày cuối cùng của tháng của ngày s truyền vào
-                calendar.add(Calendar.MONTH, 1);
-                calendar.add(Calendar.DATE, -1);
-                Date endDate = calendar.getTime();
-
-                // Duyệt qua từng ngày trong tháng và gọi hàm
-                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-                SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-
-                calendar.setTime(startDate);
-                while (calendar.getTime().compareTo(endDate) <= 0) {
-                    String ngay = sdf1.format(calendar.getTime());
-                    String checkdate1 = sdf.format(calendar.getTime());
-                    String checkdate2 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy", Locale.US).parse(s));
-
-                    this.lstData_tmp = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, ngay, "", "0");
-
-                    // Kiểm tra điều kiện dừng khi có dữ liệu và ngày kiểm tra đúng
-                    if (lstData_tmp.size() > 0 && !checkdate1.equals(checkdate2)) {
-                        String ngay1 = sdf2.format(calendar.getTime());
-                        setAlfet_canhbao("Điểm giao dịch đã nhập dữ liệu vào ngày " + ngay1);
-                    }
-                    calendar.add(Calendar.DATE, 1);
-                }
+//
+//                SimpleDateFormat sdfInput = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+//                Date inputDate = sdfInput.parse(s);
+//
+//                // Lấy ngày đầu tiên của tháng của ngày s truyền vào
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTime(inputDate);
+//                calendar.set(Calendar.DAY_OF_MONTH, 1);
+//                Date startDate = calendar.getTime();
+//
+//                // Lấy ngày cuối cùng của tháng của ngày s truyền vào
+//                calendar.add(Calendar.MONTH, 1);
+//                calendar.add(Calendar.DATE, -1);
+//                Date endDate = calendar.getTime();
+//
+//                // Duyệt qua từng ngày trong tháng và gọi hàm
+//                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+//                SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+//
+//                calendar.setTime(startDate);
+//                while (calendar.getTime().compareTo(endDate) <= 0) {
+//                    String ngay = sdf1.format(calendar.getTime());
+//                    String checkdate1 = sdf.format(calendar.getTime());
+//                    String checkdate2 = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy", Locale.US).parse(s));
+//
+//                    this.lstData_tmp = _server.getTTND_2024("KTGS_01GDX", mapgd, CO_TONGHOP, maxa, ngay, conditions, "0");
+//
+//                    // Kiểm tra điều kiện dừng khi có dữ liệu và ngày kiểm tra đúng
+//                    if (lstData_tmp.size() > 0 && !checkdate1.equals(checkdate2)) {
+//                        String ngay1 = sdf2.format(calendar.getTime());
+//                        setAlfet_canhbao("Điểm giao dịch đã nhập dữ liệu vào ngày " + ngay1);
+//                    }
+//                    calendar.add(Calendar.DATE, 1);
+//                }
                 lstCanBo = new clsHuyDongTK().getCanBo("B", UserName);
                 if (lstCanBo == null || lstCanBo.isEmpty()) {
                     addActionError("Phòng giao dịch chưa có cán bộ chuyên trách!");
                     return ERROR;
                 }
-                this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, conditions, "0");
                 if (lstData == null || lstData.isEmpty()) {
-                    this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "1");
+                    this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, conditions, "1");
                     if (lstData == null || lstData.isEmpty()) {
                         addActionError("Không có kết nối đến API từ TW, vui lòng liên hệ tin học để hỗ trợ!");
                         return ERROR;
                     }
+                     defaultListFlag = "1";
                 }
             } else if (check == "2") {
                 lstCanBo = new clsHuyDongTK().getCanBo("A", UserName);
-                this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, "", "0");
+                this.lstData = _server.getTTND_2024("KTGS_01GDX_CBCT", mapgd, CO_TONGHOP, maxa, s, conditions, "0");
                 if (lstData == null || lstData.isEmpty()) {
                     addActionError("Điểm giao dịch chưa có dữ liệu");
                     return ERROR;
@@ -419,7 +422,11 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                     row.setTHUTU(iStt);
                     iStt++;
                     row.setTT_HIENTHI(item.getOrderDescription());
-                    row.setMA(item.getCode());
+                     if (defaultListFlag.equals("0")) {
+                        row.setMA(item.getCode());
+                    } else {
+                        row.setMA(tranPoint + "_" + item.getCode());
+                    }
                     row.setTEN(item.getName());
                     Date reportDate = DateUtil.toDate(item.getReportDate());
                     row.setNGAYBC(reportDate);
@@ -439,7 +446,7 @@ public class TDNN_0011_2024_CBCT extends ActionTdnnMain implements TdnnFunction 
                     row.setD4(item.getD4() != null && !item.getD4().isEmpty() ? item.getD4() : "0");
                     row.setD5(item.getD5());
                     row.setD6(item.getD6());
-                    row.setD7(item.getD7());
+                    row.setD7(tranPoint);
                     row.setD8(item.getD8());
                     row.setD9(item.getD9());
                     row.setD10(item.getD10());

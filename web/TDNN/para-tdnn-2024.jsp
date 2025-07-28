@@ -727,7 +727,7 @@
                 document.getElementById("lstPGD").style.backgroundColor = "#ffffff";
                 document.getElementById("lstPGD").disabled = false;
                 userSelectedXa = false;
-                let firstXa = $('#lstXa option:eq(1)'); // phần tử thứ 2, sau option mặc định
+                let firstXa = $('#lstXa option:eq(0)'); // phần tử thứ 2, sau option mặc định
                 if (firstXa.length > 0 && !userSelectedXa) {
                     let firstText = firstXa.text(); // "TX01 - Xã ABC"
                     let point = firstText.split(' - ')[0];
