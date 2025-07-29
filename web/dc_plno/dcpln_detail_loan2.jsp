@@ -148,31 +148,15 @@
                                     <s:property value="plnTonglaiton"/> </td>
 
                                 <!--Chi tieu nhap tay tu day--> 
-                                <td>
-                                    <input type="text" 
-                                           value="<s:property value="plnNogocClech" />" 
-                                           id="D1_<s:property value='%{#rowstatus.index}' />" 
-                                           style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
-                                           name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNogocClech" 
-                                           oninput="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
-                                           class="number2" />
-                                </td>
-                                <td>
-                                    <input type="text" 
-                                           value="<s:property value="plnNolaiClech" />" 
-                                           id="D2_<s:property value='%{#rowstatus.index}' />" 
-                                           style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
-                                           name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNolaiClech" 
-                                           oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
-                                           class="number2" />
-                                </td>
-                                <td class="D0">
-                                    <select id="trangthai_<s:property value='%{#rowstatus.index}' />" 
-                                            name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnTrangthai" style="width: 100px">
-                                        <option value="N" <s:if test="plnTrangthai.equalsIgnoreCase('N')"> selected </s:if> <s:else></s:else>>Chưa đối chiếu</option>
-                                        <option value="R" <s:if test="plnTrangthai.equalsIgnoreCase('R')"> selected </s:if> <s:else></s:else>>Không đối chiếu được</option>
-                                        <option value="S" <s:if test="plnTrangthai.equalsIgnoreCase('S')"> selected </s:if> <s:else></s:else>>Đã đối chiếu</option>
-                                        </select></td>
+
+                                <td class="number"> <s:property value="plnNogocClech"/> </td>
+                                <td class="number"><s:property value="plnNolaiClech"/> </td>
+
+                                <td class="txtBody">
+                                    <s:if test="plnTrangthai.equalsIgnoreCase('N')"><a style="color: red">Chưa đối chiếu</a></s:if>
+                                    <s:elseif test="plnTrangthai.equalsIgnoreCase('R')"><a>Không đối chiếu</a></s:elseif>
+                                    <s:elseif test="plnTrangthai.equalsIgnoreCase('S')"><a>Đã đối chiếu</a></s:elseif>
+                                    </td>
                                 </tr>
                             </table>
                             <hr/>
@@ -185,12 +169,8 @@
                                 </tr>
 
                                 <tr align="center">
-                                    <td colspan="2" align="center">
-                                            <textarea id="sNgnhan_Clech_<s:property value='%{#rowstatus.index}' />" 
-                                              value="<s:property value='plnNgnhanClech'/>"
-                                              name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNgnhanClech"
-                                              style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;" 
-                                              rows="6"><s:property value='plnNgnhanClech'/></textarea>
+                                    <td colspan="2" style="text-align: left;">
+                                    <s:property value='plnNgnhanClech'/>
                                 </td>
                             </tr>
                         </table>
@@ -202,11 +182,8 @@
                                 </td>
                             </tr>
                             <tr align="center">
-                                <td  colspan="2" align="center" class="TD_NGUYEN_NHAN_KHOANH">
-                                    <textarea id="sQuanhe_Kh_<s:property value='%{#rowstatus.index}' />"  value="<s:property value='plnQuanheKh'/>"
-                                              name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnQuanheKh" onfocus="this.select()"
-                                              style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
-                                              rows="2" ><s:property value='plnQuanheKh'/></textarea>                                              
+                                <td colspan="2" style="text-align: left;" class="TD_NGUYEN_NHAN_KHOANH">
+                                    <s:property value='plnQuanheKh'/>                                         
                                 </td>
                             </tr>
                             <tr align="center">
@@ -215,15 +192,12 @@
                                 </td>
                             </tr>
                             <tr align="center">
-                                <td align="center">
-                                    <input type="button" id="idSave" value="Đồng ý"
-                                           style="margin-right:25px; float: right; height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/> 
-                                </td>
-                                <td align="center">
+                                <td align="center" colspan="2">
                                     <input type="button" id="cmdEnd" value="Thoát"
-                                           style="margin-left:25px; float: left;height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/> 
+                                           style="display: block; margin: 0 auto; height:28px; width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/> 
                                 </td>
                             </tr>
+
                         </table>
                     </s:iterator>
                 </s:form>
@@ -231,139 +205,10 @@
             </div>
     </body>
     <script>
-        $("#idSave").click(function () {
-            $('#message_suc_err').empty();
-            $('#divExportReportLink').empty();
-
-            let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
-            if (aCheck) {
-                var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                var isValid = true;
-
-                for (var i = 0; i < rowcount; i++) {
-                    try {
-                        var d1 = document.getElementById("D1_" + i).value;
-                        var d2 = document.getElementById("D2_" + i).value;
-                        var d3 = document.getElementById("sNgnhan_Clech_" + i).value;
-                        var d4 = document.getElementById("sQuanhe_Kh_" + i).value;
-                        var d5 = document.getElementById("trangthai_" + i).value;
-                        if (parseFloat(d1) + parseFloat(d2) > 0 && d3.length < 1) {
-                            alert('Bạn phải nhập nguyên nhân chênh lệch khi đối chiếu!');
-                            document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
-                            return;
-                        }
-                        if ((parseFloat(d1) + parseFloat(d2) <= 0 && d3.length > 0) && d5 !== 'R') {
-                            alert('Nguyên nhân chênh lệch không hợp lệ do Không có chênh lệch nợ gốc hoặc nợ lãi. Vui lòng kiểm tra lại!');
-                            document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
-                            return;
-                        }
-                    } catch (e) {
-                    }
-                }
-                if (isValid) {
-                    var url, sdata;
-                    url = "saveDataDcPLN_Loan.action";
-                    sdata = jQuery("#frmdata").serialize();
-                    console.log(sdata);
-                    $("#viewData").html('<img src="img/loading.gif"/>');
-                    btnDisabled(1);
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: sdata,
-                        success: function (data) {
-                            if (data === "200") {
-                                alert("Thành công: Lưu dữ liệu.");
-                                idEnd();
-                            } else {
-                                alert("Lỗi: Lưu dữ liệu.");
-                                tai_lai_trang();
-                            }
-                        },
-                        complete: function () {
-                            btnDisabled(0);
-                        },
-                        error: function (request) {
-                            alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                            tai_lai_trang();
-                        }
-                    });
-                }
-            }
-            function tai_lai_trang() {
-                location.reload();
-            }
-        });
-        function btnDisabled(status) {
-            if (status === 1) {
-                $("#loadDatatmp").prop('disabled', true);
-                $("#idPheduyet").prop('disabled', true);
-                $("#idSave").prop('disabled', true);
-                $("#idSaveLock").prop('disabled', true);
-                $("#idDelete").prop('disabled', true);
-            } else {
-                $("#idPheduyet").prop('disabled', false);
-                $("#idSave").prop('disabled', false);
-                $("#loadDatatmp").prop('disabled', false);
-                $("#idSaveLock").prop('disabled', false);
-                $("#idDelete").prop('disabled', false);
-            }
-        }
-        ;
-
         $("#cmdEnd").click(function () {
             window.opener.document.getElementById('loaddata').click();
             window.close();
         });
-
-        function idEnd() {
-            window.opener.document.getElementById('loaddata').click();
-            window.close();
-        }
-        window.onbeforeunload = function () {
-            window.opener.document.getElementById('loaddata').click();
-        };
-
-        function onSelectChange_dnht1(value, index) {
-            const tongdunoText = document.getElementById('TongDno_' + index).innerText;
-            // Convert the 'tongdunoText' and 'value' to numeric values
-            const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
-            const value1 = parseFloat(value.replace(/,/g, '').replace(/\./g, '')) || 0;
-
-            if (value1 > tongduno) {
-                alert('Nợ gốc chênh lệch không thể lớn hơn dư nợ của món vay. Vui lòng kiểm tra lại!');
-                const inputField = document.getElementById('D1_' + index);
-                inputField.value = 0;
-
-                inputField.style.backgroundColor = "#ffff99";
-                const row = document.getElementById('D1_' + index);
-                if (row) {
-                    row.style.backgroundColor = "#ffff99";
-                }
-            }
-        }
-
-        function onSelectChange_dnht2(value, index) {
-            const tongdunoText = document.getElementById('Tonglai_' + index).innerText;
-            // Convert the 'tongdunoText' and 'value' to numeric values
-            const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
-            const value1 = parseFloat(value.replace(/,/g, '').replace(/\./g, '')) || 0;
-
-            if (value1 > tongduno) {
-                alert('Nợ gốc chênh lệch không thể lớn hơn dư nợ của món vay. Vui lòng kiểm tra lại!');
-                const inputField = document.getElementById('D2_' + index);
-                inputField.value = 0;
-
-                inputField.style.backgroundColor = "#ffff99";
-                const row = document.getElementById('D2_' + index);
-                if (row) {
-                    row.style.backgroundColor = "#ffff99";
-                }
-            }
-        }
-
-
     </script>
 </html>
 

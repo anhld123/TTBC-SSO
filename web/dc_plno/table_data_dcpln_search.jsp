@@ -1,304 +1,239 @@
 <%-- 
-    Document   : Bảng dữ liệu kết quả tìm kiếm Phân loại nợ theo mã khoản vay
-    Created on : Feb 25, 2016, 10:18:34 AM
+    Document   : table_bcqt_pl01
+    Created on : Nov 16, 2015, 1:26:33 PM
     Author     : LION
 --%>
-
-<%@taglib uri="/struts-tags" prefix="s" %>
-<%@taglib uri="/struts-jquery-tags" prefix="sj" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css"  href="css/styles-xlrr.css" />
-<script src="js/jquery.number.js"></script>
-<script src="js/format_num.js"></script>
+<link rel="stylesheet" type="text/css"  href="css/bcqt.css" />
+<!DOCTYPE html>
+<style>
+    table.editDelete,
+    table.subTable {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 98%;
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+        font-size: 14px;
+    }
 
+    table.editDelete th,
+    table.subTable th,
+    table.editDelete td,
+    table.subTable td {
+        border: 1px solid #eee;
+        background-color: #fff;
+    }
+
+    /* Gộp các th riêng */
+    table.editDelete th,
+    table.subTable th {
+        background-color: #eef6ff;
+        color: #000;
+        font-weight: bold;
+    }
+
+    /* Gộp hàng chẵn */
+    table.editDelete tr:nth-child(even),
+    table.subTable tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    table.editDelete tr:hover,
+    table.subTable tr:hover {
+        background-color: #eef6ff;
+    }
+
+    table.editDelete td.number,
+    table.subTable td.number {
+        color: #333;
+        font-weight: 500;
+    }
+    .custom-scroll {
+        overflow: scroll;
+        width: 98%;
+        height: 400px;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: rgba(128, 128, 128, 0.3) transparent; /* Firefox */
+    }
+
+    /* Webkit (Chrome, Edge, Safari) */
+    .custom-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background-color: rgba(128, 128, 128, 0.3);
+        border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(128, 128, 128, 0.5);
+    }
+</style>
 <html>
-    <style>
-        th{
-            background-color: #DCDCDC;
-            border-color: #999;
-            height: 20px;
-        }
-        td{
-            border-color: #999;
-            height: 22px;
-        }
-        table.editDelete{
-            border-collapse: collapse;
-            width: 100%;
-            border-color: #999;
-        }
-        table.editDelete tr:focus{
-            background-color:#FFE47A;
-        }
-    </style>
-    <style type="text/css">
-        input[type="text"]
-        {
-            width: 100%;
-            border: 0px;
-            border-color: #18ab29;
-            background: #F9F9F9;
-            color:#666666;
-        }
-        input[type=text]:focus, textarea:focus {
-            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-            border: 1px solid rgba(81, 203, 238, 1);
-        }
-        .datepicker{
-        }
-        .highlight_row {
-            background-color: #FFB951; 
-            color:#000;
-        }
-    </style>
-    <SCRIPT language="javascript">
-        $.subscribe('batdauduyet', function(event, data) {
-            $("#divMessage").show();
-        });
-        $.subscribe('ketthucduyet', function(event, data) {
-            $("#divMessage").hide();
-        });
-        $(document).ready(function() {
-            $('input.number').css({"text-align": "right"});
-            $('input.number2').css({"text-align": "right"});
-            $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-            $('#ui-datepicker-div').css('clip', 'auto');
-            //Cac truong bang so --> se co so truong = 0
-            $('.number').number(true, 0);
-            //Cac truong bang so --> se co so truong = 0
-            $('.number2').number(true, 0);
-            $(".MAKH").css({"width": "100%"});
-            $(".MAKH").css({"text-align": "center"});
-            $(".DU_NO").css({"width": "100%"});
-            $(".TEN_KH").css({"width": "100%"});
-            $(".SOKU").css({"width": "100%"});
-            $(".TD_CHON").css({"width": "30px"});
-            $(".TD_MAKH").css({"width": "80px"});
-            $(".TD_MAKH").css({"text-align": "center"});
-            $(".TD_DU_NO").css({"width": "95px"});
-            $(".TD_LAITON").css({"width": "89px"});
-            $(".TD_TEN_KH").css({"width": "160px"});
-            $(".TD_SOKU").css({"width": "115px"});
-            $(".TD_NGUYEN_NHAN").css({"width": "150px"});
-            $(".TD_NGUYEN_NHAN").css({"text-align": "center"});
-            $(".TD_NGUYEN_NHAN_KHOANH").css({"width": "180px"});
-            $(".TD_CHTRINH").css({"width": "80px"});
-        });
-        function hienthichitiet(soku, stt) {
-            var ht1 = screen.availHeight - 260;
-            var wt1 = 1024;
-            var left1 = (screen.width / 2) - (wt1 / 2);
-            var top1 = 100;
-            var ngay_dcpln = $("#ngay_dcpln").val();
-            var totruong_dcpln = $("#totruong_dcpln").val();
-            var dvut_dcpln = $("#dvut_dcpln").val();
-            var url = "getDetialLoanDcPLN.action?soku_dcpln=" + soku + "&ngay_dcpln=" + ngay_dcpln +
-                    "&dvut_dcpln=" + dvut_dcpln + "&totruong_dcpln=" + totruong_dcpln;
-            popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
-        }
-        //Disable enter key form submit
-        function stopRKey(evt)
-        {
-            var evt = (evt) ? evt : ((event) ? event : null);
-            var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-            if ((evt.keyCode == 13) && (node.type == "text")) {
-                return false;
-            }
-        }
-
-        //Disable enter key form submit            
-        document.onkeypress = stopRKey;
-        function isNumber(value)
-        {
-            if (value == null) {
-                alert('Bạn phải nhập dữ liệu cho trường này. Vui lòng kiểm tra lại!');
-                return false;
-            }
-            value = value.replace(/,/g, "");
-            var result = true; //Luu ket qua kiem tra kieu so co dung khong
-            //Kiem tra xem co nhap kieu so khong
-            if (isNaN(parseFloat(value))) {
-                result = false;
-                //Neu nguoi dung khong nhap dung kieu du lieu. Dua ra canh bao
-                alert('Bạn nhập không đúng kiểu số xin nhập lại dữ liệu. Vui lòng kiểm tra lại!');
-                focus();
-                return false;
-            }
-            else {
-                //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
-                if (parseFloat(value) > 999999999999) {
-                    result = false;
-                    alert('Giá trị bạn nhập vượt quá giới hạn. Vui lòng kiểm tra lại!');
-                    focus();
-                    return false;
-                }
-            }
-        }
-
-        $(document).ready(function() {
-            $("#allCheck").change(function() {
-                $(".checkbox1").prop('checked', $(this).prop("checked"));
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/jquery.number.js"></script>
+        <script src="js/format_num.js"></script>
+        <script>
+            var popWindow;
+            var max_row = 0;
+            $(document).ready(function () {
+                initTable();
             });
-        });
-        $('.MAKH').focus(function() {
-            $(this).closest('tr').addClass('highlight_row');
-        });
-        $('.MAKH').blur(function() {
-            $(this).closest('tr').removeClass('highlight_row');
-        });
-        $('.DU_NO').focus(function() {
-            $(this).closest('tr').addClass('highlight_row');
-        });
-        $('.DU_NO').blur(function() {
-            $(this).closest('tr').removeClass('highlight_row');
-        });
-        $('.TEN_KH').focus(function() {
-            $(this).closest('tr').addClass('highlight_row');
-        });
-        $('.TEN_KH').blur(function() {
-            $(this).closest('tr').removeClass('highlight_row');
-        });
-        $('.checkbox1').focus(function() {
-            $(this).closest('tr').addClass('highlight_row');
-        });
-        $('.checkbox1').blur(function() {
-            $(this).closest('tr').removeClass('highlight_row');
-        });
-        $('.SOKU').focus(function() {
-            $(this).closest('tr').addClass('highlight_row');
-        });
-        $('.SOKU').blur(function() {
-            $(this).closest('tr').removeClass('highlight_row');
-        });
+            $(document).ready(function () {
+                $('.sstyle').css({"color": "#000", "font-size": "12px"});
+                $('input.number').css({"text-align": "right"});
+                $('.D0').css({"text-align": "center"});
+                $('.D00').css({"text-align": "left"});
+                $('input.number2').css({"text-align": "right"});
+                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+                $('#ui-datepicker-div').css('clip', 'auto');
+                //Cac truong bang so --> se co so truong = 0
+                $('.number').number(true, 0).css({"text-align": "right"});
+//            //Cac truong bang so --> se co so truong = 0
+                $('.number2').number(true, 0);
+                $(".STT1").css({"width": "50px"});
+                $(".STT2").css({"width": "80px"});
+                $(".STT3").css({"width": "100"});
+                $(".STT4").css({"width": "150px"});
+                $(".STT5").css({"width": "70px"});
+                $(".STT6").css({"width": "65px"});
+                $(".TD_NGUYENGIA").css({"width": "80px"});
+                $(".TD_THUTU").css({"width": "30px"});
+                $(".TD_CHITIEU").css({"width": "220px"});
+                $(".TEN_KH").css({"width": "100%"});
+            });
+            function initTable() {
+                var table = document.getElementById("subTable");
+                var rowcount = table.rows.length;
+                rowcount = rowcount > max_row ? rowcount : max_row;
 
-        // Hàm thực hiện Load trường Nguyên nhân không có khả năng trả nợ của Khách hàng
-        function initSelectOption()
-        {
-            var pos_cd = '';
-            var i = document.frmDataDc.elements.length;
-            for (var k = 0; k < i; k++) {
-                if (document.frmDataDc.elements[k].name.indexOf('sK_Ma_Ngnhan') > 0) {
-                    var id_select = document.frmDataDc.elements[k].id.toString(); //Lay ra id cua select option
-                    //Lay ra thu tu cua select option (Value code)
-                    var number_id = document.frmDataDc.elements[k].id.toString().substring(10, id_select.toString().length);
-                    var id = $("#sNgnhan_Kckntn" + number_id).val();
-                    if (id == '01' || id == '02' || id == '03' || id == '04' || id == '05' || id == '06' || id == '07' || id == '08' || id == '09' || id == '10' || id == '11') {
-                        document.frmDataDc.elements[k].value = id;
+                for (var i = 0; i < rowcount; i++) {
+                    // Xử lý Dnokhoanh -> D4
+                    var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
+                    var selectEl = document.getElementById('D4_' + i);
+
+                    if (DnokhoanhEl && selectEl) {
+                        var value = DnokhoanhEl.innerText.trim();
+                        selectEl.disabled = value === "0"; // khóa nếu bằng "0", mở nếu khác
                     }
-                    else {
-                        document.frmDataDc.elements[k].value = "-1";
+                    var D1 = document.getElementById('D1_' + i);
+                    var D2 = document.getElementById('D2_' + i);
+                    var D3 = document.getElementById('D3_' + i);
+
+                    if (D1 && D2 && D3) {
+                        var val1 = D1.value.trim();
+                        var val2 = D2.value.trim();
+
+                        if (val1 !== "0") {
+                            D3.disabled = true;
+                        } else if (val2 !== "0") {
+                            D3.disabled = false;
+                        } else {
+                            D3.disabled = true;
+                        }
                     }
                 }
             }
-        }
+            var current_page = 1; // trang bắt đầu 
+            var records_per_page = 20; // số dòng
+            var l = document.getElementById("subTable").rows.length;
+            function prevPage()
+            {
 
-        function ChangeValue_KCKNTN(id, obj) {
-            try {
-                var tongduno = $('#id_TongDN_' + id.toString()).val();
-                if (parseFloat(tongduno) <= 0) {
-                    tongduno = $('#id_Tonglaiton_' + id.toString()).val();
-                }
-                //Kiểm tra trường hợp dư nợ khoanh. Không có KNTN thì vẫn nhập tại cột có khả năng trả nợ
-                var duno_khoanh = $('#id_Dnokhoanh_' + id.toString()).val();
-                if (parseFloat(duno_khoanh) <= 0)
-                {
-                    $('#duco_kntn_' + id.toString()).val('0');
-                    obj.value = tongduno;
-                    $('.number2').number(true, 0);
-                    $('.number2').number(true, 0);
+                if (current_page > 1) {
+                    current_page--;
+                    changePage(current_page);
                 }
             }
-            catch (e) {
-                alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
-            }
-        }
-        function ChangeValue_CKNTN(id, obj) {
-            try {
-                var tongduno = $('#id_TongDN_' + id.toString()).val();
-                var duno_khoanh = $('#id_Dnokhoanh_' + id.toString()).val();
-                if (parseFloat(tongduno) <= 0) {
-                    tongduno = $('#id_Tonglaiton_' + id.toString()).val();
-                }
-                if (parseFloat(duno_khoanh) <= 0) {
-                    $('#dukhong_kntn_' + id.toString()).val('0');
-                    obj.value = tongduno;
-                    $('.number2').number(true, 0);
-                    $('.number2').number(true, 0);
-                }
-            }
-            catch (e) {
-                alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
-            }
-        }
-        // Thực hiện kiểm tra hợp lệ sau:
-        // 1. Nếu có khả năng trả nợ > 0 hoặc Nếu dư nợ khoanh > 0 ==> Không cho chọn nguyên nhân;
-        // 2. Nếu nhập số liều có khả năng hoặc không có khả năng > tổng dư nợ ==> Thông báo và sét lại giá trị nguyên bản
-        function on_valib(id, obj)
-        {
-            try {
-                var tongduno = $('#id_TongDN_' + id.toString()).val();
-                if (parseFloat(tongduno) <= 0) {
-                    tongduno = $('#id_Tonglaiton_' + id.toString()).val();
-                }
-                var duno_khoanh = $('#id_Dnokhoanh_' + id.toString()).val();
-                var duno_kntn_khong = $('#dukhong_kntn_' + id.toString()).val();
-                var duno_kntn_co = $('#duco_kntn_' + id.toString()).val();
 
-                if (duno_khoanh > 0)
-                {
-                    $('#dukhong_kntn_' + id.toString()).attr("disabled", true);
-                    $('#ngnhan_kh_' + id.toString()).attr("disabled", false);
-                    $('#nguyennhan_' + id.toString()).attr("disabled", true);
+            function nextPage()
+            {
+                if (current_page < numPages()) {
+                    current_page++;
+                    changePage(current_page);
                 }
-                else
-                {
-                    $('#dukhong_kntn_' + +id.toString()).attr("disabled", false);
-                    $('#ngnhan_kh_' + id.toString()).attr("disabled", true);
-                    document.getElementById("ngnhan_kh_" + id.toString()).value = '';
-                    $('#nguyennhan_' + id.toString()).attr("disabled", false);
+            }
+            function goToPage() {
+                var inputPage = document.getElementById("pageInput").value;
+                if (inputPage >= 1 && inputPage <= numPages()) {
+                    current_page = inputPage;
+                    changePage(current_page);
+                } else {
+                    // Xử lý khi trang không hợp lệ
+                    alert("Trang không tồn tại");
                 }
-                if (parseFloat(duno_kntn_co) > 0)
-                {
-                    $('#nguyennhan_' + id.toString()).attr("disabled", true);
-                    document.getElementById("nguyennhan_" + id.toString()).value = '-1';
+            }
+
+            function changePage(page)
+            {
+                var btn_next = document.getElementById("btn_next");
+                var btn_prev = document.getElementById("btn_prev");
+                var listing_table = document.getElementById("subTable");
+                var page_span = document.getElementById("page");
+                // Validate page
+                if (page < 1) {
+                    page = 1;
                 }
-                else {
-                    $('#nguyennhan_' + id.toString()).attr("disabled", false);
+                if (page > numPages()) {
+                    page = numPages();
                 }
 
-                if (parseFloat(duno_kntn_khong) > 0)
-                {
-                    $('#nguyennhan_' + +id.toString()).attr("disabled", false);
-                }
-                else {
-                    $('#nguyennhan_' + +id.toString()).attr("disabled", true);
-                    document.getElementById("nguyennhan_" + id.toString()).value = '-1';
+                [...listing_table.getElementsByTagName('tr')].forEach((tr) => {
+                    tr.style.display = 'none'; // reset all to not display
+                });
+                listing_table.rows[0].style.display = "";
+                listing_table.rows[1].style.display = "";
+                listing_table.rows[2].style.display = "";
+                listing_table.rows[3].style.display = "";
+                for (var i = (page - 1) * records_per_page + 1; i < (page * records_per_page) + 1; i++) {
+                    if (listing_table.rows[i]) {
+                        listing_table.rows[i].style.display = "";
+                    } else {
+                        continue;
+                    }
                 }
 
-                if (duno_kntn_co > 0 && (tongduno < duno_kntn_co || tongduno > duno_kntn_co))
-                {
-                    alert('Bạn không thể điền số tiền Nợ có khả năng trả nợ lớn hơn hoặc nhỏ hơn tổng dư nợ!');
-                    document.getElementById("duco_kntn_" + id.toString()).value = tongduno;
-                    return;
+                page_span.innerHTML = page + "/" + numPages();
+                if (page === 1) {
+                    btn_prev.style.visibility = "hidden";
+                } else {
+                    btn_prev.style.visibility = "visible";
                 }
-                if (duno_kntn_khong > 0 && (tongduno < duno_kntn_khong || tongduno > duno_kntn_khong))
-                {
-                    alert('Bạn không thể điền số tiền Nợ không có khả năng trả nợ lớn hơn hoặc nhỏ hơn tổng dư nợ!');
-                    document.getElementById("dukhong_kntn_" + id.toString()).value = tongduno;
-                    return;
-                }
-            }
-            catch (e) {
-                alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
-            }
-        }
-    </script>
-    <script type="text/javascript" src="js/pagination.js"></script>
 
-    <body width = "100%">
-        <s:form id="frmDataDc" name="frmDataDc" action="saveDataDcPLN.action" theme="simple" align="center">
-            </br>
-            <table border="1" class="editDelete" align="center">
+                if (page === numPages()) {
+                    btn_next.style.visibility = "hidden";
+                } else {
+                    btn_next.style.visibility = "visible";
+                }
+            }
+
+            function numPages()
+            {
+                return Math.ceil((l - 1) / records_per_page);
+            }
+        </script>        
+    </head>
+    <body>
+        <div class="custom-scroll">   
+            <div id="divTitle">
+                SỐ LIỆU TỔNG HỢP ALL <s:property value="mato_to"/>
+            </div>
+
+            <table border="1" class="editDelete" align="center" style="width: 60%">
+                <!--                <div id="divDonvitinh">
+                                Đơn vị tính: Đồng
+                            </div>-->
                 <tr>
                     <th rowspan="2">Tổng số KH</th>
                     <th rowspan="2">Tổng số món vay</th>
@@ -311,175 +246,214 @@
                     <th>Nợ quá hạn</th>
                     <th>Nợ khoanh</th>
                 </tr>
-                <s:iterator value="#attr.lstViewTotal" var="modelView" status="rowstatus">
-                    <tr>                  
-                        <td style="text-align: center; color: #007fff; font-weight: bold;"><s:property  value="sSlg_KH" /></td>
-                        <td style="text-align: center; color: #007fff; font-weight: bold;"><s:property  value="sSlg_KU" /></td>
-                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTongDN" /></td>
-                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sDnothan" /></td>
-                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sDnoqhan" /></td>
-                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sDnokhoanh" /></td>
-                        <td style="text-align: right; color: #007fff; font-weight: bold;"><s:property  value="sTonglaiton" /></td>
+                <tr>   
+                    <td class="number STT2"><s:property value="tong_kh"/> </td>
+                    <td class="number STT2"><s:property value="tong_monvay"/> </td>
+                    <td class="number STT3"><s:property value="tong_duno"/> </td>
+                    <td class="number STT3"><s:property value="tong_than"/> </td>
+                    <td class="number STT3"><s:property value="tong_qhan"/> </td>
+                    <td class="number STT3"><s:property value="tong_khoanh"/> </td>
+                    <td class="number STT3"><s:property value="tong_nlai"/> </td>
+                </tr>
+            </table>
+            <div id="divTitle">
+                SỐ LIỆU ĐỐI CHIẾU, PHÂN LOẠI NỢ
+            </div> 
+            <table border="1" class="editDelete" id="subTable" align="center">
+                <tr>
+                    <th rowspan="3"><input type="checkbox" id ="select-all"/></th>
+                    <th rowspan="3" class="STT4">Tên khách hàng</th>
+                    <th rowspan="3" class="STT3">Mã món vay</th>
+                    <th rowspan="3" class="STT3">Chương trình</th>
+                    <th colspan="5">Số liệu tại NHCSXH</th> 
+                    <th colspan="3">Phân loại khả năng trả nợ</th> 
+                    <th rowspan="3">Nguyên nhân nợ khoanh (Không có khả năng trả nợ)</th>
+                </tr>
+                <tr>
+                    <th colspan="4" class="STT2">Nợ gốc</th> 
+                    <th rowspan="2" class="STT2">Nợ lãi</th> 
+                    <th rowspan="2" class="STT2">Có khả năng trả nợ</th> 
+                    <th colspan="2">Không có khả năng trả nợ</th>
+                </tr>
+                <tr>
+                    <th class="STT2">Tổng số</th>
+                    <th class="STT2">Nợ trong hạn</th>
+                    <th class="STT2">Nợ quá hạn</th>
+                    <th class="STT2">Nợ khoanh</th>
+                    <th class="STT2">Số tiền</th>
+                    <th>Nguyên nhân</th>
+                </tr>
+                <tr>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                </tr>
+                <s:iterator value="#attr.lstDulieuNtPLN_T" var="modelView" status="rowstatus">
+                    <tr>
+                        <td class="D0"> <input type="checkbox" class="myCheckBox"
+                                               name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].checkrow"
+                                               value="0" onclick="$(this).val(this.checked ? 1 : 0)"/>      
+                            <input type="hidden" value="<s:property  value="plnSoku" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnSoku"/>                             
+                            <input type="hidden" value="<s:property  value="plnMapgd" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMapgd"/>  
+                            <input type="hidden" value="<s:property  value="plnTenkh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTenkh"/>  
+                            <input type="hidden" value="<s:property  value="plnMakh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMakh"/>  
+                            <input type="hidden" value="<s:property  value="plnMato" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMato"/>  
+                            <input type="hidden" value="<s:property  value="plnTongDno" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTongDno"/>  
+                            <input type="hidden" value="<s:property  value="plnDnothan" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnothan"/>  
+                            <input type="hidden" value="<s:property  value="plnDnoqhan" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnoqhan"/>  
+                            <input type="hidden" value="<s:property  value="plnDnokhoanh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnokhoanh"/>
+                            <input type="hidden" value="<s:property  value="plnTrangthai" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTrangthai"/>  
+                            <input type="hidden" value="<s:property  value="plnTonglaiton" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTonglaiton"/>
+                            <input type="hidden" value="<s:property  value="plnNogocClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNogocClech"/> 
+                            <input type="hidden" value="<s:property  value="plnNolaiClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNolaiClech"/>
+                            <input type="hidden" value="<s:property  value="plnNgnhanClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNgnhanClech"/> 
+                            <input type="hidden" value="<s:property  value="plnMacn" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMacn"/> 
+                            <input type="hidden" value="<s:property  value="plnQuanheKh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnQuanheKh"/> 
+
+                        </td>
+                        <td><s:property value="plnTenkh"/>
+                        </td>
+                        <td> 
+                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' )" class="SOKU linkKh">
+                                <s:property value='plnSoku'/>
+                            </a>
+                        </td>
+                        <td><s:property value="plnChtrinhTenvt"/> </td>
+                        <td class="number" id="TongDno_<s:property value='%{#rowstatus.index}' />">
+                            <s:property value="plnTongDno" /></td>
+                        <td class="number"><s:property value="plnDnothan"/> </td>
+                        <td class="number"><s:property value="plnDnoqhan"/> </td>
+                        <td class="number" id="Dnokhoanh_<s:property value='%{#rowstatus.index}' />">
+                            <s:property value="plnDnokhoanh"/> </td>
+                        <td class="number"><s:property value="plnTonglaiton"/> </td>
+                        <!--chi tieu nhap tay tu day--> 
+                        <td>
+                            <input type="text" 
+                                   value="<s:property value="plnCKntnSodu" />" 
+                                   id="D1_<s:property value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnCKntnSodu" 
+                                   class="number2" 
+                                   style="background: #FFCCBA"
+                                   onblur="setTongDuNoTo('D1', <s:property value='%{#rowstatus.index}' />)"/>
+                        </td>
+                        <td>
+                            <input type="text" 
+                                   value="<s:property value="plnKKntnSodu" />" 
+                                   id="D2_<s:property value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnKKntnSodu" 
+                                   class="number2" 
+                                   style="background: #FFCCBA"
+                                   onblur="setTongDuNoTo('D2', <s:property value='%{#rowstatus.index}' />)"/>
+                        </td>
+                        <td class="D0">    
+                            <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 200px"
+                                    name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].ngnhanKntn'>
+                                <option value="0">----Nguyên nhân----</option>
+                                <s:iterator value="lstDmKhac57" status="ideRows" var="language">
+                                    <option value="<s:property value="code" />"
+                                            <s:if test="%{#language.code == ngnhanKntn}">selected</s:if>>
+                                        <s:property value="code" /> - <s:property value="value" />
+                                    </option>
+                                </s:iterator>
+                            </select>
+                        </td>  
+                        <td class="D0">    
+                            <select id='D4_<s:property value="%{#rowstatus.index}" />' style="width: 200px"
+                                    name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNguyennhanC2'>
+                                <option value="0">----Nguyên nhân khoanh nợ----</option>
+                                <s:iterator value="lstDmKhac106" status="ideRows" var="language">
+                                    <option value="<s:property value="code" />"
+                                            <s:if test="%{#language.code == plnNguyennhanC2}">selected</s:if>>
+                                        <s:property value="code" /> - <s:property value="value" />
+                                    </option>
+                                </s:iterator>
+                            </select>
+
+                        </td>  
                     </tr>
+
                 </s:iterator>
-            </table>     
-            <s:iterator value="poscd" status="row">
-                <s:hidden name="poscd[%{#row.index}]" />
-            </s:iterator>
-            <s:hidden name="ngay_dcpln" id="ngay_dcpln"/>
-            <s:hidden name="dvut_dcpln" id="dvut_dcpln"/>
-            <s:hidden name="totruong_dcpln" id="totruong_dcpln"/>
-            <s:hidden name="ngvon_dcpln" id="ngvon_dcpln"/>
-            <s:hidden name="chtrinh_dcpln" id="chtrinh_dcpln"/>
-            <s:hidden name="trangthai" id="trangthai"/>
-            <s:hidden name="soku_dcpln" id="soku_dcpln"/>
-            </br>
-            <table border="1" class="editDelete" align="center">
-                <tr>
-                    <th width="15" class="TD_CHON" rowspan="3">
-                        <s:checkbox id ="allCheck" name="allCheck"/></th>
-                    <th class="TD_TEN_KH" rowspan="3">Tên khách hàng</th>
-                    <th class="TD_SOKU" rowspan="3">Mã món vay</th>
-                    <th class="TD_CHTRINH" rowspan="3">Chương trình</th>
-                    <th class="TD_DU_NO" colspan="5">Số liệu tại NHCSXH</th> 
-                    <th class="TD_DU_NO" colspan="3">Phân loại khả năng trả nợ</th> 
-                    <th class="TD_NGUYEN_NHAN_KHOANH" rowspan="3">Nguyên nhân nợ khoanh (Không có khả năng trả nợ)</th>
-                </tr>
-                <tr>
-                    <th class="TD_DU_NO" colspan="4">Nợ gốc</th> 
-                    <th class="TD_LAITON" rowspan="2">Nợ lãi</th> 
-                    <th class="TD_DU_NO" rowspan="2">Có khả năng trả nợ</th> 
-                    <th class="TD_DU_NO" colspan="2">Không có khả năng trả nợ</th>
-                </tr>
-                <tr>
-                    <th class="TD_DU_NO">Tổng số</th>
-                    <th class="TD_DU_NO">Nợ trong hạn</th>
-                    <th class="TD_DU_NO">Nợ quá hạn</th>
-                    <th class="TD_DU_NO">Nợ khoanh</th>
-                    <th class="TD_DU_NO">Số tiền</th>
-                    <th class="TD_NGUYEN_NHAN_KHOANH">Nguyên nhân</th>
-                </tr>
-                <tr>
 
-                </tr>
-                <s:iterator value="#attr.lstDcplnModel" var="modelDcpt" status="rowstatus">
-                    <tr class="ac_odd" id="id_tr_<s:property  value="%{#rowstatus.index}" />">
-                    <input type="hidden" id="sTk_Casa1_<s:property  value="%{#rowstatus.index}" />" name="sTk_Casa1" value="<s:property  value="sTk_Casa1"/>"/>
-                    <input type="hidden" id="sTk_Casa2_<s:property  value="%{#rowstatus.index}" />" name="sTk_Casa2" value="<s:property  value="sTk_Casa2"/>"/>
-                    <td align = "center" class="TD_CHON"> 
-                        <s:checkbox id ="%{#rowstatus.index}" cssClass="checkbox1" name="lstSavePln[%{#rowstatus.index}].sSoku" fieldValue="%{sSoku}"/>
-                    </td>
-                    <td align = "left" class="TD_TEN_KH">
-                        <input type="text" value="<s:property  value="sTenkh" />" 
-                               name="sTenkh" class="TEN_KH" onfocus="this.select()" readonly="true"/>
-                    </td>
-                    <td align = "center" class="TD_SOKU"> 
-                        <a href="javascript:hienthichitiet('<s:property value="sSoku"/>','<s:property  value="%{#rowstatus.index}" />' )" class="SOKU linkKh">
-                            <s:property value='sSoku'/>
-                        </a>
-                    </td>
-                    <td align = "left" class="TD_CHTRINH">
-                        <input type="text" value="<s:property  value="sChtrinh_Tenvt" />" 
-                               name="sChtrinh_Tenvt" class="TD_CHTRINH" onfocus="this.select()" readonly="true"/>
-                    </td>
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sTongDN'/>" name="sTongDN" class="DU_NO number2"
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }" onfocus="this.select()" readonly="true" id="id_TongDN_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sDnothan'/>" name="sDnothan" class="DU_NO number2" 
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }" onfocus="this.select()" readonly="true" id="id_Dnohan_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
+            </table>
+        </div>
+        <div id="luu_thanhcong"></div>
+        <script>
+            $(function () {
+                $('#select-all').click(function (event) {
+                    if (this.checked) {
+                        // Iterate each checkbox
+                        $('.myCheckBox').each(function () {
+                            this.checked = true;
+                            this.value = '1';
+                        });
+                    } else {
+                        $('.myCheckBox').each(function () {
+                            this.checked = false;
+                            this.value = '0';
+                        });
+                    }
+                });
+            });
+            function hienthichitiet(soku, ngay_bc, poscd) {
+                var ht1 = screen.availHeight - 220;
+                var wt1 = 1024;
+                var left1 = (screen.width / 2) - (wt1 / 2);
+                var top1 = 100;
+                var url = "getDetialLoanDcPLN.action?soku=" + soku + "&ngay_bc=" + ngay_bc + "&poscd=" + poscd;
+                popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            }
+            function setTongDuNoTo(field, index) {
+                const d1 = document.getElementById('D1_' + index);
+                const d2 = document.getElementById('D2_' + index);
+                const d3 = document.getElementById('D3_' + index);
+                const tongdunoText = document.getElementById('TongDno_' + index).innerText;
 
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sDnoqhan'/>" name="sDnoqhan" class="DU_NO number2"
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }" onfocus="this.select()" readonly="true" id="id_Dnoqhan_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sDnokhoanh'/>" name="sDnokhoanh" class="DU_NO number2" 
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }" onfocus="this.select()" readonly="true" id="id_Dnokhoanh_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
-                    <td align = "right" class="TD_LAITON">
-                        <input type="text" value="<s:property value='sTonglaiton'/>" name="sTonglaiton" class="DU_NO number2" 
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }" onfocus="this.select()" readonly="true" id="id_Tonglaiton_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
+                // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
+                const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
 
-                    <!--chi tieu nhap tay tu day--> 
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sC_Kntn_Sodu'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].bC_Kntn_Sodu" class="DU_NO number2" 
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }
-                                       isNumber(this.value);
-                                       on_valib(<s:property  value="%{#rowstatus.index}" />, this)" onfocus="this.select()" style="background-color: #FFCCBA"
-                               id="duco_kntn_<s:property  value="%{#rowstatus.index}" />" onclick="ChangeValue_CKNTN(<s:property  value="%{#rowstatus.index}" />, this); on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
-                    </td>
+                // Định dạng số có dấu phẩy
+                const formatted = tongduno.toLocaleString('en-US');
 
-                    <td align = "right" class="TD_DU_NO">
-                        <input type="text" value="<s:property value='sK_Kntn_Sodu'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].bK_Kntn_Sodu" class="DU_NO number2" 
-                               onblur="if (this.value == '') {
-                                           this.value = 0
-                                       }
-                                       isNumber(this.value);
-                                       on_valib(<s:property  value="%{#rowstatus.index}" />, this)" onfocus="this.select()" style="background-color: #FFCCBA"
-                               id="dukhong_kntn_<s:property  value="%{#rowstatus.index}" />" onclick="ChangeValue_KCKNTN(<s:property  value="%{#rowstatus.index}" />, this); on_valib(<s:property  value="%{#rowstatus.index}" />, this)"/>
-                    </td>
+                if (field === 'D1') {
+                    d1.value = formatted;
+                    d2.value = '0';
+                } else if (field === 'D2') {
+                    d2.value = formatted;
+                    d1.value = '0';
+                }
 
-                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
-                        <input type="hidden" id="sNgnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" 
-                               name="Ngnhan_Kckntn_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="sNgnhan_Kckntn"/>"/>
-                        <s:select  
-                            id="nguyennhan_%{#rowstatus.index}"
-                            name="lstSavePln[%{#rowstatus.index}].sK_Ma_Ngnhan"
-                            list="lstDMNgNhan" 
-                            listKey="sKey"
-                            listValue="sDesc"
-                            headerKey="-1"
-                            headerValue="--- Chọn ---"
-                            cssStyle="width: 180px;vertical-align: middle;background-color: #FFCCBA;">
-                        </s:select>
-                    </td>                   
-                    <td align = "left" class="TD_NGUYEN_NHAN_KHOANH">
-                        <input type="text" value="<s:property value='sK_Ngnhan_Kh'/>" name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].sK_Ngnhan_Kh" class="DU_NO" 
-                               onfocus="this.select()" style="background-color: #FFCCBA" 
-                               id="ngnhan_kh_<s:property  value="%{#rowstatus.index}" />"/>
-                    </td>
-                </tr>
-            </s:iterator>
-        </table>
-        <sj:submit id="idSaveDcNo" name="idSaveDcNo" 
-                   targets="divBrowseRisk" 
-                   cssClass="metroButtonStyle" 
-                   value="Thêm" onBeforeTopics="batdauduyet" onCompleteTopics="ketthucduyet" cssStyle="display: none"></sj:submit>
-    </s:form>
-    <s:form action="searchSearchLoanPLN.action" id="paginationForm">
-        <s:iterator value="poscd" status="row">
-            <s:hidden name="poscd[%{#row.index}]" />
-        </s:iterator>
-        <s:hidden name="ngay_dcpln" id="ngay_dcpln"/>
-        <s:hidden name="dvut_dcpln" id="dvut_dcpln"/>
-        <s:hidden name="totruong_dcpln" id="totruong_dcpln"/>
-        <s:hidden name="ngvon_dcpln" id="ngvon_dcpln"/>
-        <s:hidden name="chtrinh_dcpln" id="chtrinh_dcpln"/>
-        <s:hidden name="trangthai" id="trangthai"/>
-        <s:hidden name="soku_dcpln" id="soku_dcpln"/>
-        <%@ include file="/dc_plno/pagination.jsp" %>
-        <sj:submit value="submit" id="idSubmit" name="idSubmit" targets="divExportReport" cssStyle="display: none" 
-                   onBeforeTopics="batdauloaddata" onCompleteTopics="hoanthanhloaddata"/>
-    </s:form>
-    <div id="divBrowseRisk"></div>
-</body>
-<script>
-    initSelectOption();
-</script>
+                // Kiểm tra điều kiện để enable/disable D3
+                const d1Val = parseFloat(d1.value.replace(/,/g, '')) || 0;
+                const d2Val = parseFloat(d2.value.replace(/,/g, '')) || 0;
+
+                if (d2Val !== 0) {
+                    d3.disabled = false; // Nếu D2 có giá trị khác 0 -> mở D3
+                } else if (d1Val !== 0) {
+                    d3.disabled = true;  // Nếu D1 khác 0 -> khóa D3
+                } else {
+                    d3.disabled = true;  // Nếu cả hai = 0 -> cũng khóa
+                }
+            }
+            function initTable1()
+            {
+                nextPage();
+                prevPage();
+            }
+            initTable1();
+            $(document).ready(function () {
+                $("#page-header").show();
+            });
+        </script>
+
+    </body>
 </html>

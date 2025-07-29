@@ -14,6 +14,7 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.math.BigInteger;
@@ -21,10 +22,9 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.define.Define;
 import vbsp.ims.model.DcplnModel;
 
 /**
@@ -118,6 +118,147 @@ public class DuLieuNTService extends ReportService {
         } else {
             return null;
         }
+    }
+
+    public ArrayList<DuLieuPLN> getDataPLN(String posCode, String loanid, String reportDate) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("debt-classification-loan-detail")
+                .queryParam("posCode", posCode)
+                .queryParam("loanid", loanid)
+                .queryParam("reportDate", reportDate);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+//        System.out.println("Status: " + response.getStatus());
+
+        if (response.getStatus() == 200) {
+            DuLieuPLNResp dulieuPLNResp = response.readEntity(DuLieuPLNResp.class);
+            ArrayList<DuLieuPLN> listOfRow = new ArrayList<>();
+            if (dulieuPLNResp != null && dulieuPLNResp.getResult() != null) {
+                listOfRow.add(dulieuPLNResp.getResult());
+            }
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
+    public List<DuLieuPLN_T> postDataPLN(String posCode, String posFlag, String reportDate,
+            String massOrg, String groupId, String status, String capitalSource, String loanProgram, String loanId) {
+//         private String posCode;
+//    private String posFlag;
+//    private List<String> lstSubPos;
+//    private String reportDate;
+//    private String massOrg;
+//    private String groupId;
+//    private String status;
+//    private String capitalSource;
+//    private String loanProgram;
+//    private String loanId;
+//    private int pageSize;
+//    private int startRow;
+//    private int endRow;
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("debt-classification-load-data");
+        PLNRequestBody body = new PLNRequestBody();
+        body.setPosCode(posCode);
+        body.setPosFlag(posFlag);
+        body.setReportDate(reportDate);
+        body.setMassOrg(massOrg);
+        body.setGroupId(groupId);
+        body.setStatus(status == null || status == "" ? "" : status);
+        body.setCapitalSource(capitalSource == null || capitalSource == "" ? "" : capitalSource);
+        body.setLoanProgram(loanProgram == null || loanProgram == "" ? "" : loanProgram);
+        body.setLoanId(loanId == null || loanId == "" ? "" : loanId);
+//        .queryParam("updateId", makerId == null || makerId == "" ? "" : makerId);
+
+        Invocation.Builder builder = target
+                .request(MediaType.TEXT_PLAIN_TYPE) // Accept: text/plain
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+
+        Response response = builder.post(Entity.json(body));
+
+//        System.out.println("Status = " + response.getStatus());
+        if (response.getStatus() == 200) {
+            try {
+                DuLieuPLNResp_T respData = response.readEntity(DuLieuPLNResp_T.class);
+                return respData != null && respData.getResult() != null
+                        ? respData.getResult()
+                        : Collections.emptyList();
+            } catch (Exception e) {
+                System.err.println("Error parsing JSON: " + e.getMessage());
+                return Collections.emptyList();
+            }
+        } else {
+            String err = response.readEntity(String.class);
+            System.err.println("Error body: " + err);
+            return Collections.emptyList();
+        }
+    }
+
+    public DuLieuPLNResp_T postDataPLN2(String posCode, String posFlag, List<String> lstSubPos, String reportDate,
+            String massOrg, String groupId, int pageSize, int startRow, int endRow) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("debt-classification-load-data");
+
+        PLNRequestBody body = new PLNRequestBody();
+        body.setPosCode(posCode);
+        body.setPosFlag(posFlag);
+        body.setLstSubPos(lstSubPos);
+        body.setReportDate(reportDate);
+        body.setMassOrg(massOrg);
+        body.setGroupId(groupId);
+        body.setPageSize(pageSize);
+        body.setStartRow(startRow);
+        body.setEndRow(endRow);
+
+        Invocation.Builder builder = target
+                .request(MediaType.TEXT_PLAIN_TYPE)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+
+        Response response = builder.post(Entity.json(body));
+
+        if (response.getStatus() == 200) {
+            try {
+                DuLieuPLNResp_T respData = response.readEntity(DuLieuPLNResp_T.class);
+                return respData != null ? respData : new DuLieuPLNResp_T(); // Trả về luôn toàn bộ
+            } catch (Exception e) {
+                System.err.println("Error parsing JSON: " + e.getMessage());
+                return new DuLieuPLNResp_T(); // hoặc null nếu bạn muốn
+            }
+        } else {
+            String err = response.readEntity(String.class);
+            System.err.println("Error body: " + err);
+            return new DuLieuPLNResp_T(); // hoặc null
+        }
+    }
+
+    public int savePLN_2025(String posCode, String reportDate, String updateId, List<DuLieuPLN_Save> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("debt-classification-update")
+                .queryParam("posCode", posCode)
+                .queryParam("reportDate", reportDate)
+                .queryParam("updateId", updateId == null || updateId == "" ? "ANHLD" : updateId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            System.out.println("ResultingJSONstring = " + json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
     }
 
     public ArrayList<DuLieuNTRow> getData_condition(String key, String posCode, String posFlag, String reportDate, String condition) {
@@ -804,7 +945,6 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
-    
     // Chuyen thanh ham sendDataNV_QTByApi o ExcelUploadAction
 //    static String sendDataNV_QTByApi(List<QT_DULIEU_NT> lstDulieuNt, String file) {
 //        ArrayList<DuLieuNTRow> lstUpdateDate = new ArrayList<>();
@@ -852,7 +992,6 @@ public class DuLieuNTService extends ReportService {
 //
 //        return "";
 //    }
-
     public int summaryData(String posCode, String posFlag, String reportDate, String makerId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1632,7 +1771,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
-    
+
     public ArrayList<DuLieuNTRow> getListKTKSNB_2024(String key, String posCode, String posFlag, String reportDate, String month) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
@@ -1656,6 +1795,7 @@ public class DuLieuNTService extends ReportService {
             return null;
         }
     }
+
     public ArrayList<DuLieuNTRow> getDataQLNK(String posCode, String posFlag,
             String reportDate, String customerCode, String groupId, String loanId, String defaultListFlag, String fetchType) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
@@ -1703,7 +1843,7 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
-    public ArrayList<DuLieuNTRow> getDataTTND_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String condition, String defaultListFlag) {
+    public ArrayList<DuLieuNTRow> getDataTTND_2024(String key, String posCode, String posFlag, String communeId, String reportDate, String conditions, String defaultListFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target;
@@ -1713,11 +1853,11 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("communeId", communeId)
                 .queryParam("reportDate", reportDate)
-                .queryParam("condition", condition)
+                .queryParam("conditions", conditions)
                 .queryParam("defaultListFlag", defaultListFlag);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
-
+        System.out.println("ResultingJSONstring = " + response);
         if (response.getStatus() == 200) {
             DuLieuNTResp dulieuNTResp = response.readEntity(DuLieuNTResp.class);
             ArrayList<DuLieuNTRow> listOfRow = dulieuNTResp.result;

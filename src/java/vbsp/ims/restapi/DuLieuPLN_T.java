@@ -64,105 +64,16 @@ public class DuLieuPLN_T {
     private String kKntnSodu10;
     private String kKntnSodu11;
     private String ngnhanKntn;
-
-    public String getNgnhanKntn() {
-        return ngnhanKntn;
-    }
-
-    public void setNgnhanKntn(String ngnhanKntn) {
-        this.ngnhanKntn = ngnhanKntn;
-    }
-
-    public String getkKntnSodu01() {
-        return kKntnSodu01;
-    }
-
-    public void setkKntnSodu01(String kKntnSodu01) {
-        this.kKntnSodu01 = kKntnSodu01;
-    }
-
-    public String getkKntnSodu02() {
-        return kKntnSodu02;
-    }
-
-    public void setkKntnSodu02(String kKntnSodu02) {
-        this.kKntnSodu02 = kKntnSodu02;
-    }
-
-    public String getkKntnSodu03() {
-        return kKntnSodu03;
-    }
-
-    public void setkKntnSodu03(String kKntnSodu03) {
-        this.kKntnSodu03 = kKntnSodu03;
-    }
-
-    public String getkKntnSodu04() {
-        return kKntnSodu04;
-    }
-
-    public void setkKntnSodu04(String kKntnSodu04) {
-        this.kKntnSodu04 = kKntnSodu04;
-    }
-
-    public String getkKntnSodu05() {
-        return kKntnSodu05;
-    }
-
-    public void setkKntnSodu05(String kKntnSodu05) {
-        this.kKntnSodu05 = kKntnSodu05;
-    }
-
-    public String getkKntnSodu06() {
-        return kKntnSodu06;
-    }
-
-    public void setkKntnSodu06(String kKntnSodu06) {
-        this.kKntnSodu06 = kKntnSodu06;
-    }
-
-    public String getkKntnSodu07() {
-        return kKntnSodu07;
-    }
-
-    public void setkKntnSodu07(String kKntnSodu07) {
-        this.kKntnSodu07 = kKntnSodu07;
-    }
-
-    public String getkKntnSodu08() {
-        return kKntnSodu08;
-    }
-
-    public void setkKntnSodu08(String kKntnSodu08) {
-        this.kKntnSodu08 = kKntnSodu08;
-    }
-
-    public String getkKntnSodu09() {
-        return kKntnSodu09;
-    }
-
-    public void setkKntnSodu09(String kKntnSodu09) {
-        this.kKntnSodu09 = kKntnSodu09;
-    }
-
-    public String getkKntnSodu10() {
-        return kKntnSodu10;
-    }
-
-    public void setkKntnSodu10(String kKntnSodu10) {
-        this.kKntnSodu10 = kKntnSodu10;
-    }
-
-    public String getkKntnSodu11() {
-        return kKntnSodu11;
-    }
-
-    public void setkKntnSodu11(String kKntnSodu11) {
-        this.kKntnSodu11 = kKntnSodu11;
-    }
-
+    private String checkrow;
     private int plnTongDno;
-    // Getter và Setter đầy đủ
+
+    public int getPlnTongDno() {
+        return plnTongDno;
+    }
+
+    public void setPlnTongDno(int plnTongDno) {
+        this.plnTongDno = plnTongDno;
+    }
 
     public int getStt() {
         return stt;
@@ -436,12 +347,108 @@ public class DuLieuPLN_T {
         this.plnNguyennhanC2 = plnNguyennhanC2;
     }
 
-    public int getPlnTongDno() {
-        return plnTongDno;
+    public String getkKntnSodu01() {
+        return kKntnSodu01;
     }
 
-    public void setPlnTongDno(int plnTongDno) {
-        this.plnTongDno = plnTongDno;
+    public void setkKntnSodu01(String kKntnSodu01) {
+        this.kKntnSodu01 = kKntnSodu01;
+    }
+
+    public String getkKntnSodu02() {
+        return kKntnSodu02;
+    }
+
+    public void setkKntnSodu02(String kKntnSodu02) {
+        this.kKntnSodu02 = kKntnSodu02;
+    }
+
+    public String getkKntnSodu03() {
+        return kKntnSodu03;
+    }
+
+    public void setkKntnSodu03(String kKntnSodu03) {
+        this.kKntnSodu03 = kKntnSodu03;
+    }
+
+    public String getkKntnSodu04() {
+        return kKntnSodu04;
+    }
+
+    public void setkKntnSodu04(String kKntnSodu04) {
+        this.kKntnSodu04 = kKntnSodu04;
+    }
+
+    public String getkKntnSodu05() {
+        return kKntnSodu05;
+    }
+
+    public void setkKntnSodu05(String kKntnSodu05) {
+        this.kKntnSodu05 = kKntnSodu05;
+    }
+
+    public String getkKntnSodu06() {
+        return kKntnSodu06;
+    }
+
+    public void setkKntnSodu06(String kKntnSodu06) {
+        this.kKntnSodu06 = kKntnSodu06;
+    }
+
+    public String getkKntnSodu07() {
+        return kKntnSodu07;
+    }
+
+    public void setkKntnSodu07(String kKntnSodu07) {
+        this.kKntnSodu07 = kKntnSodu07;
+    }
+
+    public String getkKntnSodu08() {
+        return kKntnSodu08;
+    }
+
+    public void setkKntnSodu08(String kKntnSodu08) {
+        this.kKntnSodu08 = kKntnSodu08;
+    }
+
+    public String getkKntnSodu09() {
+        return kKntnSodu09;
+    }
+
+    public void setkKntnSodu09(String kKntnSodu09) {
+        this.kKntnSodu09 = kKntnSodu09;
+    }
+
+    public String getkKntnSodu10() {
+        return kKntnSodu10;
+    }
+
+    public void setkKntnSodu10(String kKntnSodu10) {
+        this.kKntnSodu10 = kKntnSodu10;
+    }
+
+    public String getkKntnSodu11() {
+        return kKntnSodu11;
+    }
+
+    public void setkKntnSodu11(String kKntnSodu11) {
+        this.kKntnSodu11 = kKntnSodu11;
+    }
+
+    public String getNgnhanKntn() {
+        return ngnhanKntn;
+    }
+
+    public void setNgnhanKntn(String ngnhanKntn) {
+        this.ngnhanKntn = ngnhanKntn;
+    }
+
+    public String getCheckrow() {
+        return checkrow;
+    }
+
+    public void setCheckrow(String checkrow) {
+        this.checkrow = checkrow;
     }
 
 }
