@@ -5,8 +5,6 @@
  */
 package vbsp.ims.restapi;
 
-import java.util.ArrayList;
-import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -66,6 +64,96 @@ public class DuLieuPLN_T {
     private String ngnhanKntn;
     private String checkrow;
     private int plnTongDno;
+    private String D1;
+    private String D2;
+    private String D3;
+    private String D4;
+    private String D5;
+    private String D6;
+    private String D7;
+    private String D8;
+    private String D9;
+    private String D10;
+
+    public String getD1() {
+        return D1;
+    }
+
+    public void setD1(String D1) {
+        this.D1 = D1;
+    }
+
+    public String getD2() {
+        return D2;
+    }
+
+    public void setD2(String D2) {
+        this.D2 = D2;
+    }
+
+    public String getD3() {
+        return D3;
+    }
+
+    public void setD3(String D3) {
+        this.D3 = D3;
+    }
+
+    public String getD4() {
+        return D4;
+    }
+
+    public void setD4(String D4) {
+        this.D4 = D4;
+    }
+
+    public String getD5() {
+        return D5;
+    }
+
+    public void setD5(String D5) {
+        this.D5 = D5;
+    }
+
+    public String getD6() {
+        return D6;
+    }
+
+    public void setD6(String D6) {
+        this.D6 = D6;
+    }
+
+    public String getD7() {
+        return D7;
+    }
+
+    public void setD7(String D7) {
+        this.D7 = D7;
+    }
+
+    public String getD8() {
+        return D8;
+    }
+
+    public void setD8(String D8) {
+        this.D8 = D8;
+    }
+
+    public String getD9() {
+        return D9;
+    }
+
+    public void setD9(String D9) {
+        this.D9 = D9;
+    }
+
+    public String getD10() {
+        return D10;
+    }
+
+    public void setD10(String D10) {
+        this.D10 = D10;
+    }
 
     public int getPlnTongDno() {
         return plnTongDno;

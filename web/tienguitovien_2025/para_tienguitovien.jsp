@@ -145,34 +145,34 @@
 
 // Nếu hôm nay < ngày cuối tháng => cho nhập ngày cuối tháng trước
                     if (currentDay < lastDayOfCurrentMonth) {
-                        var allowedMonth = currentMonth - 1;
+                        var allowedMonth = currentMonth;
                         var allowedYear = currentYear;
                         if (allowedMonth === 0) {
                             allowedMonth = 12;
                             allowedYear--;
                         }
                         var lastDayOfAllowedMonth = new Date(allowedYear, allowedMonth, 0).getDate();
-//
-//                        if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
-//                            alert("Hết hạn nhập dữ liệu, chọn tháng " + currentDate.getMonth() + " để thao tác!");
-//                            return;
-//                        }
-//                    } else {
-//                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
-//                        var nextMonth = currentMonth + 1;
-//                        var nextYear = currentYear;
-//                        if (nextMonth > 12) {
-//                            nextMonth = 1;
-//                            nextYear++;
-//                        }
-//
-//                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
-//                        var allowedDay = lastDayOfNextMonth - 1;
-//
-//                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
-//                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
-//                            return;
-//                        }
+
+                        if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
+                            alert("Hết hạn nhập dữ liệu, chọn tháng " + currentDate.getMonth() + " để thao tác!");
+                            return;
+                        }
+                    } else {
+                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
+                        var nextMonth = currentMonth + 1;
+                        var nextYear = currentYear;
+                        if (nextMonth > 12) {
+                            nextMonth = 1;
+                            nextYear++;
+                        }
+
+                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
+                        var allowedDay = lastDayOfNextMonth - 1;
+
+                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
+                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
+                            return;
+                        }
                     }
                     var chot = document.getElementById("chotsl").value;
                     if (chot === "2" || chot === "1") {

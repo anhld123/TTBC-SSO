@@ -10,6 +10,7 @@ public class PLNRequestBody {
     private String reportDate;
     private String massOrg;
     private String groupId;
+    private String customerId;
     private String status;
     private String capitalSource;
     private String loanProgram;
@@ -17,6 +18,14 @@ public class PLNRequestBody {
     private int pageSize;
     private int startRow;
     private int endRow;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     public String getPosCode() {
         return posCode;
