@@ -13,8 +13,17 @@
             <result name="success">dc_plno/guisolieu-pln.jsp</result>
             <result name="error">dc_plno/success.jsp</result>
         </action>
+           <action name="loadTwFormMainPLN" class="vbsp.ims.action.DcplnAction">
+            <result name="success">dc_plno/tw-pln.jsp</result>
+            <result name="error">dc_plno/success.jsp</result>
+        </action>
+        <action  name="loadDataTwDcPLN" class="vbsp.ims.action.DcplnAction" method="getDataTwDcPLN">
+            <result name="success">dc_plno/table_tw_dcpln.jsp</result>  
+            <result name="error">dc_plno/success.jsp</result>  
+        </action>   
         <action  name="loadDataDcPLN" class="vbsp.ims.action.DcplnAction" method="getDataDcPLN">
             <result name="success">dc_plno/table_data_dcpln.jsp</result>  
+            <result name="success_1">dc_plno/table_data_dcpln_kh.jsp</result>  
             <result name="error">dc_plno/success.jsp</result>  
         </action>     
         <action  name="searchSearchLoanPLN" class="vbsp.ims.action.DcplnAction" method="getDataSearchLoanPLN">
@@ -38,6 +47,18 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action> 
+        <action name="saveDataKhDcPLN" class="vbsp.ims.action.DcplnAction"  method="saveDataKhDcPLN">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action> 
+           <action name="sendSupportDcPln" class="vbsp.ims.action.DcplnAction"  method="sendSupportDcPln">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
          <action  name="loadDataViewSendPLN" class="vbsp.ims.action.DcplnAction" method="getDataViewSendPLN">
             <result name="success">dc_plno/pln_table_data_send.jsp </result> 
           <result name="error">dc_plno/success.jsp</result> 

@@ -45,6 +45,7 @@
                                                                       
     </package>
     <include file="baocao_chtrinh.xml"/>  
+    <include file="baocao_dcplno.xml"/>  
 </struts>
 
 
