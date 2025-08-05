@@ -747,7 +747,69 @@ public class DaoNghiquyet11cp {
         }
         return lstBcqt_NT;
     }
+    
+    public List<QT_DULIEU_NT> getDataPlnTW(Connection conn, String sNgaybc, String sKhoa, String sMacn, String sPod_Flag) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_DCPHANLOAINO.SP_GET_DATA_PLN_TW(?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
 
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, sMacn);
+                calstatement.setString(1, sNgaybc);
+                calstatement.setString(4, sPod_Flag);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(5);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(6);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(7);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
+                    value.setD12(reset.getString("D12"));
+                    value.setD13(reset.getString("D13"));
+                    value.setD14(reset.getString("D14"));
+                    value.setD15(reset.getString("D15"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
     public List<QT_DULIEU_NT> getCheck_user(Connection conn, String sUsername) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {

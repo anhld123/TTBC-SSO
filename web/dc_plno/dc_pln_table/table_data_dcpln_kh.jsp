@@ -127,6 +127,8 @@
                 {
                     lstPGD.disabled = false;
                 }
+                onSelectChange();
+                document.getElementById("lstPGD").value = document.getElementById("D2").value
             }
         </script>        
     </head>
@@ -149,12 +151,15 @@
                 <tr>   
                     <s:iterator value="#attr.lstDulieuNtPLN_T" status="rowstatus">
                         <s:if test="#rowstatus.first">
+                            <input type="hidden" value="<s:property  value="D2" />" id="D2"/>                             
+                           
                             <td class="D0"><s:property  value="plnMakh" /></td>
                             <td class="D0"><s:property  value="plnTenkh" /></td>
                             <td class="D0"><s:property  value="tong_monvay" /></td>
                             <td> 
                                 <select  name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D1" style="width: 150px"
-                                         onchange="onSelectChange()" id="lstCN">
+                                         onchange="onSelectChange()" id="lstCN"
+                                         <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
                                     <option value="0" style="text-align: center">----Chọn----</option>
                                     <s:iterator value="lstCN_API" status="ideRows" var="language">
                                         <s:if test="%{#language.branchCode == D1}">
@@ -281,7 +286,7 @@
                         <td><s:property value="plnTenkh"/>
                         </td>
                         <td> 
-                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property  value="plnNguoiPln" />')" class="SOKU linkKh">
+                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property  value="D6"/>-<s:property  value="D7"/>')" class="SOKU linkKh">
                                 <s:property value='plnSoku'/>
                             </a>
                         </td>
@@ -380,11 +385,11 @@
                     alert("Bạn chưa chọn Phòng giao dịch hỗ trợ!");
                     return;
                 }
-                if (mapgd_sp === mapgd){
-                     alert("Không thể chọn PGD cho vay để hỗ trợ!");
+                if (mapgd_sp === mapgd) {
+                    alert("Không thể chọn PGD cho vay để hỗ trợ!");
                     return;
                 }
-                
+
                 var url, sdata;
                 url = "sendSupportDcPln.action?" +
                         "mapgd=" + mapgd +

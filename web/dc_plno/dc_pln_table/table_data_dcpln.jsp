@@ -306,11 +306,11 @@
             <div id="divTitle" style="margin: 10px 0 10px 0">
                 SỐ LIỆU ĐỐI CHIẾU, PHÂN LOẠI NỢ
             </div> 
-            <table border="1" class="editDelete" id="subTable" align="center">
+            <table border="1" class="editDelete" id="subTable" align="center" style="width: 98%">
                 <tr>
                     <th rowspan="3"><input type="checkbox" id ="select-all"/></th>
-                    <th rowspan="3" class="STT3">Tên khách hàng</th>
-                    <th rowspan="3" class="STT3">Mã món vay</th>
+                    <th rowspan="3" class="STT4">Tên khách hàng</th>
+                    <th rowspan="3" class="STT4">Mã món vay</th>
                     <th rowspan="3" class="STT3">Chương trình</th>
                     <th colspan="5">Số liệu tại NHCSXH</th> 
                     <th colspan="4">Phân loại khả năng trả nợ</th> 
@@ -382,7 +382,7 @@
                         <td><s:property value="plnTenkh"/>
                         </td>
                         <td> 
-                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property  value="plnNguoiPln" />')" class="SOKU linkKh">
+                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property value="D6 != null ? D6 : 0"/>-<s:property value="D7 != null ? D7 : 0"/>')" class="SOKU linkKh">
                                 <s:property value='plnSoku'/>
                             </a>
                         </td>
@@ -444,9 +444,8 @@
                             </td>
                         </s:else>
 
-                        </td>  
                         <td>
-                            <textarea style="width: 98%" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 
+                            <textarea style="width: 300px" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 
                                       name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D5" maxlength="500"><s:property value='D5'/></textarea>
 
                         </td>

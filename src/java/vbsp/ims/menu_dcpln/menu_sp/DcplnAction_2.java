@@ -54,7 +54,7 @@ import vbsp.ims.restapi.Meta_PLN;
 import vbsp.ims.dao.DaoLogin;
 import vbsp.ims.gqvl_2023.Login;
 
-public class DcplnActionbk extends ActionSupport {
+public class DcplnAction_2 extends ActionSupport {
 
     DuLieuNTService service;
 

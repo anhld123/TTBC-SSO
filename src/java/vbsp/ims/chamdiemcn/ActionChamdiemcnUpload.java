@@ -457,84 +457,119 @@ public class ActionChamdiemcnUpload extends ActionSupport {
         return SUCCESS;
     }
 
-    public String uploadCDCNTH() {
-        try {
-            System.err.println("Upload file");
-            if (!getParaSession()) {
-                return ERROR;
-            }
-            HashMap hmParameter = getParameter();
-            if (fileUploadFileName.isEmpty()) {
-                addActionError("Bạn chưa chọn file để thực hiện upload !");
-                return ERROR;
-            }
-              //Kiểm tra file xem có đúng là xls ko
-            for(int i =0; i<fileUploadFileName.size();i++)
-            {
-                 if(!DefineFun.isFileExcel(fileUploadFileName.get(i)))
-                 {
-                     System.out.println("(*) File không phải là file excel. "+fileUploadFileName.get(i));
-                      addActionError("(*) File không phải là file excel. "+fileUploadFileName.get(i));
-                      return ERROR;
-                 }
-            }
-            String new_file_path = copy_file();
-            File new_file = new File(new_file_path);
-            DaoChamdiemcnMain dao = new DaoChamdiemcnMain();
-            String start_end = dao.getStartEndCel(khoa_cdtt);
-            String poscd = dao.getPosCd(UserName);
-            int startrow = 0, endcell = 0;
-            if (!start_end.equals("AAA")) {
-                startrow = Integer.parseInt(start_end.split("-")[0]);
-                endcell = Integer.parseInt(start_end.split("-")[1]);
-            }
-            if (new_file.isFile()) {
-                setLstExcel(readFileExcel(new_file_path, startrow, endcell));
+  public String uploadCDCNTH() {
+    try {
+        System.err.println("vao upload file");
 
-                setFileNameNew(new_file.getName());
-                if (!getFileNameNew().contains(khoa_cdtt)) {
-                    addActionError("Bạn chọn file upload không đúng với báo cáo !");
-                    return ERROR;
-                }
-                if (!dao.insertCDCN_FROM_FILE(khoa_cdtt, poscd, getFileNameNew(), convertStringToDate(hmParameter.get("ngaybc").toString()), UserName, lstExcel)) {
-                    addActionError("Lỗi khi đọc dữ liệu từ file excel ");
-                    return ERROR;
-                }
-                
-                String pattern = "dd-MMM-yyyy";
-                String sNgayBC = hmParameter.get("ngaybc").toString();
-
-            
-                Connection conn = new DaoConnect().getConnect();
-                setLstExcel(dao.getDataAfterUpFile(conn, khoa_cdtt, sNgayBC, poscd, UserName, Grade));
-                if (conn != null) {
-                    conn.close();
-                }
-            }
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> CDTT_PGD: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> CDTT_PGD: " + e.getMessage());
-            addActionError("Có lỗi xảy ra: " + e.getMessage().replace("\\", "/").replace("'", "\""));
+        if (!getParaSession()) {
+            System.err.println("Lỗi session.");
             return ERROR;
         }
-//        addActionMessage("File đã được upload thành công !");
-        if(khoa_cdtt.equals("GIAO_KHNV"))
+
+        HashMap hmParameter = getParameter();
+
+        if (fileUploadFileName.isEmpty()) {
+            addActionError("Bạn chưa chọn file để thực hiện upload !");
+            return ERROR;
+        }
+
+        // Kiểm tra file có đúng định dạng Excel không
+        for (int i = 0; i < fileUploadFileName.size(); i++) {
+            if (!DefineFun.isFileExcel(fileUploadFileName.get(i))) {
+                addActionError("(*) File không phải là file excel. " + fileUploadFileName.get(i));
+                return ERROR;
+            }
+        }
+
+        String new_file_path = copy_file();
+        File new_file = new File(new_file_path);
+        DaoChamdiemcnMain dao = new DaoChamdiemcnMain();
+        String start_end = dao.getStartEndCel(khoa_cdtt);
+        String poscd = dao.getPosCd(UserName);
+
+        System.out.println("✔ poscd (mã người dùng): " + poscd);
+        System.out.println("✔ start_end cấu hình: " + start_end);
+
+        int startrow = 0, endcell = 0;
+        if (!start_end.equals("AAA")) {
+            startrow = Integer.parseInt(start_end.split("-")[0]);
+            endcell = Integer.parseInt(start_end.split("-")[1]);
+        }
+
+        if (new_file.isFile()) {
+            setLstExcel(readFileExcel(new_file_path, startrow, endcell));
+
+            System.out.println("so dong doc dc: " + lstExcel.size());
+
+            if (lstExcel.isEmpty()) {
+                addActionError("❌ Không đọc được dữ liệu nào từ file Excel.");
+                return ERROR;
+            }
+
+            setFileNameNew(new_file.getName());
+
+            if (!getFileNameNew().contains(khoa_cdtt)) {
+                addActionError("Bạn chọn file upload không đúng với báo cáo !");
+                return ERROR;
+            }
+
+            // Gọi insert
+            System.out.println("✔ Gọi insert dữ liệu vào DB...");
+            boolean insertResult = dao.insertCDCN_FROM_FILE(
+                khoa_cdtt,
+                poscd,
+                getFileNameNew(),
+                convertStringToDate(hmParameter.get("ngaybc").toString()),
+                UserName,
+                lstExcel
+            );
+
+            System.out.println("✔ Kết quả insert: " + insertResult);
+
+            if (!insertResult) {
+                addActionError("❌ Lỗi khi đọc dữ liệu từ file excel ");
+                return ERROR;
+            }
+
+            String sNgayBC = hmParameter.get("ngaybc").toString();
+            Connection conn = new DaoConnect().getConnect();
+            setLstExcel(dao.getDataAfterUpFile(conn, khoa_cdtt, sNgayBC, poscd, UserName, Grade));
+
+            if (conn != null) {
+                conn.close();
+            }
+
+            System.out.println("✔ Dữ liệu sau khi insert, số dòng trả về: " + lstExcel.size());
+        }
+
+    } catch (Exception e) {
+        CoreLogger.error(this.getClass().getName() + " Exception -> CDTT_PGD: " + e.getMessage());
+        System.err.println("❌ Exception xảy ra: " + e.getMessage());
+        addActionError("Có lỗi xảy ra: " + e.getMessage().replace("\\", "/").replace("'", "\""));
+        return ERROR;
+    }
+
+    // Trả về view tương ứng
+    switch (khoa_cdtt) {
+        case "GIAO_KHNV":
             return "GIAO_KHNV";
-        else if (khoa_cdtt.equals("GIAO_KHTK_DC"))
+        case "GIAO_KHTK_DC":
             return "GIAO_KHTK_DC";
-        else if (khoa_cdtt.equals("GIAO_KHTK_TO"))
+        case "GIAO_KHTK_TO":
             return "GIAO_KHTK_TO";
-        else if (khoa_cdtt.equals("KT_CHUNGTU_KT"))
+        case "KT_CHUNGTU_KT":
             return "KT_CHUNGTU_KT";
-        else if (khoa_cdtt.equals("DT_KHNV_HST"))
+        case "DT_KHNV_HST":
             return "DT_KHNV_HST";
-        else if (khoa_cdtt.equals("TM_QATCT"))
+        case "TM_QATCT":
             return "TM_QATCT";
-        else if (khoa_cdtt.equals("PHUTRACHXA_PGD"))
+        case "PHUTRACHXA_PGD":
             return "PHUTRACHXA_PGD";
-        else
+        default:
             return SUCCESS;
     }
+}
+
 
     public Date convertStringToDate(String dateString) {
         Date date = null;

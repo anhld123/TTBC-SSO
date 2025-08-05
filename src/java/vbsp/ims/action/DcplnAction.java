@@ -13,11 +13,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,12 +25,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoDCPLNO;
+import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
@@ -49,6 +51,8 @@ import vbsp.ims.restapi.DuLieuPLNResp_T;
 import vbsp.ims.restapi.DuLieuPLN_Save;
 import vbsp.ims.restapi.DuLieuPLN_T;
 import vbsp.ims.restapi.Meta_PLN;
+import vbsp.ims.dao.DaoLogin;
+import vbsp.ims.gqvl_2023.Login;
 
 public class DcplnAction extends ActionSupport {
 
@@ -80,7 +84,7 @@ public class DcplnAction extends ActionSupport {
     private Pagination pagination = new Pagination(50, 1);
     private List<String> poscd = new ArrayList<String>();
     private List<PLNO_DULIEU> lstSavePln = new ArrayList<PLNO_DULIEU>();
-
+    private List<ListOfValue> lstDmKhac;
     private List<ListOfValue> lstDmKhac17;
     private List<ListOfValue> lstDmKhac197;
     private List<ListOfValue> lstDmKhac26;
@@ -112,6 +116,14 @@ public class DcplnAction extends ActionSupport {
     private int last_page;
     private int from;
     private int to;
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
+    }
 
     public List<DuLieuPLNResp_T> getLstDulieuNtPLN_TT() {
         return lstDulieuNtPLN_TT;
@@ -704,6 +716,7 @@ public class DcplnAction extends ActionSupport {
             List<ModelTreeNode> lstModelTree = new ArrayList<>();
             switch (Grade) {
                 case "3":
+                    lstCN_API = _serverAPI.getListCn("");
                     lstModelTree = daoRisk.getDataPosTreeNode(UserName, Grade);
                     setTreeNodeGrade3(lstModelTree);
                     break;
@@ -762,13 +775,18 @@ public class DcplnAction extends ActionSupport {
 //            lstDmKhac26 = _serverAPI.getListOfValue("26", "");
 
             String actionName = ServletActionContext.getActionMapping().getName();
-            if (!Grade.equals("1") && "loadFormMainPLN".equals(actionName)) {
-                addActionError("Menu chỉ dành cho cấp phòng giao dịch! ");
+//            System.out.println("actionName= " + actionName + " Grade= " + Grade);
+            if ("loadFormMainPLN".equals(actionName) && !"1".equals(Grade)) {
+                addActionError("Menu chỉ dành cho cấp phòng giao dịch!");
                 return ERROR;
-            } else if (Grade.equals("1") && "loadDataSendPLN".equals(actionName)) {
-                addActionError("Menu chỉ dành cho cấp chi nhánh! ");
+            } else if ("loadDataSendPLN".equals(actionName) && !"2".equals(Grade)) {
+                addActionError("Menu chỉ dành cho cấp chi nhánh!");
+                return ERROR;
+            } else if ("loadTwFormMainPLN".equals(actionName) && !"3".equals(Grade)) {
+                addActionError("Menu chỉ dành cho cấp TW!");
                 return ERROR;
             }
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " execute -> " + e.getMessage());
@@ -777,6 +795,8 @@ public class DcplnAction extends ActionSupport {
     }
 
     public String getDataDcPLN() {
+        String soku = "";
+        String txtGetData = "0";
         try {
             if (!getParaSession()) {
                 return ERROR;
@@ -787,14 +807,19 @@ public class DcplnAction extends ActionSupport {
             main_pos_username = posMainModel.getMainPosCd();
             ActionContext.getContext().getSession().put("UserName", UserName);
             ActionContext.getContext().getSession().put("pos_cd_username", pos_cd_username);
-            lstDmKhac106 = _serverAPI.getListOfValue("1B", "");
-            lstDmKhac57 = _serverAPI.getListOfValue("57", "");
+            lstDmKhac106 = _serverAPI.getListOfValue("106", "");
+            lstDmKhac57 = _serverAPI.getListOfValue("193", "");
             String dateStr = hmParameter.get("ngay_bc").toString();
+            ActionContext.getContext().getSession().put("dateStr", dateStr);
+            txtGetData = hmParameter.get("txtGetData").toString();
             String mahoi = "";
             String mato = "";
-            String soku = (hmParameter.get("soku") == null || hmParameter.get("soku").toString().trim().isEmpty()) ? "" : hmParameter.get("soku").toString();
+
+            soku = (hmParameter.get("soku") == null || hmParameter.get("soku").toString().trim().isEmpty()) ? "" : hmParameter.get("soku").toString();
             if (!soku.trim().equals("")) {
-                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, "", "", "", "", "", soku);
+                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, "", "", soku, "", "", "", "");
+                lstCN_API = _serverAPI.getListCn("");
+                lstPGD_API = _serverAPI.getListPgd("", "");
             } else {
                 String nguonvon = (hmParameter.get("nguonvon") == null || "0".equals(hmParameter.get("nguonvon").toString())) ? "" : hmParameter.get("nguonvon").toString();
                 String trangthai = (hmParameter.get("trangthai") == null || "0".equals(hmParameter.get("trangthai").toString())) ? "" : hmParameter.get("trangthai").toString();
@@ -813,7 +838,8 @@ public class DcplnAction extends ActionSupport {
                 }
                 final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
 
-                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, smato, trangthai, nguonvon, chtrinh, soku);
+                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, smato, "", trangthai, nguonvon, chtrinh, "");
+
             }
 
 //            System.out.println("lstPhanLoaiNo_T=" + lstPhanLoaiNo_T.size());
@@ -829,11 +855,9 @@ public class DcplnAction extends ActionSupport {
                 lstDulieuNtPLN_T.add(row);
             }
             lstDulieuNtPLN_T.sort(
-                    Comparator
-                            .comparingLong((DuLieuPLN_T obj) -> parseSafeLong(obj.getPlnMakh()))
-                            .thenComparingLong(obj -> parseSafeLong(obj.getPlnSoku()))
+                    Comparator.comparing(obj -> layTen(obj.getPlnTenkh()), String.CASE_INSENSITIVE_ORDER)
             );
-            List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, mato, "", "", "", "");
+            List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, mato, "", "", "", "", "");
             Set<String> setKhachHang = new HashSet<>();
             int tongThan = 0;
             int tongQhan = 0;
@@ -874,6 +898,46 @@ public class DcplnAction extends ActionSupport {
             addActionError("Lỗi không thể load số liệu chi tiết lỗi " + e.getMessage());
             return ERROR;
         }
+        System.out.println("txtGetData= " + txtGetData);
+        return !soku.trim().equals("") && txtGetData.equals("1") ? "success_1" : SUCCESS;
+    }
+
+    public String sendSupportDcPln() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            String makh = ServletActionContext.getRequest().getParameter("makh");
+            String macn_sp = ServletActionContext.getRequest().getParameter("macn_sp");
+            String mapgd_sp = ServletActionContext.getRequest().getParameter("mapgd_sp");
+            String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
+            String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            lstPhanLoaiNo_T = _serverAPI.postDataPLN(mapgd, "S", dateStr, "", "", makh, "", "", "", "");
+            ArrayList<DuLieuPLN_Save> lstUpdateDate = new ArrayList<>();
+            for (DuLieuPLN_T tmp : lstDulieuNtPLN_T) {
+                DuLieuPLN_Save tempadd = new DuLieuPLN_Save();
+                tempadd.setLoanId(tmp.getPlnSoku());
+                tempadd.setCustomerId(tmp.getPlnMakh());
+                tempadd.setD1(macn_sp);
+                tempadd.setD2(mapgd_sp);
+                tempadd.setD7("1");
+                lstUpdateDate.add(tempadd);
+            }
+            _serverAPI = new DuLieuNTService();
+            int status = _serverAPI.savePLN_2025(mapgd, _reportDate, UserName, lstUpdateDate);
+            if (status != 200) {
+                this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
+            return ERROR;
+        }
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
 
@@ -934,11 +998,9 @@ public class DcplnAction extends ActionSupport {
                 lstDulieuNtPLN_T.add(row);
             }
             lstDulieuNtPLN_T.sort(
-                    Comparator
-                            .comparingLong((DuLieuPLN_T obj) -> parseSafeLong(obj.getPlnMakh()))
-                            .thenComparingLong(obj -> parseSafeLong(obj.getPlnSoku()))
+                    Comparator.comparing(obj -> layTen(obj.getPlnTenkh()), String.CASE_INSENSITIVE_ORDER)
             );
-            List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(mapgd, "S", dateStr, mahoi, smato, "", "", "", "");
+            List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(mapgd, "S", dateStr, mahoi, smato, "", "", "", "", "");
             Set<String> setKhachHang = new HashSet<>();
             int tongThan = 0;
             int tongQhan = 0;
@@ -983,37 +1045,43 @@ public class DcplnAction extends ActionSupport {
     }
 
     public String getDetialLoanDcPLN() {
-
+        String lock = "";
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
+
             HashMap hmParameter = getParameter();
             String dateStr = hmParameter.get("ngay_bc").toString();
             String soku = hmParameter.get("soku").toString();
             String poscd = hmParameter.get("poscd").toString();
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd/MM/yyyy").parse(dateStr));
-            //lấy tham số cho phần save popup loan
+            lock = hmParameter.get("lock").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd")
+                    .format(new SimpleDateFormat("dd/MM/yyyy").parse(dateStr));
+
+            // Lưu các tham số vào session
             ActionContext.getContext().getSession().put("_reportDate", _reportDate);
             ActionContext.getContext().getSession().put("soku", soku);
             ActionContext.getContext().getSession().put("poscd", poscd);
-//            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd/MM/yyyy").parse(dateStr));
+
+            // Gọi dữ liệu phân loại nợ
             lstPhanLoaiNo = _serverAPI.getDataPLN(poscd, soku, _reportDate);
             if (lstPhanLoaiNo == null || lstPhanLoaiNo.isEmpty()) {
                 addActionError("Chưa có dữ liệu, liên hệ TTCNTT để được hỗ trợ");
                 return ERROR;
             }
+
             for (DuLieuPLN item : lstPhanLoaiNo) {
                 DuLieuPLN row = convertPLN(item);
                 lstDulieuNtPLN.add(row);
             }
-//            System.out.println(lstDulieuNtPLN.size());
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDetialLoanDcPLN -> " + e.getMessage());
             return ERROR;
         }
-        return Grade.equals("1") ? "success" : "success_1";
+        return "1".equals(Grade) || !lock.equals("1") ? "success" : "success_1";
     }
 
     private DuLieuPLN convertPLN(DuLieuPLN item) {
@@ -1099,7 +1167,7 @@ public class DcplnAction extends ActionSupport {
             row.setPlnTongDno(item.getPlnDnothan() + item.getPlnDnoqhan() + item.getPlnDnokhoanh());
             row.setPlnTonglaiton(item.getPlnTonglaiton());
             row.setPlnCKntnSodu(item.getPlnCKntnSodu());
-            row.setPlnKKntnSodu(item.getPlnKKntnSodu());
+//            row.setPlnKKntnSodu(item.getPlnKKntnSodu());
             row.setNgnhanKckntn(item.getNgnhanKckntn());
             row.setkNgnhanKh(item.getkNgnhanKh());
             row.setPlnQuanheKh(item.getPlnQuanheKh());
@@ -1112,7 +1180,7 @@ public class DcplnAction extends ActionSupport {
             row.setPlnNguoiPln(item.getPlnNguoiPln());
             row.setPlnNgayPln(item.getPlnNgayPln());
             row.setPlnNguyennhanC2(item.getPlnNguyennhanC2());
-            row.setkKntnSodu01(item.getkKntnSodu01());
+            row.setPlnKKntnSodu(Integer.parseInt(item.getkKntnSodu01()));
             row.setkKntnSodu02(item.getkKntnSodu02());
             row.setkKntnSodu03(item.getkKntnSodu03());
             row.setkKntnSodu04(item.getkKntnSodu04());
@@ -1123,48 +1191,21 @@ public class DcplnAction extends ActionSupport {
             row.setkKntnSodu09(item.getkKntnSodu09());
             row.setkKntnSodu10(item.getkKntnSodu10());
             row.setkKntnSodu11(item.getkKntnSodu11());
-            if (!isZero(item.getkKntnSodu01())) {
-                row.setNgnhanKntn("01");
-            } else if (!isZero(item.getkKntnSodu02())) {
-                row.setNgnhanKntn("02");
-            } else if (!isZero(item.getkKntnSodu03())) {
-                row.setNgnhanKntn("03");
-            } else if (!isZero(item.getkKntnSodu04())) {
-                row.setNgnhanKntn("04");
-            } else if (!isZero(item.getkKntnSodu05())) {
-                row.setNgnhanKntn("05");
-            } else if (!isZero(item.getkKntnSodu06())) {
-                row.setNgnhanKntn("06");
-            } else if (!isZero(item.getkKntnSodu07())) {
-                row.setNgnhanKntn("07");
-            } else if (!isZero(item.getkKntnSodu08())) {
-                row.setNgnhanKntn("08");
-            } else if (!isZero(item.getkKntnSodu09())) {
-                row.setNgnhanKntn("09");
-            } else if (!isZero(item.getkKntnSodu10())) {
-                row.setNgnhanKntn("10");
-            } else if (!isZero(item.getkKntnSodu11())) {
-                row.setNgnhanKntn("11");
-            } else {
-                row.setNgnhanKntn(null);
-            }
+            row.setD1(item.getD1());
+            row.setD2(item.getD2());
+            row.setD3(item.getD3());
+            row.setD4(item.getD4());
+            row.setD5(item.getD5());
+            row.setD6(item.getD6());
+            row.setD7(item.getD7());
+            row.setD8(item.getD8());
+            row.setD9(item.getD9());
+            row.setD10(item.getD10());
             row.setCheckrow("0");
         } catch (Exception e) {
             System.err.println("Error in convertPLN: " + e.getMessage());
         }
         return row;
-    }
-
-    private int parseSafeInt(String s) {
-        try {
-            return Integer.parseInt(s.trim());
-        } catch (Exception e) {
-            return 0; // hoặc một giá trị mặc định an toàn
-        }
-    }
-
-    private boolean isZero(String value) {
-        return value == null || value.trim().isEmpty() || value.trim().equals("0");
     }
 
     public String getDb_mato() {
@@ -1240,63 +1281,16 @@ public class DcplnAction extends ActionSupport {
                     tempadd.setUpdateTime(date2);
                     tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
                     tempadd.setReason_Deviant02(tmp.getPlnNguyennhanC2() == null ? "0" : tmp.getPlnNguyennhanC2());
-                    int amount = tmp.getPlnCKntnSodu() != 0 ? 0 : tmp.getPlnTongDno();
-                    String nguyennhan1 = tmp.getNgnhanKntn() == null ? "0" : tmp.getNgnhanKntn();
-                    switch (nguyennhan1) {
-                        case "01":
-                            tempadd.setUnAble_ToPay_Amt_01(amount);
-                            break;
-                        case "02":
-                            tempadd.setUnAble_ToPay_Amt_02(amount);
-                            break;
-                        case "03":
-                            tempadd.setUnAble_ToPay_Amt_03(amount);
-                            break;
-                        case "04":
-                            tempadd.setUnAble_ToPay_Amt_04(amount);
-                            break;
-                        case "05":
-                            tempadd.setUnAble_ToPay_Amt_05(amount);
-                            break;
-                        case "06":
-                            tempadd.setUnAble_ToPay_Amt_06(amount);
-                            break;
-                        case "07":
-                            tempadd.setUnAble_ToPay_Amt_07(amount);
-                            break;
-                        case "08":
-                            tempadd.setUnAble_ToPay_Amt_08(amount);
-                            break;
-                        case "09":
-                            tempadd.setUnAble_ToPay_Amt_09(amount);
-                            break;
-                        case "10":
-                            tempadd.setUnAble_ToPay_Amt_10(amount);
-                            break;
-                        case "11":
-                            tempadd.setUnAble_ToPay_Amt_11(amount);
-                            break;
-                        case "0":
-                            tempadd.setUnAble_ToPay_Amt_01(0);
-                            tempadd.setUnAble_ToPay_Amt_02(0);
-                            tempadd.setUnAble_ToPay_Amt_03(0);
-                            tempadd.setUnAble_ToPay_Amt_04(0);
-                            tempadd.setUnAble_ToPay_Amt_05(0);
-                            tempadd.setUnAble_ToPay_Amt_06(0);
-                            tempadd.setUnAble_ToPay_Amt_07(0);
-                            tempadd.setUnAble_ToPay_Amt_08(0);
-                            tempadd.setUnAble_ToPay_Amt_09(0);
-                            tempadd.setUnAble_ToPay_Amt_10(0);
-                            tempadd.setUnAble_ToPay_Amt_11(0);
-                            break;
-                        default:
-                            break;
-                    }
+                    tempadd.setD1(tmp.getD1());
+                    tempadd.setD2(tmp.getD2());
+                    tempadd.setD3(tmp.getD3());
+                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD5(tmp.getD5());
+                    tempadd.setD7(tmp.getD7());
                     lstUpdateDate.add(tempadd);
                 }
-            }
 
-            _serverAPI = new DuLieuNTService();
+            }
             int status = _serverAPI.savePLN_2025(pos_cd_username, _reportDate, UserName, lstUpdateDate);
             if (status != 200) {
                 this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
@@ -1384,12 +1378,13 @@ public class DcplnAction extends ActionSupport {
                     tempadd.setLoanId(tmp.getPlnSoku());
                     tempadd.setCustomerId(tmp.getPlnMakh());
                     tempadd.setUpdateTimeByBranch(date2);
+                    tempadd.setD6("1");
                     lstUpdateDate.add(tempadd);
                 }
             }
 
             _serverAPI = new DuLieuNTService();
-            int status = _serverAPI.savePLN_2025(mapgd, _reportDate, "LOCKPLN#" + UserName, lstUpdateDate);
+            int status = _serverAPI.savePLN_2025(mapgd, _reportDate, UserName, lstUpdateDate);
             if (status != 200) {
                 this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
                 return ERROR;
@@ -1425,4 +1420,34 @@ public class DcplnAction extends ActionSupport {
         this.lstMato_T = lstMato_T;
     }
 
+    public String getDataTwDcPLN() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            String smacn = hmParameter.get("lstCN").toString();
+            Connection conn = new DaoConnect().getConnect();
+            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
+            ActionContext.getContext().getSession().put("sUserName", UserName);
+            lstDulieuNt = daoMain.getDataPlnTW(conn, sngaybc, "PLN_KNTN_CL", smacn, "S");
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+        }
+        return "success";
+    }
+
+    private static String layTen(String hoTen) {
+        if (hoTen == null || hoTen.trim().isEmpty()) {
+            return "";
+        }
+        String[] parts = hoTen.trim().split("\\s+");
+        return parts[parts.length - 1]; // lấy tên cuối
+    }
 }

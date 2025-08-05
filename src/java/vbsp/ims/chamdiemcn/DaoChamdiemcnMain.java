@@ -567,7 +567,7 @@ public class DaoChamdiemcnMain {
     }
 
     public List<QT_DULIEU_NT> getDataCDTT_CN08TH(Connection conn, String sKhoa, String sNgaybc, String sUser,
-            String sGrade, List<String> lstArrPoscd, String sTTCDTT) throws SQLException  {
+            String sGrade, List<String> lstArrPoscd, String sTTCDTT) throws SQLException {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             ArrayDescriptor des = ArrayDescriptor.createDescriptor("TREE_NT", conn);
@@ -813,7 +813,7 @@ public class DaoChamdiemcnMain {
         return lstBcqt_NT;
     }
 
-    public HashMap<String, String> getQueryTableDetail(String khoa,  String ngaybc, String mapgd,String mact, String username, String Capbc, String macb) throws SQLException, Exception {
+    public HashMap<String, String> getQueryTableDetail(String khoa, String ngaybc, String mapgd, String mact, String username, String Capbc, String macb) throws SQLException, Exception {
         String outtable = "", thuyetminh = "", tenchitieu = "";
         Connection conn = null;
         ResultSet reset = null;
@@ -831,7 +831,7 @@ public class DaoChamdiemcnMain {
             calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.CLOB);
             calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.VARCHAR);
             calstatement.setString(1, khoa);
-            calstatement.setString(2,ngaybc );
+            calstatement.setString(2, ngaybc);
             calstatement.setString(3, mapgd);
             calstatement.setString(4, mact);
             calstatement.setString(5, username);
@@ -1128,7 +1128,7 @@ public class DaoChamdiemcnMain {
         }
         return _retVal;
     }
-    
+
     public String getNhomNVByUser(String UserName, String CapBC) throws SQLException {
         String _retVal = "";
         Connection conn = new DaoConnect().getConnect();
@@ -1166,7 +1166,7 @@ public class DaoChamdiemcnMain {
         }
         return _retVal;
     }
-    
+
     public String getNhomNVByUser_Duyet(String UserName, String CapBC, String maCB) throws SQLException {
         String _retVal = "";
         Connection conn = new DaoConnect().getConnect();
@@ -1740,7 +1740,7 @@ public class DaoChamdiemcnMain {
                         insert.setString(9, value.getN6());
                         insert.setString(10, poscd);
                         insert.setDate(11, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(12,username);          
+                        insert.setString(12, username);
                         insert.setString(13, fileName);
                         insert.execute();
                     }
@@ -1750,7 +1750,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     Delete = "delete dulieu_cdcn_imp where khoa ='GIAO_KHNV' and d1 is null and d2 is null and"
                             + " ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
@@ -1758,10 +1758,10 @@ public class DaoChamdiemcnMain {
                     statementDelete.setString(2, poscd);
                     statementDelete.setString(3, mabc);
                     statementDelete.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
                     break;
@@ -1790,7 +1790,7 @@ public class DaoChamdiemcnMain {
                         insert.setString(5, value.getN2());
                         insert.setString(6, poscd);
                         insert.setDate(7, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(8,username);    
+                        insert.setString(8, username);
                         insert.setString(9, fileName);
                         insert.execute();
                     }
@@ -1800,7 +1800,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     Delete = "delete from dulieu_cdcn_imp where khoa ='GIAO_KHTK_DC' and d1 is null and d2 is null"
                             + " and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
@@ -1808,9 +1808,9 @@ public class DaoChamdiemcnMain {
                     statementDelete.setString(2, poscd);
                     statementDelete.setString(3, mabc);
                     statementDelete.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                                            
+                    conn.setAutoCommit(true);
                     bSuccess = true;
                     break;
                 case "GIAO_KHTK_TO":
@@ -1840,7 +1840,7 @@ public class DaoChamdiemcnMain {
                         insert.setString(7, value.getN4());
                         insert.setString(8, poscd);
                         insert.setDate(9, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(10,username);     
+                        insert.setString(10, username);
                         insert.setString(11, fileName);
                         insert.execute();
                     }
@@ -1850,7 +1850,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     Delete = "delete from dulieu_cdcn_imp where khoa ='GIAO_KHTK_TO' and d1 is null and d2 is null"
                             + " and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
@@ -1858,14 +1858,14 @@ public class DaoChamdiemcnMain {
                     statementDelete.setString(2, poscd);
                     statementDelete.setString(3, mabc);
                     statementDelete.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
                     break;
-                
+
                 case "KT_CHUNGTU_KT":
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, MAXA, TENXA, D1, D2, D3, D4, D5, mapgd,ngaybc, "
                             + " NGUOITAO, file_name)\n"
@@ -1895,7 +1895,7 @@ public class DaoChamdiemcnMain {
 //                        insert.setString(9, value.getN6());
                         insert.setString(9, poscd);
                         insert.setDate(10, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(11,username);  
+                        insert.setString(11, username);
                         insert.setString(12, fileName);
                         insert.execute();
                     }
@@ -1905,7 +1905,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     Delete = "delete from dulieu_cdcn_imp where khoa ='KT_CHUNGTU_KT' and d1 is null and d2 is null"
                             + " and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
@@ -1913,10 +1913,10 @@ public class DaoChamdiemcnMain {
                     statementDelete.setString(2, poscd);
                     statementDelete.setString(3, mabc);
                     statementDelete.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
                     break;
@@ -1947,7 +1947,7 @@ public class DaoChamdiemcnMain {
                         insert.setString(7, value.getN4());
                         insert.setString(8, value.getN5());
                         insert.setString(9, value.getN6());
-                        
+
                         insert.setString(10, value.getN7());
                         insert.setString(11, value.getN8());
                         insert.setString(12, value.getN9());
@@ -1955,10 +1955,10 @@ public class DaoChamdiemcnMain {
                         insert.setString(14, value.getN11());
                         insert.setString(15, value.getN12());
                         insert.setString(16, value.getN13());
-                        
+
                         insert.setString(17, poscd);
                         insert.setDate(18, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(19,username);    
+                        insert.setString(19, username);
                         insert.setString(20, fileName);
                         insert.execute();
                     }
@@ -1969,14 +1969,14 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
-                    break; 
-                
+                    break;
+
                 case "PHUTRACHXA_PGD":  //Cán bộ phụ trách PGD
                     sInsert = "insert into dulieu_cdcn_imp(KHOA,STT, maxa, TENXA, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13 , ngaybc, "
                             + " NGUOITAO, file_name)\n"
@@ -2004,7 +2004,7 @@ public class DaoChamdiemcnMain {
                         insert.setString(7, value.getN4());
                         insert.setString(8, value.getN5());
                         insert.setString(9, value.getN6());
-                        
+
                         insert.setString(10, value.getN7());
                         insert.setString(11, value.getN8());
                         insert.setString(12, value.getN9());
@@ -2012,28 +2012,28 @@ public class DaoChamdiemcnMain {
                         insert.setString(14, value.getN11());
                         insert.setString(15, value.getN12());
                         insert.setString(16, value.getN13());
-                        
+
                         insert.setString(17, poscd);
                         insert.setDate(18, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(19,username);    
+                        insert.setString(19, username);
                         insert.setString(20, fileName);
                         insert.execute();
                     }
-                    Update = "update dulieu_cdcn_imp set maxa = replace(to_char(to_number(replace(maxa,'.0','')),'000000'),' ',''), D1 = replace(D1,'.0',''), D3 = replace(D3,'.0',''), D5 = replace(D5,'.0',''), D7 = replace(D7,'.0',''), "
+                    Update = "update dulieu_cdcn_imp set maxa = REGEXP_REPLACE(REPLACE(REPLACE(TO_CHAR(maxa), '.0', ''), '000000', ''), '[^a-zA-Z0-9]', ''), D1 = replace(D1,'.0',''), D3 = replace(D3,'.0',''), D5 = replace(D5,'.0',''), D7 = replace(D7,'.0',''), "
                             + "D9 = replace(D9,'.0',''), D11 = replace(D11,'.0','') where ngaybc=? and D13=? and khoa=?";
                     statementUpdate = conn.prepareCall(Update);
                     statementUpdate.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
-                    break;       
-                    
+                    break;
+
                 case "TM_QATCT":  //Vượt quỹ an toàn chi trả
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAPGD, TENPGD, D1, D2, D3,ngaybc, "
                             + " NGUOITAO, file_name)\n"
@@ -2058,10 +2058,10 @@ public class DaoChamdiemcnMain {
                         insert.setString(4, value.getN1());
                         insert.setString(5, value.getN2());
                         insert.setString(6, value.getN3());
-                        
+
                         insert.setString(7, poscd);
                         insert.setDate(8, new java.sql.Date(ngaybc.getTime()));
-                        insert.setString(9,username);       
+                        insert.setString(9, username);
                         insert.setString(10, fileName);
                         insert.execute();
                     }
@@ -2071,7 +2071,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
-                    
+
                     Delete = "delete from dulieu_cdcn_imp where khoa ='TM_QATCT' and d1 is null and d2 is null and d3 is null"
                             + " and ngaybc=? and d3=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
@@ -2079,14 +2079,14 @@ public class DaoChamdiemcnMain {
                     statementDelete.setString(2, poscd);
                     statementDelete.setString(3, mabc);
                     statementDelete.execute();
-                    
+
                     conn.commit();
-                    conn.setAutoCommit(true);                                        
-                    
+                    conn.setAutoCommit(true);
+
                     bSuccess = true;
 
                     break;
-                    
+
                 default:
                     System.out.println("");
             }
@@ -2198,7 +2198,7 @@ public class DaoChamdiemcnMain {
         }
         return pos_cd;
     }
-    
+
     public List<ModelExcelFile> getDataAfterUpFile(Connection conn, String sKhoa, String sNgaybc, String poscd, String username, String grade) {
         List<ModelExcelFile> lstBcqt_NT = new ArrayList<ModelExcelFile>();
         try {
@@ -2220,7 +2220,7 @@ public class DaoChamdiemcnMain {
                 calstatement.setString(2, username);
                 calstatement.setString(3, grade);
                 calstatement.setString(4, sNgaybc);
-                calstatement.setString(8, poscd);                
+                calstatement.setString(8, poscd);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -2248,7 +2248,7 @@ public class DaoChamdiemcnMain {
                     value.setN11(reset.getString(14));
                     value.setN12(reset.getString(15));
                     value.setN13(reset.getString(16));
-                    value.setN14(reset.getString(17));                    
+                    value.setN14(reset.getString(17));
                     lstBcqt_NT.add(value);
                 }
 
@@ -2271,7 +2271,7 @@ public class DaoChamdiemcnMain {
         }
         return lstBcqt_NT;
     }
-    
+
     public boolean UnlockCDCN(String khoa, String username, String ngaybc, List<String> lstMaPGD, String Trangthai, String capbc, String macanbo) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         CallableStatement cs = null;
@@ -2283,7 +2283,7 @@ public class DaoChamdiemcnMain {
             cs = connection.prepareCall("{call VBSP_IMS_CHAMDIEMCN.SP_UNLOCK_CDCN(?, ?, ?, ?, ?, ?)}");
             cs.setString(1, khoa);
             cs.setString(2, username);
-            cs.setString(3, ngaybc);            
+            cs.setString(3, ngaybc);
             cs.setString(4, Trangthai);
             cs.setString(5, capbc);
             cs.setString(6, macanbo);
@@ -2303,8 +2303,8 @@ public class DaoChamdiemcnMain {
         }
         return true;
     }
-    
-    public String getCheck_Nhaplieu( String Khoa, String Capbc, String UserName, String ngaybc,  String macb) throws SQLException {
+
+    public String getCheck_Nhaplieu(String Khoa, String Capbc, String UserName, String ngaybc, String macb) throws SQLException {
         String pos_cd = "";
         CallableStatement calstatement = null;
         ResultSet reset = null;
@@ -2321,7 +2321,7 @@ public class DaoChamdiemcnMain {
             calstatement.setString(2, Khoa);
             calstatement.setString(3, UserName);
             calstatement.setString(4, Capbc);
-            calstatement.setString(5, ngaybc);            
+            calstatement.setString(5, ngaybc);
             calstatement.setString(6, macb);
             //Thuc hien execute lay du lieu
             calstatement.execute();

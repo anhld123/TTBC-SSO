@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chtrinh_cn.ActionChtrinhcnMain;
@@ -34,7 +33,6 @@ import vbsp.ims.chtrinh_cn.DaoChtrinhcnMain;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTRow;
-import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.DuLieuPLN;
 import vbsp.ims.restapi.DuLieuPLNResp_T;
@@ -45,6 +43,7 @@ import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
+import vbsp.ims.restapi.Meta_PLN;
 import vbsp.ims.util.DateUtil;
 
 /**
@@ -95,6 +94,24 @@ public class DcplnAction extends ActionChtrinhcnMain
     private int from;
     private int to;
     protected List<ListValue> lstMato_T = new ArrayList<ListValue>();
+    private List<DuLieuPLN> lstPhanLoaiNo;
+    protected List<DuLieuPLN> lstDulieuNtPLN = new ArrayList<>();
+
+    public List<DuLieuPLN> getLstPhanLoaiNo() {
+        return lstPhanLoaiNo;
+    }
+
+    public void setLstPhanLoaiNo(List<DuLieuPLN> lstPhanLoaiNo) {
+        this.lstPhanLoaiNo = lstPhanLoaiNo;
+    }
+
+    public List<DuLieuPLN> getLstDulieuNtPLN() {
+        return lstDulieuNtPLN;
+    }
+
+    public void setLstDulieuNtPLN(List<DuLieuPLN> lstDulieuNtPLN) {
+        this.lstDulieuNtPLN = lstDulieuNtPLN;
+    }
 
     //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
@@ -539,111 +556,11 @@ public class DcplnAction extends ActionChtrinhcnMain
         return SUCCESS;
     }
 
-    public String load_c2() {
-        try {
-            if (!getParaSession()) {
-                return ERROR;
-            }
-
-            HashMap<String, Object> hmParameter = getParameter();
-            String dateStr = hmParameter.get("ngay_bc").toString();
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            pos_cd_username = posMainModel.getPosCd();
-            main_pos_username = posMainModel.getMainPosCd();
-
-            String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-
-            // Retrieve PGD list
-            lstPGD_API = _serverAPI.getListPgd(main_pos_username, "");
-            if (lstPGD_API == null || lstPGD_API.isEmpty()) {
-                addActionError("Lỗi khi gọi API!");
-                return ERROR;
-            }
-
-            for (ListPosCode item : lstPGD_API) {
-                lstData_Api = _serverAPI.getDataKTKSNB("CB_KTKSNB", item.getPosCode(), "S", _reportDate, "", "0");
-
-                for (DuLieuNTRow dataItem : lstData_Api) {
-                    try {
-                        if ("1".equals(dataItem.getD14())) {
-                            QT_DULIEU_NT row = new QT_DULIEU_NT();
-                            row.setKHOA(dataItem.getKey());
-                            row.setTHUTU(Integer.parseInt(dataItem.getOrderValue()));
-                            row.setTT_HIENTHI(dataItem.getOrderDescription());
-                            row.setMA(dataItem.getCode());
-                            row.setTEN(dataItem.getName());
-                            row.setCO_TONGHOP(dataItem.getPosFlag());
-                            row.setNGUOI_NHAP(dataItem.getMakerId());
-                            Date reportDate = DateUtil.toDate(dataItem.getReportDate());
-                            row.setNGAYBC(reportDate);
-                            row.setNAMBC(dataItem.getReportYear());
-                            row.setMAPGD(pos_cd_username);
-                            row.setMACN(main_pos_username);
-                            row.setD1(dataItem.getD1());
-                            row.setD2(dataItem.getD2());
-                            row.setD3(dataItem.getD3());
-                            row.setD4(dataItem.getD4());
-                            row.setD5(dataItem.getD5());
-                            row.setD6(dataItem.getD6());
-                            row.setD7(dataItem.getD7());
-                            row.setD8(dataItem.getD8());
-                            row.setD9(dataItem.getD9());
-                            row.setD10(dataItem.getD10());
-                            row.setD11(dataItem.getD11());
-                            row.setD12(dataItem.getD12());
-                            row.setD13(dataItem.getD13());
-                            row.setD14(dataItem.getD14());
-                            row.setD15(dataItem.getD15());
-                            row.setD16(dataItem.getD16());
-                            row.setD17(item.getPosCode());
-                            row.setNHAPTAY(dataItem.getManualFlag());
-                            row.setKIEUIN(dataItem.getStyle());
-
-                            lstDulieuNt.add(row);
-                        }
-                    } catch (Exception e) {
-                        CoreLogger.error("Error processing row for posCode " + item.getPosCode() + ": " + e.getMessage());
-                    }
-                }
-            }
-
-            // Sort the list by MAPGD
-            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getMAPGD())));
-
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> tin dung 2024: " + e.getMessage());
-            addActionError("Đã xảy ra lỗi trong quá trình tải dữ liệu.");
-            return ERROR;
-        }
-        return "success_2";
-    }
-
     public String load_c3() {
         try {
             if (!getParaSession()) {
                 return ERROR;
             }
-
-            HashMap<String, Object> hmParameter = getParameter();
-            Connection conn = new DaoConnect().getConnect();
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            pos_cd_username = posMainModel.getPosCd();
-            main_pos_username = posMainModel.getMainPosCd();
-//            if (pos_cd_username.equals(main_pos_username)) {
-//                addActionError("Chú ý: Hội sở tỉnh không nhập tại cấp (1) PGD!");
-//                return ERROR;
-//            }
-            String dateStr = hmParameter.get("ngay_bc").toString();
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("CB_KTKSNB", pos_cd_username, "S", _reportDate);
-            try {
-                setChotsl(lstData_tmp.get(0).getStatus());
-            } catch (Exception e) {
-                setChotsl("0");
-            }
-            DaoChtrinhcnMain daoMain = new DaoChtrinhcnMain();
-            lstDulieuNt = daoMain.getCanbo_Ktksnb(conn, "AAA2", dateStr, UserName, pos_cd_username, Grade);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> ktksnb2024: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> ktksnb2024: " + e.getMessage());
@@ -1132,4 +1049,64 @@ public class DcplnAction extends ActionChtrinhcnMain
         return SUCCESS;
     }
 
+    public String getDetialLoanDcPLN() {
+        String lock = "";
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+
+            HashMap hmParameter = getParameter();
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            String soku = hmParameter.get("soku").toString();
+            String poscd = hmParameter.get("poscd").toString();
+            String slock = hmParameter.get("lock").toString();
+            String[] values = slock.split("\\-");
+            String sD6 = values[0];
+            String sD7 = values[1];
+            if ((!sD7.equals("0") && !sD7.equals("1")) || sD6.equals("1")) {
+                lock = "1";
+            }
+
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd")
+                    .format(new SimpleDateFormat("dd/MM/yyyy").parse(dateStr));
+
+            // Lưu các tham số vào session
+            ActionContext.getContext().getSession().put("_reportDate", _reportDate);
+            ActionContext.getContext().getSession().put("soku", soku);
+            ActionContext.getContext().getSession().put("poscd", poscd);
+
+            // Gọi dữ liệu phân loại nợ
+            lstPhanLoaiNo = _serverAPI.getDataPLN(poscd, soku, _reportDate);
+            if (lstPhanLoaiNo == null || lstPhanLoaiNo.isEmpty()) {
+                addActionError("Chưa có dữ liệu, liên hệ TTCNTT để được hỗ trợ");
+                return ERROR;
+            }
+
+            for (DuLieuPLN item : lstPhanLoaiNo) {
+                DuLieuPLN row = convertPLN(item);
+                lstDulieuNtPLN.add(row);
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " getDetialLoanDcPLN -> " + e.getMessage());
+            return ERROR;
+        }
+        return !lock.equals("1") ? "success" : "success_1";
+    }
+
+    public String load_c2() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " getDataDcNo -> " + e.getMessage());
+            addActionError("Lỗi không thể load số liệu chi tiết lỗi " + e.getMessage());
+            return ERROR;
+        }
+        return SUCCESS;
+    }
 }
