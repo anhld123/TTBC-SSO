@@ -701,13 +701,13 @@ public class DcplnAction_2 extends ActionSupport {
 
     public String execute() {
 
-        Login daoLogin = new Login();
-        boolean result = daoLogin.checkIpAllowedFromDao();
-
-        if (!result) {
-            addActionError("Không hỗ trợ tại địa chỉ cũ!");
-            return ERROR;
-        }
+//        Login daoLogin = new Login();
+//        boolean result = daoLogin.checkIpAllowedFromDao();
+//
+//        if (!result) {
+//            addActionError("Không hỗ trợ tại địa chỉ cũ!");
+//            return ERROR;
+//        }
         try {
             if (!getParaSession()) {
                 return ERROR;

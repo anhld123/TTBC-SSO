@@ -372,10 +372,10 @@
                             <input type="hidden" value="<s:property  value="plnNguoiPln" />" 
                                    id="plnNguoiPln_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNguoiPln"/>  
-                            <input type="hidden" value="<s:property  value="D6" />" 
+                            <input type="hidden" value="<s:property  value="D6 != null ? D6 : 0" />" 
                                    id="D6_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D6"/>  
-                            <input type="hidden" value="<s:property  value="D7" />" 
+                            <input type="hidden" value="<s:property  value="D7 != null ? D7 : 0" />" 
                                    id="D7_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D7"/>  
                         </td>
@@ -413,8 +413,23 @@
                                    style="background: #FFCCBA"
                                    onblur="setTongDuNoTo('D2', <s:property value='%{#rowstatus.index}' />)"/>
                         </td>
-                        <s:if test="!D7.equalsIgnoreCase('2')">
-                            <td class="D0">    
+                        <s:if test="D7.equalsIgnoreCase('2')">
+                             <td class="D0">    
+                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
+                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'>
+                                    <option value="0" style="text-align: center">----Chọn----</option>
+                                    <s:iterator value="lstDmKhac106" status="ideRows" var="language">
+                                        <option value="<s:property value="code" />"
+                                                <s:if test="%{#language.code == D10}">selected</s:if>>
+                                            <s:property value="code" /> - <s:property value="value" />
+                                        </option>
+                                    </s:iterator>   
+                                </select>
+                            </td>
+                            
+                        </s:if>
+                        <s:else>
+                           <td class="D0">    
                                 <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
                                         name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D4'
                                         onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
@@ -425,21 +440,6 @@
                                             <s:property value="code" /> - <s:property value="value" />
                                         </option>
                                     </s:iterator>
-                                </select>
-                            </td>
-                        </s:if>
-                        <s:else>
-                            <td class="D0">    
-                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
-                                        onmousedown="return false"
-                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'>
-                                    <option value="0" style="text-align: center">----Chọn----</option>
-                                    <s:iterator value="lstDmKhac106" status="ideRows" var="language">
-                                        <option value="<s:property value="code" />"
-                                                <s:if test="%{#language.code == D10}">selected</s:if>>
-                                            <s:property value="code" /> - <s:property value="value" />
-                                        </option>
-                                    </s:iterator>   
                                 </select>
                             </td>
                         </s:else>

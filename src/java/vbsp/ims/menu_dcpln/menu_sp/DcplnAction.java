@@ -504,10 +504,16 @@ public class DcplnAction extends ActionChtrinhcnMain
             }
 
             for (DuLieuPLN_T item : lstPhanLoaiNo_T) {
-                DuLieuPLN_T row = convertPLN_T(item);
-                mato = item.getPlnMato();
-                mahoi = item.getPlnDvut();
-                lstDulieuNtPLN_T.add(row);
+                if (!"1".equals(item.getD7())) {
+                    DuLieuPLN_T row = convertPLN_T(item);
+                    mato = item.getPlnMato();
+                    mahoi = item.getPlnDvut();
+                    lstDulieuNtPLN_T.add(row);
+                }
+                if (lstDulieuNtPLN_T == null || lstDulieuNtPLN_T.isEmpty()) {
+                    addActionError("Không có dữ liệu đối chiếu!");
+                    return ERROR;
+                }
             }
             lstDulieuNtPLN_T.sort(
                     Comparator.comparing(obj -> layTen(obj.getPlnTenkh()), String.CASE_INSENSITIVE_ORDER)

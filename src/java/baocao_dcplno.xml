@@ -63,6 +63,11 @@
             <result name="success_1">/dc_plno/dc_pln_table/dcpln_detail_loan2.jsp</result>  
             <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
         </action>
+        <action name="getDetialLoanDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction" method="getDetialLoanDcPLN">
+            <result name="success">/dc_plno/dc_pln_table/dcpln_detail_loan.jsp</result>  
+            <result name="success_1">/dc_plno/dc_pln_table/dcpln_detail_loan2.jsp</result>  
+            <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
+        </action>
         <action name="saveDataDcPLN_Loan" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction"  method="saveDataDcPLN_Loan">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
@@ -73,29 +78,29 @@
         <action name="loadDataSendPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2">
             <result name="success">/dc_plno/dc_pln_table/guisolieu-pln.jsp</result>
             <result name="error">/dc_plno/dc_pln_table/success.jsp</result>
-            <action name="reloadMatoPln" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction" method="getDb_mato">
-                <result name="success" type="json"></result>
-            </action>
-          
-            <action  name="loadDataViewSendPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="getDataViewSendPLN">
-                <result name="success">/dc_plno/dc_pln_table/pln_table_data_send.jsp </result> 
-                <result name="error">/dc_plno/dc_pln_table/success.jsp</result> 
-            </action>
-            <action name="sendDataDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2"  method="sendDataDcPLN">
-                <result name="success" type="stream">
-                    <param name="contentType">text/html</param>
-                    <param name="inputName">pageResult</param>
-                </result>   
-            </action>
-            <!--vào form cap 3-->
-            <action name="loadTwFormMainPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2">
-                <result name="success">/dc_plno/dc_pln_table/tw-pln.jsp</result>
-                <result name="error">/dc_plno/dc_pln_table/success.jsp</result>
-            </action>
-            <action  name="loadDataTwDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="getDataTwDcPLN">
-                <result name="success">/dc_plno/dc_pln_table/table_tw_dcpln.jsp</result>  
-                <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
-            </action>   
         </action> 
+        <action name="reloadMatoPln" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction" method="getDb_mato">
+            <result name="success" type="json"></result>
+        </action>
+          
+        <action  name="loadDataViewSendPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="getDataViewSendPLN">
+            <result name="success">/dc_plno/dc_pln_table/pln_table_data_send.jsp </result> 
+            <result name="error">/dc_plno/dc_pln_table/success.jsp</result> 
+        </action>
+        <action name="sendDataDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2"  method="sendDataDcPLN">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>   
+        </action>
+        <!--vào form cap 3-->
+        <action name="loadTwFormMainPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2">
+            <result name="success">/dc_plno/dc_pln_table/tw-pln.jsp</result>
+            <result name="error">/dc_plno/dc_pln_table/success.jsp</result>
+        </action>
+        <action  name="loadDataTwDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="getDataTwDcPLN">
+            <result name="success">/dc_plno/dc_pln_table/table_tw_dcpln.jsp</result>  
+            <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
+        </action>     
     </package>
 </struts>

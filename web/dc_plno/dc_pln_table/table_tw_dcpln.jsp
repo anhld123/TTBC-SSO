@@ -13,7 +13,7 @@
         margin: auto;
         background-color: #fff;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        border: 2px solid black; /* 👈 viền ngoài màu đen */
+        border: #000;
         border-radius: 10px;
         overflow: hidden;
     }
@@ -128,13 +128,15 @@
                         <td class="number"> <s:property value="D7"/></td>
                         <td class="number"> <s:property value="D8"/></td> 
                         <td class="number"> <s:property value="D9"/></td> 
-                        <td style="text-align: center" > <a class="number2" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">
-                                <s:property value='D10'/>
-                            </a>
+                        <td style="text-align: center;color: blue" class="number" > 
+                            <!--<a class="number2" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">-->
+                            <s:property value='D10 != null ? D10 : 0'/>
+                            <!--</a>-->
                         </td>
-                        <td style="text-align: center" > <a class="number2" style="color: red" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">
-                                <s:property value='D11'/>
-                            </a>
+                        <td style="text-align: center;color: red" class="number"> 
+                            <!--<a class="number2" style="color: red" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">-->
+                            <s:property value='D11 != null ? D11 : 0'/>
+                            <!--</a>-->
                         </td>
                     </tr>
                 </s:iterator>

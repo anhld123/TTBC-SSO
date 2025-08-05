@@ -11,7 +11,11 @@
 <html>
     <head>
         <style>
-
+            #countdown {
+                font-size: 15px;
+                color: red;
+                font-weight: bold;
+            }
             .hidden-inline {
                 display: none;
             }
@@ -520,6 +524,7 @@
                                 <input type="button" id="idSave_Co" value="Lưu hỗ trợ"/>
                             </s:if>
                         </td> 
+                        <td><div style="margin-left: 10px" id="countdown"></div></td>
                     </tr>
                 </table>
             </fieldset>
@@ -538,7 +543,30 @@
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/07/2025";
             })
+            const deadline = new Date("2025-08-12T00:00:00");
 
+            function updateCountdown() {
+                const now = new Date();
+                const timeDiff = deadline - now;
+
+                const countdownEl = document.getElementById("countdown");
+                const loadButton = document.getElementById("loaddata");
+                if (timeDiff <= 0) {
+                    countdownEl.innerText = "Đã hết thời gian đề nghị!";
+                    loadButton.style.display = "none";
+                    return;
+                }
+
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                const seconds = Math.floor((timeDiff / 1000) % 60);
+
+                countdownEl.innerText = 'Bạn còn ' + days + ' ngày ' + hours + '  giờ ' + minutes + ' phút ' + seconds + ' giây để đề nghị hỗ trợ (hạn: 00h00 ngày 12/08/2025)';
+            }
+
+            updateCountdown(); // chạy ngay khi tải trang
+            setInterval(updateCountdown, 1000); // cập nhật mỗi giây
         </script>
     </body>
 </html>
