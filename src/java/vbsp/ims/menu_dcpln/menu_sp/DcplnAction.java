@@ -12,13 +12,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,9 +25,7 @@ import java.util.Set;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chtrinh_cn.ActionChtrinhcnMain;
-import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.log.CoreLogger;
-import vbsp.ims.chtrinh_cn.DaoChtrinhcnMain;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTRow;
@@ -43,8 +39,6 @@ import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
-import vbsp.ims.restapi.Meta_PLN;
-import vbsp.ims.util.DateUtil;
 
 /**
  *

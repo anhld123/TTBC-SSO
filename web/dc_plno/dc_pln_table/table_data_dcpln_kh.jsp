@@ -126,9 +126,10 @@
                 } else
                 {
                     lstPGD.disabled = false;
+                    onSelectChange();
+                    document.getElementById("lstPGD").value = document.getElementById("D2").value
                 }
-                onSelectChange();
-                document.getElementById("lstPGD").value = document.getElementById("D2").value
+
             }
         </script>        
     </head>
@@ -151,66 +152,66 @@
                 <tr>   
                     <s:iterator value="#attr.lstDulieuNtPLN_T" status="rowstatus">
                         <s:if test="#rowstatus.first">
-                            <input type="hidden" value="<s:property  value="D2" />" id="D2"/>                             
-                           
-                            <td class="D0"><s:property  value="plnMakh" /></td>
-                            <td class="D0"><s:property  value="plnTenkh" /></td>
-                            <td class="D0"><s:property  value="tong_monvay" /></td>
-                            <td> 
-                                <select  name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D1" style="width: 150px"
-                                         onchange="onSelectChange()" id="lstCN"
-                                         <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
-                                    <option value="0" style="text-align: center">----Chọn----</option>
-                                    <s:iterator value="lstCN_API" status="ideRows" var="language">
-                                        <s:if test="%{#language.branchCode == D1}">
-                                            <option value="<s:property value="branchCode"/>" selected><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
+                        <input type="hidden" value="<s:property  value="D2" />" id="D2"/>                             
+
+                        <td class="D0"><s:property  value="plnMakh" /></td>
+                        <td class="D0"><s:property  value="plnTenkh" /></td>
+                        <td class="D0"><s:property  value="tong_monvay" /></td>
+                        <td> 
+                            <select  name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D1" style="width: 150px"
+                                     onchange="onSelectChange()" id="lstCN"
+                                     <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
+                                         <option value="0" style="text-align: center">----Chọn----</option>
+                                     <s:iterator value="lstCN_API" status="ideRows" var="language">
+                                         <s:if test="%{#language.branchCode == D1}">
+                                             <option value="<s:property value="branchCode"/>" selected><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
+                                         </s:if>
+                                         <s:else>
+                                             <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
+                                         </s:else>
+                                     </s:iterator>
+
+                            </select>
+                        </td>
+                        <td>
+                            <select name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D2" style="width: 200px" id="lstPGD"
+                                    <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
+                                        <option value="0" style="text-align: center">----Chọn----</option>
+                                    <s:iterator value="lstPGD_API" status="ideRows" var="language">
+                                        <s:if test="%{#language.PosCode == D2}">
+                                            <option value="<s:property value="PosCode"/>" selected><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                         </s:if>
                                         <s:else>
-                                            <option value="<s:property value="branchCode"/>"><s:property value="provinceCode"/> - <s:property value="provinceName"/></option>
+                                            <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
                                         </s:else>
-                                    </s:iterator>
+                                    </s:iterator>                                
+                            </select>
+                            <select id="lstPGD_Temp" style="display: none;">
+                                <s:iterator value="lstPGD_API" var="pgd">
+                                    <option value="<s:property value='PosCode'/>"
+                                            data-mainpos="<s:property value='mainPos'/>">
+                                        <s:property value="PosCode"/> - <s:property value="PosName"/>
+                                    </option>
+                                </s:iterator>
+                            </select> 
+                        </td>
+                        <td class="D0">
+                            <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">...</s:if>
+                            <s:else>
+                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="plnMapgd"/>', '<s:property value="plnMakh"/>', <s:property value="plnNgaybc"/>, document.getElementById('lstCN').value, document.getElementById('lstPGD').value)">Đề nghị hỗ trợ</a>
+                            </s:else>
+                        </td>
+                        <td class="D0"><s:if test="D7.equalsIgnoreCase('1')">
+                                Đang gửi hỗ trợ    
+                            </s:if>
+                            <s:elseif test="D7.equalsIgnoreCase('2')">
+                                Đã hỗ trợ
+                            </s:elseif>
+                            <s:else>...</s:else>
+                            </td>
 
-                                </select>
-                            </td>
-                            <td>
-                                <select name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D2" style="width: 200px" id="lstPGD"
-                                        <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
-                                            <option value="0" style="text-align: center">----Chọn----</option>
-                                        <s:iterator value="lstPGD_API" status="ideRows" var="language">
-                                            <s:if test="%{#language.PosCode == D2}">
-                                                <option value="<s:property value="PosCode"/>" selected><s:property value="PosCode"/> - <s:property value="PosName"/></option>
-                                            </s:if>
-                                            <s:else>
-                                                <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>
-                                            </s:else>
-                                        </s:iterator>                                
-                                </select>
-                                <select id="lstPGD_Temp" style="display: none;">
-                                    <s:iterator value="lstPGD_API" var="pgd">
-                                        <option value="<s:property value='PosCode'/>"
-                                                data-mainpos="<s:property value='mainPos'/>">
-                                            <s:property value="PosCode"/> - <s:property value="PosName"/>
-                                        </option>
-                                    </s:iterator>
-                                </select> 
-                            </td>
-                            <td class="D0">
-                                <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">...</s:if>
-                                <s:else>
-                                    <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="plnMapgd"/>', '<s:property value="plnMakh"/>', <s:property value="plnNgaybc"/>, document.getElementById('lstCN').value, document.getElementById('lstPGD').value)">Đề nghị hỗ trợ</a>
-                                </s:else>
-                            </td>
-                            <td class="D0"><s:if test="D7.equalsIgnoreCase('1')">
-                                    Đang gửi hỗ trợ    
-                                </s:if>
-                                <s:elseif test="D7.equalsIgnoreCase('2')">
-                                    Đã hỗ trợ
-                                </s:elseif>
-                                <s:else>...</s:else>
-                                </td>
-
-                        </s:if>
-                    </s:iterator>
+                    </s:if>
+                </s:iterator>
                 </tr>
             </table>
             <div id="divTitle" style="margin: 10px 0 10px 0">

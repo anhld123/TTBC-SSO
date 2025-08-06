@@ -330,10 +330,10 @@
                             <input type="hidden" value="<s:property  value="plnNgnhanClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNgnhanClech"/> 
                             <input type="hidden" value="<s:property  value="plnMacn" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMacn"/> 
                             <input type="hidden" value="<s:property  value="plnQuanheKh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnQuanheKh"/>                        
-                            <input type="hidden" value="<s:property  value="D6" />" 
+                            <input type="hidden" value="<s:property  value="D6 != null ? D6 : 0" />" 
                                    id="D6_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D6"/>  
-                            <input type="hidden" value="<s:property  value="D7" />" 
+                            <input type="hidden" value="<s:property  value="D7 != null ? D7 : 0" />" 
                                    id="D7_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D7"/>  
                             <input type="hidden" value="<s:property  value="plnCKntnSodu" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnCKntnSodu"  id="plnCKntnSodu_<s:property  value="%{#rowstatus.index}" />"/>                        
@@ -355,22 +355,7 @@
                         <!--chi tieu nhap tay tu day--> 
                         <td class="number"><s:property value="plnCKntnSodu"/> </td>
                         <td class="number"><s:property value="D3" /></td>
-                        <s:if test="!D7.equalsIgnoreCase('2')">
-                            <td class="D0">    
-                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
-                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D4'
-                                        onmousedown="return false">
-                                    <option value="0" style="text-align: center">----Chọn----</option>
-                                    <s:iterator value="lstDmKhac57" status="ideRows" var="language">
-                                        <option value="<s:property value="code" />"
-                                                <s:if test="%{#language.code == D4}">selected</s:if>>
-                                            <s:property value="code" /> - <s:property value="value" />
-                                        </option>
-                                    </s:iterator>
-                                </select>
-                            </td>
-                        </s:if>
-                        <s:else>
+                        <s:if test="D7.equalsIgnoreCase('2')">
                             <td class="D0">    
                                 <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
                                         onmousedown="return false"
@@ -382,6 +367,22 @@
                                             <s:property value="code" /> - <s:property value="value" />
                                         </option>
                                     </s:iterator>   
+                                </select>
+                            </td>
+
+                        </s:if>
+                        <s:else>
+                            <td class="D0">    
+                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
+                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D4'
+                                        onmousedown="return false">
+                                    <option value="0" style="text-align: center">----Chọn----</option>
+                                    <s:iterator value="lstDmKhac57" status="ideRows" var="language">
+                                        <option value="<s:property value="code" />"
+                                                <s:if test="%{#language.code == D4}">selected</s:if>>
+                                            <s:property value="code" /> - <s:property value="value" />
+                                        </option>
+                                    </s:iterator>
                                 </select>
                             </td>
                         </s:else>

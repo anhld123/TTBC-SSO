@@ -787,13 +787,17 @@ public class DcplnAction_2 extends ActionSupport {
             if ("loadFormMainPLN".equals(actionName) && !"1".equals(Grade)) {
                 addActionError("Menu chỉ dành cho cấp phòng giao dịch!");
                 return ERROR;
-            } else if ("loadDataSendPLN".equals(actionName) && !"2".equals(Grade)) {
-                addActionError("Menu chỉ dành cho cấp chi nhánh!");
-                return ERROR;
-            } else if ("loadTwFormMainPLN".equals(actionName) && !"3".equals(Grade)) {
-                addActionError("Menu chỉ dành cho cấp TW!");
+            } else if ("loadDataSendPLN".equals(actionName) || "loadTwFormMainPLN".equals(actionName)) {
+                addActionError("Chức năng không khả dụng!");
                 return ERROR;
             }
+//            else if ("loadDataSendPLN".equals(actionName) && !"2".equals(Grade)) {
+//                addActionError("Menu chỉ dành cho cấp chi nhánh!");
+//                return ERROR;
+//            } else if ("loadTwFormMainPLN".equals(actionName) && !"3".equals(Grade)) {
+//                addActionError("Menu chỉ dành cho cấp TW!");
+//                return ERROR;
+//            }
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -815,7 +819,7 @@ public class DcplnAction_2 extends ActionSupport {
             main_pos_username = posMainModel.getMainPosCd();
             ActionContext.getContext().getSession().put("UserName", UserName);
             ActionContext.getContext().getSession().put("pos_cd_username", pos_cd_username);
-            lstDmKhac106 = _serverAPI.getListOfValue("106", "");
+            lstDmKhac106 = _serverAPI.getListOfValue("192", "");
             lstDmKhac57 = _serverAPI.getListOfValue("193", "");
             String dateStr = hmParameter.get("ngay_bc").toString();
             ActionContext.getContext().getSession().put("dateStr", dateStr);
@@ -959,8 +963,8 @@ public class DcplnAction_2 extends ActionSupport {
                 addActionError("Bạn chưa chọn Phòng giao dịch!");
                 return ERROR;
             }
-            lstDmKhac106 = _serverAPI.getListOfValue("1B", "");
-            lstDmKhac57 = _serverAPI.getListOfValue("57", "");
+            lstDmKhac106 = _serverAPI.getListOfValue("192", "");
+            lstDmKhac57 = _serverAPI.getListOfValue("193", "");
 
             String dateStr = hmParameter.get("ngay_bc").toString();
             String maxa_key1 = hmParameter.get("lstXa").toString();

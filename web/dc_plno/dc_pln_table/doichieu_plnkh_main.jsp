@@ -524,7 +524,9 @@
                                 <input type="button" id="idSave_Co" value="Lưu hỗ trợ"/>
                             </s:if>
                         </td> 
-                        <td><div style="margin-left: 10px" id="countdown"></div></td>
+                        <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
+                            <td><div style="margin-left: 10px" id="countdown"></div></td>
+                            </s:if>
                     </tr>
                 </table>
             </fieldset>
@@ -543,6 +545,7 @@
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/07/2025";
             })
+                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
             const deadline = new Date("2025-08-12T00:00:00");
 
             function updateCountdown() {
@@ -567,6 +570,7 @@
 
             updateCountdown(); // chạy ngay khi tải trang
             setInterval(updateCountdown, 1000); // cập nhật mỗi giây
+            </s:if>
         </script>
     </body>
 </html>
