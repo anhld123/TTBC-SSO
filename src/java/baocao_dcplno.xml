@@ -101,6 +101,7 @@
         <action  name="loadDataTwDcPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="getDataTwDcPLN">
             <result name="success">/dc_plno/dc_pln_table/table_tw_dcpln.jsp</result>  
             <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
-        </action>     
+        </action>   
+          
     </package>
 </struts>
