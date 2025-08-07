@@ -128,14 +128,14 @@
                         <td class="number"> <s:property value="D7"/></td>
                         <td class="number"> <s:property value="D8"/></td> 
                         <td class="number"> <s:property value="D9"/></td> 
-                        <td style="text-align: center;color: blue" class="number" > 
-                            <a class="number2" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">
-                            <s:property value='D10 != null ? D10 : 0'/>
+                        <td style="text-align: center;color: blue"> 
+                            <a class="number2" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />',1)">
+                                <s:property value='D10 != null ? D10 : 0'/>
                             </a>
                         </td>
-                        <td style="text-align: center;color: red" class="number"> 
-                            <a class="number2" style="color: red" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />')" class="SOKU linkKh">
-                            <s:property value='D11 != null ? D11 : 0'/>
+                        <td style="text-align: center"> 
+                            <a class="number2" style="color: red" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />',2)">
+                                <s:property value='D11 != null ? D11 : 0'/>
                             </a>
                         </td>
                     </tr>
@@ -145,11 +145,11 @@
         <div id="luu_thanhcong"></div>
     </body>
     <script>
-        function funcTableFile(D1, D7, type) {
-            var w = 1500, h = 700;
+        function hienthichitiet(D1, D12, type) {
+            var w = 1300, h = 600;
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
-            var urlParam = "madiemgd=" + D1 + "&ngaybc=" + D7 + "&type=" + type;
+            var urlParam = "madiemgd=" + D1 + "&ngaybc=" + D12 + "&type=" + type;
             var url = "/IMS_REPORTS/popupTableDcpln.action?" + urlParam;
             popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }

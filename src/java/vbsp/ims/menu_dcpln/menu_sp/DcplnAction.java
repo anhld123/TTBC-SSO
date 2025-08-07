@@ -90,6 +90,15 @@ public class DcplnAction extends ActionChtrinhcnMain
     protected List<ListValue> lstMato_T = new ArrayList<ListValue>();
     private List<DuLieuPLN> lstPhanLoaiNo;
     protected List<DuLieuPLN> lstDulieuNtPLN = new ArrayList<>();
+    private String thongbao;
+
+    public String getThongbao() {
+        return thongbao;
+    }
+
+    public void setThongbao(String thongbao) {
+        this.thongbao = thongbao;
+    }
 
     public List<DuLieuPLN> getLstPhanLoaiNo() {
         return lstPhanLoaiNo;
@@ -521,6 +530,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             int tongNlai = 0;
             int tongMonvay = 0;
             String stmato_to = "";
+            int sthongbao = 0;
             for (DuLieuPLN_T item : lstData) {
                 int dnoThan = Optional.ofNullable(item.getPlnDnothan()).orElse(0);
                 int dnoQhan = Optional.ofNullable(item.getPlnDnoqhan()).orElse(0);
@@ -537,8 +547,13 @@ public class DcplnAction extends ActionChtrinhcnMain
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
                     setKhachHang.add(item.getPlnMakh());
                 }
+                if ("1".equals(item.getD7())) {
+                    sthongbao++;
+                }
             }
-
+            if (sthongbao != 0) {
+                this.thongbao = "Có món vay đề nghị hỗ trợ!";
+            }
             this.tong_monvay = String.valueOf(tongMonvay);
             this.tong_kh = String.valueOf(setKhachHang.size());
             this.tong_than = tongThan;

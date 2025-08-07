@@ -102,6 +102,11 @@
             <result name="success">/dc_plno/dc_pln_table/table_tw_dcpln.jsp</result>  
             <result name="error">/dc_plno/dc_pln_table/success.jsp</result>  
         </action>   
-          
+        <action name="popupTableDcpln" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="popupTableDcpln">
+            <result name="success">/dc_plno/dc_pln_table/popupTableDcpln.jsp</result>
+        </action>  
+        <action name="unlock_pLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="unlock_pLN">
+            <result name="success" type="json"></result>
+        </action>
     </package>
 </struts>

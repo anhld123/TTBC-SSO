@@ -56,6 +56,7 @@
             $(document).ready(function () {
                 $('.sstyle').css({"color": "#000", "font-size": "12px"});
                 $('input.number, input.number2').css({"text-align": "right"}).number(true, 0);
+                $('td.number, td.number2').css({"text-align": "right"}).number(true, 0);
                 $('.D0').css({"text-align": "center"});
                 $('.D00').css({"text-align": "left"});
                 $('.D000').css({"text-align": "right"});
@@ -94,7 +95,7 @@
 
                 Array.from(table.rows).forEach((row, index) => {
                     // Luôn hiển thị 2 dòng đầu (index 0 và 1)
-                    if (index === 0 || index === 1) {
+                    if (index === 0 || index === 1 || index === 2|| index === 3) {
                         row.style.display = '';
                     } else {
                         row.style.display = (index > (page - 1) * records_per_page + 1 && index <= page * records_per_page + 1) ? '' : 'none';
@@ -143,10 +144,15 @@
         </script>
     </head>
     <body>
+        <div id="loading" style="text-align: center; padding: 50px;">
+            <img src="img/loading.gif" alt="Đang tải dữ liệu..." />
+            <p>Đang tải dữ liệu, vui lòng chờ...</p>
+        </div>
+        <div id="mainContent" style="display: none;">
         <div style="overflow:scroll; width: 98vw">
             <div id="divTitle" style="text-align: center">
-                <s:if test="txtGetData.equalsIgnoreCase('1')">DANH SÁCH HOÀN THÀNH CẬP NHẬT HỒ SƠ</s:if>
-                <s:else>DANH SÁCH CHƯA HOÀN THÀNH CẬP NHẬT HỒ SƠ</s:else>
+                <s:if test="txtGetData.equalsIgnoreCase('1')">DANH SÁCH ĐÃ CHỐT</s:if>
+                <s:else>DANH SÁCH CHƯA CHỐT</s:else>
                 </div>
                 <div style="margin: 10px 0" id="divDonvitinh">
                     <!-- Phần phân trang -->
@@ -165,16 +171,32 @@
                 <table id="subTable" align="center">
                     <thead>
                         <tr>
-                            <th class="STT1">STT</th>
-                            <th class="STT6">Mã khách hàng</th>
-                            <th class="STT6">Tên khách hàng</th>
-                            <th class="STT6">CCCD/Thẻ căn cước</th>
-                            <th class="STT6">Ngày tháng năm sinh</th>
-                            <th class="STT6">Số điện thoại</th>
-                            <th class="STT6">Số tài khoản tiền gửi tổ viên 105</th>
+                            <th rowspan="3">STT</th>
+                            <th rowspan="3" class="STT4">Tên khách hàng</th>
+                            <th rowspan="3" class="STT4">Mã món vay</th>
+                            <th rowspan="3" class="STT3">Chương trình</th>
+                            <th colspan="5">Số liệu tại NHCSXH</th> 
+                            <th colspan="4">Phân loại khả năng trả nợ</th> 
                             <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <th class="STT2">Mở lại Cif</th>
+                            <th class="STT2" rowspan="3">Mở lại món vay</th>
                             </s:if>
+                    </tr>
+                    <tr>
+                        <th colspan="4" class="STT2">Nợ gốc</th> 
+                        <th rowspan="2" class="STT2">Nợ lãi</th> 
+                        <th rowspan="2" class="STT3">Có khả năng trả nợ</th> 
+                        <th colspan="3">Không có khả năng trả nợ</th>
+
+                    </tr>
+                    <tr>
+                        <th class="STT2">Tổng số</th>
+                        <th class="STT2">Nợ trong hạn</th>
+                        <th class="STT2">Nợ quá hạn</th>
+                        <th class="STT2">Nợ khoanh</th>
+                        <th class="STT3">Số tiền</th>
+                        <th>Nguyên nhân</th>
+                        <th class="STT4">Cụ thể nguyên nhân</th>
+
                     </tr>
                     <tr>
                         <th class="D99">(1)</th>
@@ -184,22 +206,34 @@
                         <th class="D99">(5)</th>
                         <th class="D99">(6)</th>
                         <th class="D99">(7)</th>
+                        <th class="D99">(8)</th>
+                        <th class="D99">(9)</th>
+                        <th class="D99">(10)</th>
+                        <th class="D99">(11)</th>
+                        <th class="D99">(12)</th>
+                        <th class="D99">(13)</th>
                             <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <th class="D99">(8)</th>
+                            <th class="D99">(14)</th>
                             </s:if>
                     </tr>
                 </thead>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
                         <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
-                        <td class="D0"><s:property  value="D1" /></td>
+                        <td><s:property  value="D1" /></td>
                         <td><s:property  value="D2" /></td>
-                        <td class="D0"><s:property  value="D3" /></td>
-                        <td class="D0"><s:property  value="D4" /></td>
-                        <td class="D0"><s:property  value="D5" /></td>
-                        <td class="D0"><s:property  value="D6" /></td>
+                        <td class="number"><s:property  value="D3" /></td>
+                        <td class="number"><s:property  value="D4" /></td>
+                        <td class="number"><s:property  value="D5" /></td>
+                        <td class="number"><s:property  value="D6" /></td>
+                        <td class="number"><s:property  value="D7" /></td>
+                        <td class="number"><s:property  value="D8" /></td>
+                        <td class="number"><s:property  value="D9" /></td>
+                        <td class="number"><s:property  value="D10" /></td>
+                        <td><s:property  value="D11" /></td>
+                        <td><s:property  value="D12" /></td>
                         <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D1"/>', '<s:property value="NGAYBC"/>', '<s:property value="D6"/>', '<s:property value="MAPGD"/>');">Mở Cif</a>
+                            <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D15"/>', '<s:property value="D2"/>', '<s:property value="D13"/>', '<s:property value="D14"/>');">Mở khóa</a>
                             </td> </s:if>
                         </tr>
                 </s:iterator>
@@ -209,6 +243,7 @@
                 <br>
                 <input type="button" value="Thoát" name="cmdLuu" id="cmdLuu"/></div>
         </div>
+                </div>
     </body>
     <script>
         $("#cmdLuu").click(function () {
@@ -216,61 +251,24 @@
             window.opener.document.getElementById('loadDatatmp').click();
             window.close();
         });
-        function idUnlockCif(D1, D2, D3, D4) {
-            var parts = D2.split("/");
-            var inputDay = parseInt(parts[0], 10);
-            var inputMonth = parseInt(parts[1], 10) - 1; // tháng JS bắt đầu từ 0
-            var inputYear = parseInt(parts[2], 10);
-            var inputDate = new Date(inputYear, inputMonth, inputDay);
 
-            var today = new Date();
-            var currentYear = today.getFullYear();
-            var currentMonth = today.getMonth(); // 0-based
-            var lastDayOfCurrentMonth = new Date(currentYear, currentMonth + 1, 0);
-
-            let allowedMonth, allowedYear;
-
-            if (today.getDate() < lastDayOfCurrentMonth.getDate()) {
-                // Chưa đến ngày cuối tháng → thao tác dữ liệu tháng trước
-                if (currentMonth === 0) {
-                    allowedMonth = 11;        // Tháng 12 năm trước
-                    allowedYear = currentYear - 1;
-                } else {
-                    allowedMonth = currentMonth - 1;
-                    allowedYear = currentYear;
-                }
-            } else {
-                // Đúng hoặc sau ngày cuối tháng → thao tác tháng hiện tại
-                allowedMonth = currentMonth;
-                allowedYear = currentYear;
-            }
-//            alert(inputMonth + " " + currentMonth + " " + inputYear + " " + currentYear + " " + inputDate + " " + lastDayOfCurrentMonth);
-
-            if (inputMonth !== allowedMonth || inputYear !== allowedYear) {
-                alert("Chỉ được thao tác với dữ liệu tháng " + (allowedMonth + 1) + "/" + allowedYear);
-                return;
-            }
-
+        function idUnlockCif(mapgd, makh, soku, ngaybc) {
             var table = document.getElementById("subTable");
+            // Chọn tất cả các liên kết chỉ trong bảng con
             var rows = table.querySelectorAll("td a");
 
+            // Khóa các liên kết trong bảng
             rows.forEach(function (row) {
-                row.style.pointerEvents = "none";
-                row.style.color = "gray";
+                row.style.pointerEvents = "none"; // Vô hiệu hóa click
+                row.style.color = "gray";         // Thay đổi màu để trông như bị khóa
             });
-
-            var url, sdata;
-            url = "unlockcif_TGTV_2025.action?" + "macif=" + D1 + "&ngayss=" + D2 + "&sotk=" + D3 + "&mapgd=" + D4;
-            sdata = jQuery("#frmdata").serialize();
-            $("#loadingImageDiv_data").show();
-            $("#viewData").html('<img src="img/loading.gif"/>');
-
             $.ajax({
-                type: "POST",
-                url: url,
-                data: sdata,
-                success: function (data) {
-                    if (data === "200") {
+                type: "GET",
+                url: "unlock_pLN.action?" + "mapgd=" + mapgd + "&makh=" + makh + "&soku=" + soku + "&ngaybc=" + ngaybc,
+                success: function (res) {
+                    var status = parseInt(res.status);
+                    //alert(status);
+                    if (status === 1) {
                         alert("Mở khóa dữ liệu thành công!");
                         location.reload();
                     } else {
@@ -278,11 +276,26 @@
                         location.reload();
                     }
                 },
-                error: function (request) {
-                    alert("Lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                    location.reload();
+                error: function (res) {
+                    alert("Mở phê duyệt lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
                 }
             });
         }
+        window.onload = function () {
+            // Ẩn nội dung chính trước
+            document.getElementById("mainContent").style.display = "none";
+
+            // Đợi trình duyệt hoàn tất việc vẽ giao diện bằng requestAnimationFrame
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    // Sau 2 lần requestAnimationFrame -> browser đã render xong layout
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("mainContent").style.display = "block";
+                    changePage(current_page); // Phân trang sau khi đã hiển thị
+                });
+            });
+        };
+
+
     </script>
 </html>

@@ -22,18 +22,16 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.DaoDCPLNO;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
+import vbsp.ims.define.GenericResult;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.PLNO_DULIEU;
@@ -51,8 +49,7 @@ import vbsp.ims.restapi.DuLieuPLNResp_T;
 import vbsp.ims.restapi.DuLieuPLN_Save;
 import vbsp.ims.restapi.DuLieuPLN_T;
 import vbsp.ims.restapi.Meta_PLN;
-import vbsp.ims.dao.DaoLogin;
-import vbsp.ims.gqvl_2023.Login;
+import vbsp.ims.menu_dcpln.DaoPlnMain;
 
 public class DcplnAction_2 extends ActionSupport {
 
@@ -62,9 +59,9 @@ public class DcplnAction_2 extends ActionSupport {
     protected PosMainModel posMainModel;
     protected String Grade;
     protected String UserName;
-    protected String Message;
+    protected String message;
     private TreeNode nodes_pos = new TreeNode();
-
+    private String status;
     private String ngay_dcpln;
     private String dvut_dcpln;
     private String totruong_dcpln;
@@ -116,6 +113,23 @@ public class DcplnAction_2 extends ActionSupport {
     private int last_page;
     private int from;
     private int to;
+    private String txtGetData;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTxtGetData() {
+        return txtGetData;
+    }
+
+    public void setTxtGetData(String txtGetData) {
+        this.txtGetData = txtGetData;
+    }
 
     public List<ListOfValue> getLstDmKhac() {
         return lstDmKhac;
@@ -512,11 +526,11 @@ public class DcplnAction_2 extends ActionSupport {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public TreeNode getNodes_pos() {
@@ -631,74 +645,6 @@ public class DcplnAction_2 extends ActionSupport {
         return paramHashMap;
     }
 
-    private boolean setTreeNodeGrade3(List<ModelTreeNode> lstModelTree) {
-        try {
-            TreeNode nodePar = new TreeNode();
-            List<TreeNode> lstTree = new ArrayList<TreeNode>();
-            for (int i = 0; i < lstModelTree.size(); i++) {
-                ModelTreeNode modelTree = lstModelTree.get(i);
-                if (i == 0) //Neu la row dau tien thi la node rootb
-                {
-                    nodes_pos.setId("999999");
-                    nodes_pos.setTitle(modelTree.getStrParentDesc());
-                    nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
-                    nodes_pos.setChildren(new LinkedList<TreeNode>());
-                } else {
-                    if (modelTree.getStrChildCd().equals("999999")) {
-                        if (i != 1) {
-                            lstTree.add(nodePar);
-                            nodePar = null;
-                            nodePar = new TreeNode();
-                        }
-                        nodePar.setId("999999");
-                        nodePar.setTitle(modelTree.getStrChildDesc());
-                        nodePar.setState(TreeNode.NODE_STATE_CLOSED);
-                        nodePar.setChildren(new LinkedList<TreeNode>());
-                    } else {
-                        TreeNode nodeChild = new TreeNode();
-                        nodeChild.setId(modelTree.getStrChildCd());
-                        nodeChild.setTitle(modelTree.getStrChildDesc());
-                        nodePar.getChildren().add(nodeChild);
-                    }
-                }
-            }
-            lstTree.add(nodePar);
-            for (TreeNode node : lstTree) {
-                nodes_pos.getChildren().add(node);
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            CoreLogger.error(this.getClass().getCanonicalName() + " setTreeNodeGrade3 -> " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
-    private boolean setTreeNodeGrade12(List<ModelTreeNode> lstModelTree) {
-        try {
-            for (int i = 0; i < lstModelTree.size(); i++) {
-                ModelTreeNode modelTree = lstModelTree.get(i);
-                //Neu la row dau tien thi la node root
-                if (i == 0) {
-                    nodes_pos.setId("999999");
-                    nodes_pos.setTitle(modelTree.getStrParentDesc());
-                    nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
-                    nodes_pos.setChildren(new LinkedList<TreeNode>());
-                }
-                //Khoi tao cho node child
-                TreeNode nodeChild = new TreeNode();
-                nodeChild.setId(modelTree.getStrChildCd());
-                nodeChild.setTitle(modelTree.getStrChildDesc());
-                nodes_pos.getChildren().add(nodeChild);
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            CoreLogger.error(this.getClass().getCanonicalName() + " setTreeNodeGrade12 -> " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
     public String execute() {
 
 //        Login daoLogin = new Login();
@@ -725,45 +671,14 @@ public class DcplnAction_2 extends ActionSupport {
             switch (Grade) {
                 case "3":
                     lstCN_API = _serverAPI.getListCn("");
-                    lstModelTree = daoRisk.getDataPosTreeNode(UserName, Grade);
-                    setTreeNodeGrade3(lstModelTree);
                     break;
                 case "2":
-                    lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
-                    String MainName = lstCN_API.get(0).getProvinceName();
                     lstXa_API = _serverAPI.getListXa(main_pos.substring(2, 4), "", "", "");
                     lstPGD_API = _serverAPI.getListPgd(main_pos, "");
-                    for (ListPosCode item : lstPGD_API) {
-                        if (item.getStatus().equals("O")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getMainPos(), // strParentCd
-                                    MainName, // strParentDesc
-                                    item.getPosCode(), // strChildCd
-                                    item.getPosName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
-                        }
-                    }
-                    setTreeNodeGrade12(lstModelTree);
                     break;
                 default:
                     setLstMato(daoMain11.getDanhMuc(UserName, "MATO_PLN", Grade));
                     setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA", Grade));
-                    lstPGD_API = _serverAPI.getListPgd("", pos_cd);
-                    String PosName = lstPGD_API.get(0).getPosName();
-                    lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
-                    for (ListCommune item : lstXa_API) {
-                        if (!item.getStatus().equals("C")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getPosCode(), // strParentCd
-                                    PosName, // strParentDesc
-                                    item.getCommuneCode(), // strChildCd
-                                    item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
-                        }
-                    }
-                    setTreeNodeGrade12(lstModelTree);
                     break;
             }
 //           hoi doan the
@@ -787,17 +702,13 @@ public class DcplnAction_2 extends ActionSupport {
             if ("loadFormMainPLN".equals(actionName) && !"1".equals(Grade)) {
                 addActionError("Menu chỉ dành cho cấp phòng giao dịch!");
                 return ERROR;
-            } else if ("loadDataSendPLN".equals(actionName) || "loadTwFormMainPLN".equals(actionName)) {
-                addActionError("Chức năng không khả dụng!");
+            } else if ("loadDataSendPLN".equals(actionName) && !"2".equals(Grade)) {
+                addActionError("Menu chỉ dành cho cấp chi nhánh!");
+                return ERROR;
+            } else if ("loadTwFormMainPLN".equals(actionName) && !"3".equals(Grade)) {
+                addActionError("Menu chỉ dành cho cấp TW!");
                 return ERROR;
             }
-//            else if ("loadDataSendPLN".equals(actionName) && !"2".equals(Grade)) {
-//                addActionError("Menu chỉ dành cho cấp chi nhánh!");
-//                return ERROR;
-//            } else if ("loadTwFormMainPLN".equals(actionName) && !"3".equals(Grade)) {
-//                addActionError("Menu chỉ dành cho cấp TW!");
-//                return ERROR;
-//            }
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -1441,8 +1352,8 @@ public class DcplnAction_2 extends ActionSupport {
             String sngaybc = hmParameter.get("ngay_bc").toString();
             String smacn = hmParameter.get("lstCN").toString();
             Connection conn = new DaoConnect().getConnect();
-            DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
-            ActionContext.getContext().getSession().put("sUserName", UserName);
+            DaoPlnMain daoMain = new DaoPlnMain();
+//            ActionContext.getContext().getSession().put("sUserName", UserName);
             lstDulieuNt = daoMain.getDataPlnTW(conn, sngaybc, "PLN_KNTN_CL", smacn, "S");
             if (conn != null) {
                 conn.close();
@@ -1462,4 +1373,56 @@ public class DcplnAction_2 extends ActionSupport {
         String[] parts = hoTen.trim().split("\\s+");
         return parts[parts.length - 1]; // lấy tên cuối
     }
+
+    public String popupTableDcpln() throws Exception {
+        try {
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D12 = ServletActionContext.getRequest().getParameter("ngaybc");
+            String type = ServletActionContext.getRequest().getParameter("type");
+            setTxtGetData(type);
+            Connection conn = new DaoConnect().getConnect();
+            DaoPlnMain daoMain = new DaoPlnMain();
+//            ActionContext.getContext().getSession().put("sUserName", UserName);
+            lstDulieuNt = daoMain.getDataPlnTW(conn, D12, "PLN_KNTN_TW", D1, type);
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveDataaa " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveDataaa -> " + e.getMessage());
+        }
+        return "success";
+
+    }
+    
+    public String unlock_pLN() {
+        try {
+            String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
+            String makh = ServletActionContext.getRequest().getParameter("makh");
+            String soku = ServletActionContext.getRequest().getParameter("soku");
+            String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
+//            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+//            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
+//            Date date = inputFormat.parse(D5);
+//            String formattedDate = outputFormat.format(date);
+            DaoPlnMain daoMain = new DaoPlnMain();
+            UserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            GenericResult<String> _result = daoMain.unlock_Pln("PLN_KNTN_TW", mapgd, makh, soku, D5);
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
+        return SUCCESS;
+    }
+
 }
