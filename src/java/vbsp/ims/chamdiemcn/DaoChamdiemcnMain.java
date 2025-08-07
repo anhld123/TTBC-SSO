@@ -1713,8 +1713,8 @@ public class DaoChamdiemcnMain {
             switch (mabc) {
                 case "GIAO_KHNV":
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAXA, TENXA, D1, D2, D3, D4, D5, mapgd,ngaybc, "
-                            + " NGUOITAO, file_name)\n"
-                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?, ?)";
+                            + " NGUOITAO, file_name ,D6,D7)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?, ?,?,?)";
                     conn.setAutoCommit(false);
                     insert = conn.prepareStatement(sInsert);
                     Delete = "delete from dulieu_cdcn_imp where ngaybc=? and mapgd=? and khoa = ?";
@@ -1742,17 +1742,20 @@ public class DaoChamdiemcnMain {
                         insert.setDate(11, new java.sql.Date(ngaybc.getTime()));
                         insert.setString(12, username);
                         insert.setString(13, fileName);
+                        insert.setString(14, value.getN8());
+                        insert.setString(15, value.getN9());
                         insert.execute();
                     }
-                    Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), D1 = replace(D1,'.0','') where ngaybc=? and mapgd=? and khoa = ?";
+                    Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), "
+                            + "D1 = replace(D1,'.0','') where ngaybc=? and mapgd=? and khoa = ?";
                     statementUpdate = conn.prepareCall(Update);
                     statementUpdate.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
 
-                    Delete = "delete dulieu_cdcn_imp where khoa ='GIAO_KHNV' and d1 is null and d2 is null and"
-                            + " ngaybc=? and mapgd=? and khoa = ?";
+                    Delete = "delete from dulieu_cdcn_imp \n"
+                            + "where d1 is null and d2 is null and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
                     statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementDelete.setString(2, poscd);
@@ -1815,8 +1818,8 @@ public class DaoChamdiemcnMain {
                     break;
                 case "GIAO_KHTK_TO":
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAXA, TENXA, D1, D2, D3, mapgd,ngaybc, "
-                            + " NGUOITAO, file_name)\n"
-                            + "values(?, ?,?,?,?,?,?,?,?,?,?)";
+                            + " NGUOITAO, file_name, D6,D7)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?)";
                     conn.setAutoCommit(false);
                     insert = conn.prepareStatement(sInsert);
                     Delete = "delete from dulieu_cdcn_imp where ngaybc=? and mapgd=? and khoa = ?";
@@ -1842,6 +1845,8 @@ public class DaoChamdiemcnMain {
                         insert.setDate(9, new java.sql.Date(ngaybc.getTime()));
                         insert.setString(10, username);
                         insert.setString(11, fileName);
+                        insert.setString(12, value.getN6());
+                        insert.setString(13, value.getN7());
                         insert.execute();
                     }
                     Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), D1 = replace(D1,'.0','') where ngaybc=? and mapgd=? and khoa=?";
