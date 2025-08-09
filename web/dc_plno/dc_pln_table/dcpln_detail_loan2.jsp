@@ -154,7 +154,7 @@
 
                                 <td class="txtBody">
                                     <s:if test="plnTrangthai.equalsIgnoreCase('N')"><a style="color: red">Chưa đối chiếu</a></s:if>
-                                    <s:elseif test="plnTrangthai.equalsIgnoreCase('R')"><a>Không đối chiếu</a></s:elseif>
+                                    <%--<s:elseif test="plnTrangthai.equalsIgnoreCase('R')"><a>Không đối chiếu</a></s:elseif>--%>
                                     <s:elseif test="plnTrangthai.equalsIgnoreCase('S')"><a>Đã đối chiếu</a></s:elseif>
                                     </td>
                                 </tr>

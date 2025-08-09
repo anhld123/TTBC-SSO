@@ -277,73 +277,77 @@
             }
 
             $("#idSave_Co").click(function () {
-//                    console.log("vào 1");
                 let checkedCount = countCheckedItem();
                 if (checkedCount === 0) {
                     alert('Bạn chưa chọn bản ghi để lưu!');
-                } else {
-                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
-                    if (aCheck) {
-                        var table = document.getElementById("subTable");
-                        var rowcount = table.rows.length;
-                        var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
+                    return; // dừng luôn
+                }
 
-                        for (var i = 0; i < rowcount; i++) {
-                            try {
-                                var plnKKntnSodu = document.getElementById("D2_" + i).value;
-                                var ngnhanKntn = document.getElementById("D3_" + i).value;
-                                var checkrow = document.getElementById("checkrow_" + i).value;
-                                var D3 = document.getElementById('D3_' + i).value;
-                                var D5 = document.getElementById('D5_' + i).value;
-                                if (checkrow === "1" && plnKKntnSodu !== "0" && ngnhanKntn === "0")
-                                {
-                                    alert("Bạn chưa chọn nguyên nhân!");
-                                    document.getElementById("D3_" + i).style.backgroundColor = "#EEAFA6";
-                                    isValid = false;
-                                    break;
-                                }
-                                if (checkrow === "1" && (D3 === "02" || D3 === "04") && D5.length < 5)
-                                {
-                                    alert("Bạn chưa nhập nguyên nhân khác!");
-                                    document.getElementById("D5_" + i).style.backgroundColor = "#EEAFA6";
-                                    isValid = false;
-                                    break;
-                                }
-                            } catch (e) {
+                let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+                if (!aCheck)
+                    return;
+
+                var table = document.getElementById("subTable");
+                var rowcount = table.rows.length;
+                var isValid = true; // Biến kiểm tra tổng hợp
+                var errorMessages = []; // Lưu các lỗi để show sau
+
+                for (var i = 0; i < rowcount; i++) {
+                    try {
+                        var plnKKntnSodu = document.getElementById("D2_" + i).value;
+                        var ngnhanKntn = document.getElementById("D3_" + i).value;
+                        var checkrow = document.getElementById("checkrow_" + i).value;
+                        var D5 = document.getElementById("D5_" + i).value;
+
+                        if (checkrow === "1" && plnKKntnSodu !== "0") {
+                            if (ngnhanKntn === "0") {
+                                errorMessages.push("Dòng " + (i + 1) + ": Bạn chưa chọn nguyên nhân!");
+                                document.getElementById("D3_" + i).style.backgroundColor = "#EEAFA6";
+                                isValid = false;
+                            }
+                            if ((ngnhanKntn === "02" || ngnhanKntn === "04") && D5.length < 10) {
+                                errorMessages.push("Dòng " + (i + 1) + ": Bạn chưa nhập nguyên nhân khác (ít nhất 10 ký tự)!");
+                                document.getElementById("D5_" + i).style.backgroundColor = "#EEAFA6";
+                                isValid = false;
                             }
                         }
-
-                        if (isValid) {
-                            var url, sdata;
-                            url = "saveDataSp_Co.action";
-                            sdata = jQuery("#frmdata").serialize();
-//                                 console.log("data = " + sdata);
-                            $("#viewData").html('<img src="img/loading.gif"/>');
-                            btnDisabled(1);
-                            $.ajax({
-                                type: "POST",
-                                url: url,
-                                data: sdata,
-                                success: function (data) {
-                                    if (data === "200") {
-                                        alert("Thành công: Lưu dữ liệu.");
-                                        onLoadData();
-                                    } else {
-                                        alert("Lỗi: Lưu dữ liệu.");
-                                        onLoadData();
-                                    }
-                                },
-                                complete: function () {
-                                    btnDisabled(0);
-                                },
-                                error: function (request) {
-                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                }
-                            });
-                        }
+                    } catch (e) {
+                        console.error("Lỗi xử lý dòng " + i + ": ", e);
                     }
                 }
+
+                if (!isValid) {
+                    alert(errorMessages.join("\n"));
+                    return; // dừng lưu vì có lỗi
+                }
+
+                // Nếu hợp lệ mới gửi ajax lưu dữ liệu
+                var url = "saveDataSp_Co.action";
+                var sdata = jQuery("#frmdata").serialize();
+                $("#viewData").html('<img src="img/loading.gif"/>');
+                btnDisabled(1);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        if (data === "200") {
+                            alert("Thành công: Lưu dữ liệu.");
+                            onLoadData();
+                        } else {
+                            alert("Lỗi: Lưu dữ liệu.");
+                            onLoadData();
+                        }
+                    },
+                    complete: function () {
+                        btnDisabled(0);
+                    },
+                    error: function (request) {
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
             });
+
 
             function btnDisabled(status) {
                 if (status === 1) {
@@ -545,7 +549,7 @@
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/07/2025";
             })
-                    <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
+            <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
             const deadline = new Date("2025-08-12T00:00:00");
 
             function updateCountdown() {

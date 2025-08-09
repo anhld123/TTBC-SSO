@@ -285,18 +285,36 @@
                         var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
 
                         for (var i = 0; i < rowcount; i++) {
-                            try {
-                                var plnKKntnSodu = document.getElementById("D2_" + i).value;
-                                var ngnhanKntn = document.getElementById("D3_" + i).value;
-                                var checkrow = document.getElementById("checkrow_" + i).value;
-                                if (checkrow === "1" && plnKKntnSodu !== "0" && ngnhanKntn === "0")
-                                {
+                            var elD2 = document.getElementById("D2_" + i);
+                            var elD3 = document.getElementById("D3_" + i);
+                            var elD5 = document.getElementById("D5_" + i);
+                            var elCheck = document.getElementById("checkrow_" + i);
+
+                            if (!elD2 || !elD3 || !elD5 || !elCheck)
+                                continue;
+
+                            var plnKKntnSodu = elD2.value;
+                            var ngnhanKntn = elD3.value;
+                            var ngnhan678 = elD5.value;
+                            var checkrow = elCheck.value;
+
+                            // reset màu trước khi check
+                            elD3.style.backgroundColor = "";
+                            elD5.style.backgroundColor = "";
+
+                            if (checkrow === "1" && plnKKntnSodu !== "0") {
+                                if (ngnhanKntn === "0") {
                                     alert("Bạn chưa chọn nguyên nhân!");
-                                    document.getElementById("D3_" + i).style.backgroundColor = "#EEAFA6";
+                                    elD3.style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
                                 }
-                            } catch (e) {
+                                if ((ngnhanKntn === "06" || ngnhanKntn === "07" || ngnhanKntn === "08") && (!ngnhan678 || ngnhan678.length < 10)) {
+                                    alert("Dòng " + (i + 1) + ": Bạn chưa nhập nguyên nhân khác (ít nhất 10 ký tự)!");
+                                    elD5.style.backgroundColor = "#EEAFA6";
+                                    isValid = false;
+                                    break;
+                                }
                             }
                         }
 
@@ -671,9 +689,8 @@
                             &nbsp;
                             <s:label value="Trạng thái " cssStyle="color: #029c44;" />
                             <select id="trangthai" name="trangthai">
-                                <option value="0">-- Tất cả --</option>
                                 <option value="N">Chưa đối chiếu</option>
-                                <option value="R">Không đối chiếu được</option>
+                                <!--<option value="R">Không đối chiếu được</option>-->
                                 <option value="S">Đã đối chiếu</option>
                             </select>
 
@@ -709,7 +726,9 @@
                                 Trang <span id="page"></span>
                                 <a onclick="nextPage()" href="#" id="btn_next">&#8921;</a>
                             </div>
+                            <s:label value="%{thongbao}" style="margin-left: 10px;font-size: 15px;color: red;font-weight: bold;"/>
                         </td> 
+
                     </tr>
                 </table>
             </fieldset>

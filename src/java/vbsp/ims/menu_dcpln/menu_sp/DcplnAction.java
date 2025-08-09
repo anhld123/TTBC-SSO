@@ -497,9 +497,10 @@ public class DcplnAction extends ActionChtrinhcnMain
                     addActionError("Bạn chưa chọn tổ TK&VV!");
                     return ERROR;
                 }
-                final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
 
-                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, smato, "", trangthai, nguonvon, chtrinh, "");
+                lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi,
+                        smato.equals("NOGROUP") ? "" : smato, "", trangthai, nguonvon, chtrinh, "");
+
             }
             if (lstPhanLoaiNo_T == null || lstPhanLoaiNo_T.isEmpty()) {
                 addActionError("Không có dữ liệu đối chiếu!");
@@ -513,10 +514,11 @@ public class DcplnAction extends ActionChtrinhcnMain
                     mahoi = item.getPlnDvut();
                     lstDulieuNtPLN_T.add(row);
                 }
-                if (lstDulieuNtPLN_T == null || lstDulieuNtPLN_T.isEmpty()) {
-                    addActionError("Không có dữ liệu đối chiếu!");
-                    return ERROR;
-                }
+
+            }
+            if (lstDulieuNtPLN_T == null || lstDulieuNtPLN_T.isEmpty()) {
+                addActionError("Không có dữ liệu đối chiếu!");
+                return ERROR;
             }
             lstDulieuNtPLN_T.sort(
                     Comparator.comparing(obj -> layTen(obj.getPlnTenkh()), String.CASE_INSENSITIVE_ORDER)
@@ -530,7 +532,6 @@ public class DcplnAction extends ActionChtrinhcnMain
             int tongNlai = 0;
             int tongMonvay = 0;
             String stmato_to = "";
-            int sthongbao = 0;
             for (DuLieuPLN_T item : lstData) {
                 int dnoThan = Optional.ofNullable(item.getPlnDnothan()).orElse(0);
                 int dnoQhan = Optional.ofNullable(item.getPlnDnoqhan()).orElse(0);
@@ -547,12 +548,6 @@ public class DcplnAction extends ActionChtrinhcnMain
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
                     setKhachHang.add(item.getPlnMakh());
                 }
-                if ("1".equals(item.getD7())) {
-                    sthongbao++;
-                }
-            }
-            if (sthongbao != 0) {
-                this.thongbao = "Có món vay đề nghị hỗ trợ!";
             }
             this.tong_monvay = String.valueOf(tongMonvay);
             this.tong_kh = String.valueOf(setKhachHang.size());
@@ -586,6 +581,11 @@ public class DcplnAction extends ActionChtrinhcnMain
 
     private DuLieuPLN convertPLN(DuLieuPLN item) {
         DuLieuPLN row = new DuLieuPLN();
+
+        if (item == null) {
+            return row;
+        }
+
         try {
             row.setPlnSoku(item.getPlnSoku());
             row.setPlnMakh(item.getPlnMakh());
@@ -604,23 +604,27 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnChtrinhTen(item.getPlnChtrinhTen());
             row.setPlnChtrinhTenvt(item.getPlnChtrinhTenvt());
 
-            row.setPlnDnothan(item.getPlnDnothan());
-            row.setPlnDnoqhan(item.getPlnDnoqhan());
-            row.setPlnDnokhoanh(item.getPlnDnokhoanh());
-            row.setPlnTongDno(item.getPlnDnothan() + item.getPlnDnoqhan() + item.getPlnDnokhoanh());
-            row.setPlnLaitonthan(item.getPlnLaitonthan());
-            row.setPlnLaitonqhan(item.getPlnLaitonqhan());
-            row.setPlnTonglaiton(item.getPlnTonglaiton());
-            row.setPlnTonglaiTt(item.getPlnTonglaiTt());
-            row.setPlnCKntnSodu(item.getPlnCKntnSodu());
-            row.setPlnKKntnSodu(item.getPlnKKntnSodu());
+            int dnothan = safeInt(item.getPlnDnothan());
+            int dnoqhan = safeInt(item.getPlnDnoqhan());
+            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+            row.setPlnDnothan(dnothan);
+            row.setPlnDnoqhan(dnoqhan);
+            row.setPlnDnokhoanh(dnokhoanh);
+            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+
+            row.setPlnLaitonthan(safeInt(item.getPlnLaitonthan()));
+            row.setPlnLaitonqhan(safeInt(item.getPlnLaitonqhan()));
+            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
+            row.setPlnTonglaiTt(safeInt(item.getPlnTonglaiTt()));
+            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
+            row.setPlnKKntnSodu(safeInt(item.getPlnKKntnSodu()));
             row.setNgnhanKckntn(item.getNgnhanKckntn());
 
             row.setPlnQuanheKh(item.getPlnQuanheKh());
             row.setPlnTrangthai(item.getPlnTrangthai());
             row.setPlnTrangthaiTen(item.getPlnTrangthaiTen());
-            row.setPlnNogocClech(item.getPlnNogocClech());
-            row.setPlnNolaiClech(item.getPlnNolaiClech());
+            row.setPlnNogocClech(safeInt(item.getPlnNogocClech()));
+            row.setPlnNolaiClech(safeInt(item.getPlnNolaiClech()));
             row.setPlnNgnhanClech(item.getPlnNgnhanClech());
             row.setPlnTtMonvay(item.getPlnTtMonvay());
             row.setPlnNgaybc(item.getPlnNgaybc());
@@ -637,15 +641,19 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnMapgd(item.getPlnMapgd());
             row.setPlnMaxa(item.getPlnMaxa());
         } catch (Exception e) {
-            System.err.println("Error in convertPLN: " + e.getMessage());
+            // Không log
         }
         return row;
     }
 
     private DuLieuPLN_T convertPLN_T(DuLieuPLN_T item) {
         DuLieuPLN_T row = new DuLieuPLN_T();
+
+        if (item == null) {
+            return row;
+        }
+
         try {
-            row.setStt(item.getStt());
             row.setPlnMacn(item.getPlnMacn());
             row.setPlnMapgd(item.getPlnMapgd());
             row.setPlnMaxa(item.getPlnMaxa());
@@ -661,26 +669,34 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnMakh(item.getPlnMakh());
             row.setPlnTenkh(item.getPlnTenkh());
             row.setPlnSoku(item.getPlnSoku());
-            row.setPlnDnothan(item.getPlnDnothan());
-            row.setPlnDnoqhan(item.getPlnDnoqhan());
-            row.setPlnDnokhoanh(item.getPlnDnokhoanh());
-            row.setPlnTongDno(item.getPlnDnothan() + item.getPlnDnoqhan() + item.getPlnDnokhoanh());
-            row.setPlnTonglaiton(item.getPlnTonglaiton());
-            row.setPlnCKntnSodu(item.getPlnCKntnSodu());
-//            row.setPlnKKntnSodu(item.getPlnKKntnSodu());
+
+            int dnothan = safeInt(item.getPlnDnothan());
+            int dnoqhan = safeInt(item.getPlnDnoqhan());
+            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+            row.setPlnDnothan(dnothan);
+            row.setPlnDnoqhan(dnoqhan);
+            row.setPlnDnokhoanh(dnokhoanh);
+            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+
+            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
+            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
+
             row.setNgnhanKckntn(item.getNgnhanKckntn());
             row.setkNgnhanKh(item.getkNgnhanKh());
             row.setPlnQuanheKh(item.getPlnQuanheKh());
             row.setPlnTrangthai(item.getPlnTrangthai());
-            row.setPlnNogocClech(item.getPlnNogocClech());
-            row.setPlnNolaiClech(item.getPlnNolaiClech());
+            row.setPlnNogocClech(safeInt(item.getPlnNogocClech()));
+            row.setPlnNolaiClech(safeInt(item.getPlnNolaiClech()));
             row.setPlnNgnhanClech(item.getPlnNgnhanClech());
             row.setPlnTtMonvay(item.getPlnTtMonvay());
             row.setPlnNgaybc(item.getPlnNgaybc());
             row.setPlnNguoiPln(item.getPlnNguoiPln());
             row.setPlnNgayPln(item.getPlnNgayPln());
             row.setPlnNguyennhanC2(item.getPlnNguyennhanC2());
-            row.setPlnKKntnSodu(Integer.parseInt(item.getkKntnSodu01()));
+
+            String kntnSodu01 = item.getkKntnSodu01();
+            row.setPlnKKntnSodu(parseIntSafe(kntnSodu01));
+
             row.setkKntnSodu02(item.getkKntnSodu02());
             row.setkKntnSodu03(item.getkKntnSodu03());
             row.setkKntnSodu04(item.getkKntnSodu04());
@@ -691,6 +707,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setkKntnSodu09(item.getkKntnSodu09());
             row.setkKntnSodu10(item.getkKntnSodu10());
             row.setkKntnSodu11(item.getkKntnSodu11());
+
             row.setD1(item.getD1());
             row.setD2(item.getD2());
             row.setD3(item.getD3());
@@ -701,11 +718,27 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setD8(item.getD8());
             row.setD9(item.getD9());
             row.setD10(item.getD10());
+
             row.setCheckrow("0");
         } catch (Exception e) {
-            System.err.println("Error in convertPLN: " + e.getMessage());
+            // Không log, chỉ bỏ qua lỗi
         }
         return row;
+    }
+
+    private int safeInt(Integer val) {
+        return val != null ? val : 0;
+    }
+
+    private int parseIntSafe(String val) {
+        if (val == null || val.isEmpty()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(val);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     public String getDb_mato() {
@@ -795,6 +828,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                     tempadd.setD4(tmp.getD4());
                     tempadd.setD5(tmp.getD5());
                     tempadd.setD7(tmp.getD7());
+                    tempadd.setStatus("S");
                     lstUpdateDate.add(tempadd);
                 }
 
@@ -823,9 +857,12 @@ public class DcplnAction extends ActionChtrinhcnMain
             }
             String _reportDate = (String) ActionContext.getContext().getSession().get("_reportDate");
             String soku = (String) ActionContext.getContext().getSession().get("soku");
-            String pos_cd_username = (String) ActionContext.getContext().getSession().get("pos_cd_username");
+            String mapgd = (String) ActionContext.getContext().getSession().get("mapgd");
+            if (mapgd != null) {
+                mapgd = mapgd.replace("[", "").replace("]", "");
+            }
+            System.out.println(" mapgd= " + mapgd);
             String UserName = (String) ActionContext.getContext().getSession().get("UserName");
-//            System.out.println("dateStr= " + _reportDate + " poscd= " + pos_cd_username + " UserName= " + UserName);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
             String date2 = LocalDateTime.now().format(formatter);
 
@@ -846,52 +883,6 @@ public class DcplnAction extends ActionChtrinhcnMain
             }
 
             _serverAPI = new DuLieuNTService();
-            int status = _serverAPI.savePLN_2025(pos_cd_username, _reportDate, UserName, lstUpdateDate);
-            if (status != 200) {
-                this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
-                return ERROR;
-            }
-        } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
-            this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
-            return ERROR;
-        }
-        String code = String.valueOf(200);
-
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return SUCCESS;
-    }
-
-    public String sendDataDcPLN() {
-        System.out.println("vao váe sendata");
-        try {
-            if (!getParaSession()) {
-                return ERROR;
-            }
-            HashMap hmParameter = getParameter();
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            String maxa_key1 = hmParameter.get("lstXa").toString();
-            String[] values = maxa_key1.split("\\|");
-            String mapgd = values[0];  // giá trị posCode
-            String dateStr = hmParameter.get("ngay_bc").toString();
-            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            String date2 = LocalDateTime.now().format(formatter);
-
-            ArrayList<DuLieuPLN_Save> lstUpdateDate = new ArrayList<>();
-            for (DuLieuPLN_T tmp : lstDulieuNtPLN_T) {
-                DuLieuPLN_Save tempadd = new DuLieuPLN_Save();
-                if ("1".equals(tmp.getCheckrow())) {
-                    tempadd.setLoanId(tmp.getPlnSoku());
-                    tempadd.setCustomerId(tmp.getPlnMakh());
-                    tempadd.setUpdateTimeByBranch(date2);
-                    tempadd.setD6("1");
-                    lstUpdateDate.add(tempadd);
-                }
-            }
-
-            _serverAPI = new DuLieuNTService();
             int status = _serverAPI.savePLN_2025(mapgd, _reportDate, UserName, lstUpdateDate);
             if (status != 200) {
                 this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
@@ -904,6 +895,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             return ERROR;
         }
         String code = String.valueOf(200);
+
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;
     }
@@ -929,6 +921,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             String macn_sp = ServletActionContext.getRequest().getParameter("macn_sp");
             String mapgd_sp = ServletActionContext.getRequest().getParameter("mapgd_sp");
             String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
+            String maxa_sp = ServletActionContext.getRequest().getParameter("maxa_sp");
             String dateStr = (String) ActionContext.getContext().getSession().get("dateStr");
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             lstPhanLoaiNo_T = _serverAPI.postDataPLN(mapgd, "S", dateStr, "", "", makh, "", "", "", "");
@@ -939,7 +932,9 @@ public class DcplnAction extends ActionChtrinhcnMain
                 tempadd.setCustomerId(tmp.getPlnMakh());
                 tempadd.setD1(macn_sp);
                 tempadd.setD2(mapgd_sp);
+                tempadd.setD4("0");
                 tempadd.setD7("1");
+                tempadd.setD9(maxa_sp);
                 lstUpdateDate.add(tempadd);
             }
             _serverAPI = new DuLieuNTService();
@@ -983,8 +978,6 @@ public class DcplnAction extends ActionChtrinhcnMain
                         return ERROR;
                     }
                 }
-                lstCN_API = _serverAPI.getListCn("");
-                lstPGD_API = _serverAPI.getListPgd("", "");
             }
             if (lstPhanLoaiNo_T == null || lstPhanLoaiNo_T.isEmpty()) {
                 addActionError("Không có dữ liệu đối chiếu!");
@@ -995,12 +988,13 @@ public class DcplnAction extends ActionChtrinhcnMain
             String smapgd = "";
             for (DuLieuPLN_T item : lstPhanLoaiNo_T) {
                 DuLieuPLN_T row = convertPLN_T(item);
-                if (item.getD7().equals("1")) {
+                if ("1".equals(item.getD7())) {
                     smapgd = item.getPlnMapgd();
                     lstDulieuNtPLN_T.add(row);
                 }
                 this.check_cn = smapgd;
-                ActionContext.getContext().getSession().put("smapgd", smapgd);
+                ActionContext.getContext().getSession().put("check_cn", check_cn);
+                System.out.println("check_cn= " + check_cn);
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -1025,7 +1019,8 @@ public class DcplnAction extends ActionChtrinhcnMain
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
             String date2 = LocalDateTime.now().format(formatter);
-            String smapgd = (String) ActionContext.getContext().getSession().get("smapgd");
+            String smapgd = (String) ActionContext.getContext().getSession().get("check_cn");
+            System.out.println("smapgd= " + smapgd);
             ArrayList<DuLieuPLN_Save> lstUpdateDate = new ArrayList<>();
             for (DuLieuPLN_T tmp : lstDulieuNtPLN_T) {
                 DuLieuPLN_Save tempadd = new DuLieuPLN_Save();
@@ -1042,8 +1037,10 @@ public class DcplnAction extends ActionChtrinhcnMain
                     tempadd.setD3(tmp.getD3());
                     tempadd.setD10(tmp.getD10());
                     tempadd.setD5(tmp.getD5());
+                    tempadd.setD4("0");
                     tempadd.setD6("1");
                     tempadd.setD7("2");
+                    tempadd.setStatus("S");
                     lstUpdateDate.add(tempadd);
                 }
 
@@ -1074,7 +1071,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             HashMap hmParameter = getParameter();
             String dateStr = hmParameter.get("ngay_bc").toString();
             String soku = hmParameter.get("soku").toString();
-            String poscd = hmParameter.get("poscd").toString();
+            String mapgd = hmParameter.get("poscd").toString();
             String slock = hmParameter.get("lock").toString();
             String[] values = slock.split("\\-");
             String sD6 = values[0];
@@ -1089,10 +1086,10 @@ public class DcplnAction extends ActionChtrinhcnMain
             // Lưu các tham số vào session
             ActionContext.getContext().getSession().put("_reportDate", _reportDate);
             ActionContext.getContext().getSession().put("soku", soku);
-            ActionContext.getContext().getSession().put("poscd", poscd);
+            ActionContext.getContext().getSession().put("mapgd", mapgd);
 
             // Gọi dữ liệu phân loại nợ
-            lstPhanLoaiNo = _serverAPI.getDataPLN(poscd, soku, _reportDate);
+            lstPhanLoaiNo = _serverAPI.getDataPLN(mapgd, soku, _reportDate);
             if (lstPhanLoaiNo == null || lstPhanLoaiNo.isEmpty()) {
                 addActionError("Chưa có dữ liệu, liên hệ TTCNTT để được hỗ trợ");
                 return ERROR;
@@ -1124,4 +1121,44 @@ public class DcplnAction extends ActionChtrinhcnMain
         }
         return SUCCESS;
     }
+
+    public String reloadMaxaPln() {
+        try {
+            System.err.println("Vào hàm reloadMaxaPln");
+
+            HashMap<String, Object> hmParameter = getParameter();
+            if (hmParameter == null) {
+                return ERROR;
+            }
+
+            String userName = (String) ActionContext.getContext().getSession().get("UserName");
+            if (userName == null || userName.isEmpty()) {
+                return ERROR;
+            }
+
+            // Lấy trực tiếp mapgd từ request
+            Object mapgdObj = hmParameter.get("mapgd");
+            if (mapgdObj == null) {
+                return ERROR;
+            }
+
+            String mapgd = mapgdObj.toString().trim();
+            if (mapgd.isEmpty()) {
+                return ERROR;
+            }
+
+            // Nếu vẫn cần danh mục key, chỉ dùng mapgd
+            String danhMucKey = "2_" + mapgd;
+
+            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+            lstXa_API = _serverAPI.getListXa("", "", "", mapgd);
+
+        } catch (Exception e) {
+            System.err.println("Lỗi trong reloadMaxaPln: " + e.getMessage());
+            CoreLogger.error(this.getClass().getCanonicalName() + " reloadMaxaPln -> " + e.getMessage(), e);
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
 }

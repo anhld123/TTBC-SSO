@@ -116,14 +116,11 @@
             });
             function initTable() {
                 var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
+                var rowcount = Math.max(table.rows.length, max_row);
 
                 for (var i = 0; i < rowcount; i++) {
-                    // Xử lý Dnokhoanh -> D4
                     var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
-                    var selectEl = document.getElementById('D4_' + i);
-
+                    var D4 = document.getElementById('D4_' + i);
                     var D1 = document.getElementById('D1_' + i);
                     var D2 = document.getElementById('D2_' + i);
                     var D3 = document.getElementById('D3_' + i);
@@ -131,64 +128,66 @@
                     var D6 = document.getElementById('D6_' + i);
                     var D7 = document.getElementById('D7_' + i);
                     var checkbox = document.getElementById('checkrow_' + i);
-                    if (D6)
-                    {
-                        var value = D6.value;
-                        var value1 = D7.value;
-                        if (value === "1" || value1 === "2") {
+
+                    // 1. Khóa checkbox, D3, D5 nếu D6 hoặc D7 thỏa điều kiện
+                    if (D6 && D3 && (D6.value === "1" || (D7 && D7.value === "2"))) {
+                        if (checkbox) {
                             checkbox.disabled = true;
-                            checkbox.checked = true; // nếu bạn muốn checkbox vẫn được tick
-                            checkbox.value = 2;      // giá trị sẽ là 1
+                            checkbox.checked = true;
+                            checkbox.value = 2;
                             checkbox.title = 'Món vay đã chốt';
                         }
-                    }
-                    if (DnokhoanhEl && selectEl) {
-                        var value = DnokhoanhEl.innerText.trim();
-                        selectEl.disabled = value === "0"; // khóa nếu bằng "0", mở nếu khác
-                    }
-                    if (selectEl) {
-                        var value = selectEl.value;
-
-                        if (value !== "0") {
-                            D1.value = 0;
-                            D2.value = 0;
+                        if (D1)
                             D1.disabled = true;
+                        if (D2)
                             D2.disabled = true;
+                        if (D3)
                             D3.disabled = true;
-                        } else {
-                            D1.disabled = false;
-                            D2.disabled = false;
-                            D3.disabled = false;
-                        }
+                        if (D5)
+                            D5.disabled = true;
+
+                        // Bỏ qua xử lý tiếp theo để tránh bị mở khóa ở dưới
+                        continue;
                     }
+
+                    // 2. Khóa D4 nếu Dnokhoanh = "0"
+                    if (DnokhoanhEl && D4) {
+                        D4.disabled = DnokhoanhEl.innerText.trim() === "0";
+                    }
+
+                    // 3. Nếu D4 khác 0 → reset & khóa D1, D2, D3
+                    if (D4 && D4.value !== "0") {
+                        if (D1) {
+                            D1.value = 0;
+                            D1.disabled = true;
+                        }
+                        if (D2) {
+                            D2.value = 0;
+                            D2.disabled = true;
+                        }
+                        if (D3)
+                            D3.disabled = true;
+                    } else {
+                        if (D1)
+                            D1.disabled = false;
+                        if (D2)
+                            D2.disabled = false;
+                        if (D3)
+                            D3.disabled = false;
+                    }
+
+                    // 4. Điều khiển D3 dựa vào D1 & D2
                     if (D1 && D2 && D3) {
                         var val1 = D1.value.trim();
                         var val2 = D2.value.trim();
+                        D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
+                    }
 
-                        if (val1 !== "0") {
-                            D3.disabled = true;
-                        } else if (val2 !== "0") {
-                            D3.disabled = false;
-                        } else {
-                            D3.disabled = true;
-                        }
-                    }
-                    if (D3)
-                    {
-                        var value = D3.value;
-                        if (value === "06" || value === "07" || value === "08") {
-                            D5.disabled = false;
-                        } else {
-                            D5.disabled = true;
-                        }
-                    }
-                    if (D2)
-                    {
-                        var value = D2.value;
-                        if (value === "")
-                        {
-                            D2.value = 0;
-                        }
+                    // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
+                    if (D3 && D5) {
+                        if (D2 && D2.value === "")
+                            D2.value = "0";
+                        D5.disabled = !(D3.value === "06" || D3.value === "07" || D3.value === "08");
                     }
                 }
             }
@@ -329,7 +328,7 @@
                     <th class="STT2">Nợ khoanh</th>
                     <th class="STT3">Số tiền</th>
                     <th>Nguyên nhân</th>
-                    <th class="STT4">Cụ thể nguyên nhân 6,7,8</th>
+                    <th class="STT3">Cụ thể nguyên nhân 6,7,8</th>
 
                 </tr>
                 <tr>
@@ -414,42 +413,58 @@
                                    onblur="setTongDuNoTo('D2', <s:property value='%{#rowstatus.index}' />)"/>
                         </td>
                         <s:if test="D7.equalsIgnoreCase('2')">
-                             <td class="D0">    
-                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
+                            <td class="D0">    
+                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px; background: #E5E5E5"
                                         name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'>
                                     <option value="0" style="text-align: center">----Chọn----</option>
                                     <s:iterator value="lstDmKhac106" status="ideRows" var="language">
-                                        <option value="<s:property value="code" />"
-                                                <s:if test="%{#language.code == D10}">selected</s:if>>
-                                            <s:property value="code" /> - <s:property value="value" />
-                                        </option>
+                                        <s:if test="%{#language.code == '01'}">
+                                            <option value="<s:property value="code" />" disabled style="font-weight:bold; color:#333;">
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:if>
+                                        <s:else>
+                                            <option value="<s:property value="code" />"
+                                                    <s:if test="%{#language.code == D10}">selected</s:if>>
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:else>
                                     </s:iterator>   
                                 </select>
                             </td>
-                            
                         </s:if>
                         <s:else>
-                           <td class="D0">    
+                            <td class="D0">    
                                 <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
                                         name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D4'
                                         onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
                                     <option value="0" style="text-align: center">----Chọn----</option>
                                     <s:iterator value="lstDmKhac57" status="ideRows" var="language">
-                                        <option value="<s:property value="code" />"
-                                                <s:if test="%{#language.code == D4}">selected</s:if>>
-                                            <s:property value="code" /> - <s:property value="value" />
-                                        </option>
+                                        <s:if test="%{#language.code == '01' || #language.code == '02'}">
+                                            <!-- Mục cần khóa -->
+                                            <option value="<s:property value="code" />" disabled style="font-weight:bold; color:#333;">
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:if>
+                                        <s:else>
+                                            <!-- Mục được chọn -->
+                                            <option value="<s:property value="code" />"
+                                                    <s:if test="%{#language.code == D4}">selected</s:if>>
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:else>
                                     </s:iterator>
+
                                 </select>
                             </td>
+
                         </s:else>
 
                         <td>
-                            <textarea style="width: 300px" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 
+                            <textarea style="width: 250px" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 
                                       name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D5" maxlength="500"><s:property value='D5'/></textarea>
 
                         </td>
-
                     </tr>
 
                 </s:iterator>
@@ -535,6 +550,27 @@
                 }
             }
 
+            function nnkhoanh(field, index) {
+                const d1 = document.getElementById('D1_' + index);
+                const d2 = document.getElementById('D2_' + index);
+                const d3 = document.getElementById('D3_' + index);
+                const d4 = document.getElementById('D4_' + index);
+
+                const valD4 = parseFloat(d4.value) || 0;
+
+                if (valD4 !== 0) {
+                    d1.value = 0;
+                    d2.value = 0;
+                    d1.disabled = true;
+                    d2.disabled = true;
+                    d3.disabled = true;
+                } else {
+                    d1.disabled = false;
+                    d2.disabled = false;
+                    d3.disabled = false;
+                }
+            }
+
             function ngnhanKntn(field, index) {
                 const d3 = document.getElementById('D3_' + index);
                 const d5 = document.getElementById('D5_' + index);
@@ -549,6 +585,7 @@
                     d5.value = "";
                 }
             }
+
 
 
             function initTable1()

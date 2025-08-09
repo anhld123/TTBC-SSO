@@ -46,6 +46,10 @@
                 <param name="inputName">pageResult</param>
             </result>      
         </action>
+        <action name="reloadMaxaPln" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction" method="reloadMaxaPln">
+            <result name="success" type="json"></result>
+        </action>
+        
         <!--vào form con cap 1 ho tro-->
         <action name="DCPLN_03" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction"  method="load_sp">
             <result name="success">/dc_plno/dc_pln_table/table_datahtro_dcpln.jsp</result>   

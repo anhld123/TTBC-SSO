@@ -146,6 +146,7 @@
                     <th>Số món vay</th>
                     <th>Chi nhánh đề nghị hỗ trợ</th>
                     <th>Phòng giao dịch đề nghị hỗ trợ</th>
+                    <th>Xã/Phường đề nghị hỗ trợ</th>
                     <th>Trạng thái</th>
                     <th>Phản hồi</th>
                 </tr>
@@ -157,7 +158,7 @@
                         <td class="D0"><s:property  value="plnMakh" /></td>
                         <td class="D0"><s:property  value="plnTenkh" /></td>
                         <td class="D0"><s:property  value="tong_monvay" /></td>
-                        <td> 
+                        <td class="D0"> 
                             <select  name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D1" style="width: 150px"
                                      onchange="onSelectChange()" id="lstCN"
                                      <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
@@ -173,7 +174,7 @@
 
                             </select>
                         </td>
-                        <td>
+                        <td class="D0">
                             <select name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].D2" style="width: 200px" id="lstPGD"
                                     <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">onmousedown="return false"</s:if>>
                                         <option value="0" style="text-align: center">----Chọn----</option>
@@ -196,9 +197,30 @@
                             </select> 
                         </td>
                         <td class="D0">
+                            <select name="lstDulieuNtPLN_T[<s:property value='%{#rowstatus.index}' />].D9"
+                                    style="width: 200px"
+                                    id="lstXa_Temp">
+                                <option style="text-align: center" value="000000">----Chọn xã----</option>
+                                <s:iterator value="lstXa_API" var="xa">
+                                    <s:if test="%{#xa.communeCode == D9}">
+                                        <option value="<s:property value='communeCode'/>" selected>
+                                            <s:property value="communeCode"/> - <s:property value="communeName"/>
+                                        </option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value="<s:property value='communeCode'/>">
+                                            <s:property value="communeCode"/> - <s:property value="communeName"/>
+                                        </option>
+                                    </s:else>
+                                </s:iterator>
+                            </select>
+                        </td>
+
+                        </td>
+                        <td class="D0">
                             <s:if test="D7.equalsIgnoreCase('1')||D7.equalsIgnoreCase('2')">...</s:if>
                             <s:else>
-                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="plnMapgd"/>', '<s:property value="plnMakh"/>', <s:property value="plnNgaybc"/>, document.getElementById('lstCN').value, document.getElementById('lstPGD').value)">Đề nghị hỗ trợ</a>
+                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="plnMapgd"/>', '<s:property value="plnMakh"/>', <s:property value="plnNgaybc"/>, document.getElementById('lstCN').value, document.getElementById('lstPGD').value, document.getElementById('lstXa_Temp').value)">Đề nghị hỗ trợ</a>
                             </s:else>
                         </td>
                         <td class="D0"><s:if test="D7.equalsIgnoreCase('1')">
@@ -376,7 +398,7 @@
                 pgdSelect.prop('disabled', false).css('background-color', '#ffffff');
             }
 
-            function idSend(mapgd, makh, ngaybc, macn_sp, mapgd_sp) {
+            function idSend(mapgd, makh, ngaybc, macn_sp, mapgd_sp, maxa_sp) {
                 console.log(mapgd);
                 if (macn_sp === "0") {
                     alert("Bạn chưa chọn Chi nhánh hỗ trợ!");
@@ -390,14 +412,18 @@
                     alert("Không thể chọn PGD cho vay để hỗ trợ!");
                     return;
                 }
-
+                if (maxa_sp === "000000") {
+                    alert("Bạn chưa chọn xã/phường hỗ trợ!");
+                    return;
+                }
                 var url, sdata;
                 url = "sendSupportDcPln.action?" +
                         "mapgd=" + mapgd +
                         "&makh=" + makh +
                         "&ngaybc=" + ngaybc +
                         "&macn_sp=" + macn_sp +
-                        "&mapgd_sp=" + mapgd_sp;
+                        "&mapgd_sp=" + mapgd_sp +
+                        "&maxa_sp=" + maxa_sp;
 
                 sdata = jQuery("#frmdata").serialize();
 
@@ -424,6 +450,36 @@
                 });
             }
 
+            $('#lstPGD').on('change', function () {
+                var mapgd = $(this).val();
+
+                if (mapgd && mapgd !== '0') {
+                    $.ajax({
+                        url: 'reloadMaxaPln.action',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {mapgd: mapgd},
+                        success: function (response) {
+                            console.log(response); // Debug JSON trả về
+
+                            var selectXa = $('#lstXa_Temp');
+                            selectXa.empty();
+                            selectXa.append('<option value="000000">----Chọn xã----</option>');
+
+                            if (response.lstXa_API && response.lstXa_API.length > 0) {
+                                $.each(response.lstXa_API, function (i, xa) {
+                                    selectXa.append('<option value="' + xa.communeCode + '">' +
+                                            xa.communeCode + ' - ' + xa.communeName + '</option>');
+                                });
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log("Lỗi:", xhr.responseText);
+                            alert('Không thể tải danh sách xã!');
+                        }
+                    });
+                }
+            });
 
         </script>
 

@@ -41,6 +41,7 @@ import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListOfValue;
 import vbsp.ims.restapi.ListPosCode;
+import vbsp.ims.restapi.SeachPLN;
 
 /**
  *
@@ -67,6 +68,33 @@ public class ActionPlnMain extends ActionSupport {
     private List<ListOfValue> lstDmKhac;
     private List<ListOfValue> lstDmKhac17;
     private List<ListOfValue> lstDmKhac197;
+    protected List<SeachPLN> lstSeachPLN = new ArrayList<>();
+    private List<SeachPLN> lstSeachPLN_map;
+    private String thongbao;
+
+    public List<SeachPLN> getLstSeachPLN() {
+        return lstSeachPLN;
+    }
+
+    public void setLstSeachPLN(List<SeachPLN> lstSeachPLN) {
+        this.lstSeachPLN = lstSeachPLN;
+    }
+
+    public List<SeachPLN> getLstSeachPLN_map() {
+        return lstSeachPLN_map;
+    }
+
+    public void setLstSeachPLN_map(List<SeachPLN> lstSeachPLN_map) {
+        this.lstSeachPLN_map = lstSeachPLN_map;
+    }
+
+    public String getThongbao() {
+        return thongbao;
+    }
+
+    public void setThongbao(String thongbao) {
+        this.thongbao = thongbao;
+    }
 
     public List<ListOfValue> getLstDmKhac17() {
         return lstDmKhac17;
@@ -136,13 +164,14 @@ public class ActionPlnMain extends ActionSupport {
     protected PosMainModel posMainModel;
     protected String pos_cd_username;
     protected int lockStatus;
+
     public String getChotCic() {
         return chotCic;
     }
+
     public void setChotCic(String chotCic) {
         this.chotCic = chotCic;
     }
-
 
     public HttpServletRequest request = null;
     public String query;
@@ -248,11 +277,10 @@ public class ActionPlnMain extends ActionSupport {
         this.lstMaxa = lstMaxa;
     }
 
-
     public List<DuLieuNTRow> getLstData_Api() {
         return lstData_Api;
     }
-  
+
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
     protected String poslist;
@@ -470,13 +498,22 @@ public class ActionPlnMain extends ActionSupport {
                     lstPGD_API = _serverAPI.getListPgd(main_pos, "");
                     break;
                 default:
+                    lstSeachPLN = _serverAPI.getDataPLNSeach(pos_cd_username, "20250731");
+                    String thongbao1 = "";
+                    if (lstSeachPLN != null && !lstSeachPLN.isEmpty()) {
+                        thongbao1 = "Có món vay đề nghị đối chiếu từ đơn vị khác gửi đến, đề nghị đơn vị vào in mẫu 01A để kiểm tra!";
+                    }
+                    this.thongbao = thongbao1;
+                    System.out.println("thongbao= " + thongbao);
                     setLstMato(daoMain.getDanhMuc(UserName, "MATO_PLN", Grade));
                     setLstMaxa(daoMain.getDanhMuc(UserName, "MAXA", Grade));
                     break;
             }
 //           hoi doan the
             lstDmKhac17 = _serverAPI.getListOfValue("17", "");
-            lstDmKhac17.removeIf(item -> "10".equals(item.getCode()));
+            lstDmKhac17.removeIf(item
+                    -> "10".equals(item.getCode()) || "20".equals(item.getCode())
+            );
             lstDmKhac17.sort((a, b) -> Integer.compare(
                     Integer.parseInt(a.getCode()),
                     Integer.parseInt(b.getCode())
@@ -504,6 +541,7 @@ public class ActionPlnMain extends ActionSupport {
         }
         return SUCCESS;
     }
+
     public String getPoslist() {
         return poslist;
     }
@@ -520,9 +558,7 @@ public class ActionPlnMain extends ActionSupport {
         this.lstDulieuNt50 = lstDulieuNt50;
     }
 
- 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
-  
     public List<ListValue> getLstMato() {
         return lstMato;
     }
@@ -650,6 +686,7 @@ public class ActionPlnMain extends ActionSupport {
     public void setNgay_bc(String ngay_bc) {
         this.ngay_bc = ngay_bc;
     }
+
     public DaoListPosFromUser getListKTNBDA() {
         return listKTNBDA;
     }

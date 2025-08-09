@@ -303,17 +303,24 @@
                                    onblur="setTongDuNoTo('D2', <s:property value='%{#rowstatus.index}' />)"/>
                         </td>
                         <td class="D0">    
-                            <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
-                                    name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'
-                                    onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
-                                <option value="0" style="text-align: center">----Chọn----</option>
-                                <s:iterator value="lstDmKhac57" status="ideRows" var="language">
-                                    <option value="<s:property value="code" />"
-                                            <s:if test="%{#language.code == D10}">selected</s:if>>
-                                        <s:property value="code" /> - <s:property value="value" />
-                                    </option>
-                                </s:iterator>
-                            </select>
+                            <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px;"
+                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'
+                                        onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
+                                    <option value="0" style="text-align: center">----Chọn----</option>
+                                    <s:iterator value="lstDmKhac57" status="ideRows" var="language">
+                                        <s:if test="%{#language.code == '01'}">
+                                            <option value="<s:property value="code" />" disabled style="font-weight:bold; color:#333;">
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:if>
+                                        <s:else>
+                                            <option value="<s:property value="code" />"
+                                                    <s:if test="%{#language.code == D10}">selected</s:if>>
+                                                <s:property value="code" /> - <s:property value="value" />
+                                            </option>
+                                        </s:else>
+                                    </s:iterator>   
+                                </select>
                         </td>  
                         <td>
                             <textarea style="width: 300px" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 

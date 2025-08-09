@@ -170,7 +170,7 @@
                                     <select id="trangthai_<s:property value='%{#rowstatus.index}' />" 
                                             name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnTrangthai" style="width: 100px">
                                         <option value="N" <s:if test="plnTrangthai.equalsIgnoreCase('N')"> selected </s:if> <s:else></s:else>>Chưa đối chiếu</option>
-                                        <option value="R" <s:if test="plnTrangthai.equalsIgnoreCase('R')"> selected </s:if> <s:else></s:else>>Không đối chiếu được</option>
+                                        <!--<option value="R" <s:if test="plnTrangthai.equalsIgnoreCase('R')"> selected </s:if> <s:else></s:else>>Không đối chiếu được</option>-->
                                         <option value="S" <s:if test="plnTrangthai.equalsIgnoreCase('S')"> selected </s:if> <s:else></s:else>>Đã đối chiếu</option>
                                         </select></td>
                                 </tr>
