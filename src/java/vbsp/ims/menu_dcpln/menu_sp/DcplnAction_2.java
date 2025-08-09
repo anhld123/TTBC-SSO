@@ -646,14 +646,11 @@ public class DcplnAction_2 extends ActionSupport {
     }
 
     public String execute() {
-
-//        Login daoLogin = new Login();
-//        boolean result = daoLogin.checkIpAllowedFromDao();
-//
-//        if (!result) {
-//            addActionError("Không hỗ trợ tại địa chỉ cũ!");
-//            return ERROR;
-//        }
+        lstDmKhac = _serverAPI.getListOfValue("196", "PLN_KNTN_CL");
+        if (lstDmKhac.get(0).getValue().equals("1")) {
+            addActionError("Chương trình hiện tại chưa được quyền khai thác!");
+            return ERROR;
+        }
         try {
             if (!getParaSession()) {
                 return ERROR;

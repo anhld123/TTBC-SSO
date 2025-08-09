@@ -71,7 +71,7 @@ public class ActionPlnMain extends ActionSupport {
     protected List<SeachPLN> lstSeachPLN = new ArrayList<>();
     private List<SeachPLN> lstSeachPLN_map;
     private String thongbao;
-
+DuLieuNTService _serverAPI = new DuLieuNTService();
     public List<SeachPLN> getLstSeachPLN() {
         return lstSeachPLN;
     }
@@ -482,6 +482,11 @@ public class ActionPlnMain extends ActionSupport {
         try {
 //            System.err.println("khoa_nhaptaycn=" + khoa_nhaptaycn);
             if (!getParaSession()) {
+                return ERROR;
+            }
+            lstDmKhac = _serverAPI.getListOfValue("196", "PLN_KNTN_CL");
+            if (lstDmKhac.get(0).getValue().equals("1")) {
+                addActionError("Chương trình hiện tại chưa được quyền khai thác!");
                 return ERROR;
             }
             Connection conn = new DaoConnect().getConnect();
