@@ -120,7 +120,6 @@
 
                 for (var i = 0; i < rowcount; i++) {
                     var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
-                    var D4 = document.getElementById('D4_' + i);
                     var D1 = document.getElementById('D1_' + i);
                     var D2 = document.getElementById('D2_' + i);
                     var D3 = document.getElementById('D3_' + i);
@@ -130,7 +129,7 @@
                     var checkbox = document.getElementById('checkrow_' + i);
 
                     // 1. Khóa checkbox, D3, D5 nếu D6 hoặc D7 thỏa điều kiện
-                    if (D6 && D3 && (D6.value === "1" || (D7 && D7.value === "2"))) {
+                    if (D6 && D3 && (D6.value === "1")) {
                         if (checkbox) {
                             checkbox.disabled = true;
                             checkbox.checked = true;
@@ -149,45 +148,35 @@
                         // Bỏ qua xử lý tiếp theo để tránh bị mở khóa ở dưới
                         continue;
                     }
-
-                    // 2. Khóa D4 nếu Dnokhoanh = "0"
-                    if (DnokhoanhEl && D4) {
-                        D4.disabled = DnokhoanhEl.innerText.trim() === "0";
-                    }
-
-                    // 3. Nếu D4 khác 0 → reset & khóa D1, D2, D3
-                    if (D4 && D4.value !== "0") {
-                        if (D1) {
-                            D1.value = 0;
-                            D1.disabled = true;
+                    if (D7 && D7.value !== "2") {
+                        // 4. Điều khiển D3 dựa vào D1 & D2
+                        if (D1 && D2 && D3) {
+                            var val1 = D1.value.trim();
+                            var val2 = D2.value.trim();
+                            D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
                         }
-                        if (D2) {
-                            D2.value = 0;
-                            D2.disabled = true;
+
+                        // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
+                        if (D3 && D5) {
+                            if (D2 && D2.value === "")
+                                D2.value = "0";
+                            D5.disabled = !(D3.value === "06" || D3.value === "07" || D3.value === "08");
                         }
-                        if (D3)
-                            D3.disabled = true;
-                    } else {
-                        if (D1)
-                            D1.disabled = false;
-                        if (D2)
-                            D2.disabled = false;
-                        if (D3)
-                            D3.disabled = false;
                     }
+                    if (D7 && D7.value === "2") {
+                        // 4. Điều khiển D3 dựa vào D1 & D2
+                        if (D1 && D2 && D3) {
+                            var val1 = D1.value.trim();
+                            var val2 = D2.value.trim();
+                            D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
+                        }
 
-                    // 4. Điều khiển D3 dựa vào D1 & D2
-                    if (D1 && D2 && D3) {
-                        var val1 = D1.value.trim();
-                        var val2 = D2.value.trim();
-                        D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
-                    }
-
-                    // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
-                    if (D3 && D5) {
-                        if (D2 && D2.value === "")
-                            D2.value = "0";
-                        D5.disabled = !(D3.value === "06" || D3.value === "07" || D3.value === "08");
+                        // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
+                        if (D3 && D5) {
+                            if (D2 && D2.value === "")
+                                D2.value = "0";
+                            D5.disabled = !(D3.value === "02" || D3.value === "04");
+                        }
                     }
                 }
             }
@@ -378,7 +367,8 @@
                                    id="D7_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D7"/>  
                         </td>
-                        <td><s:property value="plnTenkh"/>
+                        <td <s:if test="D7.equalsIgnoreCase('2')">style="color: blue" title="Món vay đã hỗ trợ"</s:if>
+                                                                  ><s:property value="plnTenkh"/>
                         </td>
                         <td> 
                             <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property value="D6 != null ? D6 : 0"/>-<s:property value="D7 != null ? D7 : 0"/>')" class="SOKU linkKh">
@@ -414,8 +404,9 @@
                         </td>
                         <s:if test="D7.equalsIgnoreCase('2')">
                             <td class="D0">    
-                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px; background: #E5E5E5"
-                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'>
+                                <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px;"
+                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'
+                                        onchange="ngnhanD4('D4', <s:property value='%{#rowstatus.index}' />)">
                                     <option value="0" style="text-align: center">----Chọn----</option>
                                     <s:iterator value="lstDmKhac106" status="ideRows" var="language">
                                         <s:if test="%{#language.code == '01'}">
@@ -501,6 +492,7 @@
                 const d1 = document.getElementById('D1_' + index);
                 const d2 = document.getElementById('D2_' + index);
                 const d3 = document.getElementById('D3_' + index);
+                const d5 = document.getElementById('D5_' + index);
                 const tongdunoText = document.getElementById('TongDno_' + index).innerText;
 
                 // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
@@ -512,6 +504,9 @@
                 if (field === 'D1') {
                     d1.value = formatted;
                     d2.value = '0';
+                    d3.value = '0';
+                    d5.value = '';
+                    d5.disabled = true;
                 } else if (field === 'D2') {
                     d2.value = formatted;
                     d1.value = '0';
@@ -527,47 +522,6 @@
                     d3.disabled = true;  // Nếu D1 khác 0 -> khóa D3
                 } else {
                     d3.disabled = true;  // Nếu cả hai = 0 -> cũng khóa
-                }
-            }
-            function nnkhoanh(field, index) {
-                const d1 = document.getElementById('D1_' + index);
-                const d2 = document.getElementById('D2_' + index);
-                const d3 = document.getElementById('D3_' + index);
-                const d4 = document.getElementById('D4_' + index);
-
-                const valD4 = parseFloat(d4.value) || 0;
-
-                if (valD4 !== 0) {
-                    d1.value = 0;
-                    d2.value = 0;
-                    d1.disabled = true;
-                    d2.disabled = true;
-                    d3.disabled = true;
-                } else {
-                    d1.disabled = false;
-                    d2.disabled = false;
-                    d3.disabled = false;
-                }
-            }
-
-            function nnkhoanh(field, index) {
-                const d1 = document.getElementById('D1_' + index);
-                const d2 = document.getElementById('D2_' + index);
-                const d3 = document.getElementById('D3_' + index);
-                const d4 = document.getElementById('D4_' + index);
-
-                const valD4 = parseFloat(d4.value) || 0;
-
-                if (valD4 !== 0) {
-                    d1.value = 0;
-                    d2.value = 0;
-                    d1.disabled = true;
-                    d2.disabled = true;
-                    d3.disabled = true;
-                } else {
-                    d1.disabled = false;
-                    d2.disabled = false;
-                    d3.disabled = false;
                 }
             }
 
@@ -586,7 +540,20 @@
                 }
             }
 
+            function ngnhanD4(field, index) {
+                const d3 = document.getElementById('D3_' + index);
+                const d5 = document.getElementById('D5_' + index);
 
+                const valD3 = d3.value.trim();
+
+                if (["02", "04"].includes(valD3)) {
+                    d5.disabled = false;
+                    d5.style.backgroundColor = "#ffffcc";
+                } else {
+                    d5.disabled = true;
+                    d5.value = "";
+                }
+            }
 
             function initTable1()
             {

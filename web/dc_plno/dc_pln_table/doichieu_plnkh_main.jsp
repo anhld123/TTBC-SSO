@@ -548,9 +548,10 @@
             $(document).ready(function () {
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/07/2025";
-            })
+            });
+            
             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
-            const deadline = new Date("2025-08-12T00:00:00");
+            const deadline = new Date("2025-08-13T00:00:00");
 
             function updateCountdown() {
                 const now = new Date();
@@ -569,7 +570,7 @@
                 const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
                 const seconds = Math.floor((timeDiff / 1000) % 60);
 
-                countdownEl.innerText = 'Bạn còn ' + days + ' ngày ' + hours + '  giờ ' + minutes + ' phút ' + seconds + ' giây để đề nghị hỗ trợ (hạn: 00h00 ngày 12/08/2025)';
+                countdownEl.innerText = 'Bạn còn ' + days + ' ngày ' + hours + '  giờ ' + minutes + ' phút ' + seconds + ' giây để đề nghị hỗ trợ (hạn: 00h00 ngày 13/08/2025)';
             }
 
             updateCountdown(); // chạy ngay khi tải trang

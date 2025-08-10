@@ -828,6 +828,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                     tempadd.setD4(tmp.getD4());
                     tempadd.setD5(tmp.getD5());
                     tempadd.setD7(tmp.getD7());
+                    tempadd.setD10(tmp.getD10());
                     tempadd.setStatus("S");
                     lstUpdateDate.add(tempadd);
                 }
@@ -1038,7 +1039,6 @@ public class DcplnAction extends ActionChtrinhcnMain
                     tempadd.setD10(tmp.getD10());
                     tempadd.setD5(tmp.getD5());
                     tempadd.setD4("0");
-                    tempadd.setD6("1");
                     tempadd.setD7("2");
                     tempadd.setStatus("S");
                     lstUpdateDate.add(tempadd);
