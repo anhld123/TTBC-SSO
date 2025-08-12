@@ -145,7 +145,7 @@
 
 // Nếu hôm nay < ngày cuối tháng => cho nhập ngày cuối tháng trước
                     if (currentDay < lastDayOfCurrentMonth) {
-                        var allowedMonth = currentMonth;
+                        var allowedMonth = currentMonth - 1;
                         var allowedYear = currentYear;
                         if (allowedMonth === 0) {
                             allowedMonth = 12;

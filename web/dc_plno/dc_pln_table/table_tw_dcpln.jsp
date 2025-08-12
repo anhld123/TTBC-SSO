@@ -94,6 +94,7 @@
                     <th colspan="3">Dư nợ</th>
                     <th rowspan="2">Nợ lãi</th>
                     <th style="width: 100px" colspan="2">Danh sách món vay</th>
+                    <th style="width: 100px" rowspan="2">Món vay đề nghị hỗ trợ</th>
                 </tr> 
                 <tr>
                     <th>Nợ trong hạn</th>
@@ -101,6 +102,7 @@
                     <th>Nợ khoanh</th>
                     <th style="width: 100px">Món vay đã chốt</th>
                     <th style="width: 100px">Món vay chưa chốt</th>
+
                 </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -115,6 +117,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr> 
@@ -136,6 +139,11 @@
                         <td style="text-align: center"> 
                             <a class="number2" style="color: red" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />',2)">
                                 <s:property value='D11 != null ? D11 : 0'/>
+                            </a>
+                        </td>
+                        <td style="text-align: center"> 
+                            <a class="number2" style="color: green" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />',3)">
+                                <s:property value='D13 != null ? D13 : 0'/>
                             </a>
                         </td>
                     </tr>

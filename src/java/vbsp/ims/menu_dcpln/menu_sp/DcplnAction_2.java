@@ -1437,13 +1437,14 @@ public class DcplnAction_2 extends ActionSupport {
             String makh = ServletActionContext.getRequest().getParameter("makh");
             String soku = ServletActionContext.getRequest().getParameter("soku");
             String D5 = ServletActionContext.getRequest().getParameter("ngaybc");
+            String khoa = ServletActionContext.getRequest().getParameter("lock");
 //            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
 //            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MMM/yyyy");
 //            Date date = inputFormat.parse(D5);
 //            String formattedDate = outputFormat.format(date);
             DaoPlnMain daoMain = new DaoPlnMain();
             UserName = (String) ActionContext.getContext().getSession().get("sUserName");
-            GenericResult<String> _result = daoMain.unlock_Pln("PLN_KNTN_TW", mapgd, makh, soku, D5);
+            GenericResult<String> _result = daoMain.unlock_Pln(khoa, mapgd, makh, soku, D5);
             if (_result.isIsSuccess()) {
                 status = "1";
                 message = "";

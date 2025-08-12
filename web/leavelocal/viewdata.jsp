@@ -149,80 +149,60 @@
     }
 
     function onSelectChange(index) {
-        let selectedValue = $('#lstData_D30' + index).find(":selected").val();
-        let province = selectedValue.substring(0, 4);
-        let province1 = selectedValue.substring(2, 4);
+        let selectedCN = $('#lstData_D30' + index).find(":selected").val();
 
-        $('#lstData_D32' + index + ' option').each(function () {
-            //if (!$(this).val().startsWith('0006') ) {
-            $(this).remove();
-            //}
-        });
+        // Xóa PGD và xã cũ
+        $('#lstData_D32' + index).empty();
+        $('#lstData_D28' + index).empty();
+
+        // Lọc PGD theo CN
         $('#lstPGD_Temp option').each(function () {
-            if ($(this).val().startsWith(province)) {
-                //alert($(this).text() );
-                $('#lstData_D32' + index).append($('<option>',
-                        {
-                            value: $(this).val(),
-                            text: $(this).text()
-                        }));
+            let parts = $(this).val().split('_'); // [MainPos, PosCode]
+            if (parts[0] === selectedCN) {
+                $('#lstData_D32' + index).append($('<option>', {
+                    value: parts[1], // chỉ lưu PosCode
+                    text: $(this).text()
+                }));
             }
         });
-        $('#lstData_D28' + index + ' option').each(function () {
-            //if (!$(this).val().startsWith('0006') ) {
-            $(this).remove();
-            //}
-        });
-        $('#lstXa_Temp option').each(function () {
-            if ($(this).val().startsWith(province1)) {
-                //alert($(this).text() );
-                $('#lstData_D28' + index).append($('<option>',
-                        {
-                            value: $(this).val(),
-                            text: $(this).text()
-                        }));
-            }
-        });
-//            document.getElementById("lstData_D32" + index).disabled = false;
-        var selectElement = document.getElementById("lstData_D32" + index);
-        selectElement.setAttribute("onmousedown", "return true;");
-        document.getElementById("lstData_D32" + index).style.backgroundColor = "#ffffff";
+
+        // Cho phép chọn PGD
+        let pgdSelect = document.getElementById("lstData_D32" + index);
+        pgdSelect.setAttribute("onmousedown", "return true;");
+        pgdSelect.style.backgroundColor = "#ffffff";
+
+        // Auto chọn PGD đầu tiên và load xã
+        let firstPGD = $('#lstData_D32' + index + ' option:first').val();
+        if (firstPGD) {
+            $('#lstData_D32' + index).val(firstPGD);
+            onSelectChangeXa(index);
+        }
     }
 
     function onSelectChangeXa(index) {
-        let selectedValue = $('#lstData_D32' + index).find(":selected").val();
-        let province = selectedValue.substring(2, 6);
-//        let province1 = selectedValue.substring(0, 6);
-//        alert(province1 + "  " + province);
-        $('#lstData_D28' + index + ' option').each(function () {
-            //if (!$(this).val().startsWith('0006') ) {
-            $(this).remove();
-            //}
-        });
+        let selectedPGD = $('#lstData_D32' + index).find(":selected").val();
+        if (!selectedPGD)
+            return;
+
+        // Xóa xã cũ
+        $('#lstData_D28' + index).empty();
+
+        // Lọc xã theo PosCode
         $('#lstXa_Temp option').each(function () {
-            if ($(this).val().startsWith(province)) {
-                //alert($(this).text() );
-                $('#lstData_D28' + index).append($('<option>',
-                        {
-                            value: $(this).val(),
-                            text: $(this).text()
-                        }));
+            let parts = $(this).val().split('_'); // [PosCode, communeCode]
+            if (parts[0] === selectedPGD) {
+                $('#lstData_D28' + index).append($('<option>', {
+                    value: parts[1], // chỉ lưu communeCode
+                    text: $(this).text()
+                }));
             }
         });
-        var selectElement = document.getElementById("lstData_D28" + index);
-        selectElement.setAttribute("onmousedown", "return true;");
-        document.getElementById("lstData_D28" + index).style.backgroundColor = "#ffffff";
+
+        let xaSelect = document.getElementById("lstData_D28" + index);
+        xaSelect.setAttribute("onmousedown", "return true;");
+        xaSelect.style.backgroundColor = "#ffffff";
     }
 
-    function onSelectChange_dnht(value, index) {
-        if (value === '1')
-        {
-            document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
-        } else
-        {
-            document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
-        }
-    }
 
     function onSelectChange_dcct(value, index) {
         try {
@@ -483,7 +463,7 @@
             <select id="lstPGD_Temp">
                 <option value="000000">Không xác định</option>
                 <s:iterator value="lstPGD_API" status="ideRows" var="language">                                    
-                    <option value="<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
+                    <option value="<s:property value="MainPos"/>_<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
                 </s:iterator>
                 <option value="999999">Nước ngoài</option>
             </select>
@@ -491,7 +471,7 @@
                 <option value="000000">Không xác định</option>
                 <option value="999999">Nước ngoài</option>
                 <s:iterator value="lstXa_API" status="ideRows" var="language">                                    
-                    <option value="<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
+                    <option value="<s:property value="PosCode"/>_<s:property value="communeCode"/>"><s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
                 </s:iterator>
             </select>
         </div>
@@ -868,9 +848,9 @@
                                    href="javascript:funcDeNghiHT('<s:property value="d5"/>', '<s:property value="d11"/>', '<s:property value="d12"/>', '<s:property value="D42"/>', '<s:property value="D38"/>', '<s:property value="D39"/>')"  
                                    id="lstDNHT_D33<s:property  value='%{#idxRows.index}' />"
                                    <s:if test="D30.equalsIgnoreCase('000000') || D30.equalsIgnoreCase('999999')"> style="display: none"</s:if>
-                                  
-                                   >link</a>
-                                <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
+
+                                       >link</a>
+                                   <a id="countDisplay3<s:property  value='%{#idxRows.index}' />" style="color: #ffffff; font-size: 1px">0</a>
 
                             </s:else>
 

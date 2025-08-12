@@ -95,7 +95,7 @@
 
                 Array.from(table.rows).forEach((row, index) => {
                     // Luôn hiển thị 2 dòng đầu (index 0 và 1)
-                    if (index === 0 || index === 1 || index === 2|| index === 3) {
+                    if (index === 0 || index === 1 || index === 2 || index === 3) {
                         row.style.display = '';
                     } else {
                         row.style.display = (index > (page - 1) * records_per_page + 1 && index <= page * records_per_page + 1) ? '' : 'none';
@@ -149,101 +149,102 @@
             <p>Đang tải dữ liệu, vui lòng chờ...</p>
         </div>
         <div id="mainContent" style="display: none;">
-        <div style="overflow:scroll; width: 98vw">
-            <div id="divTitle" style="text-align: center">
-                <s:if test="txtGetData.equalsIgnoreCase('1')">DANH SÁCH ĐÃ CHỐT</s:if>
-                <s:else>DANH SÁCH CHƯA CHỐT</s:else>
-                </div>
-                <div style="margin: 10px 0" id="divDonvitinh">
-                    <!-- Phần phân trang -->
-                    Chọn trang 
-                    <input type="number" id="pageInput" min="1" style="width: 50px" />
-                    <a href="#" onclick="goToPage()">Go</a>
-                    <a href="#" id="btn_prev" onclick="prevPage()">&#8920;</a>
-                    Trang <span id="page"></span>
-                    <a href="#" id="btn_next" onclick="nextPage()">&#8921;</a>
+            <div style="overflow:scroll; width: 98vw">
+                <div id="divTitle" style="text-align: center">
+                    <s:if test="txtGetData.equalsIgnoreCase('1')">DANH SÁCH ĐÃ CHỐT</s:if>
+                    <s:elseif test="txtGetData.equalsIgnoreCase('3')">DANH SÁCH ĐỀ NGHỊ HỖ TRỢ</s:elseif>
+                    <s:else>DANH SÁCH CHƯA CHỐT</s:else>
+                    </div>
+                    <div style="margin: 10px 0" id="divDonvitinh">
+                        <!-- Phần phân trang -->
+                        Chọn trang 
+                        <input type="number" id="pageInput" min="1" style="width: 50px" />
+                        <a href="#" onclick="goToPage()">Go</a>
+                        <a href="#" id="btn_prev" onclick="prevPage()">&#8920;</a>
+                        Trang <span id="page"></span>
+                        <a href="#" id="btn_next" onclick="nextPage()">&#8921;</a>
 
-                    <!-- Phần tìm kiếm -->
-                    <span style="margin-left: 30px">Tra cứu: </span>
-                    <input type="text" id="search" placeholder="Tìm kiếm ..." style="width: 200px" />
-                </div>
+                        <!-- Phần tìm kiếm -->
+                        <span style="margin-left: 30px">Tra cứu: </span>
+                        <input type="text" id="search" placeholder="Tìm kiếm ..." style="width: 200px" />
+                    </div>
 
-                <table id="subTable" align="center">
-                    <thead>
-                        <tr>
-                            <th rowspan="3">STT</th>
-                            <th rowspan="3" class="STT4">Tên khách hàng</th>
-                            <th rowspan="3" class="STT4">Mã món vay</th>
-                            <th rowspan="3" class="STT3">Chương trình</th>
-                            <th colspan="5">Số liệu tại NHCSXH</th> 
-                            <th colspan="4">Phân loại khả năng trả nợ</th> 
-                            <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <th class="STT2" rowspan="3">Mở lại món vay</th>
-                            </s:if>
-                    </tr>
-                    <tr>
-                        <th colspan="4" class="STT2">Nợ gốc</th> 
-                        <th rowspan="2" class="STT2">Nợ lãi</th> 
-                        <th rowspan="2" class="STT3">Có khả năng trả nợ</th> 
-                        <th colspan="3">Không có khả năng trả nợ</th>
-
-                    </tr>
-                    <tr>
-                        <th class="STT2">Tổng số</th>
-                        <th class="STT2">Nợ trong hạn</th>
-                        <th class="STT2">Nợ quá hạn</th>
-                        <th class="STT2">Nợ khoanh</th>
-                        <th class="STT3">Số tiền</th>
-                        <th>Nguyên nhân</th>
-                        <th class="STT4">Cụ thể nguyên nhân</th>
-
-                    </tr>
-                    <tr>
-                        <th class="D99">(1)</th>
-                        <th class="D99">(2)</th>
-                        <th class="D99">(3)</th>
-                        <th class="D99">(4)</th>
-                        <th class="D99">(5)</th>
-                        <th class="D99">(6)</th>
-                        <th class="D99">(7)</th>
-                        <th class="D99">(8)</th>
-                        <th class="D99">(9)</th>
-                        <th class="D99">(10)</th>
-                        <th class="D99">(11)</th>
-                        <th class="D99">(12)</th>
-                        <th class="D99">(13)</th>
-                            <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <th class="D99">(14)</th>
-                            </s:if>
-                    </tr>
-                </thead>
-                <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
-                    <tr id="tablefix"> 
-                        <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
-                        <td><s:property  value="D1" /></td>
-                        <td><s:property  value="D2" /></td>
-                        <td class="number"><s:property  value="D3" /></td>
-                        <td class="number"><s:property  value="D4" /></td>
-                        <td class="number"><s:property  value="D5" /></td>
-                        <td class="number"><s:property  value="D6" /></td>
-                        <td class="number"><s:property  value="D7" /></td>
-                        <td class="number"><s:property  value="D8" /></td>
-                        <td class="number"><s:property  value="D9" /></td>
-                        <td class="number"><s:property  value="D10" /></td>
-                        <td><s:property  value="D11" /></td>
-                        <td><s:property  value="D12" /></td>
-                        <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D15"/>', '<s:property value="D2"/>', '<s:property value="D13"/>', '<s:property value="D14"/>');">Mở khóa</a>
-                            </td> </s:if>
+                    <table id="subTable" align="center">
+                        <thead>
+                            <tr>
+                                <th rowspan="3">STT</th>
+                                <th rowspan="3" class="STT4">Tên khách hàng</th>
+                                <th rowspan="3" class="STT4">Mã món vay</th>
+                                <th rowspan="3" class="STT3">Chương trình</th>
+                                <th colspan="5">Số liệu tại NHCSXH</th> 
+                                <th colspan="4">Phân loại khả năng trả nợ</th> 
+                                <s:if test="!txtGetData.equalsIgnoreCase('2')">
+                                <th class="STT2" rowspan="3">Mở lại món vay</th>
+                                </s:if>
                         </tr>
-                </s:iterator>
+                        <tr>
+                            <th colspan="4" class="STT2">Nợ gốc</th> 
+                            <th rowspan="2" class="STT2">Nợ lãi</th> 
+                            <th rowspan="2" class="STT3">Có khả năng trả nợ</th> 
+                            <th colspan="3">Không có khả năng trả nợ</th>
 
-            </table>
-            <div style="text-align: center">
-                <br>
-                <input type="button" value="Thoát" name="cmdLuu" id="cmdLuu"/></div>
+                        </tr>
+                        <tr>
+                            <th class="STT2">Tổng số</th>
+                            <th class="STT2">Nợ trong hạn</th>
+                            <th class="STT2">Nợ quá hạn</th>
+                            <th class="STT2">Nợ khoanh</th>
+                            <th class="STT3">Số tiền</th>
+                            <th>Nguyên nhân</th>
+                            <th class="STT4">Cụ thể nguyên nhân</th>
+
+                        </tr>
+                        <tr>
+                            <th class="D99">(1)</th>
+                            <th class="D99">(2)</th>
+                            <th class="D99">(3)</th>
+                            <th class="D99">(4)</th>
+                            <th class="D99">(5)</th>
+                            <th class="D99">(6)</th>
+                            <th class="D99">(7)</th>
+                            <th class="D99">(8)</th>
+                            <th class="D99">(9)</th>
+                            <th class="D99">(10)</th>
+                            <th class="D99">(11)</th>
+                            <th class="D99">(12)</th>
+                            <th class="D99">(13)</th>
+                                <s:if test="!txtGetData.equalsIgnoreCase('2')">
+                                <th class="D99">(14)</th>
+                                </s:if>
+                        </tr>
+                    </thead>
+                    <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
+                        <tr id="tablefix"> 
+                            <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
+                            <td><s:property  value="D1" /></td>
+                            <td><s:property  value="D2" /></td>
+                            <td class="number"><s:property  value="D3" /></td>
+                            <td class="number"><s:property  value="D4" /></td>
+                            <td class="number"><s:property  value="D5" /></td>
+                            <td class="number"><s:property  value="D6" /></td>
+                            <td class="number"><s:property  value="D7" /></td>
+                            <td class="number"><s:property  value="D8" /></td>
+                            <td class="number"><s:property  value="D9" /></td>
+                            <td class="number"><s:property  value="D10" /></td>
+                            <td><s:property  value="D11" /></td>
+                            <td><s:property  value="D12" /></td>
+                            <s:if test="!txtGetData.equalsIgnoreCase('2')">
+                                <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D15"/>', '<s:property value="D2"/>', '<s:property value="D13"/>', '<s:property value="D14"/>', '<s:property value="txtGetData"/>');">Mở khóa</a>
+                                </td> </s:if>
+                            </tr>
+                    </s:iterator>
+
+                </table>
+                <div style="text-align: center">
+                    <br>
+                    <input type="button" value="Thoát" name="cmdLuu" id="cmdLuu"/></div>
+            </div>
         </div>
-                </div>
     </body>
     <script>
         $("#cmdLuu").click(function () {
@@ -252,7 +253,7 @@
             window.close();
         });
 
-        function idUnlockCif(mapgd, makh, soku, ngaybc) {
+        function idUnlockCif(mapgd, makh, soku, ngaybc, lock) {
             var table = document.getElementById("subTable");
             // Chọn tất cả các liên kết chỉ trong bảng con
             var rows = table.querySelectorAll("td a");
@@ -264,7 +265,7 @@
             });
             $.ajax({
                 type: "GET",
-                url: "unlock_pLN.action?" + "mapgd=" + mapgd + "&makh=" + makh + "&soku=" + soku + "&ngaybc=" + ngaybc,
+                url: "unlock_pLN.action?" + "mapgd=" + mapgd + "&makh=" + makh + "&soku=" + soku + "&ngaybc=" + ngaybc + "&lock=" + lock,
                 success: function (res) {
                     var status = parseInt(res.status);
                     //alert(status);
