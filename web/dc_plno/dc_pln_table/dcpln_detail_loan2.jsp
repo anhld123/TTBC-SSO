@@ -177,13 +177,16 @@
 
                         <table>
                             <tr>
-                                <td colspan="2">
-                                    <span id="idTitle" style="font-weight: bold; color: blue; text-align: left; display: block;">Quan hệ với khách hàng</span>
+                                <td style="font-weight: bold; color: red; text-align: right;">
+                                    Món vay đối chiếu không trực tiếp
                                 </td>
-                            </tr>
-                            <tr align="center">
-                                <td colspan="2" style="text-align: left;" class="TD_NGUYEN_NHAN_KHOANH">
-                                    <s:property value='plnQuanheKh'/>                                         
+                                <td style="text-align: left">
+                                    <input type="checkbox" disabled 
+                                           <s:if test="plnQuanheKh.equalsIgnoreCase('1')">checked</s:if>
+                                               style="width: 20px; height: 20px; cursor: pointer;" 
+                                               id="plnQuanheKh_<s:property value='%{#rowstatus.index}' />"
+                                           name="lstDulieuNtPLN_T[<s:property value='%{#rowstatus.index}' />].plnQuanheKh" 
+                                           value="<s:property value='plnQuanheKh' />" />      
                                 </td>
                             </tr>
                             <tr align="center">

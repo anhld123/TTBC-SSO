@@ -342,7 +342,7 @@
                         <td><s:property value="plnTenkh"/>
                         </td>
                         <td> 
-                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property value="D6 != null ? D6 : 0"/>-<s:property value="D7 != null ? D7 : 0"/>')" class="SOKU linkKh">
+                            <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'1')" class="SOKU linkKh">
                                 <s:property value='plnSoku'/>
                             </a>
                         </td>

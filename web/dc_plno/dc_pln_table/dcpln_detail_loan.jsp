@@ -154,7 +154,9 @@
                                            id="D1_<s:property value='%{#rowstatus.index}' />" 
                                            style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
                                            name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNogocClech" 
-                                           oninput="onSelectChange_dnht1(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                           onchange="onSelectChange_dnht1(this.value, <s:property value='%{#rowstatus.index}' />);
+                                                   validateSum(<s:property value='%{#rowstatus.index}' />)"
+
                                            class="number2" />
                                 </td>
                                 <td>
@@ -163,7 +165,8 @@
                                            id="D2_<s:property value='%{#rowstatus.index}' />" 
                                            style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
                                            name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnNolaiClech" 
-                                           oninput="onSelectChange_dnht2(this.value, <s:property  value='%{#rowstatus.index}'/>)"
+                                           onchange="onSelectChange_dnht2(this.value, <s:property value='%{#rowstatus.index}' />);
+                                                   validateSum(<s:property value='%{#rowstatus.index}' />)"
                                            class="number2" />
                                 </td>
                                 <td class="D0">
@@ -194,21 +197,22 @@
                                 </td>
                             </tr>
                         </table>
-
                         <table>
                             <tr>
-                                <td colspan="2">
-                                    <span id="idTitle" style="font-weight: bold; color: blue; text-align: left; display: block;">Quan hệ với khách hàng</span>
+                                <td style="font-weight: bold; color: red; text-align: right;">
+                                    Món vay đối chiếu không trực tiếp
+                                </td>
+                                <td style="text-align: left">
+                                    <input type="checkbox" 
+                                           <s:if test="plnQuanheKh.equalsIgnoreCase('1')">checked</s:if>
+                                               style="width: 20px; height: 20px; cursor: pointer;" 
+                                               id="plnQuanheKh_<s:property value='%{#rowstatus.index}' />"
+                                           onclick="$(this).val(this.checked ? 1 : 0)" 
+                                           name="lstDulieuNtPLN_T[<s:property value='%{#rowstatus.index}' />].plnQuanheKh" 
+                                           value="<s:property value='plnQuanheKh' />" />      
                                 </td>
                             </tr>
-                            <tr align="center">
-                                <td  colspan="2" align="center" class="TD_NGUYEN_NHAN_KHOANH">
-                                    <textarea id="sQuanhe_Kh_<s:property value='%{#rowstatus.index}' />"  value="<s:property value='plnQuanheKh'/>"
-                                              name="lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].plnQuanheKh" onfocus="this.select()"
-                                              style="width: 99%; background-color: rgba(200, 200, 200, 0.3); border: 1px solid #ccc;"
-                                              rows="2" ><s:property value='plnQuanheKh'/></textarea>                                              
-                                </td>
-                            </tr>
+
                             <tr align="center">
                                 <td colspan="2" align="center">
                                     <hr/>
@@ -224,6 +228,7 @@
                                            style="margin-left:25px; float: left;height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/> 
                                 </td>
                             </tr>
+
                         </table>
                     </s:iterator>
                 </s:form>
@@ -334,7 +339,7 @@
             if (value1 > tongduno) {
                 alert('Nợ gốc chênh lệch không thể lớn hơn dư nợ của món vay. Vui lòng kiểm tra lại!');
                 const inputField = document.getElementById('D1_' + index);
-                inputField.value = 0;
+                inputField.value = "0";
 
                 inputField.style.backgroundColor = "#ffff99";
                 const row = document.getElementById('D1_' + index);
@@ -343,7 +348,6 @@
                 }
             }
         }
-
         function onSelectChange_dnht2(value, index) {
             const tongdunoText = document.getElementById('Tonglai_' + index).innerText;
             // Convert the 'tongdunoText' and 'value' to numeric values
@@ -353,7 +357,7 @@
             if (value1 > tongduno) {
                 alert('Nợ gốc chênh lệch không thể lớn hơn dư nợ của món vay. Vui lòng kiểm tra lại!');
                 const inputField = document.getElementById('D2_' + index);
-                inputField.value = 0;
+                inputField.value = "0";
 
                 inputField.style.backgroundColor = "#ffff99";
                 const row = document.getElementById('D2_' + index);
@@ -362,7 +366,25 @@
                 }
             }
         }
+        $(document).ready(function () {
+            $('input[id^="D1_"]').each(function () {
+                let rowIndex = this.id.split('_')[1];
+                validateSum(rowIndex);
+            });
+        });
 
+        function validateSum(rowIndex) {
+            let d1 = parseFloat(document.getElementById("D1_" + rowIndex).value) || 0;
+            let d2 = parseFloat(document.getElementById("D2_" + rowIndex).value) || 0;
+            let checkbox = document.getElementById("plnQuanheKh_" + rowIndex);
+
+            if ((d1 + d2) !== 0) {
+                checkbox.checked = false;
+                checkbox.disabled = true;
+            } else {
+                checkbox.disabled = false;
+            }
+        }
 
     </script>
 </html>

@@ -1072,13 +1072,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             String soku = hmParameter.get("soku").toString();
             String mapgd = hmParameter.get("poscd").toString();
-            String slock = hmParameter.get("lock").toString();
-            String[] values = slock.split("\\-");
-            String sD6 = values[0];
-            String sD7 = values[1];
-            if ((!sD7.equals("0") && !sD7.equals("1")) || sD6.equals("1")) {
-                lock = "1";
-            }
+            lock = hmParameter.get("lock").toString();
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd")
                     .format(new SimpleDateFormat("dd/MM/yyyy").parse(dateStr));
