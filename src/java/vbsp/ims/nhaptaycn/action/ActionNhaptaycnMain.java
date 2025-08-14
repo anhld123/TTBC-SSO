@@ -806,9 +806,9 @@ public class ActionNhaptaycnMain extends ActionSupport {
             main_pos = posMainModel.getMainPosCd();
             //khoi tao cho treeview cac pos
 //            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);
-            
-                List<ModelTreeNode> lstModelTree = new ArrayList<>();
-                if (khoa_nhaptaycn.equals("HSSV_001")) {
+
+            List<ModelTreeNode> lstModelTree = new ArrayList<>();
+            if (khoa_nhaptaycn.equals("HSSV_001") || khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
                 switch (Grade) {
                     case "3":
                         lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_nhaptaycn);

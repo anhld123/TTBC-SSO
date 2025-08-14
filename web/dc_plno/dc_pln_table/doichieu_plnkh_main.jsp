@@ -551,7 +551,7 @@
             });
             
             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
-            const deadline = new Date("2025-08-13T00:00:00");
+            const deadline = new Date("2025-08-15T00:00:00");
 
             function updateCountdown() {
                 const now = new Date();
@@ -570,7 +570,7 @@
                 const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
                 const seconds = Math.floor((timeDiff / 1000) % 60);
 
-                countdownEl.innerText = 'Bạn còn ' + days + ' ngày ' + hours + '  giờ ' + minutes + ' phút ' + seconds + ' giây để đề nghị hỗ trợ (hạn: 00h00 ngày 13/08/2025)';
+                countdownEl.innerText = 'Bạn còn ' + days + ' ngày ' + hours + '  giờ ' + minutes + ' phút ' + seconds + ' giây để đề nghị hỗ trợ (hạn: 00h00 ngày 15/08/2025)';
             }
 
             updateCountdown(); // chạy ngay khi tải trang
