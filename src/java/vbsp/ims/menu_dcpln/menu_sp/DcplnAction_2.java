@@ -1388,7 +1388,7 @@ public class DcplnAction_2 extends ActionSupport {
             String smacn = hmParameter.get("lstCN").toString();
             Connection conn = new DaoConnect().getConnect();
             DaoPlnMain daoMain = new DaoPlnMain();
-//            ActionContext.getContext().getSession().put("sUserName", UserName);
+            ActionContext.getContext().getSession().put("sUserName", UserName);
             lstDulieuNt = daoMain.getDataPlnTW(conn, sngaybc, "PLN_KNTN_CL", smacn, "S");
             if (conn != null) {
                 conn.close();
@@ -1443,8 +1443,9 @@ public class DcplnAction_2 extends ActionSupport {
 //            Date date = inputFormat.parse(D5);
 //            String formattedDate = outputFormat.format(date);
             DaoPlnMain daoMain = new DaoPlnMain();
-            UserName = (String) ActionContext.getContext().getSession().get("sUserName");
-            GenericResult<String> _result = daoMain.unlock_Pln(khoa, mapgd, makh, soku, D5);
+            String sUserName = (String) ActionContext.getContext().getSession().get("sUserName");
+//            System.out.println("sUserName= " + sUserName + " UserName= " + UserName);
+            GenericResult<String> _result = daoMain.unlock_Pln(khoa + "_" + sUserName, mapgd, makh, soku, D5);
             if (_result.isIsSuccess()) {
                 status = "1";
                 message = "";

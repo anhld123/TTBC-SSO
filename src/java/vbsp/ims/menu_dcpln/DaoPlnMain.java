@@ -108,7 +108,7 @@ public class DaoPlnMain {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_CHTRINHCN.SP_LOAD_ALL_BCQT_SUB(?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_DCPHANLOAINO.SP_LOAD_ALL_BCQT_SUB(?,?,?)}";
             ResultSet reset = null;
 
             try {

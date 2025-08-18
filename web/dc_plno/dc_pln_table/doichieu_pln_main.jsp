@@ -288,8 +288,13 @@
                             var elD2 = document.getElementById("D2_" + i);
                             var elD3 = document.getElementById("D3_" + i);
                             var elD5 = document.getElementById("D5_" + i);
+                            var DnokhoanhEl = document.getElementById("Dnokhoanh_" + i);
                             var elCheck = document.getElementById("checkrow_" + i);
-
+                            var dnokhoanhVal = "";
+                            if (DnokhoanhEl) {
+                                // Nếu là <td>, lấy text
+                                dnokhoanhVal = DnokhoanhEl.textContent ? DnokhoanhEl.textContent.trim() : "";
+                            }
                             if (!elD2 || !elD3 || !elD5 || !elCheck)
                                 continue;
 
@@ -302,7 +307,7 @@
                             elD3.style.backgroundColor = "";
                             elD5.style.backgroundColor = "";
 
-                            if (checkrow === "1" && plnKKntnSodu !== "0") {
+                            if (checkrow === "1" && plnKKntnSodu !== "0" && dnokhoanhVal === "0") {
                                 if (ngnhanKntn === "0") {
                                     alert("Bạn chưa chọn nguyên nhân!");
                                     elD3.style.backgroundColor = "#EEAFA6";
@@ -660,8 +665,16 @@
 
                             <s:if test="Grade.equalsIgnoreCase('1')">
                                 &nbsp;<s:label value="Mã xã " cssStyle="color: #029c44;" />
-                                <s:select  style="width: 120px;"  list="lstMaxa" id="maxa" name="maxa" listKey="sKey" listValue="sDesc"
-                                           onchange="onXaChange(this.value)"></s:select>
+                                <s:select style="width: 120px;"
+                                          list="lstMaxa"
+                                          id="maxa"
+                                          name="maxa"
+                                          listKey="sKey"
+                                          listValue="sDesc"
+                                          headerKey=""
+                                          headerValue="-- Chọn xã --"
+                                          onchange="onXaChange(this.value)" />
+
                                 &nbsp;<s:label value="Mã hội " cssStyle="color: #029c44;" />
                                 <select id="mahoi" name="mahoi" style="width: 120px" disabled onchange="onHoiChange(this.value)" >
                                     <option value="0">-- Chọn hội đoàn thể --</option>

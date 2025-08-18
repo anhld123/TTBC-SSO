@@ -119,7 +119,6 @@
                 var rowcount = Math.max(table.rows.length, max_row);
 
                 for (var i = 0; i < rowcount; i++) {
-                    var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
                     var D1 = document.getElementById('D1_' + i);
                     var D2 = document.getElementById('D2_' + i);
                     var D3 = document.getElementById('D3_' + i);
@@ -127,6 +126,18 @@
                     var D6 = document.getElementById('D6_' + i);
                     var D7 = document.getElementById('D7_' + i);
                     var checkbox = document.getElementById('checkrow_' + i);
+                    var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
+                    var dnokhoanhVal = "";
+                    if (DnokhoanhEl) {
+                        // Nếu là <td>, lấy text
+                        dnokhoanhVal = DnokhoanhEl.textContent ? DnokhoanhEl.textContent.trim() : "";
+                    }
+
+// Khóa D3 khi dnokhoanh khác "0"
+                    if (dnokhoanhVal !== "0" && D3) {
+                        D3.disabled = true;
+                        continue; // tránh bị xử lý tiếp theo override
+                    }
 
                     // 1. Khóa checkbox, D3, D5 nếu D6 hoặc D7 thỏa điều kiện
                     if (D6 && D3 && (D6.value === "1")) {
@@ -488,16 +499,19 @@
                 var url = "getDetialLoanDcPLN.action?soku=" + soku + "&ngay_bc=" + ngay_bc + "&poscd=" + poscd + "&lock=" + lock;
                 popup = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
             }
+
             function setTongDuNoTo(field, index) {
                 const d1 = document.getElementById('D1_' + index);
                 const d2 = document.getElementById('D2_' + index);
                 const d3 = document.getElementById('D3_' + index);
                 const d5 = document.getElementById('D5_' + index);
                 const tongdunoText = document.getElementById('TongDno_' + index).innerText;
+                const sDnokhoanh = document.getElementById('Dnokhoanh_' + index).innerText;
 
                 // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
                 const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
-
+                const Dnokhoanh = parseFloat(sDnokhoanh.replace(/,/g, '').replace(/\./g, '')) || 0;
+//                console.log("Dnokhoanh1 = " + Dnokhoanh);
                 // Định dạng số có dấu phẩy
                 const formatted = tongduno.toLocaleString('en-US');
 
@@ -516,7 +530,7 @@
                 const d1Val = parseFloat(d1.value.replace(/,/g, '')) || 0;
                 const d2Val = parseFloat(d2.value.replace(/,/g, '')) || 0;
 
-                if (d2Val !== 0) {
+                if (d2Val !== 0 && Dnokhoanh === 0) {
                     d3.disabled = false; // Nếu D2 có giá trị khác 0 -> mở D3
                 } else if (d1Val !== 0) {
                     d3.disabled = true;  // Nếu D1 khác 0 -> khóa D3

@@ -298,8 +298,13 @@
                         var ngnhanKntn = document.getElementById("D3_" + i).value;
                         var checkrow = document.getElementById("checkrow_" + i).value;
                         var D5 = document.getElementById("D5_" + i).value;
-
-                        if (checkrow === "1" && plnKKntnSodu !== "0") {
+                        var DnokhoanhEl = document.getElementById("Dnokhoanh_" + i);
+                        var dnokhoanhVal = "";
+                        if (DnokhoanhEl) {
+                            // Nếu là <td>, lấy text
+                            dnokhoanhVal = DnokhoanhEl.textContent ? DnokhoanhEl.textContent.trim() : "";
+                        }
+                        if (checkrow === "1" && plnKKntnSodu !== "0" && dnokhoanhVal === "0") {
                             if (ngnhanKntn === "0") {
                                 errorMessages.push("Dòng " + (i + 1) + ": Bạn chưa chọn nguyên nhân!");
                                 document.getElementById("D3_" + i).style.backgroundColor = "#EEAFA6";
@@ -549,7 +554,7 @@
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/07/2025";
             });
-            
+
             <s:if test="khoa_nhaptaycn.equalsIgnoreCase('DCPLN_02')">
             const deadline = new Date("2025-08-15T00:00:00");
 

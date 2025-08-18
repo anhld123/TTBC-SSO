@@ -365,9 +365,10 @@
                 const d2 = document.getElementById('D2_' + index);
                 const d3 = document.getElementById('D3_' + index);
                 const tongdunoText = document.getElementById('TongDno_' + index).innerText;
-
+                const sDnokhoanh = document.getElementById('Dnokhoanh_' + index).innerText;
                 // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
                 const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
+                const Dnokhoanh = parseFloat(sDnokhoanh.replace(/,/g, '').replace(/\./g, '')) || 0;
 
                 // Định dạng số có dấu phẩy
                 const formatted = tongduno.toLocaleString('en-US');
@@ -384,7 +385,7 @@
                 const d1Val = parseFloat(d1.value.replace(/,/g, '')) || 0;
                 const d2Val = parseFloat(d2.value.replace(/,/g, '')) || 0;
 
-                if (d2Val !== 0) {
+                if (d2Val !== 0 && Dnokhoanh === 0) {
                     d3.disabled = false; // Nếu D2 có giá trị khác 0 -> mở D3
                 } else if (d1Val !== 0) {
                     d3.disabled = true;  // Nếu D1 khác 0 -> khóa D3
