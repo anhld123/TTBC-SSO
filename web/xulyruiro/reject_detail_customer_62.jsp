@@ -133,9 +133,9 @@
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
                     var capPheDuyet = $("#capPheDuyet").val();
                     var sNN_BanKs;
-                    if(capPheDuyet == 3)
+                    if (capPheDuyet == 3)
                     {
-                        sNN_BanKs =$("#sNN_BanKs").val();
+                        sNN_BanKs = $("#sNN_BanKs").val();
                         if (sNN_BanKs == -1)
                         {
                             alert('Bạn phải chọn nguyên nhân từ chối trước khi nhấn đồng ý');
@@ -169,10 +169,10 @@
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var url = "setRejectRisk62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     $.ajax({
                         type: 'POST',
@@ -181,15 +181,14 @@
                         dataType: 'json',
                         contentType: 'application/json',
                         type: 'POST',
-                                async: true,
+                        async: true,
                         success: function (data) {
                             try {
                                 alert("Bạn đã từ chối thành công khoảng vay " + soku)
                                 self.opener.document.forms['paginationForm'].idSubmit.click();
                                 window.close();
 
-                            }
-                            catch (e)
+                            } catch (e)
                             {
                                 alert(e.toString());
                             }
@@ -205,7 +204,7 @@
                 });
             });
 
-            function closeSelf() {
+            function closeSelf(            ) {
                 window.close();
                 return true;
             }
@@ -221,11 +220,10 @@
                     $('#idnguyennhan_tuchoi').focus();
                     //document.getElementById("myAnchor").focus();
                     return;
-                }
-                else
+                } else
                 {
-//                    $("#idReject")[0].click();
-//                    $("#idReject").click(function () {
+//                    $                        ("#idReject")[0].c                 lick();
+//                       $("#idReject").click(function () {
 //                        alert('vao ham goi submit ');
 //                        var nam_xlrr = $("#nam_xlrr").val();
 //                        var dot_xlrr = $("#dot_xlrr").val();
@@ -280,126 +278,128 @@
                 <s:hidden name="chuongtrinh" id="chuongtrinh"/>
                 <s:hidden name="nguon_von" id="nguon_von"/>
                 <s:hidden name="capPheDuyet" id="capPheDuyet"/>
-                <div id="divChiTieu" style="">
-                    <span id="idTitle">Thông tin chi tiết khách hàng từ chối xử lý rủi ro 62</span>
-                    <hr/>
-                    <s:iterator value="lstTableRiskObj">
-                        <table border="1px" id="tableKhnv" class="tableKhnv">
-                            <tr class="cscontent">
-                                <td><input type="text" value="Mã khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sMakh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Tên khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sTenkh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Mã khoản vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sSoku'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Địa chỉ khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sDiachi'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Chương trình vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='sChtrinh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Dư nợ gốc" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbDngoc'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Lãi trong hạn" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbLaith'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Lãi quá hạn" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbLaiqh'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
+            <div id="divChiTieu" style="">
+                <span id="idTitle">Thông tin chi tiết khách hàng từ chối xử lý rủi ro 62</span>
+                <hr/>
+                <s:iterator value="lstTableRiskObj">
+                    <table border="1px" id="tableKhnv" class="tableKhnv">
+                        <tr class="cscontent">
+                            <td><input type="text" value="Mã khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='sMakh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Tên khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='sTenkh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Mã khoản vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='sSoku'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Địa chỉ khách hàng" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='sDiachi'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Chương trình vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='sChtrinh'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Dư nợ gốc" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='dbDngoc'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Lãi trong hạn" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='dbLaith'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Lãi quá hạn" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='dbLaiqh'/>" name="giaoKh number2" class="giaoKh number2" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
 
-                            <tr class="cscontent">
-                                <td><input type="text" value="Thời hạn vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbThoihanvay'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Số tháng đề nghị" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <td><input type="text" value="<s:property value='dbDnghi_Tg'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
-                            </tr>
-                            <tr class="cscontent">
-                                <td><input type="text" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
-                                <td><s:property value='sMotann'/></td>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Thời hạn vay" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='dbThoihanvay'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Số tháng đề nghị" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <td><input type="text" value="<s:property value='dbDnghi_Tg'/>" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                        </tr>
+                        <tr class="cscontent">
+                            <td><input type="text" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                            <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
+                            <td><s:property value='sMotann'/></td>
+                        </tr>
+                    </table>
+
+                    <div id="divBrowseRisk"></div>
+                    <!--</br>-->
+                    <table class="tableKhnv" align="center">
+                        <tr align="center">
+                            <td colspan="2" align="center">
+                                <span id="idTitle">Nhập nguyên nhân từ chối</span>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="2" align="center">
+                                <hr/>
+                            </td>
+                        </tr>
+
+                        <tr align="center">
+                            <td  colspan="2" align="center">
+                                <s:if test="capPheDuyet==3">
+                                    <s:select  
+                                        id="sNN_BanKs"
+                                        name="sNN_BanKs"
+                                        list="lstNNBanKS" 
+                                        listKey="sKey"
+                                        listValue="sDesc"
+                                        headerKey="-1"
+                                        headerValue="--- Chọn ---"                                    
+                                        cssStyle="height:25px;width: 100%;vertical-align: middle;background-color: #FFCCBA;">
+                                    </s:select>
+                                </s:if>                                    
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td  colspan="2" align="center">
+
+                                <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5"
+                                            placeholder="Nhập tối đa 150 ký tự"
+                                            maxlength="150">
+                                    <s:param name="value" >
+                                        <%--<s:property value='sNguyennhan_tuchoi' />--%>
+                                        ${sNguyennhan_tuchoi}
+                                    </s:param>
+                                </s:textarea>
+
+
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="2" align="center">
+                                <hr/>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td align="center">
+                                <sj:submit id="idReject62" name="nameReject" value="Đồng ý 1"  cssStyle="display: none" targets="divBrowseRisk"></sj:submit>
+                                    <input type="button"  id="idRejecttmp" name="nameRejecttmp" value="Đồng ý"  
+                                           Style="height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/>
+                                </td>
+                                <td align="center">
+                                <sj:submit id="idClose" name="nameClose" value="Hủy bỏ" onclick="closeSelf()"
+                                           cssStyle="height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"></sj:submit>
+                                </td>
                             </tr>
                         </table>
+                        <hr/>
+                </s:iterator>
 
-                        <div id="divBrowseRisk"></div>
-                        <!--</br>-->
-                        <table class="tableKhnv" align="center">
-                            <tr align="center">
-                                <td colspan="2" align="center">
-                                    <span id="idTitle">Nhập nguyên nhân từ chối</span>
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td colspan="2" align="center">
-                                    <hr/>
-                                </td>
-                            </tr>
+            </div>
 
-                            <tr align="center">
-                                <td  colspan="2" align="center">
-                                    <s:if test="capPheDuyet==3">
-                                        <s:select  
-                                            id="sNN_BanKs"
-                                            name="sNN_BanKs"
-                                            list="lstNNBanKS" 
-                                            listKey="sKey"
-                                            listValue="sDesc"
-                                            headerKey="-1"
-                                            headerValue="--- Chọn ---"                                    
-                                            cssStyle="height:25px;width: 100%;vertical-align: middle;background-color: #FFCCBA;">
-                                        </s:select>
-                                    </s:if>                                    
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td  colspan="2" align="center">
-                                    
-                                        <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5" >
-                                            <s:param name="value" >
-                                                <%--<s:property value='sNguyennhan_tuchoi' />--%>
-                                                ${sNguyennhan_tuchoi}
-                                            </s:param>
-                                        </s:textarea>
-                                    
-                                    
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td colspan="2" align="center">
-                                    <hr/>
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td align="center">
-                                    <sj:submit id="idReject62" name="nameReject" value="Đồng ý 1"  cssStyle="display: none" targets="divBrowseRisk"></sj:submit>
-                                        <input type="button"  id="idRejecttmp" name="nameRejecttmp" value="Đồng ý"  
-                                               Style="height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"/>
-                                    </td>
-                                    <td align="center">
-                                    <sj:submit id="idClose" name="nameClose" value="Hủy bỏ" onclick="closeSelf()"
-                                               cssStyle="height:28px;width:95px; background-color: #FFFFC0; border: 2pt ridge lightgrey;"></sj:submit>
-                                    </td>
-                                </tr>
-                            </table>
-                            <hr/>
-                    </s:iterator>
-
-                </div>
-
-            </s:form>
-        </div>
-    </body>
+        </s:form>
+    </div>
+</body>
 </html>
 

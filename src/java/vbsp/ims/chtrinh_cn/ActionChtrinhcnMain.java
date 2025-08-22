@@ -10,9 +10,7 @@ import com.jgeppert.struts2.jquery.tree.result.TreeNode;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +52,21 @@ import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.sbv.daoSbv;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
+import com.opensymphony.xwork2.ActionSupport;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 /**
  *
@@ -66,9 +79,6 @@ public class ActionChtrinhcnMain extends ActionSupport {
     String filereport;
     LeaveHomeService _server_tmp;
     public String reportId; //CuongBM: Ma bao cao
-    public List<File> fileUpload = new ArrayList<>();
-    private List<String> fileUploadContentType = new ArrayList<>();
-    public List<String> fileUploadFileName = new ArrayList<>();
     public List<ModelExcelFile> lstExcel = new ArrayList<>();
     private String fileNameNew;
     private List<ListValue> lstBDD = new ArrayList<ListValue>();
@@ -79,6 +89,9 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private String pos_cd;
     private String main_pos;
     private List<ListOfValue> lstDmKhac;
+    private File fileUpload;
+    private String fileUploadFileName;
+    private String fileUploadContentType;
 
     public List<ListOfValue> getLstDmKhac() {
         return lstDmKhac;
@@ -200,28 +213,68 @@ public class ActionChtrinhcnMain extends ActionSupport {
         this.query = query;
     }
 
-    public List<File> getFileUpload() {
+    public LeaveHomeService getServer_tmp() {
+        return _server_tmp;
+    }
+
+    public void setServer_tmp(LeaveHomeService _server_tmp) {
+        this._server_tmp = _server_tmp;
+    }
+
+    public File getFileUpload() {
         return fileUpload;
     }
 
-    public void setFileUpload(List<File> fileUpload) {
+    public void setFileUpload(File fileUpload) {
         this.fileUpload = fileUpload;
     }
 
-    public List<String> getFileUploadContentType() {
-        return fileUploadContentType;
-    }
-
-    public void setFileUploadContentType(List<String> fileUploadContentType) {
-        this.fileUploadContentType = fileUploadContentType;
-    }
-
-    public List<String> getFileUploadFileName() {
+    public String getFileUploadFileName() {
         return fileUploadFileName;
     }
 
-    public void setFileUploadFileName(List<String> fileUploadFileName) {
+    public void setFileUploadFileName(String fileUploadFileName) {
         this.fileUploadFileName = fileUploadFileName;
+    }
+
+    public String getFileUploadContentType() {
+        return fileUploadContentType;
+    }
+
+    public void setFileUploadContentType(String fileUploadContentType) {
+        this.fileUploadContentType = fileUploadContentType;
+    }
+
+    public String getDvut_ksnb02() {
+        return dvut_ksnb02;
+    }
+
+    public void setDvut_ksnb02(String dvut_ksnb02) {
+        this.dvut_ksnb02 = dvut_ksnb02;
+    }
+
+    public String getCapkt_ksnb02() {
+        return capkt_ksnb02;
+    }
+
+    public void setCapkt_ksnb02(String capkt_ksnb02) {
+        this.capkt_ksnb02 = capkt_ksnb02;
+    }
+
+    public String getMato_ksnb02() {
+        return mato_ksnb02;
+    }
+
+    public void setMato_ksnb02(String mato_ksnb02) {
+        this.mato_ksnb02 = mato_ksnb02;
+    }
+
+    public String getChutich_ksnb02() {
+        return chutich_ksnb02;
+    }
+
+    public void setChutich_ksnb02(String chutich_ksnb02) {
+        this.chutich_ksnb02 = chutich_ksnb02;
     }
 
     public List<ModelExcelFile> getLstExcel() {
@@ -1465,7 +1518,237 @@ public class ActionChtrinhcnMain extends ActionSupport {
         lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
         return SUCCESS;
     }
+    public String openExcelUploadQtKh() {
+        try {
+            DuLieuNTService _serverAPI = new DuLieuNTService();
+            lstDmKhac = _serverAPI.getListOfValue("92", "");
+            // Có thể truyền thêm dữ liệu ra JSP nếu cần
+            return SUCCESS;  // sẽ forward tới excel_upload_2025.jsp
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
 
+    public String dtwUploadExcel() throws SQLException {
+        if (fileUpload == null) {
+            addActionError("Chưa chọn file Excel!");
+            return ERROR;
+        }
+        // Lấy 10 ký tự đầu của tên file
+        if (fileUploadFileName == null || !fileUploadFileName.contains("_")) {
+            addActionError("Tên file không đúng định dạng");
+            return ERROR;
+        }
+
+        String[] values = fileUploadFileName.split("\\_");
+        String Key = values[0];
+        String file = values[1];
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String ngaybc = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String fileName = Key + "_" + timeStamp + file;
+        Connection conn = null;
+        CallableStatement cs = null;
+        int uploadedRows = 0;
+        Map session = ActionContext.getContext().getSession();
+        String sUserName = session.get("username").toString();
+//        System.out.println("sUserName= " + sUserName);
+        DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
+        String start_end = dao.getStartEndCel(Key);
+        int startrow = 0, endcell = 0;
+        if (!start_end.equals("AAA")) {
+            startrow = Integer.parseInt(start_end.split("-")[0]);
+            endcell = Integer.parseInt(start_end.split("-")[1]);
+        }
+        try (FileInputStream fis = new FileInputStream(fileUpload);
+                Workbook workbook = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // Kết nối Oracle
+            conn = new DaoConnect().getConnect();
+            String sql = "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+            // 20 cột dữ liệu + 1 tham số tên file
+            cs = conn.prepareCall(sql);
+
+            // Bỏ 2 dòng đầu (header)
+            for (int i = startrow; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    continue; // skip nếu dòng null
+                }
+
+                boolean hasData = false; // flag để check dòng có dữ liệu không
+
+                // Gán 20 cột
+                for (int c = endcell; c < 20; c++) {
+                    String cellValue = getCellValueAsString(row.getCell(c));
+                    if (cellValue != null && !cellValue.trim().isEmpty()) {
+                        hasData = true; // có dữ liệu
+                    }
+                    cs.setString(c + 1, cellValue);
+                }
+
+                if (!hasData) {
+                    continue; // bỏ qua dòng trống
+                }
+
+                // Thêm tham số cuối cùng = 10 ký tự đầu của tên file
+                cs.setString(21, fileName);
+                cs.setString(22, Key);
+                cs.setString(23, sUserName);
+                cs.setString(24, ngaybc);
+                cs.execute();
+                uploadedRows++;
+            }
+            try {
+                try (CallableStatement csEven = conn.prepareCall(
+                        "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?, ?, ?, ?, ?) }")) {
+                    csEven.setString(1, Key);      // PARA_1
+                    csEven.setString(2, fileName); // PARA_2
+                    csEven.setString(3, ngaybc);   // PARA_3
+                    csEven.setString(4, "");       // PARA_4
+                    csEven.setString(5, "");       // PARA_5
+                    csEven.setString(6, "");       // PARA_6
+
+                    csEven.execute();
+                    System.out.println("EVEN_EXCEL executed OK for file: " + fileName);
+                }
+            } catch (Exception exEven) {
+                // Không để lỗi EVEN_EXCEL làm fail upload
+                exEven.printStackTrace();
+                addActionMessage("Upload thành công, nhưng xử lý EVEN_EXCEL bị lỗi: " + exEven.getMessage());
+            }
+
+            addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
+            return SUCCESS;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            addActionError("Lỗi khi xử lý file: " + e.getMessage());
+            return ERROR;
+        } finally {
+            try {
+                if (cs != null) {
+                    cs.close();
+                }
+            } catch (Exception ignored) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /**
+     * Hàm đọc giá trị Cell Excel thành String (dùng cho Apache POI 3.x)
+     */
+    private String getCellValueAsString(Cell cell) {
+        if (cell == null) {
+            return "";
+        }
+
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                return cell.getStringCellValue().trim();
+
+            case Cell.CELL_TYPE_NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getDateCellValue().toString();
+                } else {
+                    double num = cell.getNumericCellValue();
+                    if (num == (long) num) {
+                        return String.valueOf((long) num);
+                    } else {
+                        return String.valueOf(num);
+                    }
+                }
+
+            case Cell.CELL_TYPE_BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+
+            case Cell.CELL_TYPE_FORMULA:
+                try {
+                    return cell.getStringCellValue();
+                } catch (IllegalStateException e) {
+                    return String.valueOf(cell.getNumericCellValue());
+                }
+
+            case Cell.CELL_TYPE_BLANK:
+            default:
+                return "";
+        }
+    }
+
+  public String downloadTemplate() throws Exception {
+    HttpServletResponse response = ServletActionContext.getResponse();
+
+    if (mauBc == null || mauBc.trim().isEmpty()) {
+        addActionError("Bạn chưa chọn loại file mẫu!");
+        return ERROR;
+    }
+
+    try {
+        String templateFolder = ServletActionContext.getServletContext()
+                .getRealPath("/EXCEL_TEMPLATE/HSRR/");
+        String templateFileName = mauBc + "_.xlsx"; 
+        File templateFile = new File(templateFolder, templateFileName);
+
+        if (!templateFile.exists()) {
+            addActionError("File mẫu không tồn tại!");
+            return ERROR;
+        }
+
+        // encode tên file để tránh lỗi Unicode
+        String fileName = URLEncoder.encode(templateFile.getName(), "UTF-8").replace("+", "%20");
+        response.setContentType(
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+        try (FileInputStream in = new FileInputStream(templateFile);
+             OutputStream out = response.getOutputStream()) {
+
+            byte[] buffer = new byte[4096];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+            out.flush();
+        }
+
+        return NONE; // Quan trọng: không forward sang JSP
+    } catch (Exception e) {
+        e.printStackTrace();
+        addActionError("Lỗi khi tải file mẫu: " + e.getMessage());
+        return ERROR;
+    }
+}
+
+
+//<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+    private String mauBc;
+
+    public String getMauBc() {
+        return mauBc;
+    }
+
+    public void setMauBc(String mauBc) {
+        this.mauBc = mauBc;
+    }
+    
+    private String font_type;            // radio button
+
+    public String getFont_type() {
+        return font_type;
+    }
+
+    public void setFont_type(String font_type) {
+        this.font_type = font_type;
+    }
     public String getPoslist() {
         return poslist;
     }
@@ -1726,7 +2009,6 @@ public class ActionChtrinhcnMain extends ActionSupport {
         this.lstDonvi = lstDonvi;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
     public List<ListValue> getLstCapKT() {
         return lstCapKT;
     }

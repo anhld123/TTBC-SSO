@@ -52,31 +52,31 @@
         }
         .datepicker{
         }
-        
+
         #divTitle{
             font: 14px Arial, Helvetica, sans-serif;
             font-weight: bold;
             color: #0077b3;
             text-align: center;
-            }
+        }
     </style>
     <SCRIPT language="javascript">
 //         $(function () {
 //            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
 //        });
 
-        $.subscribe('batdauduyet', function(event, data) {
+        $.subscribe('batdauduyet', function (event, data) {
             $("#divMessage").show();
             //                $("#divExportReport").show();
             //$("#contentDiv").slideDown('slow');
         });
 
-        $.subscribe('ketthucduyet', function(event, data) {
+        $.subscribe('ketthucduyet', function (event, data) {
             $("#divMessage").hide();
 //                $("#divExportReport").show();
             //$("#contentDiv").slideDown('slow');
         });
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('input.number').css({"text-align": "right"});
             $('input.number2').css({"text-align": "right"});
             $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
@@ -104,19 +104,19 @@
             $(".TUCHOI").css({"width": "50px"});
             var trangthai_xlrr = $("#trangthai_xlrr").val();
 //            var soku_search = $("#idsearch_soku").val();
-            if (trangthai_xlrr != 'W')
+            if (trangthai_xlrr !== 'W')
                 $(".TUCHOI").hide();
-            if (trangthai_xlrr == 'A')
+            if (trangthai_xlrr === 'A')
                 $(".TUCHOI").show();
             var nhom_xlrr = $("#nhom_xlrr").val();
-            if (nhom_xlrr == '03')
+            if (nhom_xlrr === '03')
                 $(".NGUYEN_NHAN_EDIT").hide();
 //            $("#idsearch_soku").removeAttr("readonly");
         });
         function showandhide(soku)
         {
 //            var soku_search = $("#search_soku").val();
-            if (soku != null)
+            if (soku !== null)
                 $(".TUCHOI").show();
         }
         function hienthichitiet(soku) {
@@ -171,7 +171,7 @@
 //                    alert(poscd);
 
             var url = "getDetialCustomerReject62.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                    + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd+ "&vb_xlrr=" + vb_xlrr;
+                    + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&vb_xlrr=" + vb_xlrr;
             //cong them chuoi doan "&namBc="+namBc de lay nam bao cao
             var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
@@ -209,7 +209,7 @@
         function stopRKey(evt) {
             var evt = (evt) ? evt : ((event) ? event : null);
             var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-            if ((evt.keyCode == 13) && (node.type == "text")) {
+            if ((evt.keyCode === 13) && (node.type === "text")) {
                 return false;
             }
         }
@@ -219,7 +219,7 @@
 
         function isNumber(value)
         {
-            if (value == null)
+            if (value === null)
             {
                 alert('Bạn phải nhập dữ liệu cho trường này');
 //                    $("#result").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!');
@@ -238,8 +238,7 @@
 //                    $("#result").html('<span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!');
                 focus();
                 return false;
-            }
-            else {
+            } else {
                 //Neu la kieu so --> Kiem tra xem kieu nhap co > 0 
 //                if (parseFloat(value) < 0) {
 //                    result = false;
@@ -278,10 +277,10 @@
             <!--<div style="margin: 7px 7px 7px 7px;" align="center">-->
             </br>
             <div id="divTitle">
-                    THÔNG TIN PHÊ DUYỆT HỒ SƠ RỦI RO - BAN KIỂM SOÁT
-                    </br>                      
-                    
-                </div>
+                THÔNG TIN PHÊ DUYỆT HỒ SƠ RỦI RO - BAN KIỂM SOÁT
+                </br>                      
+
+            </div>
             <table border="1" class="editDelete" align="center" style="padding: 3px 0px 3px 3px; width: 99%">
                 <tr>
                     <th>Mô tả</th>
@@ -331,14 +330,19 @@
                 <tr>
                     <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban XLN duyệt</th>-->
                     <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban KS duyệt</th>-->
-                    <th rowspan="2" width="15" class="sortable"><s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()"/></th>                    
+                    <th rowspan="2" width="15">
+                        <input type="checkbox" id="allCheck" name="allCheck" onclick="toggleAll(this)"/>
+                    </th>
+
+
+                   <!--<th rowspan="2" width="15" class="sortable"><s:checkbox id ="allCheck" name="allCheck" onclick="selectallMe()"/></th>-->                    
                     <th rowspan="2" class="MA_PGD_DP">Mã PGD</th>
                     <th rowspan="2" class="TEN_KH">Tên khách hàng</th>
                     <th rowspan="2" class="SOKU">Số khế ước</th>
 
                     <th rowspan="2" class="GOC_RR_EDIT"  >Gốc xử lý</th>
                     <th rowspan="2" class="GOC_RR_EDIT"  >Lãi xử lý</th>
-                                     
+
 
                     <th rowspan="2" class="CHUONG_TRINH">C.trình</th>    
                     <!--<th class="sortable">Tên sản phẩm</th>--> 
@@ -351,27 +355,30 @@
                     <th rowspan="2" class="TUCHOI">Từ chối</th> 
                 </tr>
                 <tr>     
-<!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
-                    <th class="CHUONG_TRINH"  >Từ chối</th>-->
-<!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
-                    <th class="CHUONG_TRINH"  >Từ chối</th>-->
+                    <!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
+                                        <th class="CHUONG_TRINH"  >Từ chối</th>-->
+                    <!--                    <th class="CHUONG_TRINH"  >Đồng ý</th>
+                                        <th class="CHUONG_TRINH"  >Từ chối</th>-->
                 </tr>
                 <s:iterator value="#attr.lstTableRiskObj" var="modelRisk" status="rowstatus">
                     <s:if test="#rowstatus.even == true">
                         <tr class="ac_odd">
-                    </s:if>
-                    <s:else>
-                    <tr class="ac_odd">
-                    </s:else>
-                        
-<!--                        <td align = "center">
-                            <input type="text" value="<s:property  value="sPduyet_Nguoi_Cn" />" name="sPduyet_Nguoi_Cn" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
-                        </td>
-                        <td>
-                            <input type="text" value="<s:property  value="sPduyet_Nguoi_Tw" />" name="sPduyet_Nguoi_Tw" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
-                        </td>-->
-                        <td align = "center"> 
-                            <s:checkbox id ="check_legacyid" name="lstRisk[%{#rowstatus.index}].check_legacyid" fieldValue="%{sSoku}" onclick="selectall()"/>
+                        </s:if>
+                        <s:else>
+                        <tr class="ac_odd">
+                        </s:else>
+
+                        <!--                        <td align = "center">
+                                                    <input type="text" value="<s:property  value="sPduyet_Nguoi_Cn" />" name="sPduyet_Nguoi_Cn" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="<s:property  value="sPduyet_Nguoi_Tw" />" name="sPduyet_Nguoi_Tw" class="CHUONG_TRINH" onfocus="this.select()" readonly="true"/>
+                                                </td>-->
+                        <td align="center">
+                            <s:checkbox id="check_legacyid" 
+                                        name="lstRisk[%{#rowstatus.index}].check_legacyid" 
+                                        fieldValue="%{sSoku}" 
+                                        onclick="selectalll()"/>
                         </td>
                         <td align = "center">
                             <s:if test="reportGrade.equalsIgnoreCase('1')"> 
@@ -537,9 +544,9 @@
                                 <s:if test="sPduyet_Nguoi_Tw.equalsIgnoreCase('x')">
                                     Đồng ý
                                 </s:if>
-                                    <s:else>
-                                        Từ chối
-                                    </s:else>    
+                                <s:else>
+                                    Từ chối
+                                </s:else>    
                             </a>
 
                             <%--<s:url id="idRejectRisk" value="setRejectRisk.action">--%>
@@ -571,5 +578,49 @@
                        onBeforeTopics="batdauloaddata" onCompleteTopics="hoanthanhloaddata"/>
         </s:form>
         <div id="divBrowseRisk"></div>
+        <script>
+            function selectalll() {
+                var fieldName = "check_legacyid"; // hoặc "lstRisk"
+                var i = document.frmDataRisk62.elements.length;
+                var e = document.frmDataRisk62.elements;
+                var value = [];
+                var j = 0;
+                for (var k = 0; k < i; k++) {
+                    if (document.frmDataRisk62.elements[k].name.indexOf(fieldName) >= 0) {
+                        if (document.frmDataRisk62.elements[k].checked === true) {
+                            value[j] = document.frmDataRisk62.elements[k].value;
+                            j++;
+                        }
+                    }
+                }
+                checkSelect1();
+            }
+
+            function checkSelect1() {
+                var fieldName = "check_legacyid"; // hoặc "lstRisk"
+                var i = document.frmDataRisk62.elements.length;
+                var berror = true;
+                for (var k = 0; k < i; k++) {
+                    if (document.frmDataRisk62.elements[k].name.indexOf(fieldName) >= 0) {
+                        if (document.frmDataRisk62.elements[k].checked === false) {
+                            berror = false;
+                            break;
+                        }
+                    }
+                }
+                document.frmDataRisk62.allCheck.checked = berror;
+            }
+            function toggleAll(source) { 
+                var fieldName = "check_legacyid"; // hoặc "lstRisk"
+                var elements = document.frmDataRisk62.elements;
+                for (var i = 0; i < elements.length; i++) {
+                    if (elements[i].name.indexOf(fieldName) >= 0) {
+                        elements[i].checked = source.checked;
+                    }
+                }
+            }
+
+
+        </script>
     </body>
 </html>

@@ -524,31 +524,32 @@ public class DcplnAction extends ActionChtrinhcnMain
                     Comparator.comparing(obj -> layTen(obj.getPlnTenkh()), String.CASE_INSENSITIVE_ORDER)
             );
             List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, mato, "", "", "", "", "");
+
+            int tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
+            String stmato_to = null;
             Set<String> setKhachHang = new HashSet<>();
-            int tongThan = 0;
-            int tongQhan = 0;
-            int tongKhoanh = 0;
-            int tongDuno = 0;
-            int tongNlai = 0;
-            int tongMonvay = 0;
-            String stmato_to = "";
+
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = Optional.ofNullable(item.getPlnDnothan()).orElse(0);
-                int dnoQhan = Optional.ofNullable(item.getPlnDnoqhan()).orElse(0);
-                int dnoKhoanh = Optional.ofNullable(item.getPlnDnokhoanh()).orElse(0);
-                int laiTon = Optional.ofNullable(item.getPlnTonglaiton()).orElse(0);
+                int dnoThan = item.getPlnDnothan();
+                int dnoQhan = item.getPlnDnoqhan();
+                int dnoKhoanh = item.getPlnDnokhoanh();
+                int laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
-                tongDuno += dnoThan + dnoQhan + dnoKhoanh;
                 tongNlai += laiTon;
                 tongMonvay++;
+
                 stmato_to = item.getPlnMato() + " - " + item.getPlnTentt();
+
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
                     setKhachHang.add(item.getPlnMakh());
                 }
             }
+
+            tongDuno = tongThan + tongQhan + tongKhoanh;
+
             this.tong_monvay = String.valueOf(tongMonvay);
             this.tong_kh = String.valueOf(setKhachHang.size());
             this.tong_than = tongThan;
@@ -557,6 +558,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             this.tong_duno = tongDuno;
             this.tong_nlai = tongNlai;
             this.mato_to = stmato_to.toUpperCase();
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " getDataDcNo -> " + e.getMessage());

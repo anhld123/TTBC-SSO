@@ -787,22 +787,25 @@ public class DcplnAction_2 extends ActionSupport {
             int tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = Optional.ofNullable(item.getPlnDnothan()).orElse(0);
-                int dnoQhan = Optional.ofNullable(item.getPlnDnoqhan()).orElse(0);
-                int dnoKhoanh = Optional.ofNullable(item.getPlnDnokhoanh()).orElse(0);
-                int laiTon = Optional.ofNullable(item.getPlnTonglaiton()).orElse(0);
+                int dnoThan = item.getPlnDnothan();
+                int dnoQhan = item.getPlnDnoqhan();
+                int dnoKhoanh = item.getPlnDnokhoanh();
+                int laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
-                tongDuno += dnoThan + dnoQhan + dnoKhoanh;
                 tongNlai += laiTon;
                 tongMonvay++;
+
                 stmato_to = item.getPlnMato() + " - " + item.getPlnTentt();
+
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
                     setKhachHang.add(item.getPlnMakh());
                 }
             }
+
+            tongDuno = tongThan + tongQhan + tongKhoanh;
 
             this.tong_monvay = String.valueOf(tongMonvay);
             this.tong_kh = String.valueOf(setKhachHang.size());
@@ -930,22 +933,25 @@ public class DcplnAction_2 extends ActionSupport {
             int tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = Optional.ofNullable(item.getPlnDnothan()).orElse(0);
-                int dnoQhan = Optional.ofNullable(item.getPlnDnoqhan()).orElse(0);
-                int dnoKhoanh = Optional.ofNullable(item.getPlnDnokhoanh()).orElse(0);
-                int laiTon = Optional.ofNullable(item.getPlnTonglaiton()).orElse(0);
+                int dnoThan = item.getPlnDnothan();
+                int dnoQhan = item.getPlnDnoqhan();
+                int dnoKhoanh = item.getPlnDnokhoanh();
+                int laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
-                tongDuno += dnoThan + dnoQhan + dnoKhoanh;
                 tongNlai += laiTon;
                 tongMonvay++;
+
                 stmato_to = item.getPlnMato() + " - " + item.getPlnTentt();
+
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
                     setKhachHang.add(item.getPlnMakh());
                 }
             }
+
+            tongDuno = tongThan + tongQhan + tongKhoanh;
 
             this.tong_monvay = String.valueOf(tongMonvay);
             this.tong_kh = String.valueOf(setKhachHang.size());

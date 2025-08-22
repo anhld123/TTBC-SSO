@@ -322,7 +322,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //lay ra user
             String sUserName = session.get("username").toString();
 
-            System.err.println("execute sUserName=" + sUserName);
+//            System.err.println("execute sUserName=" + sUserName);
 
             if (sUserName == null || sUserName.isEmpty()) {
                 setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
@@ -397,7 +397,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //lay ra user
             String sUserName = session.get("username").toString();
 
-            System.err.println("execute sUserName=" + sUserName);
+//            System.err.println("execute sUserName=" + sUserName);
 
             if (sUserName == null || sUserName.isEmpty()) {
                 setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
@@ -1935,7 +1935,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         //lay ra user
         String sUserName = session.get("username").toString();
 
-        System.err.println("execute sUserName=" + sUserName);
+//        System.err.println("execute sUserName=" + sUserName);
 
         if (sUserName == null || sUserName.isEmpty()) {
             setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
@@ -1978,7 +1978,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
         //lay ra user
         String sUserName = session.get("username").toString();
 
-        System.err.println("execute sUserName=" + sUserName);
+//        System.err.println("execute sUserName=" + sUserName);
 
         if (sUserName == null || sUserName.isEmpty()) {
             setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
@@ -2317,7 +2317,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //lay ra user
             String sUserName = session.get("username").toString();
 
-            System.err.println("execute sUserName=" + sUserName);
+//            System.err.println("execute sUserName=" + sUserName);
 
             if (sUserName == null || sUserName.isEmpty()) {
                 setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");
@@ -2585,7 +2585,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             //lay ra user
             String sUserName = session.get("username").toString();
 
-            System.err.println("execute sUserName=" + sUserName);
+//            System.err.println("execute sUserName=" + sUserName);
 
             if (sUserName == null || sUserName.isEmpty()) {
                 setMessage("Không thể lấy ra được username bạn phải logout hệ thống sau đó đăng nhập lại ");

@@ -72,7 +72,7 @@
             <result name="success_3">/ktksnb_2024/table_bsung_ktksnb2024_3.jsp</result>                                                            
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
-         <action name="save_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="save">
+        <action name="save_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="save">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
@@ -88,7 +88,7 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
-         <action name="send_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="send">
+        <action name="send_KTKSNB_04_2025" class="vbsp.ims.ktksnb2024.KTKSNB_04"  method="send">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">pageResult</param>
@@ -208,5 +208,21 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
+        
+        <action name="uploadfile" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"
+                method="openExcelUploadQtKh">
+            <result name="success">/EXCEL_UPLOAD/excel_upload_2025.jsp</result>       
+            <result name="error">/nhaptay-cn/success.jsp</result>        
+        </action>  
+        <action name="upload_excel_2025" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="dtwUploadExcel">
+            <result name="success">/EXCEL_UPLOAD/result.jsp</result>
+            <result name="error">/EXCEL_UPLOAD/result.jsp</result>
+        </action>
+        
+        <action name="download_template" class="vbsp.ims.chtrinh_cn.ActionChtrinhcnMain"  method="downloadTemplate">
+            <result name="none">none</result>
+            <result name="error">/EXCEL_UPLOAD/result.jsp</result>
+        </action>
+
     </package>
 </struts>

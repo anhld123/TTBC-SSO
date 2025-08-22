@@ -40,9 +40,9 @@
                 $("#divExportReport").show();
                 //$("#contentDiv").slideDown('slow');
             });
-            
-             
-            
+
+
+
             var bSubmit = false;
 
 //            $('#idsearch_soku').keypress(function (event) {
@@ -55,7 +55,7 @@
 //            });
 
             function keyPressEvent() {
-                var evt =  window.event;
+                var evt = window.event;
 //                alert('vao han nay');
                 var keyPressed = evt.which || evt.keyCode;
                 if (keyPressed == 13) {
@@ -77,30 +77,17 @@
 
             function onclickBrowseRisk()
             {
+
                 $("#divBrowseRisk").empty();
-                //$("#divBrowseRisk").text('');
-                //Check xem da chon chua
-//                if (!bSubmit)
-//                {
-//                    alert("Khi tìm kiếm khách hàng bạn chỉ từ chối chứ không thể phê duyệt!");
-//                    return;
-//                }
+
                 if ($("#frmDataRisk62 input:checkbox:checked").length > 0)
                 {
-//                    if (!bSubmit)
-//                    {
-//                        alert("Khi tìm kiếm khách hàng bạn chỉ từ chối chứ không thể phê duyệt!");
-//                        return;
-//                    }
-                    // alert(validateRequiredFields());
-                    // $("#BrowseSubmit").trigger('click');
-
                     if (validateRequiredFields())
                     {
+//                        alert($("#frmDataRisk62 input:checkbox:checked").length);
                         $("#BrowseSubmit62")[0].click();
                     }
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn khách hàng cần phê duyệt!");
@@ -116,8 +103,7 @@
                 {
                     $("#idButton").removeAttr("disabled");
 
-                }
-                else
+                } else
                     $("#idButton").attr("disabled", "disabled");
                 //goi button tai du lieu de dua du lieu len table
                 $("#loadsubmitform").trigger('click');
@@ -137,8 +123,7 @@
                         $("#divBrowseRisk").html('<span style="color:red"><h2><span style="font-weight: bold; color">Thông báo:</span>  Bạn chưa nhập đầy đủ dữ liệu!</h2></span>');
                         alert('Bạn chưa nhập đầy đủ dữ liệu!');
                         return false;
-                    }
-                    else {
+                    } else {
                         //Neu la kieu so --> Kiem tra xem kieu nhap co > 0 
 //                        if (parseFloat(value) < 0) {
 //                            result = false;
@@ -176,7 +161,7 @@
                 $("#container").empty();
                 $("#container").text('');
             }
-             function getposfromtreecheck()
+            function getposfromtreecheck()
             {
                 var pos_cd = '';
                 var i = document.loadFormRisk.elements.length;
@@ -239,6 +224,18 @@
                 var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
 
             }
+
+            function callDirectLink(link) {
+                const curentYear = new Date().getFullYear();
+                PopupCenter(link, 'Upload excel', 800, 400);
+
+            }
+            function PopupCenter(pageURL, title, w, h) {
+                var left = (screen.width / 2) - (w / 2);
+                var top = (screen.height / 2) - (h / 2);
+                var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+                return targetWin;
+            }
         </script>
 
         <style>
@@ -278,12 +275,12 @@
             }
 
             #navParam{
-                height: 12%;
+                /*height: 12%;*/
                 padding:10px;
 
                 /*margin:5px;*/
                 /*border-radius: 10px; //bo tron goc*/
-                border: 1px solid;                
+                border: 2px solid;                
                 /*                height: 50px;
                                 border: 1px solid;  
                                 border-radius: 10px; //bo tron goc
@@ -314,18 +311,18 @@
                 border: 1px solid;
                 position: fixed;
             }
-             #divMessage
+            #divMessage
             {
                 height: 28px;
                 /*border: 1px solid;*/  
                 margin-right: 20%;
                 /*width: 40%;*/
                 /*float: right;*/
-/*                padding:3px; 
-                border: 1px solid;
-                position: fixed;*/
+                /*                padding:3px; 
+                                border: 1px solid;
+                                position: fixed;*/
                 /*background: brown;*/
-                 /*height: 28px;*/
+                /*height: 28px;*/
                 /*border: 1px solid;*/     
                 width: 20%;
                 float: right;
@@ -384,7 +381,7 @@
                                   listValue="sDesc"                                   
                                   cssStyle="color: red;vertical-align: middle;">                    
                         </s:select>
-                        
+
                         <s:label value="Năm XL:" cssStyle="color: #029c44;" />
                         <s:select id="nam_xlrr" 
                                   name="nam_xlrr"
@@ -455,33 +452,35 @@
                             <sj:submit id="idSearch62" name="nameSearch62" href="%{idurlSearch62}" value="Tìm kiếm" targets="divExportReport"
                                        onBeforeTopics="beforediv1"
                                        onCompleteTopics="completediv1" onclick="onFind()"/>
-                             <s:if test="reportGrade.equalsIgnoreCase('3')">
+                            <s:if test="reportGrade.equalsIgnoreCase('3')">
                                 <%--<s:url id="idurlNguyennhancn" action="dienNguyennhanChinhanh.action"></s:url>--%>
                                 <input type="button" id="idnguyennhancn" name="nameNguyennhanchinhanh" 
                                        value="Nguyên nhân từ chối cn" targets="divExportReport" onclick="dienthongtintuchoicn()"
                                        />
                             </s:if>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <!--button tai du lieu-->
-                        <sj:submit id="loadsubmitform62" name="loadsubmitform62" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                   cssStyle="height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"
-                                   onBeforeTopics="beforediv1"
-                                   onCompleteTopics="completediv1"/>&nbsp;&nbsp
-                        <!--button phe duyet-->
-                        <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" <s:if test="capPheDuyet==3">value="Thẩm định"</s:if>
-                               <s:else>value="Phê Duyệt"</s:else>
-                               style=" height:28px;width:95px;color: #0000FF; background: #c5c5c5; font: bolder"/>
-                        <!--button quay ra-->
-                            <input type="button" id="idReturn" name="nameReturn" 
-                                   onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
-                            <div id="divMessage" style="display: none;">
-                                <img id="loadingImage" src='img/loading.gif' border='0' >
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <!--button tai du lieu-->
+                            <sj:submit id="loadsubmitform62" name="loadsubmitform62" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+
+                                       onBeforeTopics="beforediv1"
+                                       onCompleteTopics="completediv1"/>&nbsp;&nbsp;
+                            <!--button phe duyet-->
+                            <input type="button" id="idButton" name="idButton" onclick="onclickBrowseRisk()" <s:if test="capPheDuyet==3">value="Thẩm định"</s:if>
+                                   <s:else>value="Phê Duyệt"</s:else>/>
+                                   &nbsp;<input style="color: red" type="button" id="idUpload" value="Excel Loại theo danh sách" onclick="callDirectLink('uploadfile.action');">
+                                   <!--button quay ra-->
+                                   <input type="button" id="idReturn" name="nameReturn" 
+                                          onclick="onReturn()" value="Quay ra" 
+                                          style="float: right"/>
+                                   <div id="divMessage" style="display: none;">
+                                       <img id="loadingImage" src='img/loading.gif' border='0' >
+                                   </div>
+
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div id="containTree">
+                    </div>
+                    <div id="containTree">
                     <sjt:tree
                         name="poscd"
                         id="treeDynamicCheckboxes"
@@ -496,7 +495,7 @@
                         showThemeIcons="true"
                         />
                 </div>                
-                        <!--openAllOnLoad="true"-->
+                <!--openAllOnLoad="true"-->
                 <div id="loadingImageDiv" style="display: none;">
                     <img id="loadingImage" src='img/loading.gif' border='0' >
                 </div>
