@@ -54,19 +54,25 @@ import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlKtgsSync;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletResponse;
+import oracle.sql.ArrayDescriptor;
+import oracle.sql.StructDescriptor;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
+import oracle.sql.ARRAY;
+import oracle.sql.STRUCT;
 
 /**
  *
@@ -92,6 +98,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private File fileUpload;
     private String fileUploadFileName;
     private String fileUploadContentType;
+    private static StructDescriptor structDesc;
+    private static ArrayDescriptor arrayDesc;
 
     public List<ListOfValue> getLstDmKhac() {
         return lstDmKhac;
@@ -787,9 +795,9 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private List<String> convertStringtoList(String[] value) {
         List<String> lst = new ArrayList<>();
         try {
-            for (int i = 0; i < value.length; i++) {
-                if (!value[i].equals("999999") && !value[i].isEmpty()) {
-                    lst.add(value[i]);
+            for (String value1 : value) {
+                if (!value1.equals("999999") && !value1.isEmpty()) {
+                    lst.add(value1);
                 }
             }
         } catch (Exception e) {
@@ -1218,7 +1226,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
             System.err.println("Vao ham getTotruong");
             Map session = ActionContext.getContext().getSession();
 
-            if (session == null || session.size() == 0 || session.isEmpty()) {
+            if (session == null || session.isEmpty() || session.isEmpty()) {
                 setMessage("Bạn phải đăng nhập lại mới thực hiện được chức năng này");
                 return ERROR;
             }
@@ -1356,7 +1364,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 lstData = daosync.getDataSendPhiut("NT", khoa_nhaptaycn,
                         mapgd, hmParameter.get("ngay_bc").toString());
 
-                if (lstData == null || lstData.size() == 0) {
+                if (lstData == null || lstData.isEmpty()) {
                     mapStatusSend.put(mapgd, 6);
                     continue;
                 }
@@ -1383,32 +1391,35 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 ProcessReportSyn clientWritexml = new ProcessReportSyn();
                 String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
 //
-                if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
-                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
-//                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
-                    if (checkfile.exists()) {
-                        checkfile.delete();
-                    }
-                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
-                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
+                switch (sStatus) {
+                    case Define.WEB_SERVICES_STATUS_FAIL:
+                        System.err.println("Ban chua dong bo du lieu duoc ve TW");
+                        //                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
+                        if (checkfile.exists()) {
+                            checkfile.delete();
+                        }
+                        CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
+                        mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
 //                    return ERROR;
-                } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
-//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
-                    if (checkfile.exists()) {
-                        checkfile.delete();
-                    }
-                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
-                    if (khoa_nhaptaycn.equals("QD23_001")) {
-                        new DaoNhaptaycnMain().updateAfterSendQd23(khoa_nhaptaycn, mapgd, hmParameter.get("ngay_bc").toString());
-                    }
-
-                } else {
-//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
-                    if (checkfile.exists()) {
-                        checkfile.delete();
-                    }
-                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+                        break;
+                    case Define.WEB_SERVICES_STATUS_OK:
+                        //                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
+                        if (checkfile.exists()) {
+                            checkfile.delete();
+                        }
+                        mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                        if (khoa_nhaptaycn.equals("QD23_001")) {
+                            new DaoNhaptaycnMain().updateAfterSendQd23(khoa_nhaptaycn, mapgd, hmParameter.get("ngay_bc").toString());
+                        }
+                        break;
+                    default:
+                        //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
+                        if (checkfile.exists()) {
+                            checkfile.delete();
+                        }
+                        mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
 //                    return ERROR;
+                        break;
                 }
             }
             setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
@@ -1447,7 +1458,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
             lstData = daosync.getDataSendPhiut("NT", khoa_nhaptaycn,
                     mapgd, hmParameter.get("ngay_bc").toString());
 
-            if (lstData == null || lstData.size() == 0) {
+            if (lstData == null || lstData.isEmpty()) {
 //                    mapStatusSend.put(mapgd, 6);
                 return "Không có dữ liệu";
             }
@@ -1472,32 +1483,32 @@ public class ActionChtrinhcnMain extends ActionSupport {
             ProcessReportSyn clientWritexml = new ProcessReportSyn();
             String sStatus = clientWritexml.SendFileXmlToWebServices(strPathSave);
 //
-            if (sStatus.equals(Define.WEB_SERVICES_STATUS_FAIL)) {
-                System.err.println("Ban chua dong bo du lieu duoc ve TW");
+            switch (sStatus) {
+                case Define.WEB_SERVICES_STATUS_FAIL:
+                    System.err.println("Ban chua dong bo du lieu duoc ve TW");
 //                    addActionError("Lỗi bạn chưa gửi dữ liệu được về trung ương ");
-                if (checkfile.exists()) {
-                    checkfile.delete();
-                }
-                CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+                    CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: Khong dong bo duoc file " + strPathSave);
 //                    mapStatusSend.put(mapgd, 3); //3 la gui file du lieu bi loi
-                return "Ban chua dong bo du lieu duoc ve TW";
-            } else if (sStatus.equals(Define.WEB_SERVICES_STATUS_OK)) {
-//                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
-                if (checkfile.exists()) {
-                    checkfile.delete();
-                }
-//                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
-                return SUCCESS;
-            } else {
-//                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
-                if (checkfile.exists()) {
-                    checkfile.delete();
-                }
-//                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
-                return "Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ";
-            }
-
+                    return "Ban chua dong bo du lieu duoc ve TW";
 //            setLstViewSend(getViewStatusSend(lstPos, mapStatusSend));
+                case Define.WEB_SERVICES_STATUS_OK:
+                    //                    addActionMessage("Bạn gửi dữ liệu về trung ương thành công");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+//                    mapStatusSend.put(mapgd, 4);  //gui du lieu thanh cong
+                    return SUCCESS;
+                default:
+                    //                    addActionMessage("Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ");
+                    if (checkfile.exists()) {
+                        checkfile.delete();
+                    }
+//                    mapStatusSend.put(mapgd, 5);  //pgd bi khoa khong gui duoc du lieu
+                    return "Bạn không thể gửi dữ liệu lên trung ương do bị khóa </br>Xin liên hệ về Ban KT&QLTC để được gửi lại số liệu ! ";
+            }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> sendPhiUT: " + e.getMessage());
@@ -1518,6 +1529,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
         lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
         return SUCCESS;
     }
+
     public String openExcelUploadQtKh() {
         try {
             DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -1535,7 +1547,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
             addActionError("Chưa chọn file Excel!");
             return ERROR;
         }
-        // Lấy 10 ký tự đầu của tên file
+
         if (fileUploadFileName == null || !fileUploadFileName.contains("_")) {
             addActionError("Tên file không đúng định dạng");
             return ERROR;
@@ -1547,124 +1559,191 @@ public class ActionChtrinhcnMain extends ActionSupport {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String ngaybc = new SimpleDateFormat("yyyyMMdd").format(new Date());
         String fileName = Key + "_" + timeStamp + file;
+
         Connection conn = null;
-        CallableStatement cs = null;
         int uploadedRows = 0;
+
         Map session = ActionContext.getContext().getSession();
         String sUserName = session.get("username").toString();
-//        System.out.println("sUserName= " + sUserName);
+
         DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
         String start_end = dao.getStartEndCel(Key);
-        int startrow = 0, endcell = 0;
+        int startrow = 0, startcell = 0, endcell = 0;
         if (!start_end.equals("AAA")) {
             startrow = Integer.parseInt(start_end.split("-")[0]);
-            endcell = Integer.parseInt(start_end.split("-")[1]);
+            startcell = Integer.parseInt(start_end.split("-")[1]);
+            endcell = Integer.parseInt(start_end.split("-")[2]);
         }
+
         try (FileInputStream fis = new FileInputStream(fileUpload);
                 Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
-
-            // Kết nối Oracle
             conn = new DaoConnect().getConnect();
-            String sql = "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
-            // 20 cột dữ liệu + 1 tham số tên file
-            cs = conn.prepareCall(sql);
 
-            // Bỏ 2 dòng đầu (header)
+            // ===== Đọc dữ liệu từ Excel đưa vào List<String[]> =====
+            List<String[]> excelData = new ArrayList<>();
             for (int i = startrow; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
                 if (row == null) {
-                    continue; // skip nếu dòng null
+                    continue;
                 }
 
-                boolean hasData = false; // flag để check dòng có dữ liệu không
-
-                // Gán 20 cột
-                for (int c = endcell; c < 20; c++) {
+                boolean hasData = false;
+                String[] rowValues = new String[endcell - startcell];
+                for (int c = startcell; c < endcell; c++) {
                     String cellValue = getCellValueAsString(row.getCell(c));
                     if (cellValue != null && !cellValue.trim().isEmpty()) {
-                        hasData = true; // có dữ liệu
+                        hasData = true;
                     }
-                    cs.setString(c + 1, cellValue);
+                    rowValues[c - startcell] = cellValue;
                 }
-
-                if (!hasData) {
-                    continue; // bỏ qua dòng trống
+                if (hasData) {
+                    excelData.add(rowValues);
                 }
-
-                // Thêm tham số cuối cùng = 10 ký tự đầu của tên file
-                cs.setString(21, fileName);
-                cs.setString(22, Key);
-                cs.setString(23, sUserName);
-                cs.setString(24, ngaybc);
-                cs.execute();
-                uploadedRows++;
             }
-            try {
-                try (CallableStatement csEven = conn.prepareCall(
-                        "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?, ?, ?, ?, ?) }")) {
-                    csEven.setString(1, Key);      // PARA_1
-                    csEven.setString(2, fileName); // PARA_2
-                    csEven.setString(3, ngaybc);   // PARA_3
-                    csEven.setString(4, "");       // PARA_4
-                    csEven.setString(5, "");       // PARA_5
-                    csEven.setString(6, "");       // PARA_6
+            uploadedRows = excelData.size();
 
-                    csEven.execute();
-                    System.out.println("EVEN_EXCEL executed OK for file: " + fileName);
-                }
-            } catch (Exception exEven) {
-                // Không để lỗi EVEN_EXCEL làm fail upload
-                exEven.printStackTrace();
-                addActionMessage("Upload thành công, nhưng xử lý EVEN_EXCEL bị lỗi: " + exEven.getMessage());
-            }
+            // ===== Gọi thủ tục INSERT_REPORT_DATA =====
+            callInsertReportData(conn, excelData, fileName, Key, sUserName, ngaybc, startrow, startcell, endcell);
+
+            // ===== Gọi EVEN_EXCEL =====
+            callEvenExcel(conn, Key, fileName, ngaybc);
+
+            // ===== Lưu file =====
+            saveUploadedFile(fileUpload, fileName);
 
             addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
             return SUCCESS;
 
+        } catch (SQLException e) {
+            String err = e.getMessage();
+            if (err != null && err.contains("ORA-00600")) {
+                // Lỗi nội bộ Oracle → cảnh báo nhẹ nhàng
+                addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
+            } else {
+                // Các lỗi SQL khác thì vẫn hiện bình thường
+                addActionError("Lỗi khi xử lý file: " + err);
+            }
+            return ERROR;
         } catch (Exception e) {
-            e.printStackTrace();
-            addActionError("Lỗi khi xử lý file: " + e.getMessage());
+            addActionError("Có lỗi không xác định: " + e.getMessage());
             return ERROR;
         } finally {
-            try {
-                if (cs != null) {
-                    cs.close();
-                }
-            } catch (Exception ignored) {
-            }
-            try {
-                if (conn != null) {
+            if (conn != null) {
+                try {
                     conn.close();
+                } catch (Exception ignored) {
                 }
-            } catch (Exception ignored) {
             }
         }
     }
 
-    /**
-     * Hàm đọc giá trị Cell Excel thành String (dùng cho Apache POI 3.x)
-     */
+    public void callInsertReportData(Connection conn,
+            List<String[]> excelData,
+            String fileName,
+            String key,
+            String user,
+            String ngaybc,
+            int startrow,
+            int startcell,
+            int endcell) throws Exception {
+        // 1. Tạo descriptor cho Object và Table type (cache static)
+        if (structDesc == null) {
+            structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
+        }
+        if (arrayDesc == null) {
+            arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
+        }
+
+        int colCount = endcell - startcell;
+        STRUCT[] structArray = new STRUCT[excelData.size()];
+
+        // 2. Convert List<String[]> thành mảng STRUCT
+        for (int i = 0; i < excelData.size(); i++) {
+            String[] row = excelData.get(i);
+            Object[] attributes = new Object[colCount];
+
+            for (int c = 0; c < colCount; c++) {
+                int excelIndex = startcell + c;
+                attributes[c] = (excelIndex < row.length) ? row[excelIndex] : null;
+            }
+
+            structArray[i] = new STRUCT(structDesc, conn, attributes);
+        }
+
+        // 3. Tạo ARRAY để truyền vào thủ tục
+        ARRAY oracleArray = new ARRAY(arrayDesc, conn, structArray);
+
+        // 4. Gọi stored procedure
+        try (CallableStatement cs = conn.prepareCall(
+                "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
+            cs.setArray(1, oracleArray);
+            cs.setString(2, fileName);
+            cs.setString(3, key);
+            cs.setString(4, user);
+            cs.setString(5, ngaybc);
+            cs.execute();
+            System.out.println("INSERT_REPORT_DATA executed OK!");
+        }
+    }
+
+    public void callEvenExcel(Connection conn, String key, String fileName, String ngaybc) {
+        try (CallableStatement csEven = conn.prepareCall(
+                "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?, ?, ?, ?, ?) }")) {
+            csEven.setString(1, key);
+            csEven.setString(2, fileName);
+            csEven.setString(3, ngaybc);
+            csEven.setString(4, "");
+            csEven.setString(5, "");
+            csEven.setString(6, "");
+            csEven.execute();
+            System.out.println("EVEN_EXCEL executed OK for file: " + fileName);
+        } catch (Exception exEven) {
+            exEven.printStackTrace();
+            addActionMessage("Upload thành công, nhưng xử lý EVEN_EXCEL bị lỗi: " + exEven.getMessage());
+        }
+    }
+
+    public void saveUploadedFile(File sourceFile, String fileName) {
+        try {
+            // Thư mục đích nằm trong ứng dụng (webapp/EXPORT_REPORT/XLS/HSRR)
+            String exportFolder = ServletActionContext.getServletContext()
+                    .getRealPath("/EXPORT_REPORT/XLS/HSRR/");
+
+            File exportDir = new File(exportFolder);
+            if (!exportDir.exists()) {
+                exportDir.mkdirs();
+            }
+
+            // Lưu file với đuôi .xlsx
+            File destFile = new File(exportDir, fileName);
+            Files.copy(sourceFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            System.out.println("File đã lưu vào: " + destFile.getAbsolutePath());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            addActionMessage("Upload thành công, nhưng lưu file bị lỗi: " + ioe.getMessage());
+        }
+    }
+
     private String getCellValueAsString(Cell cell) {
         if (cell == null) {
             return "";
         }
-
         switch (cell.getCellType()) {
             case Cell.CELL_TYPE_STRING:
                 return cell.getStringCellValue().trim();
 
             case Cell.CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue().toString();
+                    return new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue());
                 } else {
                     double num = cell.getNumericCellValue();
-                    if (num == (long) num) {
+                    if (num == Math.floor(num)) {
                         return String.valueOf((long) num);
-                    } else {
-                        return String.valueOf(num);
                     }
+                    return String.valueOf(num);
                 }
 
             case Cell.CELL_TYPE_BOOLEAN:
@@ -1677,57 +1756,55 @@ public class ActionChtrinhcnMain extends ActionSupport {
                     return String.valueOf(cell.getNumericCellValue());
                 }
 
-            case Cell.CELL_TYPE_BLANK:
             default:
                 return "";
         }
     }
 
-  public String downloadTemplate() throws Exception {
-    HttpServletResponse response = ServletActionContext.getResponse();
+    public String downloadTemplate() throws Exception {
+        HttpServletResponse response = ServletActionContext.getResponse();
 
-    if (mauBc == null || mauBc.trim().isEmpty()) {
-        addActionError("Bạn chưa chọn loại file mẫu!");
-        return ERROR;
-    }
-
-    try {
-        String templateFolder = ServletActionContext.getServletContext()
-                .getRealPath("/EXCEL_TEMPLATE/HSRR/");
-        String templateFileName = mauBc + "_.xlsx"; 
-        File templateFile = new File(templateFolder, templateFileName);
-
-        if (!templateFile.exists()) {
-            addActionError("File mẫu không tồn tại!");
+        if (mauBc == null || mauBc.trim().isEmpty()) {
+            addActionError("Bạn chưa chọn loại file mẫu!");
             return ERROR;
         }
 
-        // encode tên file để tránh lỗi Unicode
-        String fileName = URLEncoder.encode(templateFile.getName(), "UTF-8").replace("+", "%20");
-        response.setContentType(
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        );
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        try {
+            String templateFolder = ServletActionContext.getServletContext()
+                    .getRealPath("/EXCEL_TEMPLATE/HSRR/");
+            String templateFileName = mauBc + "_.xlsx";
+            File templateFile = new File(templateFolder, templateFileName);
 
-        try (FileInputStream in = new FileInputStream(templateFile);
-             OutputStream out = response.getOutputStream()) {
-
-            byte[] buffer = new byte[4096];
-            int length;
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
+            if (!templateFile.exists()) {
+                addActionError("File mẫu không tồn tại!");
+                return ERROR;
             }
-            out.flush();
+
+            // encode tên file để tránh lỗi Unicode
+            String fileName = URLEncoder.encode(templateFile.getName(), "UTF-8").replace("+", "%20");
+            response.setContentType(
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            );
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+            try (FileInputStream in = new FileInputStream(templateFile);
+                    OutputStream out = response.getOutputStream()) {
+
+                byte[] buffer = new byte[4096];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+                out.flush();
+            }
+
+            return NONE; // Quan trọng: không forward sang JSP
+        } catch (Exception e) {
+            e.printStackTrace();
+            addActionError("Lỗi khi tải file mẫu: " + e.getMessage());
+            return ERROR;
         }
-
-        return NONE; // Quan trọng: không forward sang JSP
-    } catch (Exception e) {
-        e.printStackTrace();
-        addActionError("Lỗi khi tải file mẫu: " + e.getMessage());
-        return ERROR;
     }
-}
-
 
 //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
     private String mauBc;
@@ -1739,7 +1816,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
     public void setMauBc(String mauBc) {
         this.mauBc = mauBc;
     }
-    
+
     private String font_type;            // radio button
 
     public String getFont_type() {
@@ -1749,6 +1826,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
     public void setFont_type(String font_type) {
         this.font_type = font_type;
     }
+
     public String getPoslist() {
         return poslist;
     }

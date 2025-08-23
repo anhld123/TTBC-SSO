@@ -14,7 +14,7 @@
             body {
                 font-family: "Segoe UI", Tahoma, Arial, sans-serif;
                 font-size: 11pt;
-                background: #f8f9fa;
+                /*background: #f8f9fa;*/
                 margin: 0;
                 padding: 0;
             }
@@ -33,7 +33,7 @@
             h2 {
                 color: #2e7d32;
                 text-align: center;
-                margin-bottom: 25px;
+                margin-bottom: 10px;
                 font-size: 20px;
             }
 
@@ -66,33 +66,30 @@
             }
 
             /* Nút cơ bản xanh lá */
-            .btn-green {
-                background-color: #4caf50;
+            .btn-style {
                 border: none;
-                padding: 7px 16px;
-                border-radius: 6px;
-                color: white;
-                font-weight: bold;
+                padding: 10px 20px;
+                border-radius: 8px;
+                background: #FFCC33;
+                color: #333;
+                font-weight: 600;
+                font-size: 12px;
                 cursor: pointer;
-                transition: 0.2s ease;
-            }
-            .btn-green:hover {
-                background-color: #43a047;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                transition: all 0.25s ease-in-out;
             }
 
-            /* Nút cơ bản hồng */
-            .btn-pink {
-                background-color: #e91e63;
-                border: none;
-                padding: 7px 16px;
-                border-radius: 6px;
-                color: white;
-                font-weight: bold;
-                cursor: pointer;
-                transition: 0.2s ease;
+            /* Hover: sáng hơn và nổi nhẹ lên */
+            .btn-style:hover {
+                background: linear-gradient(135deg, #f8f8f8, #ffffff);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             }
-            .btn-pink:hover {
-                background-color: #d81b60;
+
+            /* Active: nhấn xuống */
+            .btn-style:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
 
             .note {
@@ -118,6 +115,11 @@
                 text-align: center;
                 color: #2e7d32;
             }
+            .btn-style:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
         </style>
     </head>
     <body>
@@ -152,26 +154,27 @@
                     <tr>
                         <td class="label">Lấy file mẫu:</td>
                         <td><s:select 
-                            name="mauBc" 
-                            list="lstDmKhac" 
-                            listKey="code" 
-                            listValue="%{code + ' - ' + description}" 
-                            headerKey="" 
-                            headerValue="-- Chọn --" 
-                            cssStyle="width: 100%; padding:5px; background: transparent; border: 1px solid #ccc; color:#2c3e50;"/>
+                                name="mauBc" 
+                                list="lstDmKhac" 
+                                listKey="code" 
+                                listValue="%{code + ' - ' + description}" 
+                                headerKey="" 
+                                headerValue="-- Chọn --" 
+                                cssStyle="width: 70%; padding:5px; background: transparent; border: 1px solid #ccc; color:#2c3e50;"/>
+                            <button type="button" class="btn-style" onclick="downloadTemplate()" id="dowLoadFile">Tải file mẫu</button>
                         </td>
                     </tr> 
                     <tr>
                         <td colspan="4" style="text-align: center;">
-                            <button type="button" class="btn-green" onclick="downloadTemplate()">Tải file mẫu</button>
-
                             <sj:submit value="Upload"
-                                       cssClass="btn-pink"
+                                       id="btnUpload"
+                                       cssClass="btn-style"
                                        targets="upload_result_div"
                                        onBeforeTopics="before-upload"
                                        onCompleteTopics="after-upload"
                                        cssStyle="margin-left:15px;"
                                        theme="simple"/>
+                            <button name="endGame" class="btn-style" id="endGame">Thoát</button>
                         </td>
                     </tr>
                 </table>
@@ -192,17 +195,22 @@
             $.subscribe('before-upload', function () {
                 $("#upload_result_div").hide().empty();
                 $("#loadingImageDiv").show();
+
+                $("#btnUpload, #endGame, #dowLoadFile").prop("disabled", true);
             });
 
             $.subscribe('after-upload', function () {
                 $("#loadingImageDiv").hide();
                 $("#upload_result_div").show();
 
+                $("#btnUpload, #endGame, #dowLoadFile").prop("disabled", false);
+
                 // Reload trang cha nếu có
                 if (window.opener && !window.opener.closed) {
                     window.opener.location.reload();
                 }
             });
+
 
             window.onunload = function () {
                 if (window.opener && !window.opener.closed) {
@@ -218,6 +226,9 @@
                 }
                 window.location.href = "download_template.action?mauBc=" + encodeURIComponent(mauBc);
             }
+            $("#endGame").click(function () {
+                window.close();
+            });
         </script>
     </body>
 </html>
