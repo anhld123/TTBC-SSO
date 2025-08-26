@@ -69,11 +69,11 @@ public class DcplnAction extends ActionChtrinhcnMain
     private String sCode;
     protected String tong_kh;
     protected String tong_monvay;
-    protected int tong_duno;
-    protected int tong_than;
-    protected int tong_qhan;
-    protected int tong_khoanh;
-    protected int tong_nlai;
+    protected long  tong_duno;
+    protected long  tong_than;
+    protected long  tong_qhan;
+    protected long  tong_khoanh;
+    protected long  tong_nlai;
     protected String mato_to;
     private List<ListMainPos> lstCN_API;
     protected List<DuLieuPLN_T> lstDulieuNtPLN_T = new ArrayList<>();
@@ -190,42 +190,47 @@ public class DcplnAction extends ActionChtrinhcnMain
         this.tong_monvay = tong_monvay;
     }
 
-    public int getTong_duno() {
+    public long getTong_duno() {
         return tong_duno;
     }
 
-    public void setTong_duno(int tong_duno) {
+    public void setTong_duno(long tong_duno) {
         this.tong_duno = tong_duno;
     }
 
-    public int getTong_than() {
+    public long getTong_than() {
         return tong_than;
     }
 
-    public void setTong_than(int tong_than) {
+    public void setTong_than(long tong_than) {
         this.tong_than = tong_than;
     }
 
-    public int getTong_qhan() {
+    public long getTong_qhan() {
         return tong_qhan;
     }
 
-    public void setTong_qhan(int tong_qhan) {
+    public void setTong_qhan(long tong_qhan) {
         this.tong_qhan = tong_qhan;
     }
 
-    public int getTong_khoanh() {
+    public long getTong_khoanh() {
         return tong_khoanh;
     }
 
-    public void setTong_khoanh(int tong_khoanh) {
+    public void setTong_khoanh(long tong_khoanh) {
         this.tong_khoanh = tong_khoanh;
     }
 
-    public int getTong_nlai() {
+    public long getTong_nlai() {
         return tong_nlai;
     }
 
+    public void setTong_nlai(long tong_nlai) {
+        this.tong_nlai = tong_nlai;
+    }
+
+  
     public void setTong_nlai(int tong_nlai) {
         this.tong_nlai = tong_nlai;
     }
@@ -525,22 +530,22 @@ public class DcplnAction extends ActionChtrinhcnMain
             );
             List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, mato, "", "", "", "", "");
 
-            int tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
+            long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = null;
             Set<String> setKhachHang = new HashSet<>();
 
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = item.getPlnDnothan();
-                int dnoQhan = item.getPlnDnoqhan();
-                int dnoKhoanh = item.getPlnDnokhoanh();
-                int laiTon = item.getPlnTonglaiton();
+                long dnoThan = item.getPlnDnothan();
+                long dnoQhan = item.getPlnDnoqhan();
+                long dnoKhoanh = item.getPlnDnokhoanh();
+                long laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
                 tongNlai += laiTon;
                 tongMonvay++;
-
+                
                 stmato_to = item.getPlnMato() + " - " + item.getPlnTentt();
 
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {

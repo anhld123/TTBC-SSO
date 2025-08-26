@@ -100,11 +100,11 @@ public class DcplnAction_2 extends ActionSupport {
     DuLieuNTService _serverAPI = new DuLieuNTService();
     protected String tong_kh;
     protected String tong_monvay;
-    protected int tong_duno;
-    protected int tong_than;
-    protected int tong_qhan;
-    protected int tong_khoanh;
-    protected int tong_nlai;
+    protected long tong_duno;
+    protected long tong_than;
+    protected long tong_qhan;
+    protected long tong_khoanh;
+    protected long tong_nlai;
     protected String mato_to;
     private InputStream pageResult;
     private int total;
@@ -227,42 +227,47 @@ public class DcplnAction_2 extends ActionSupport {
         this.tong_monvay = tong_monvay;
     }
 
-    public int getTong_duno() {
+    public long getTong_duno() {
         return tong_duno;
     }
 
-    public void setTong_duno(int tong_duno) {
+    public void setTong_duno(long tong_duno) {
         this.tong_duno = tong_duno;
     }
 
-    public int getTong_than() {
+    public long getTong_than() {
         return tong_than;
     }
 
-    public void setTong_than(int tong_than) {
+    public void setTong_than(long tong_than) {
         this.tong_than = tong_than;
     }
 
-    public int getTong_qhan() {
+    public long getTong_qhan() {
         return tong_qhan;
     }
 
-    public void setTong_qhan(int tong_qhan) {
+    public void setTong_qhan(long tong_qhan) {
         this.tong_qhan = tong_qhan;
     }
 
-    public int getTong_khoanh() {
+    public long getTong_khoanh() {
         return tong_khoanh;
     }
 
-    public void setTong_khoanh(int tong_khoanh) {
+    public void setTong_khoanh(long tong_khoanh) {
         this.tong_khoanh = tong_khoanh;
     }
 
-    public int getTong_nlai() {
+    public long getTong_nlai() {
         return tong_nlai;
     }
 
+    public void setTong_nlai(long tong_nlai) {
+        this.tong_nlai = tong_nlai;
+    }
+
+ 
     public void setTong_nlai(int tong_nlai) {
         this.tong_nlai = tong_nlai;
     }
@@ -779,18 +784,13 @@ public class DcplnAction_2 extends ActionSupport {
             );
             List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi, mato, "", "", "", "", "");
             Set<String> setKhachHang = new HashSet<>();
-            int tongThan = 0;
-            int tongQhan = 0;
-            int tongKhoanh = 0;
-            int tongDuno = 0;
-            int tongNlai = 0;
-            int tongMonvay = 0;
+            long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = item.getPlnDnothan();
-                int dnoQhan = item.getPlnDnoqhan();
-                int dnoKhoanh = item.getPlnDnokhoanh();
-                int laiTon = item.getPlnTonglaiton();
+                long dnoThan = item.getPlnDnothan();
+                long dnoQhan = item.getPlnDnoqhan();
+                long dnoKhoanh = item.getPlnDnokhoanh();
+                long laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
@@ -925,18 +925,13 @@ public class DcplnAction_2 extends ActionSupport {
             );
             List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(mapgd, "S", dateStr, mahoi, smato.equals("NOGROUP") ? "" : smato, "", "", "", "", "");
             Set<String> setKhachHang = new HashSet<>();
-            int tongThan = 0;
-            int tongQhan = 0;
-            int tongKhoanh = 0;
-            int tongDuno = 0;
-            int tongNlai = 0;
-            int tongMonvay = 0;
+             long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                int dnoThan = item.getPlnDnothan();
-                int dnoQhan = item.getPlnDnoqhan();
-                int dnoKhoanh = item.getPlnDnokhoanh();
-                int laiTon = item.getPlnTonglaiton();
+                long dnoThan = item.getPlnDnothan();
+                long dnoQhan = item.getPlnDnoqhan();
+                long dnoKhoanh = item.getPlnDnokhoanh();
+                long laiTon = item.getPlnTonglaiton();
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
