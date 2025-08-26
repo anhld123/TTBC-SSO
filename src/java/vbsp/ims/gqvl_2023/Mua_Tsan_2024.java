@@ -286,41 +286,43 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 setLock_PGD(item.getD12());
             }
             if (lstData_Api == null || lstData_Api.isEmpty()) {
-                lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-
-                for (QT_DULIEU_NT item : lstData) {
-                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-                    try {
-                        row.setKHOA(item.getKHOA());
-                        row.setTHUTU(item.getTHUTU());
-                        row.setTT_HIENTHI(item.getTT_HIENTHI());
-                        row.setMA(item.getMA());
-                        row.setNGAYBC(item.getNGAYBC());
-                        row.setNAMBC(year);
-                        row.setMAPGD(item.getMAPGD());
-                        row.setMACN(main_pos_username);
-                        row.setD1(item.getD1());
-                        row.setD2(item.getD2());
-                        row.setD3(item.getD3());
-                        row.setD4(item.getD4());
-                        row.setD5(item.getD5());
-                        row.setD6(item.getD6());
-                        row.setD7(item.getD7());
-                        row.setD8(item.getD8());
-                        row.setD9(item.getD9());
-                        row.setD10(item.getD10());
-                        row.setD11(item.getD11());
-                        row.setD12(item.getD12());
-                        lstDulieuNt.add(row);
-                    } catch (Exception e) {
-                    }
-                    setMaPgd(item.getMAPGD());
-                    setTenPgd(item.getD1());
-                    setLock_PGD(item.getD12());
-                }
-                if (conn != null) {
-                    conn.close();
-                }
+                addActionError("Không có dữ liệu!");
+                return ERROR;
+//                lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+//
+//                for (QT_DULIEU_NT item : lstData) {
+//                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+//                    try {
+//                        row.setKHOA(item.getKHOA());
+//                        row.setTHUTU(item.getTHUTU());
+//                        row.setTT_HIENTHI(item.getTT_HIENTHI());
+//                        row.setMA(item.getMA());
+//                        row.setNGAYBC(item.getNGAYBC());
+//                        row.setNAMBC(year);
+//                        row.setMAPGD(item.getMAPGD());
+//                        row.setMACN(main_pos_username);
+//                        row.setD1(item.getD1());
+//                        row.setD2(item.getD2());
+//                        row.setD3(item.getD3());
+//                        row.setD4(item.getD4());
+//                        row.setD5(item.getD5());
+//                        row.setD6(item.getD6());
+//                        row.setD7(item.getD7());
+//                        row.setD8(item.getD8());
+//                        row.setD9(item.getD9());
+//                        row.setD10(item.getD10());
+//                        row.setD11(item.getD11());
+//                        row.setD12(item.getD12());
+//                        lstDulieuNt.add(row);
+//                    } catch (Exception e) {
+//                    }
+//                    setMaPgd(item.getMAPGD());
+//                    setTenPgd(item.getD1());
+//                    setLock_PGD(item.getD12());
+//                }
+//                if (conn != null) {
+//                    conn.close();
+//                }
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024 : " + e.getMessage());
@@ -416,7 +418,7 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
 
             _service_listts = new DuLieuNTService();
             int status = _service_listts.updateData("KTTC_MUASAM_01", pos, PosFlag, _reportDate, "", "", lstUpdateDate);
-             if (status == 200) {
+            if (status == 200) {
                 _service_listts.updateChotSL("KTTC_MUASAM_01", pos, "S", _reportDate, "0", UserName, null);
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -808,6 +810,33 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
             System.err.println(this.getClass().getName() + " Exception -> muats2024: " + e.getMessage());
         }
         addActionMessage("Bạn đã xóa dữ liệu thành công");
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String status() {
+        try {
+//            System.out.println("vbsp.ims.gqvl_2023.Service_TTCN_2024.status()");
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D7 = ServletActionContext.getRequest().getParameter("ngaybc");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyyMMdd");
+
+            Date date = inputFormat.parse(D7);
+            String D7Formatted = outputFormat.format(date);
+
+            System.out.println(D7Formatted); 
+            int status = _service_listts.updateChotSL("KTTC_MUASAM_01", D1, "S", D7Formatted, "0", UserName, null);
+            if (status != 200) {
+                String code = String.valueOf(1);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> unlock_c2: " + e.getMessage());
+        }
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
         return SUCCESS;

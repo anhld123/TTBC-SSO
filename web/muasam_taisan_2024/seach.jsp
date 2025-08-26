@@ -14,7 +14,7 @@
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         border-spacing: 0;
-        width: 50%;
+        width: 70%;
     }
     #subTable th{
         background-color: #ddd;
@@ -87,16 +87,14 @@
         </script>      
     </head>
     <body>
-        <div style="overflow:scroll; width: 98vw;">             
-            <div id="divTitle">
-
+        <div style="overflow:scroll; width: 98vw;" align="left">             
+            <div id="divTitle" style="margin: 0 400px 0px 400px">
                 <s:hidden name="seach_MSTS" id="khoa"/>
                 TÌNH TRẠNG GỬI DỮ LIỆU CÁC PGD
 
             </div>
             <div style="height:10px"></div>  
-            <div style="height:10px"></div>  
-            <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px">   
+            <table border="1" class="editDelete" id="subTable"  style="padding-top: 10px">   
                 <tr>
                     <th style="width: 30px">STT</th>
                     <th style="width: 80px">Mã PGD</th>
@@ -170,9 +168,10 @@
                             <s:if test="status.equalsIgnoreCase(1)">
                             <td class = "D0"><s:property  value="reportDate"/></td>
                             <td class = "D0">
-                                <a style="color: #003eff">Đã gửi dữ liệu</a></td>
+                                <a href="#" onclick="cancelAssign('<s:property value="posCode"/>', '<s:property value="reportDate"/>');">Mở dữ liệu</a>
+                            </td>
                             <td class = "D0"></td>
-                            <td class = "D0">
+                            <td class = "D0"> 
                                 <a style="color: red">Chưa gửi dữ liệu lên TW</a></td>
                             </s:if>
                             <s:if test="status.equalsIgnoreCase(2)">
@@ -190,6 +189,45 @@
 
         </div>      
         <div id="luu_thanhcong"></div>
-     
+        <script>
+
+            function cancelAssign(D1, D2) {
+                var table = document.getElementById("subTable");
+                var rows = table.querySelectorAll("td a");
+                function unlockLinks() {
+                    rows.forEach(function (row) {
+                        row.style.pointerEvents = "auto"; // Kích hoạt lại sự kiện chuột
+                        row.style.color = "red"; // Trả về màu mặc định
+                    });
+                }
+                // Khóa các liên kết trong bảng
+                rows.forEach(function (row) {
+                    row.style.pointerEvents = "none";
+                    row.style.color = "gray";
+                });
+                var url, sdata;
+                url = "status_MSTS_C2.action?" + "madiemgd=" + D1 + "&ngaybc=" + D2,
+                        sdata = jQuery("#frmdata").serialize();
+                $("#viewData").html('<img src="img/loading.gif"/>');
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        if (data === "200") {
+                            alert("Mở phê duyệt thành công!");
+                            onLoadData();
+                        } else {
+                            alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                            onLoadData();
+                        }
+                    },
+                    error: function (request) {
+                        alert("Lỗi: Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                        onLoadData();
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

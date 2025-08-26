@@ -943,6 +943,12 @@
                 <param name="inputName">pageResult</param>
             </result>  
         </action>
+        <action name="status_MSTS_C2" class="vbsp.ims.gqvl_2023.Mua_Tsan_2024" method="status">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>  
+        </action>
         <action name="unlock_TTCN01_2024_c3" class="vbsp.ims.gqvl_2023.Service_TTCN_2024" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
