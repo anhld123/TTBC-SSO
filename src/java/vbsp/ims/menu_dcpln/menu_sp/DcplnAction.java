@@ -26,6 +26,7 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.chtrinh_cn.ActionChtrinhcnMain;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.menu_dcpln.DaoPlnMain;
 import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTRow;
@@ -56,6 +57,7 @@ public class DcplnAction extends ActionChtrinhcnMain
     protected String main_pos_username;
     private InputStream pageResult;
     DuLieuNTService _serverAPI = new DuLieuNTService();
+    DaoPlnMain daoMain11 = new DaoPlnMain();
     private String chotsl;
     private String chotsl_tw;
     private String txtGetData;
@@ -69,11 +71,11 @@ public class DcplnAction extends ActionChtrinhcnMain
     private String sCode;
     protected String tong_kh;
     protected String tong_monvay;
-    protected long  tong_duno;
-    protected long  tong_than;
-    protected long  tong_qhan;
-    protected long  tong_khoanh;
-    protected long  tong_nlai;
+    protected long tong_duno;
+    protected long tong_than;
+    protected long tong_qhan;
+    protected long tong_khoanh;
+    protected long tong_nlai;
     protected String mato_to;
     private List<ListMainPos> lstCN_API;
     protected List<DuLieuPLN_T> lstDulieuNtPLN_T = new ArrayList<>();
@@ -230,7 +232,6 @@ public class DcplnAction extends ActionChtrinhcnMain
         this.tong_nlai = tong_nlai;
     }
 
-  
     public void setTong_nlai(int tong_nlai) {
         this.tong_nlai = tong_nlai;
     }
@@ -502,7 +503,6 @@ public class DcplnAction extends ActionChtrinhcnMain
                     addActionError("Bạn chưa chọn tổ TK&VV!");
                     return ERROR;
                 }
-
                 lstPhanLoaiNo_T = _serverAPI.postDataPLN(pos_cd_username, "S", dateStr, mahoi,
                         smato.equals("NOGROUP") ? "" : smato, "", trangthai, nguonvon, chtrinh, "");
 
@@ -545,7 +545,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                 tongKhoanh += dnoKhoanh;
                 tongNlai += laiTon;
                 tongMonvay++;
-                
+
                 stmato_to = item.getPlnMato() + " - " + item.getPlnTentt();
 
                 if (item.getPlnMakh() != null && !item.getPlnMakh().isEmpty()) {
@@ -784,7 +784,6 @@ public class DcplnAction extends ActionChtrinhcnMain
             }
 
             String danhMucKey = "2_" + mapgd + "_" + maxa + "_" + mahoi;
-            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             setLstMato_T(daoMain11.getDanhMuc(UserName, "MATO_PLN", danhMucKey));
 
         } catch (Exception e) {
@@ -884,7 +883,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                 tempadd.setDeviant_Int(tmp.getPlnNolaiClech());
                 tempadd.setStatus(tmp.getPlnTrangthai());
                 tempadd.setReason_Deviant(tmp.getPlnNgnhanClech());
-                tempadd.setCustRelationship(tmp.getPlnQuanheKh());
+                tempadd.setCustRelationship(tmp.getPlnQuanheKh() == null ? "0" : tmp.getPlnQuanheKh());
                 tempadd.setUpdateTime(date2);
 
                 lstUpdateDate.add(tempadd);
@@ -1147,13 +1146,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             if (mapgd.isEmpty()) {
                 return ERROR;
             }
-
-            // Nếu vẫn cần danh mục key, chỉ dùng mapgd
-            String danhMucKey = "2_" + mapgd;
-
-            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
             lstXa_API = _serverAPI.getListXa("", "", "", mapgd);
-
         } catch (Exception e) {
             System.err.println("Lỗi trong reloadMaxaPln: " + e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " reloadMaxaPln -> " + e.getMessage(), e);
