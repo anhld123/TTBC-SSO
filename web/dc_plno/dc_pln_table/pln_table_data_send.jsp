@@ -112,6 +112,8 @@
                 $(".TD_THUTU").css({"width": "30px"});
                 $(".TD_CHITIEU").css({"width": "220px"});
                 $(".TEN_KH").css({"width": "100%"});
+                $("#idSave").show();
+                $("#idSendAll").hide();
             });
             function initTable() {
                 var table = document.getElementById("subTable");

@@ -97,6 +97,12 @@
                 <param name="inputName">pageResult</param>
             </result>   
         </action>
+        <action name="sendDataPlnCn" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2"  method="sendDataPlnCn">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>   
+        </action>
         <!--vào form cap 3-->
         <action name="loadTwFormMainPLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2">
             <result name="success">/dc_plno/dc_pln_table/tw-pln.jsp</result>
@@ -108,9 +114,20 @@
         </action>   
         <action name="popupTableDcpln" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="popupTableDcpln">
             <result name="success">/dc_plno/dc_pln_table/popupTableDcpln.jsp</result>
+        </action> 
+        <action name="popupTableDcplnTo" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="popupTableDcplnTo">
+            <result name="success">/dc_plno/dc_pln_table/popupTableDcplnTo.jsp</result>
         </action>  
         <action name="unlock_pLN" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="unlock_pLN">
             <result name="success" type="json"></result>
         </action>
+        <action name="unlock_pLN_to" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2" method="unlock_pLN_to">
+            <result name="success" type="json"></result>
+        </action>
+        <action name="Mass_application" class="vbsp.ims.menu_dcpln.menu_sp.DcplnAction_2"  method="Mass_application">
+            <result name="success">/dc_plno/dc_pln_table/seach.jsp</result>                              
+            <result name="error">/dc_plno/dc_pln_table/success.jsp</result>       
+        </action>
+        
     </package>
 </struts>

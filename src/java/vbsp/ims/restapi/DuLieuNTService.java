@@ -2142,4 +2142,28 @@ public class DuLieuNTService extends ReportService {
             return new GenericResult(false, response.getStatus(), "Lỗi gọi api", "");
         }
     }
+
+    public int updatePlnStatus(String reportDate, String authorId, AcceptancePln data) {
+        Client client = ClientBuilder.newClient(new org.glassfish.jersey.client.ClientConfig());
+        WebTarget target = client.target(getBaseURI()).path("debt-classification-auth-commune")
+                .queryParam("reportDate", reportDate)
+                .queryParam("authorId", (authorId == null || authorId.isEmpty()) ? "ANHLD" : authorId);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(data);  // chỉ serialize 1 object
+            System.out.println("ResultingJSONstring = " + json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+
 }

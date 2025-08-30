@@ -93,6 +93,7 @@
                     <th rowspan="2">Tổng dư nợ</th>
                     <th colspan="3">Dư nợ</th>
                     <th rowspan="2">Nợ lãi</th>
+                    <th style="width: 100px" colspan="2">Danh sách tổ</th>
                     <th style="width: 100px" colspan="2">Danh sách món vay</th>
                     <th style="width: 100px" rowspan="2">Món vay đề nghị hỗ trợ</th>
                 </tr> 
@@ -100,6 +101,8 @@
                     <th>Nợ trong hạn</th>
                     <th>Nợ quá hạn</th>
                     <th>Nợ khoanh</th>
+                    <th style="width: 100px">Tổ đã chốt</th>
+                    <th style="width: 100px">Tổ chưa chốt</th>
                     <th style="width: 100px">Món vay đã chốt</th>
                     <th style="width: 100px">Món vay chưa chốt</th>
 
@@ -118,6 +121,8 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(14)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(15)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr> 
@@ -131,6 +136,16 @@
                         <td class="number"> <s:property value="D7"/></td>
                         <td class="number"> <s:property value="D8"/></td> 
                         <td class="number"> <s:property value="D9"/></td> 
+                        <td style="text-align: center;color: blue"> 
+                            <a class="number2" href="javascript:hienthichitietto('<s:property value="D1"/>','<s:property  value="D12" />',4)">
+                                <s:property value='D14 != null ? D14 : 0'/>
+                            </a>
+                        </td>
+                        <td style="text-align: center"> 
+                            <a class="number2" style="color: red" href="javascript:hienthichitietto('<s:property value="D1"/>','<s:property  value="D12" />',5)">
+                                <s:property value='D15 != null ? D15 : 0'/>
+                            </a>
+                        </td>
                         <td style="text-align: center;color: blue"> 
                             <a class="number2" href="javascript:hienthichitiet('<s:property value="D1"/>','<s:property  value="D12" />',1)">
                                 <s:property value='D10 != null ? D10 : 0'/>
@@ -159,6 +174,14 @@
             var top = (screen.height / 2) - (h / 2);
             var urlParam = "madiemgd=" + D1 + "&ngaybc=" + D12 + "&type=" + type;
             var url = "/IMS_REPORTS/popupTableDcpln.action?" + urlParam;
+            popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+        }
+        function hienthichitietto(D1, D12, type) {
+            var w = 1300, h = 600;
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            var urlParam = "madiemgd=" + D1 + "&ngaybc=" + D12 + "&type=" + type;
+            var url = "/IMS_REPORTS/popupTableDcplnTo.action?" + urlParam;
             popWindow = window.open(url, "IMS_REPORTS", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
         }
     </script>

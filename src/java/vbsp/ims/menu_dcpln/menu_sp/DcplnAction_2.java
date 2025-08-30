@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,6 +51,9 @@ import vbsp.ims.restapi.DuLieuPLN_Save;
 import vbsp.ims.restapi.DuLieuPLN_T;
 import vbsp.ims.restapi.Meta_PLN;
 import vbsp.ims.menu_dcpln.DaoPlnMain;
+import vbsp.ims.restapi.AcceptancePln;
+import vbsp.ims.restapi.DuLieuNTRowX;
+import vbsp.ims.restapi.LockSendModel;
 
 public class DcplnAction_2 extends ActionSupport {
 
@@ -98,6 +102,7 @@ public class DcplnAction_2 extends ActionSupport {
     protected String pos_cd_username;
     protected String main_pos_username;
     DuLieuNTService _serverAPI = new DuLieuNTService();
+    DaoPlnMain daoMain = new DaoPlnMain();
     protected String tong_kh;
     protected String tong_monvay;
     protected long tong_duno;
@@ -267,7 +272,6 @@ public class DcplnAction_2 extends ActionSupport {
         this.tong_nlai = tong_nlai;
     }
 
- 
     public void setTong_nlai(int tong_nlai) {
         this.tong_nlai = tong_nlai;
     }
@@ -667,7 +671,7 @@ public class DcplnAction_2 extends ActionSupport {
             ActionContext.getContext().getSession().put("UserName", UserName);
             pos_cd = posMainModel.getPosCd();
             main_pos = posMainModel.getMainPosCd();
-            DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
+            DaoPlnMain daoMain11 = new DaoPlnMain();
 
             List<ModelTreeNode> lstModelTree = new ArrayList<>();
             switch (Grade) {
@@ -925,7 +929,7 @@ public class DcplnAction_2 extends ActionSupport {
             );
             List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(mapgd, "S", dateStr, mahoi, smato.equals("NOGROUP") ? "" : smato, "", "", "", "", "");
             Set<String> setKhachHang = new HashSet<>();
-             long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
+            long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
                 long dnoThan = item.getPlnDnothan();
@@ -1396,8 +1400,8 @@ public class DcplnAction_2 extends ActionSupport {
             }
 
         } catch (Exception e) {
-            CoreLogger.error(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
-            System.err.println(this.getClass().getName() + " Exception -> gdx: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + "getDataTwDcPLN: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " getDataTwDcPLN: " + e.getMessage());
         }
         return "success";
     }
@@ -1432,6 +1436,29 @@ public class DcplnAction_2 extends ActionSupport {
 
     }
 
+    public String popupTableDcplnTo() throws Exception {
+        try {
+            String D1 = ServletActionContext.getRequest().getParameter("madiemgd");
+            String D12 = ServletActionContext.getRequest().getParameter("ngaybc");
+            String type = ServletActionContext.getRequest().getParameter("type");
+            setTxtGetData(type);
+            Connection conn = new DaoConnect().getConnect();
+            DaoPlnMain daoMain = new DaoPlnMain();
+//            ActionContext.getContext().getSession().put("sUserName", UserName);
+            lstDulieuNt = daoMain.getDataPlnTW(conn, D12, "PLN_KNTN_TW", D1, type);
+            if (conn != null) {
+                conn.close();
+            }
+
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveDataaa " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveDataaa -> " + e.getMessage());
+        }
+        return "success";
+
+    }
+
+    
     public String unlock_pLN() {
         try {
             String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
@@ -1463,4 +1490,207 @@ public class DcplnAction_2 extends ActionSupport {
         return SUCCESS;
     }
 
+    public String Mass_application() {
+        Connection conn = null;
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+
+            // Lấy tham số và định dạng ngày
+            HashMap hmParameter = getParameter();
+            String sngaybc = hmParameter.get("ngay_bc").toString();
+            DateFormat dateHienthi = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(sngaybc));
+            String mapgd = hmParameter.get("smapgd").toString();
+            // Lấy thông tin chính từ posMainModel
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+
+            conn = new DaoConnect().getConnect();
+            // Kiểm tra và xử lý dữ liệu
+            if (mapgd.isEmpty() || mapgd == null) {
+                addActionError("Chọn phòng giao dịch để gửi dữ liệu!");
+                return ERROR;
+            }
+            String maxa_key1 = hmParameter.get("lstXa").toString();
+            if (maxa_key1.equals("000000")) {
+                addActionError("Bạn chưa chọn xã!");
+                return ERROR;
+            }
+            String[] values = maxa_key1.split("\\|");
+            String maxa = values[1];   // giá trị posName
+
+            lstDulieuNt = daoMain.getDataPlnCn(conn, sngaybc, "PLN_KNTN_CN", mapgd, maxa);
+
+            for (QT_DULIEU_NT item : lstDulieuNt) {
+                String smato = item.getD1();
+                String smahoi = item.getD2();
+
+                long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
+                Set<String> setKhachHang = new HashSet<>();
+
+                List<DuLieuPLN_T> lstData = _serverAPI.postDataPLN(
+                        mapgd, "S", sngaybc,
+                        smahoi,
+                        smato.equals("NOGROUP") ? "" : smato,
+                        "", "", "", "", ""
+                );
+
+                for (DuLieuPLN_T dt : lstData) {
+                    tongThan += dt.getPlnDnothan();
+                    tongQhan += dt.getPlnDnoqhan();
+                    tongKhoanh += dt.getPlnDnokhoanh();
+                    tongNlai += dt.getPlnTonglaiton();
+                    tongMonvay++;
+
+                    if (dt.getPlnMakh() != null && !dt.getPlnMakh().isEmpty()) {
+                        setKhachHang.add(dt.getPlnMakh());
+                    }
+                }
+
+                tongDuno = tongThan + tongQhan + tongKhoanh;
+
+                item.setD16(String.valueOf(tongMonvay));           // tổng món vay
+                item.setD17(String.valueOf(setKhachHang.size()));  // tổng KH
+                item.setD18(String.valueOf(tongThan));             // tổng dư nợ trong hạn
+                item.setD19(String.valueOf(tongQhan));             // tổng dư nợ quá hạn
+                item.setD20(String.valueOf(tongKhoanh));           // tổng dư nợ khoanh
+                item.setD21(String.valueOf(tongDuno));             // tổng dư nợ
+                item.setD22(String.valueOf(tongNlai));             // tổng lãi tồn
+                item.setD23("0");
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> seach 2024 : " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> seach 2024: " + e.getMessage());
+            return ERROR;
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                CoreLogger.error(this.getClass().getName() + " Exception in closing connection: " + e.getMessage());
+            }
+        }
+        return SUCCESS;
+    }
+
+    public String sendDataPlnCn() {
+        System.out.println("vao váe sendDataPlnCn");
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+
+            String maxa_key1 = hmParameter.get("lstXa").toString();
+            String[] values = maxa_key1.split("\\|");
+            String mapgd = values[0];  // giá trị posCode
+            String maxa = values[1];
+
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            String date2 = LocalDateTime.now().format(formatter);
+            // Gom tất cả groupId thỏa điều kiện
+            ArrayList<String> groupIds = new ArrayList<>();
+            for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                if ("1".equals(tmp.getD23())) {
+                    groupIds.add(tmp.getD1());
+                }
+            }
+            System.out.println("groupIds= " + groupIds);
+            if (groupIds.isEmpty()) {
+                this.pageResult = new ByteArrayInputStream("999".getBytes(StandardCharsets.UTF_8));
+                return SUCCESS;
+            } else if (!groupIds.isEmpty()) {
+                // Tạo 1 object duy nhất
+                AcceptancePln tempadd = new AcceptancePln();
+                tempadd.setCommuneCode(maxa);
+                tempadd.setReportDate(_reportDate);
+                tempadd.setPosCode(mapgd);
+                tempadd.setLstGroupId(groupIds);
+                _serverAPI = new DuLieuNTService();
+                int status = _serverAPI.updatePlnStatus(_reportDate, UserName, tempadd);
+                if (status == 200) {
+                    boolean saved = daoMain.saveChotPln(mapgd, maxa, dateStr, groupIds, UserName);
+                    if (saved) {
+                        Connection conn = new DaoConnect().getConnect();
+                        lstDulieuNt = daoMain.getDataPlnTW(conn, dateStr, "PLN_KNTN_CHOT", mapgd, maxa);
+                        ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+                        for (QT_DULIEU_NT tmp : lstDulieuNt) {
+                            DuLieuNTRowX tempadd1 = new DuLieuNTRowX();
+                            tempadd1.setKey("PLN_KNTN_CHOT");
+                            tempadd1.setName(tmp.getD3());
+                            tempadd1.setCode(tmp.getD2());
+                            tempadd1.setMakerId(UserName);
+                            tempadd1.setMakerDate(date2);
+                            tempadd1.setAuthoriseId(UserName);
+                            tempadd1.setAuthoriseDate(date2);
+                            tempadd1.setReportDate(_reportDate1);
+                            tempadd1.setPosCode(tmp.getD6());
+                            tempadd1.setPosFlag("S");
+                            tempadd1.setBranchCode(tmp.getD8());
+                            tempadd1.setD1(tmp.getD13());
+                            tempadd1.setD2(tmp.getD14());
+                            tempadd1.setD3(tmp.getD15());
+                            lstUpdateDate.add(tempadd1);
+                        }
+
+                        int status1 = _serverAPI.getGQVL2023("PLN_KNTN_CHOT", mapgd, "S", _reportDate, UserName, UserName, lstUpdateDate);
+                        if (status1 == 200) {
+                            this.pageResult = new ByteArrayInputStream("200".getBytes(StandardCharsets.UTF_8));
+                            return SUCCESS;
+                        }
+                    } else {
+                        this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
+                        return ERROR;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> send 23: " + e.getMessage());
+            this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
+            return ERROR;
+        }
+
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String unlock_pLN_to() {
+        try {
+            String mato = ServletActionContext.getRequest().getParameter("mato");
+            String maxa = ServletActionContext.getRequest().getParameter("maxa");
+            String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
+            String ngaybc = ServletActionContext.getRequest().getParameter("ngaybc");
+            String khoa = ServletActionContext.getRequest().getParameter("lock");
+            DaoPlnMain daoMain = new DaoPlnMain();
+            String sUserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            GenericResult<String> _result = daoMain.unlock_Pln(khoa + "_" + sUserName, mapgd, mato, maxa, ngaybc);
+            if (_result.isIsSuccess()) {
+                status = "1";
+                message = "";
+            } else {
+                status = "0";
+                message = _result.getMessage();
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> cancelAssign: " + e.getMessage());
+            status = "0";
+            message = e.getMessage();
+        }
+        return SUCCESS;
+    }
 }

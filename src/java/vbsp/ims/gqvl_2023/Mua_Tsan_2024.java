@@ -286,43 +286,41 @@ public class Mua_Tsan_2024 extends ActionNhaptaycnMain
                 setLock_PGD(item.getD12());
             }
             if (lstData_Api == null || lstData_Api.isEmpty()) {
-                addActionError("Không có dữ liệu!");
-                return ERROR;
-//                lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
-//
-//                for (QT_DULIEU_NT item : lstData) {
-//                    QT_DULIEU_NT row = new QT_DULIEU_NT();
-//                    try {
-//                        row.setKHOA(item.getKHOA());
-//                        row.setTHUTU(item.getTHUTU());
-//                        row.setTT_HIENTHI(item.getTT_HIENTHI());
-//                        row.setMA(item.getMA());
-//                        row.setNGAYBC(item.getNGAYBC());
-//                        row.setNAMBC(year);
-//                        row.setMAPGD(item.getMAPGD());
-//                        row.setMACN(main_pos_username);
-//                        row.setD1(item.getD1());
-//                        row.setD2(item.getD2());
-//                        row.setD3(item.getD3());
-//                        row.setD4(item.getD4());
-//                        row.setD5(item.getD5());
-//                        row.setD6(item.getD6());
-//                        row.setD7(item.getD7());
-//                        row.setD8(item.getD8());
-//                        row.setD9(item.getD9());
-//                        row.setD10(item.getD10());
-//                        row.setD11(item.getD11());
-//                        row.setD12(item.getD12());
-//                        lstDulieuNt.add(row);
-//                    } catch (Exception e) {
-//                    }
-//                    setMaPgd(item.getMAPGD());
-//                    setTenPgd(item.getD1());
-//                    setLock_PGD(item.getD12());
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
+                lstData = _serverlocal.getData_Muasam_2024(conn, "KTTC_MUASAM_01", hmParameter.get("ngay_bc").toString(), UserName, Grade, poscd);
+
+                for (QT_DULIEU_NT item : lstData) {
+                    QT_DULIEU_NT row = new QT_DULIEU_NT();
+                    try {
+                        row.setKHOA(item.getKHOA());
+                        row.setTHUTU(item.getTHUTU());
+                        row.setTT_HIENTHI(item.getTT_HIENTHI());
+                        row.setMA(item.getMA());
+                        row.setNGAYBC(item.getNGAYBC());
+                        row.setNAMBC(year);
+                        row.setMAPGD(item.getMAPGD());
+                        row.setMACN(main_pos_username);
+                        row.setD1(item.getD1());
+                        row.setD2(item.getD2());
+                        row.setD3(item.getD3());
+                        row.setD4(item.getD4());
+                        row.setD5(item.getD5());
+                        row.setD6(item.getD6());
+                        row.setD7(item.getD7());
+                        row.setD8(item.getD8());
+                        row.setD9(item.getD9());
+                        row.setD10(item.getD10());
+                        row.setD11(item.getD11());
+                        row.setD12(item.getD12());
+                        lstDulieuNt.add(row);
+                    } catch (Exception e) {
+            }
+                    setMaPgd(item.getMAPGD());
+                    setTenPgd(item.getD1());
+                    setLock_PGD(item.getD12());
+                }
+                if (conn != null) {
+                    conn.close();
+                }
             }
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> tin dung 2024 : " + e.getMessage());

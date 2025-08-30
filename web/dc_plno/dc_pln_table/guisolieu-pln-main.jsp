@@ -221,8 +221,14 @@
             function btnDisabled(status) {
                 if (status === 1) {
                     $("#idSave").prop('disabled', true);
+                    $("#idSearch").prop('disabled', true);
+                    $("#loaddata").prop("disabled", true);
+                    $("#idSendAll").prop("disabled", true);
                 } else {
                     $("#idSave").prop('disabled', false);
+                    $("#idSearch").prop('disabled', false);
+                    $("#loaddata").prop("disabled", false);
+                    $("#idSendAll").prop("disabled", false);
                 }
                 ;
             }
@@ -284,19 +290,22 @@
                                 <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
                                            onBeforeTopics="beforediv1" onCompleteTopics="completediv1" cssStyle="display: none;"/>
                                 <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
-                                <input type="button" id="idSave" value="Chốt dữ liệu"/>  
+                                <input type="button" id="idSave" value="Chốt dữ liệu" style="display: none"/> 
+                                &nbsp;|&nbsp;<input type="button" id="idSearch" value="Danh sách tổ" style="color: red">
+                                <input type="hidden" id="smapgd" name="smapgd" value="">
+                                <input type="button" id="idSendAll" value="Chốt dữ liệu" style="display: none; color: red" />
                             </td> 
                             <td>
-                        <div id="page-header" style="display: none; margin-left: 30px;" class="hidden-inline">
+                                <div id="page-header" style="display: none; margin-left: 30px;" class="hidden-inline">
 
-                            Chọn trang
-                            <input style="width: 40px;border-top-style: hidden; border-left-style: hidden; border-right-style: hidden" type="number" id="pageInput" min="1" />
-                            <a onclick="goToPage()" href="#" id="btn_go">Go</a>
-                            <a onclick="prevPage()" href="#" id="btn_prev">&#8920;</a>
-                            Trang <span id="page"></span>
-                            <a onclick="nextPage()" href="#" id="btn_next">&#8921;</a>
-                        </div>
-                                </td>
+                                    Chọn trang
+                                    <input style="width: 40px;border-top-style: hidden; border-left-style: hidden; border-right-style: hidden" type="number" id="pageInput" min="1" />
+                                    <a onclick="goToPage()" href="#" id="btn_go">Go</a>
+                                    <a onclick="prevPage()" href="#" id="btn_prev">&#8920;</a>
+                                    Trang <span id="page"></span>
+                                    <a onclick="nextPage()" href="#" id="btn_next">&#8921;</a>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </fieldset>
@@ -324,7 +333,7 @@
                     pgdData.push({
                         id: value.split("|")[0],
                         text: text,
-                        parent: "#"
+                        parent: "#",
                     });
                 }
             });
@@ -361,6 +370,7 @@
                 }
                 const currentSelected = tree.get_selected()[0];
                 if (currentSelected) {
+                    $("#smapgd").val(currentSelected);
                     onPGDChange([currentSelected]);
                 }
             });
@@ -483,6 +493,91 @@
         const header = document.getElementById("page-header");
         header.classList.remove("hidden-inline");
         header.classList.add("inline-block");
+
+        $("#idSearch").click(function () {
+            var url, sdata;
+            url = "Mass_application.action";
+            sdata = jQuery("#frmdata").serialize();
+            $("#divExportReport").html('<img src="img/loading.gif"/>');
+            btnDisabled(1);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: sdata,
+                success: function (data) {
+                    $("#divExportReport").html(data);
+                    $("#idSend").prop('disabled', true);
+                    $("#idSave").prop('disabled', false);
+                    $("#idDelete").prop('disabled', false);
+                },
+                complete: function () {
+                    btnDisabled(0);
+                },
+                error: function (request) {
+                    console.log(request);
+                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#idSendAll").click(function () {
+//                    console.log("vào 1");
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0) {
+                    alert('Bạn chưa chọn bản ghi để lưu!');
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+                    if (aCheck) {
+                        var table = document.getElementById("subTable");
+                        var rowcount = table.rows.length;
+                        var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
+
+                        for (var i = 0; i < rowcount; i++) {
+                            try {
+
+                            } catch (e) {
+                            }
+                        }
+
+                        if (isValid) {
+                            var url, sdata;
+                            url = "sendDataPlnCn.action";
+                            sdata = jQuery("#frmdata").serialize();
+//                                 console.log("data = " + sdata);
+                            $("#divExportReport").html('<img src="img/loading.gif"/>');
+                            btnDisabled(1);
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: sdata,
+                                success: function (data) {
+                                    if (data === "200") {
+                                        alert("Thành công: Chốt dữ liệu.");
+                                        $("#idSearch").click();
+                                    } 
+                                    else if
+                                    (data === "999") {
+                                        alert("Thông báo: Không có tổ cần chốt dữ liệu!");
+                                        $("#idSearch").click();
+                                    } 
+                                    else {
+                                        alert("Lỗi: Chốt dữ liệu.");
+                                        $("#idSearch").click();
+                                    }
+                                },
+                                complete: function () {
+                                    btnDisabled(0);
+                                },
+                                error: function (request) {
+                                    alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                     $("#idSearch").click();
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        });
     </script>
 
 </body>

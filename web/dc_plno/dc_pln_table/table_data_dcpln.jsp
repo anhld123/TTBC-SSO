@@ -378,8 +378,9 @@
                                    id="D7_<s:property  value="%{#rowstatus.index}" />"
                                    name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].D7"/>  
                         </td>
-                        <td <s:if test="D7.equalsIgnoreCase('2')">style="color: blue" title="Món vay đã hỗ trợ"</s:if>
-                                                                  ><s:property value="plnTenkh"/>
+                        <td <s:if test="D7.equalsIgnoreCase('2') && D1.length() > 5">
+                                style="color: blue" title="Món vay đã hỗ trợ"</s:if>
+                            ><s:property value="plnTenkh"/>
                         </td>
                         <td> 
                             <a href="javascript:hienthichitiet('<s:property value="plnSoku"/>','<s:property  value="plnNgaybc" />' ,'<s:property  value="plnMapgd" />' ,'<s:property  value="D6" />')" class="SOKU linkKh">
