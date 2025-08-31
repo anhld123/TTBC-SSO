@@ -139,6 +139,97 @@
                     }
                 }
             }
+
+            var pg_current_page = 1; // trang bắt đầu 
+            var pg_records_per_page = 15; // số dòng
+            var pg_total_rows = document.getElementById("subTable").rows.length;
+
+            function pg_prevPage() {
+                if (pg_current_page > 1) {
+                    pg_current_page--;
+                    pg_changePage(pg_current_page);
+                }
+            }
+
+            function pg_nextPage() {
+                if (pg_current_page < pg_numPages()) {
+                    pg_current_page++;
+                    pg_changePage(pg_current_page);
+                }
+            }
+
+            function pg_goToPage() {
+                var inputPage = document.getElementById("pg_pageInput").value;
+                if (inputPage >= 1 && inputPage <= pg_numPages()) {
+                    pg_current_page = inputPage;
+                    pg_changePage(pg_current_page);
+                } else {
+                    alert("Trang không tồn tại");
+                }
+            }
+
+            function pg_changePage(page) {
+                var btn_next = document.getElementById("pg_btn_next");
+                var btn_prev = document.getElementById("pg_btn_prev");
+                var listing_table = document.getElementById("subTable");
+                var page_span = document.getElementById("pg_page");
+
+                if (page < 1)
+                    page = 1;
+                if (page > pg_numPages())
+                    page = pg_numPages();
+
+                [...listing_table.getElementsByTagName('tr')].forEach((tr) => {
+                    tr.style.display = 'none';
+                });
+
+                listing_table.rows[0].style.display = "";
+                listing_table.rows[1].style.display = "";
+                listing_table.rows[2].style.display = "";
+
+                for (var i = (page - 1) * pg_records_per_page + 1; i < (page * pg_records_per_page) + 1; i++) {
+                    if (listing_table.rows[i]) {
+                        listing_table.rows[i].style.display = "";
+                    }
+                }
+
+                page_span.innerHTML = page + "/" + pg_numPages();
+
+                btn_prev.style.visibility = (page === 1) ? "hidden" : "visible";
+                btn_next.style.visibility = (page === pg_numPages()) ? "hidden" : "visible";
+            }
+
+            function pg_numPages() {
+                return Math.ceil((pg_total_rows - 1) / pg_records_per_page);
+            }
+            window.onload = function () {
+                changePage(current_page);
+            };
+            // timfk iếm
+            $(function () {
+                $('#search').on('keyup', function () {
+                    var val = $(this).val().toLowerCase();
+
+                    $('#subTable tbody tr').each(function (index) {
+                        // Luôn giữ lại 3 dòng đầu tiên
+                        if (index < 3) {
+                            $(this).show();
+                            return;
+                        }
+
+                        var rowText = $(this).text().toLowerCase();
+                        $(this).toggle(rowText.includes(val));
+                    });
+
+                    // Nếu không nhập gì thì khôi phục phân trang
+                    if (val === "") {
+                        pg_total_rows = document.getElementById("subTable").rows.length;
+                        pg_changePage(1);
+                    }
+                });
+            });
+
+
         </script>      
     </head>
 
@@ -146,7 +237,18 @@
         <div id="divTitle" style="width: 75%; text-align: center">  
             DANH SÁCH TỔ
         </div>
-        <table border="1" class="editDelete" id="subTable"  style="padding-top: 10px">   
+        <div style="margin: 10px 0" id="divDonvitinh">
+            Chọn trang 
+            <input style="border-top-style: hidden; border-left-style: hidden; border-right-style: hidden" 
+                   class="STT1" type="number" id="pg_pageInput" min="1"/>
+            <a onclick="pg_goToPage()" href='#' id="pg_btn_go">Go</a>
+            <a onclick="pg_prevPage()" href='#' id="pg_btn_prev">&#8920;</a> 
+            Trang <span id="pg_page"></span>
+            <a onclick="pg_nextPage()" href='#' id="pg_btn_next">&#8921;</a>
+            <span style="margin-left: 30px">Tra cứu: </span>
+            <input type="text" id="search" placeholder="Tìm kiếm ..." style="width: 200px" />
+        </div>
+        <table border="1" class="editDelete" id="subTable">   
             <tr>
                 <th rowspan="2" style="width: 30px"><input type="checkbox" id ="select-all"/></th>
                 <th rowspan="2" style="width: 80px">Mã tổ</th>
@@ -248,21 +350,45 @@
         });
     }
     $(function () {
-        $('#select-all').click(function (event) {
+        $('#select-all').click(function () {
+            let visibleCheckboxes = $('#subTable tbody tr:visible .myCheckBox');
+            let maxSelect = 100;
+
             if (this.checked) {
-                // Iterate each checkbox
-                $('.myCheckBox').each(function () {
-                    this.checked = true;
-                    this.value = '1';
-                });
+                // Nếu số lượng hiển thị > 100 thì chỉ chọn 100 dòng đầu tiên
+                if (visibleCheckboxes.length > maxSelect) {
+                    visibleCheckboxes.each(function (index) {
+                        if (index < maxSelect) {
+                            this.checked = true;
+                            this.value = '1';
+                        } else {
+                            this.checked = false;
+                            this.value = '0';
+                        }
+                    });
+                    alert("Chỉ có thể chọn tối đa " + maxSelect + " dòng!");
+                    // Bỏ trạng thái checked của #select-all vì không chọn hết
+                    $('#select-all').prop('checked', false);
+                } else {
+                    visibleCheckboxes.each(function () {
+                        this.checked = true;
+                        this.value = '1';
+                    });
+                }
             } else {
-                $('.myCheckBox').each(function () {
+                visibleCheckboxes.each(function () {
                     this.checked = false;
                     this.value = '0';
                 });
             }
         });
     });
+    function initTable1()
+    {
+        pg_nextPage();
+        pg_prevPage();
+    }
+    initTable1();
 </script>
 </body>
 </html>

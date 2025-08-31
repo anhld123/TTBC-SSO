@@ -414,7 +414,7 @@
                                    style="background: #FFCCBA"
                                    onblur="setTongDuNoTo('D2', <s:property value='%{#rowstatus.index}' />)"/>
                         </td>
-                        <s:if test="D7.equalsIgnoreCase('2')">
+                        <s:if test="D7.equalsIgnoreCase('2') && D1.length() > 5">
                             <td class="D0">    
                                 <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px;"
                                         name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'

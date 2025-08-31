@@ -100,6 +100,31 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private String fileUploadContentType;
     private static StructDescriptor structDesc;
     private static ArrayDescriptor arrayDesc;
+    private static boolean warmedUp = false;
+
+    public static boolean isWarmedUp() {
+        return warmedUp;
+    }
+
+    public static void setWarmedUp(boolean warmedUp) {
+        ActionChtrinhcnMain.warmedUp = warmedUp;
+    }
+
+    public static StructDescriptor getStructDesc() {
+        return structDesc;
+    }
+
+    public static void setStructDesc(StructDescriptor structDesc) {
+        ActionChtrinhcnMain.structDesc = structDesc;
+    }
+
+    public static ArrayDescriptor getArrayDesc() {
+        return arrayDesc;
+    }
+
+    public static void setArrayDesc(ArrayDescriptor arrayDesc) {
+        ActionChtrinhcnMain.arrayDesc = arrayDesc;
+    }
 
     public List<ListOfValue> getLstDmKhac() {
         return lstDmKhac;
@@ -1531,11 +1556,11 @@ public class ActionChtrinhcnMain extends ActionSupport {
     }
 
     public String openExcelUploadQtKh() {
-        try {
+        try (Connection conn = new DaoConnect().getConnect()) {
+            init(conn);
             DuLieuNTService _serverAPI = new DuLieuNTService();
             lstDmKhac = _serverAPI.getListOfValue("92", "");
-            // Có thể truyền thêm dữ liệu ra JSP nếu cần
-            return SUCCESS;  // sẽ forward tới excel_upload_2025.jsp
+            return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -1648,13 +1673,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
             int startrow,
             int startcell,
             int endcell) throws Exception {
-        // 1. Tạo descriptor cho Object và Table type (cache static)
-        if (structDesc == null) {
-            structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
-        }
-        if (arrayDesc == null) {
-            arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
-        }
+        StructDescriptor structDesc = ActionChtrinhcnMain.getStructDesc();
+        ArrayDescriptor arrayDesc = ActionChtrinhcnMain.getArrayDesc();
 
         int colCount = endcell - startcell;
         STRUCT[] structArray = new STRUCT[excelData.size()];
@@ -1803,6 +1823,20 @@ public class ActionChtrinhcnMain extends ActionSupport {
             e.printStackTrace();
             addActionError("Lỗi khi tải file mẫu: " + e.getMessage());
             return ERROR;
+        }
+    }
+
+    public static void init(Connection conn) throws SQLException {
+        if (structDesc == null || arrayDesc == null) {
+            synchronized (ActionChtrinhcnMain.class) {
+                if (structDesc == null) {
+                    structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
+                }
+                if (arrayDesc == null) {
+                    arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
+                }
+                System.out.println("Oracle type descriptors initialized!");
+            }
         }
     }
 

@@ -1522,8 +1522,8 @@ public class DcplnAction_2 extends ActionSupport {
             }
             String[] values = maxa_key1.split("\\|");
             String maxa = values[1];   // giá trị posName
-
-            lstDulieuNt = daoMain.getDataPlnCn(conn, sngaybc, "PLN_KNTN_CN", mapgd, maxa);
+            String mahoi = hmParameter.get("mahoi").toString();
+            lstDulieuNt = daoMain.getDataPlnCn(conn, sngaybc, "PLN_KNTN_CN", mapgd, maxa,mahoi);
 
             for (QT_DULIEU_NT item : lstDulieuNt) {
                 String smato = item.getD1();
@@ -1641,6 +1641,7 @@ public class DcplnAction_2 extends ActionSupport {
                             tempadd1.setD1(tmp.getD13());
                             tempadd1.setD2(tmp.getD14());
                             tempadd1.setD3(tmp.getD15());
+                            tempadd1.setD4(tmp.getD9());
                             lstUpdateDate.add(tempadd1);
                         }
 

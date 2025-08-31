@@ -876,31 +876,32 @@ public class DaoPlnMain {
         return lstBcqt_NT;
     }
 
-    public List<QT_DULIEU_NT> getDataPlnCn(Connection conn, String sNgaybc, String sKhoa, String sMacn, String sMaxa) {
+    public List<QT_DULIEU_NT> getDataPlnCn(Connection conn, String sNgaybc, String sKhoa, String sMacn, String sMaxa, String smahoi) {
         List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
         try {
             CallableStatement calstatement = null;
-            String strStoreproce = "{call VBSP_IMS_DCPHANLOAINO.SP_GET_DATA_PLN_CN(?,?,?,?,?,?,?)}";
+            String strStoreproce = "{call VBSP_IMS_DCPHANLOAINO.SP_GET_DATA_PLN_CN(?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
-                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.setString(2, sKhoa);
                 calstatement.setString(3, sMacn);
                 calstatement.setString(1, sNgaybc);
                 calstatement.setString(4, sMaxa);
+                calstatement.setString(5, smahoi);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
                 //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
-                int pn_err_cd = calstatement.getInt(5);
+                int pn_err_cd = calstatement.getInt(6);
                 //thu hien lay mo ta loi
-                String strEdd_txt = calstatement.getString(6);
+                String strEdd_txt = calstatement.getString(7);
                 //Lay cursor ra resultset
-                reset = (ResultSet) calstatement.getObject(7);
+                reset = (ResultSet) calstatement.getObject(8);
                 while (reset.next()) {
 
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
@@ -978,26 +979,26 @@ public class DaoPlnMain {
         }
     }
 
-   public boolean saveChotPln(String mapgd, String maxa, String ngaybc, 
-                           List<String> groupIds, String user) throws SQLException {
-    try (Connection connection = new DaoConnect().getConnect();
-         CallableStatement cs = connection.prepareCall(
-                 "{call VBSP_IMS_DCPHANLOAINO.P_SAVE_DCPHANLOAINO(?, ?, ?, ?, ?)}")) {
+    public boolean saveChotPln(String mapgd, String maxa, String ngaybc,
+            List<String> groupIds, String user) throws SQLException {
+        try (Connection connection = new DaoConnect().getConnect();
+                CallableStatement cs = connection.prepareCall(
+                        "{call VBSP_IMS_DCPHANLOAINO.P_SAVE_DCPHANLOAINO(?, ?, ?, ?, ?)}")) {
 
-        for (String groupId : groupIds) {
-            cs.setString(1, mapgd);
-            cs.setString(2, maxa);
-            cs.setString(3, ngaybc);   // yyyyMMdd (chuỗi) theo proc
-            cs.setString(4, groupId);
-            cs.setString(5, user);
+            for (String groupId : groupIds) {
+                cs.setString(1, mapgd);
+                cs.setString(2, maxa);
+                cs.setString(3, ngaybc);   // yyyyMMdd (chuỗi) theo proc
+                cs.setString(4, groupId);
+                cs.setString(5, user);
 
-            cs.execute(); // gọi từng lần
+                cs.execute(); // gọi từng lần
+            }
+
+            return true;
+        } catch (SQLException e) {
+            CoreLogger.error(this.getClass().getName() + " chot -> " + e.getMessage(), e);
+            return false;
         }
-
-        return true;
-    } catch (SQLException e) {
-        CoreLogger.error(this.getClass().getName() + " chot -> " + e.getMessage(), e);
-        return false;
     }
-}
 }

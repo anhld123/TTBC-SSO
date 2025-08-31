@@ -357,7 +357,7 @@
                         <!--chi tieu nhap tay tu day--> 
                         <td class="number"><s:property value="plnCKntnSodu"/> </td>
                         <td class="number"><s:property value="D3" /></td>
-                        <s:if test="D7.equalsIgnoreCase('2')">
+                        <s:if test="D7.equalsIgnoreCase('2') && D1.length() > 5">
                             <td class="D0">    
                                 <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px"
                                         onmousedown="return false"
