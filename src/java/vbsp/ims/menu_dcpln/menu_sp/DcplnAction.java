@@ -942,6 +942,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                 tempadd.setD4("0");
                 tempadd.setD7("1");
                 tempadd.setD9(maxa_sp);
+                tempadd.setStatus("N");
                 lstUpdateDate.add(tempadd);
             }
             _serverAPI = new DuLieuNTService();
