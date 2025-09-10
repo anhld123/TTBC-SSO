@@ -4,14 +4,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -22,6 +19,11 @@ import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.LoadReportParams;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.stream.Collectors;
 
 public class LoadReportParamsActionSupport_Api
         extends ActionSupport implements ServletRequestAware {
@@ -177,43 +179,44 @@ public class LoadReportParamsActionSupport_Api
                 setMessage("Lỗi không thể kết nối được với cơ sở dữ liệu");
                 return SUCCESS;
             }
+            boolean swaggerOk = callSwaggerConfig();
+            if (!swaggerOk) {
+                setMessage("Không thể kết nối Swagger API, liên hệ TTCNT!");
+                return ERROR;
+            }
             if (exportType.equals("PDF")) {
-                  strPathSave += Define.M_REPORT_PDF;
-            strFileSave += ".PDF";
-            filereport = strFileSave;
-            File Checkpath = new File(strPathSave);
-            if (!Checkpath.exists()) {
-                System.out.println("Da tao thu muc: " + strPathSave);
-                Checkpath.mkdirs();
+                strPathSave += Define.M_REPORT_PDF;
+                strFileSave += ".PDF";
+                filereport = strFileSave;
+                File Checkpath = new File(strPathSave);
+                if (!Checkpath.exists()) {
+                    System.out.println("Da tao thu muc: " + strPathSave);
+                    Checkpath.mkdirs();
+                }
+                exportReport.ExportJasperPdf(paramHashMap, connect, strPathSave + strFileSave, reportId);
+
+            } else {
+                strPathSave += Define.M_REPORT_XLS;
+                strFileSave += ".XLSX";
+                filereport = strFileSave;
+                File Checkpath = new File(strPathSave);
+                if (!Checkpath.exists()) {
+                    System.out.println("Da tao thu muc: " + strPathSave);
+                    Checkpath.mkdirs();
+                }
+                exportReport.ExportJasperExcel(paramHashMap, connect, strPathSave + strFileSave, reportId);
             }
-            exportReport.ExportJasperPdf(paramHashMap, connect, strPathSave + strFileSave, reportId);
-            
-        } else {
-            strPathSave += Define.M_REPORT_XLS;
-            strFileSave += ".XLSX";
-            filereport = strFileSave;
-            File Checkpath = new File(strPathSave);
-            if (!Checkpath.exists()) {
-                System.out.println("Da tao thu muc: " + strPathSave);
-                Checkpath.mkdirs();
-            }
-            exportReport.ExportJasperExcel(paramHashMap, connect, strPathSave + strFileSave,reportId);
-        }
             //Kiem tra xem file da tao thanh cong chua        
             File filerpt = new File(strPathSave + strFileSave);
             if (!filerpt.exists()) {
                 fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
                 filereport = "ERROR_JASPER_REPORT.PDF";
-//            setMessage("Lỗi bạn chưa tạo được file báo cáo "+strFileSave);
-//            return ERROR;
             } else {
                 fileNamelocal = strPathSave + strFileSave;
             }
-//            System.err.println(fileNamelocal);
             System.gc();
         } catch (Exception e) {
             fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
-//            System.err.println(fileNamelocal);
             filereport = "ERROR_JASPER_REPORT.PDF";
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getName() + " Loi khi view bao cao genViewReport " + e.getMessage());
@@ -335,6 +338,7 @@ public class LoadReportParamsActionSupport_Api
             setMessage("Lỗi bạn chưa tạo được file báo cáo " + strFileSave);
             return ERROR;
         }
+
         fileNamelocal = strPathSave + strFileSave;
         System.gc();
         return "success";
@@ -410,6 +414,34 @@ public class LoadReportParamsActionSupport_Api
 
     public void setDefaultRptdate(Date defaultRptdate) {
         this.defaultRptdate = defaultRptdate;
+    }
+
+    public boolean callSwaggerConfig() {
+        String SWAGGER_URL = "http://10.63.16.52:8010/api-docs/swagger-config";
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(SWAGGER_URL);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            int status = conn.getResponseCode();
+            if (status == HttpURLConnection.HTTP_OK) {
+                CoreLogger.info("Kết nối Swagger API thành công");
+                return true;
+            } else {
+                CoreLogger.error("Swagger API trả về lỗi HTTP: " + status);
+                return false;
+            }
+        } catch (Exception e) {
+            CoreLogger.error("Không thể kết nối Swagger API: " + e.getMessage());
+            return false;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
     }
 
 }
