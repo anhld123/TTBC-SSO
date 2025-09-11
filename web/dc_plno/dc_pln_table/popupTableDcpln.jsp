@@ -10,41 +10,72 @@
         <link rel="stylesheet" href="js/3.6.0/jquery-ui.css">
         <style>
             #subTable {
-                font-size: 16px;
-                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 98%;
+                font-size: 12px;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                border-collapse: collapse; 
+                width: 100%;
+                margin: auto;
+                background-color: #fff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                border: 1px solid #black; 
+                border-radius: 10px;
+                overflow: hidden;
             }
+
+            #subTable th, 
+            #subTable td {
+                border: 1px solid #ccc; 
+                padding: 12px;
+                font-size: 12px;
+            }
+
             #subTable th {
-                background-color: #ddd;
-                color: #0000FF;
-            }
-            #subTable th, #subTable td {
-                border: 1px solid gray;
-            }
-            #subTable tr:nth-child(even) { background-color: #f2f2f2; }
-            #subTable tr:hover { background-color: #ddd; }
-            .txtPublic { width: 85px; }
-            .ui-datepicker-trigger { height: 100%; }
-            .txtBody { text-align: center; }
-            .txtBody > .ui-datepicker-trigger { display: none; }
-            td.hdtitle { position: static; top: 0; z-index: 10; }
-            .color_11 {
-                background: #fff;
-                font-size: 14px;
+                background-color: #f0f4f8;
+                color: #2a3f54;
                 font-weight: bold;
-                animation: blink 700ms infinite;
             }
-            #divDonvitinh{
-                font: 13px Arial, Helvetica, sans-serif;
-                text-align: right;
-                color: red;
-                padding-right: 7px;
+
+            #subTable tr:nth-child(even) {
+                background-color: #f9f9f9;
             }
-            @keyframes blink {
-                0%, 100% { color: red; }
-                50% { color: #fff; }
+
+            #subTable tr:hover {
+                background-color: #eef6ff;
+                transition: background-color 0.3s ease;
             }
+            /* Style chung cho nút */
+            button, 
+            input[type="button"] {
+                font-size: 13px;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                padding: 8px 16px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+
+            /* Nút chính (ví dụ: Mở Chốt) */
+            #cmdDuyet {
+                background-color: #2a9d8f;   /* xanh ngọc */
+                color: #fff;
+            }
+            #cmdDuyet:hover {
+                background-color: #21867a;
+            }
+
+            /* Nút phụ (ví dụ: Thoát) */
+            #cmdLuu {
+                background-color: #e76f51;   /* cam đỏ */
+                color: #fff;
+                margin-left: 8px;
+            }
+            #cmdLuu:hover {
+                background-color: #cc5c44;
+            }
+
         </style>
         <script src="js/3.6.0/jquery.min.js"></script>
         <script src="js/3.6.0/jquery-ui.js"></script>
@@ -61,7 +92,8 @@
                 $('.D00').css({"text-align": "left"});
                 $('.D000').css({"text-align": "right"});
                 $(".STT1").css({"width": "30px"});
-                $(".STT6").css({"width": "150px"});
+                $(".STT4").css({"width": "150px"});
+                $(".STT3").css({"width": "150px"});
                 $(".STT2").css({"width": "100px"});
                 $('.D99').css({"text-align": "center", "color": "#000", "font-style": "italic", "font-size": "xx-small"});
                 $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
@@ -149,8 +181,12 @@
             <p>Đang tải dữ liệu, vui lòng chờ...</p>
         </div>
         <div id="mainContent" style="display: none;">
-            <div style="overflow:scroll; width: 98vw">
-                <div id="divTitle" style="text-align: center">
+            <div style="overflow:scroll; width: 99%">
+                <div id="divDonvitinh">
+                    <s:if test="!txtGetData.equalsIgnoreCase('2')">
+                        <input type="button" value="Mở Chốt" name="cmdDuyet" id="cmdDuyet"/>
+                        &nbsp;</s:if><input type="button" value="Thoát" name="cmdLuu" id="cmdLuu"/></div>
+                    <div id="divTitle" style="text-align: center">
                     <s:if test="txtGetData.equalsIgnoreCase('1')">DANH SÁCH ĐÃ CHỐT</s:if>
                     <s:elseif test="txtGetData.equalsIgnoreCase('3')">DANH SÁCH ĐỀ NGHỊ HỖ TRỢ</s:elseif>
                     <s:else>DANH SÁCH CHƯA CHỐT</s:else>
@@ -174,7 +210,7 @@
                             <tr>
                                 <th rowspan="3">STT</th>
                                 <th rowspan="3" class="STT4">Tên khách hàng</th>
-                                <th rowspan="3" class="STT4">Mã món vay</th>
+                                <th rowspan="3" class="STT2">Mã món vay</th>
                                 <th rowspan="3" class="STT3">Chương trình</th>
                                 <th colspan="5">Số liệu tại NHCSXH</th> 
                                 <th colspan="4">Phân loại khả năng trả nợ</th> 
@@ -214,7 +250,7 @@
                             <th class="D99">(12)</th>
                             <th class="D99">(13)</th>
                                 <s:if test="!txtGetData.equalsIgnoreCase('2')">
-                                <th class="D99">(14)</th>
+                                <th><input type="checkbox" id ="select-all"/></th>
                                 </s:if>
                         </tr>
                     </thead>
@@ -223,7 +259,7 @@
                             <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
                             <td><s:property  value="D1" /></td>
                             <td><s:property  value="D2" /></td>
-                            <td class="number"><s:property  value="D3" /></td>
+                            <td><s:property  value="D3" /></td>
                             <td class="number"><s:property  value="D4" /></td>
                             <td class="number"><s:property  value="D5" /></td>
                             <td class="number"><s:property  value="D6" /></td>
@@ -234,69 +270,145 @@
                             <td><s:property  value="D11" /></td>
                             <td><s:property  value="D12" /></td>
                             <s:if test="!txtGetData.equalsIgnoreCase('2')">
-                                <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D15"/>', '<s:property value="D2"/>', '<s:property value="D13"/>', '<s:property value="D14"/>', '<s:property value="txtGetData"/>');">Mở khóa</a>
+                                <td class="D0">
+                                    <!--<a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D15"/>', '<s:property value="D2"/>', '<s:property value="D13"/>', '<s:property value="D14"/>', '<s:property value="txtGetData"/>');">Mở khóa</a>-->
+                                    <input type="checkbox" class="myCheckBox" data-index="<s:property value='%{#rowstatus.index}' />"
+                                           data-mapgd="<s:property value="D15"/>"
+                                           data-makh="<s:property value="D2"/>"
+                                           data-soku="<s:property value="D13"/>"
+                                           data-ngaybc="<s:property value="D14"/>"/>
+
                                 </td> </s:if>
                             </tr>
                     </s:iterator>
 
                 </table>
-                <div style="text-align: center">
-                    <br>
-                    <input type="button" value="Thoát" name="cmdLuu" id="cmdLuu"/></div>
+
             </div>
         </div>
     </body>
+    <div id="processing" 
+         style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+         background:rgba(0,0,0,0.3);z-index:9999;align-items:center;justify-content:center;
+         font-size:20px;color:white;font-weight:bold;">
+        Đang xử lý, vui lòng chờ...
+    </div>
     <script>
-        $("#cmdLuu").click(function () {
+        // Hàm gọi AJAX và trả về kết quả
+        function idUnlockCif(mapgd, makh, soku, ngaybc, lock, callback) {
+            $.ajax({
+                type: "GET",
+                url: "unlock_pLN.action?" +
+                        "mapgd=" + mapgd +
+                        "&makh=" + makh +
+                        "&soku=" + soku +
+                        "&ngaybc=" + ngaybc +
+                        "&lock=" + lock,
+                success: function (res) {
+                    var status = parseInt(res.status);
+                    callback(status === 1);
+                },
+                error: function () {
+                    callback(false);
+                }
+            });
+        }
 
+        // Nút Thoát
+        $("#cmdLuu").click(function () {
             window.opener.document.getElementById('loadDatatmp').click();
             window.close();
         });
 
-        function idUnlockCif(mapgd, makh, soku, ngaybc, lock) {
-            var table = document.getElementById("subTable");
-            // Chọn tất cả các liên kết chỉ trong bảng con
-            var rows = table.querySelectorAll("td a");
+        // Nút Mở Chốt
+        $("#cmdDuyet").click(function () {
+            var checked = $(".myCheckBox:checked");
+            if (checked.length === 0) {
+                alert("Bạn chưa chọn dòng nào!");
+                return;
+            }
 
-            // Khóa các liên kết trong bảng
-            rows.forEach(function (row) {
-                row.style.pointerEvents = "none"; // Vô hiệu hóa click
-                row.style.color = "gray";         // Thay đổi màu để trông như bị khóa
+            // Hiện loading
+            $("#loading").show();
+            $("#mainContent").hide();
+
+            let successCount = 0;
+            let failCount = 0;
+            let total = checked.length;
+            let done = 0;
+
+            checked.each(function () {
+                idUnlockCif(
+                        $(this).data("mapgd"),
+                        $(this).data("makh"),
+                        $(this).data("soku"),
+                        $(this).data("ngaybc"),
+                        "1",
+                        function (ok) {
+                            if (ok)
+                                successCount++;
+                            else
+                                failCount++;
+                            done++;
+
+                            if (done === total) {
+                                // Ẩn loading khi xong hết
+                                $("#loading").hide();
+                                $("#mainContent").show();
+
+                                alert("Hoàn tất!\nThành công: " + successCount +
+                                        "\nThất bại: " + failCount);
+                                location.reload();
+                            }
+                        }
+                );
             });
-            $.ajax({
-                type: "GET",
-                url: "unlock_pLN.action?" + "mapgd=" + mapgd + "&makh=" + makh + "&soku=" + soku + "&ngaybc=" + ngaybc + "&lock=" + lock,
-                success: function (res) {
-                    var status = parseInt(res.status);
-                    //alert(status);
-                    if (status === 1) {
-                        alert("Mở khóa dữ liệu thành công!");
-                        location.reload();
-                    } else {
-                        alert("Lỗi: Mở dữ liệu.");
-                        location.reload();
+        });
+        // Giới hạn chọn tối đa 100
+        $(function () {
+            $('#select-all').click(function () {
+                if (this.checked) {
+                    let count = 0;
+                    $('.myCheckBox').each(function () {
+                        if (count < 100) {
+                            this.checked = true;
+                            this.value = '1';
+                            count++;
+                        } else {
+                            this.checked = false;
+                            this.value = '0';
+                        }
+                    });
+                    if ($('.myCheckBox').length > 100) {
+                        alert("Bạn chỉ được chọn tối đa 100 mục!");
                     }
-                },
-                error: function (res) {
-                    alert("Mở phê duyệt lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                } else {
+                    $('.myCheckBox').prop('checked', false).val('0');
                 }
             });
-        }
-        window.onload = function () {
-            // Ẩn nội dung chính trước
-            document.getElementById("mainContent").style.display = "none";
 
-            // Đợi trình duyệt hoàn tất việc vẽ giao diện bằng requestAnimationFrame
+            // Nếu user tick thủ công
+            $('.myCheckBox').on('change', function () {
+                let selected = $('.myCheckBox:checked').length;
+                if (selected > 100) {
+                    this.checked = false;
+                    this.value = '0';
+                    alert("Chỉ được chọn tối đa 100 mục!");
+                }
+            });
+        });
+
+        // Loading -> hiển thị mainContent sau khi render xong
+        window.onload = function () {
+            document.getElementById("mainContent").style.display = "none";
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
-                    // Sau 2 lần requestAnimationFrame -> browser đã render xong layout
                     document.getElementById("loading").style.display = "none";
                     document.getElementById("mainContent").style.display = "block";
-                    changePage(current_page); // Phân trang sau khi đã hiển thị
+                    changePage(current_page);
                 });
             });
         };
-
-
     </script>
+
 </html>
