@@ -283,68 +283,51 @@
                     el.value = Math.max(value, 0).toFixed(2);
                 }
             };
-            // chỉ tiêu CDTT11
-//                setValue("D10_CDTT110201", ["D10_CDTT11020101", "D10_CDTT11020102", "D10_CDTT11020103", "D10_CDTT11020104", "D10_CDTT11020105", "D10_CDTT11020106"]);
-            var mapgd = document.getElementById("mapgd").value;
-            // chỉ tiêu CDTT11
-//                setValue("D12_CDTT110201", ["D12_CDTT11020101", "D12_CDTT11020102", "D12_CDTT11020103", "D12_CDTT11020104", "D12_CDTT11020105", "D12_CDTT11020106"]);
-//            console.log("D12_CDTT110201_" + mapgd);
-//            setDifference("D12_CDTT11020101_" + mapgd, ["D1_CDTT11020101"], ["D11_CDTT11020101_" + mapgd]);
-//            setDifference("D12_CDTT11020102_" + mapgd, ["D1_CDTT11020102"], ["D11_CDTT11020102_" + mapgd]);
-//            setDifference("D12_CDTT11020103_" + mapgd, ["D1_CDTT11020103"], ["D11_CDTT11020103_" + mapgd]);
-//            setDifference("D12_CDTT11020104_" + mapgd, ["D1_CDTT11020104"], ["D11_CDTT11020104_" + mapgd]);
-//            setDifference("D12_CDTT11020105_" + mapgd, ["D1_CDTT11020105"], ["D11_CDTT11020105_" + mapgd]);
-//            setDifference("D12_CDTT11020106_" + mapgd, ["D1_CDTT11020106"], ["D11_CDTT11020106_" + mapgd]);
-//            setDifference("D12_CDTT110201_" + mapgd, ["D1_CDTT110201"], ["D11_CDTT110201_" + mapgd]);
 
-            setDifference("D12_CDTT11020201_" + mapgd, ["D1_CDTT11020201"], ["D11_CDTT11020201_" + mapgd]);
+            // Lấy tất cả mapgd
+            document.querySelectorAll("input[id='mapgd']").forEach(function (mapgdInput) {
+                const mapgd = mapgdInput.value;
 
-            setDifference("D12_CDTT11020202_" + mapgd, ["D1_CDTT11020202"], ["D11_CDTT11020202_" + mapgd]);
+                // Chỉ tiêu CDTT11
+                setDifference("D12_CDTT11020201_" + mapgd, ["D1_CDTT11020201"], ["D11_CDTT11020201_" + mapgd]);
+                setDifference("D12_CDTT11020202_" + mapgd, ["D1_CDTT11020202"], ["D11_CDTT11020202_" + mapgd]);
+                setDifference("D12_CDTT110203_" + mapgd, ["D1_CDTT110203"], ["D11_CDTT110203_" + mapgd]);
+                setDifference("D12_CDTT110204_" + mapgd, ["D1_CDTT110204"], ["D11_CDTT110204_" + mapgd]);
 
-            
-            
-            setDifference("D12_CDTT110203_" + mapgd, ["D1_CDTT110203"], ["D11_CDTT110203_" + mapgd]);
-            setDifference("D12_CDTT110204_" + mapgd, ["D1_CDTT110204"], ["D11_CDTT110204_" + mapgd]);
+                setValue("D12_CDTT1102_" + mapgd, ["D12_CDTT110201_" + mapgd, "D12_CDTT110202_" + mapgd, "D12_CDTT110203_" + mapgd, "D12_CDTT110204_" + mapgd]);
+                setValue("D12_CDTT110202_" + mapgd, ["D12_CDTT11020201_" + mapgd, "D12_CDTT11020202_" + mapgd]);
+                setValue("D12_CDTT11_" + mapgd, ["D12_CDTT1101_" + mapgd, "D12_CDTT1102_" + mapgd]);
 
-            setValue("D12_CDTT1102_" + mapgd, ["D12_CDTT110201_" + mapgd, "D12_CDTT110202_" + mapgd, "D12_CDTT110203_" + mapgd, "D12_CDTT110204_" + mapgd]);
-            setValue("D12_CDTT110202_" + mapgd, ["D12_CDTT11020201_" + mapgd, "D12_CDTT11020202_" + mapgd]);
-            setValue("D12_CDTT11_" + mapgd, ["D12_CDTT1101_" + mapgd, "D12_CDTT1102_" + mapgd]);
-            
-            
-            // chỉ tiêu CDTT13     
-            setValue("D12_CDTT13_" + mapgd, ["D12_CDTT1301_" + mapgd, "D12_CDTT1302_" + mapgd, "D12_CDTT1303_" + mapgd, "D12_CDTT1304_" + mapgd]);
+                // Chỉ tiêu CDTT13
+                setValue("D12_CDTT13_" + mapgd, ["D12_CDTT1301_" + mapgd, "D12_CDTT1302_" + mapgd, "D12_CDTT1303_" + mapgd, "D12_CDTT1304_" + mapgd]);
 
-            // chỉ tiêu CDTT14
-            setDifference("D12_CDTT140102_" + mapgd, ["D1_CDTT140102"], ["D11_CDTT140102_" + mapgd]);
-            setDifference("D12_CDTT140201_" + mapgd, ["D1_CDTT140201"], ["D11_CDTT140201_" + mapgd]);
-            setDifference("D12_CDTT140202_" + mapgd, ["D1_CDTT140202"], ["D11_CDTT140202_" + mapgd]);
-            setDifference("D12_CDTT140301_" + mapgd, ["D1_CDTT140301"], ["D11_CDTT140301_" + mapgd]);
-            setDifference("D12_CDTT140302_" + mapgd, ["D1_CDTT140302"], ["D11_CDTT140302_" + mapgd]);
+                // Chỉ tiêu CDTT14
+                setDifference("D12_CDTT140102_" + mapgd, ["D1_CDTT140102"], ["D11_CDTT140102_" + mapgd]);
+                setDifference("D12_CDTT140201_" + mapgd, ["D1_CDTT140201"], ["D11_CDTT140201_" + mapgd]);
+                setDifference("D12_CDTT140202_" + mapgd, ["D1_CDTT140202"], ["D11_CDTT140202_" + mapgd]);
+                setDifference("D12_CDTT140301_" + mapgd, ["D1_CDTT140301"], ["D11_CDTT140301_" + mapgd]);
+                setDifference("D12_CDTT140302_" + mapgd, ["D1_CDTT140302"], ["D11_CDTT140302_" + mapgd]);
 
-            setValue("D12_CDTT1401_" + mapgd, ["D12_CDTT140101_" + mapgd, "D12_CDTT140102_" + mapgd]);
-            setValue("D12_CDTT1402_" + mapgd, ["D12_CDTT140201_" + mapgd, "D12_CDTT140202_" + mapgd]);
-            setValue("D12_CDTT1403_" + mapgd, ["D12_CDTT140301_" + mapgd, "D12_CDTT140302_" + mapgd]);
+                setValue("D12_CDTT1401_" + mapgd, ["D12_CDTT140101_" + mapgd, "D12_CDTT140102_" + mapgd]);
+                setValue("D12_CDTT1402_" + mapgd, ["D12_CDTT140201_" + mapgd, "D12_CDTT140202_" + mapgd]);
+                setValue("D12_CDTT1403_" + mapgd, ["D12_CDTT140301_" + mapgd, "D12_CDTT140302_" + mapgd]);
+                setValue("D12_CDTT14_" + mapgd, ["D12_CDTT1401_" + mapgd, "D12_CDTT1402_" + mapgd, "D12_CDTT1403_" + mapgd]);
 
-            setValue("D12_CDTT14_" + mapgd, ["D12_CDTT1401_" + mapgd, "D12_CDTT1402_" + mapgd, "D12_CDTT1403_" + mapgd]);
-
-
-            // D5
-            
-            setValue("D11_CDTT1102_" + mapgd, ["D11_CDTT110201_" + mapgd, "D11_CDTT110202_" + mapgd, "D11_CDTT110203_" + mapgd, "D11_CDTT110204_" + mapgd]);
-            setValue("D11_CDTT110201_" + mapgd, ["D11_CDTT11020101_" + mapgd, "D11_CDTT11020102_" + mapgd, "D11_CDTT11020103_" + mapgd, "D11_CDTT11020104_" + mapgd, "D11_CDTT11020105_" + mapgd, "D11_CDTT11020106_" + mapgd]);
-           
-            setValue("D11_CDTT110203_" + mapgd, ["D11_CDTT11020301_" + mapgd, "D11_CDTT11020302_" + mapgd, "D11_CDTT11020303_" + mapgd, "D11_CDTT11020304_" + mapgd]);
-            setValue("D11_CDTT110204_" + mapgd, ["D11_CDTT11020401_" + mapgd, "D11_CDTT11020402_" + mapgd]);
-            
-            setValue("D11_CDTT11_" + mapgd, ["D11_CDTT1101_" + mapgd, "D11_CDTT1102_" + mapgd]);
-             setValue("D11_CDTT110202_" + mapgd, ["D11_CDTT11020201_" + mapgd, "D11_CDTT11020202_" + mapgd]);
-             
-            setValue("D11_CDTT13_" + mapgd, ["D11_CDTT1301_" + mapgd, "D11_CDTT1302_" + mapgd, "D11_CDTT1303_" + mapgd, "D11_CDTT1304_" + mapgd]);
-            setValue("D11_CDTT14_" + mapgd, ["D11_CDTT1401_" + mapgd, "D11_CDTT1402_" + mapgd, "D11_CDTT1403_" + mapgd]);
-            setValue("D11_CDTT1401_" + mapgd, ["D11_CDTT140101_" + mapgd, "D11_CDTT140102_" + mapgd]);
-            setValue("D11_CDTT1402_" + mapgd, ["D11_CDTT140201_" + mapgd, "D11_CDTT140202_" + mapgd]);
-            setValue("D11_CDTT1403_" + mapgd, ["D11_CDTT140301_" + mapgd, "D11_CDTT140302_" + mapgd]);
+                // D5
+                setValue("D11_CDTT1102_" + mapgd, ["D11_CDTT110201_" + mapgd, "D11_CDTT110202_" + mapgd, "D11_CDTT110203_" + mapgd, "D11_CDTT110204_" + mapgd]);
+                setValue("D11_CDTT110201_" + mapgd, ["D11_CDTT11020101_" + mapgd, "D11_CDTT11020102_" + mapgd, "D11_CDTT11020103_" + mapgd, "D11_CDTT11020104_" + mapgd, "D11_CDTT11020105_" + mapgd, "D11_CDTT11020106_" + mapgd]);
+                setValue("D11_CDTT110203_" + mapgd, ["D11_CDTT11020301_" + mapgd, "D11_CDTT11020302_" + mapgd, "D11_CDTT11020303_" + mapgd, "D11_CDTT11020304_" + mapgd]);
+                setValue("D11_CDTT110204_" + mapgd, ["D11_CDTT11020401_" + mapgd, "D11_CDTT11020402_" + mapgd]);
+                setValue("D11_CDTT11_" + mapgd, ["D11_CDTT1101_" + mapgd, "D11_CDTT1102_" + mapgd]);
+                setValue("D11_CDTT110202_" + mapgd, ["D11_CDTT11020201_" + mapgd, "D11_CDTT11020202_" + mapgd]);
+                setValue("D11_CDTT13_" + mapgd, ["D11_CDTT1301_" + mapgd, "D11_CDTT1302_" + mapgd, "D11_CDTT1303_" + mapgd, "D11_CDTT1304_" + mapgd]);
+                setValue("D11_CDTT14_" + mapgd, ["D11_CDTT1401_" + mapgd, "D11_CDTT1402_" + mapgd, "D11_CDTT1403_" + mapgd]);
+                setValue("D11_CDTT1401_" + mapgd, ["D11_CDTT140101_" + mapgd, "D11_CDTT140102_" + mapgd]);
+                setValue("D11_CDTT1402_" + mapgd, ["D11_CDTT140201_" + mapgd, "D11_CDTT140202_" + mapgd]);
+                setValue("D11_CDTT1403_" + mapgd, ["D11_CDTT140301_" + mapgd, "D11_CDTT140302_" + mapgd]);
+            });
         }
+
         calc();
 
     </script>
