@@ -1557,7 +1557,6 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
     public String openExcelUploadQtKh() {
         try (Connection conn = new DaoConnect().getConnect()) {
-            init(conn);
             DuLieuNTService _serverAPI = new DuLieuNTService();
             lstDmKhac = _serverAPI.getListOfValue("92", "");
             return SUCCESS;
@@ -1826,17 +1825,13 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
     }
 
-    public static void init(Connection conn) throws SQLException {
-        if (structDesc == null || arrayDesc == null) {
-            synchronized (ActionChtrinhcnMain.class) {
-                if (structDesc == null) {
-                    structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
-                }
-                if (arrayDesc == null) {
-                    arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
-                }
-                System.out.println("Oracle type descriptors initialized!");
-            }
+    static {
+        try (Connection conn = new DaoConnect().getConnect()) {
+            structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
+            arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
+            System.out.println("Oracle type descriptors preloaded at class load!");
+        } catch (SQLException e) {
+            throw new ExceptionInInitializerError("Failed to init Oracle type descriptors: " + e.getMessage());
         }
     }
 
