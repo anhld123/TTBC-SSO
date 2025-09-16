@@ -97,7 +97,7 @@
                         var row = table.rows[i];
 
                         // Apply styles only to the first row (index 0)
-                        if (i === 2) {
+                        if (i === 3) {
                             var cells = row.cells;
                             for (var j = 0; j < cells.length; j++) {
                                 var cell = cells[j];
@@ -384,26 +384,31 @@
             </div>
             <table border="1" class="editDelete" id="subTable" align="center">               
                 <tr> 
-                    <th class="STT1">STT</th>                           
-                    <th class="STT3">Đơn vị</th>  
-                    <th class="STT2">Tổng dư nợ</th>
-                    <th>Tỷ lệ hoàn thành tăng trưởng dư nợ TW+ĐP</th>
-                    <th>Tỷ lệ hoàn thành kế hoạch nguồn vốn nhận ủy thác địa phương</th>
-                    <th>Tỷ lệ HTKH NV huy động tiền gửi của Tổ chức, cá nhân và huy động tiết kiệm thông qua tổ TK&VV</th>
-                    <th>Tỷ lệ NQH</th>
-                    <th>Tỷ lệ thu nợ đến hạn</th>
-                    <th>Tỷ lệ thu lãi</th>
-                    <th>Chất lượng hoạt động GDX</th>
-                    <th>Chất lượng hoạt động Tổ TKVV</th>
-                    <th>Kết quả đánh giá mức độ hoàn thành nhiệm vụ theo CV 9759</th>
-                    <th>Số chỉ tiêu đạt được</th>
-                    <th style="width: 100px">Dự kiến Khen thưởng</th>
-                    <th>Số tiền KT Quý 1</th>
-                    <th>Số tiền KT 6 tháng đầu năm</th>
-                    <th>Công tác truyền thông</th>
-                    <th>Số tiền KT 9 tháng</th>
-                    <th>Số tiền KT những ngày đầu năm</th>
-                </tr>         
+                    <th rowspan="2" class="STT1">STT</th>                           
+                    <th rowspan="2"class="STT3">Đơn vị</th>  
+                    <th rowspan="2"class="STT2">Tổng dư nợ</th>
+                    <th rowspan="2">Tỷ lệ hoàn thành tăng trưởng dư nợ TW+ĐP</th>
+                    <th colspan="3">Kết quả huy động nguồn vốn nhận UTĐP</th>
+                    <th rowspan="2">Tỷ lệ HTKH NV huy động tiền gửi của Tổ chức, cá nhân và huy động tiết kiệm thông qua tổ TK&VV</th>
+                    <th rowspan="2">Tỷ lệ NQH</th>
+                    <th rowspan="2">Tỷ lệ thu nợ đến hạn</th>
+                    <th rowspan="2">Tỷ lệ thu lãi</th>
+                    <th rowspan="2">Chất lượng hoạt động GDX</th>
+                    <th rowspan="2">Chất lượng hoạt động Tổ TKVV</th>
+                    <th rowspan="2">Kết quả đánh giá mức độ hoàn thành nhiệm vụ theo CV 9759</th>
+                    <th rowspan="2">Số chỉ tiêu đạt được</th>
+                    <th rowspan="2" style="width: 100px">Dự kiến Khen thưởng</th>
+                    <th rowspan="2">Số tiền KT Quý 1</th>
+                    <th rowspan="2">Số tiền KT 6 tháng đầu năm</th>
+                    <th rowspan="2">Công tác truyền thông</th>
+                    <th rowspan="2">Số tiền KT 9 tháng</th>
+                    <th rowspan="2">Số tiền KT những ngày đầu năm</th>
+                </tr>   
+                <tr>
+                    <th>Tỷ lệ HTKH so với KH giao</th>
+                    <th>Số tăng trưởng tuyệt đối so với 31/12 của năm trước</th>
+                    <th>Kế hoạch</th>
+                </tr>
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
@@ -424,6 +429,8 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(17)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(18)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(19)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(20)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(21)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr id="tablefix"> 
@@ -484,10 +491,20 @@
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D37.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" class="number2"/></td>
+                        <!--bo sung 2025-->
+                        <td><input type="text" value="<s:property  value="D19" />" 
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
+                                   
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D19" class="number2"/></td> 
+                        <td><input type="text" value="<s:property  value="D20" />" 
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
+                                  
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D20" class="number2"/></td> 
                         <td><input type="text" value="<s:property  value="D4" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D38.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4" class="number2"/></td>
+                        
                         <td><input type="text" value="<s:property  value="D5" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP23') || check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D39.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
