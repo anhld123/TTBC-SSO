@@ -190,7 +190,7 @@
                     }
                 }
             }
-         
+
         </script>        
     </head>
     <body>
@@ -282,7 +282,8 @@
                         <td class="number style_h"><s:property value="plnDnoqhan"/> </td>
                         <td class="number style_h" id="Dnokhoanh_<s:property value='%{#rowstatus.index}' />">
                             <s:property value="plnDnokhoanh"/> </td>
-                        <td class="number style_h"><s:property value="plnTonglaiton"/> </td>
+                        <td class="number style_h" id="plnTonglaiton_<s:property value='%{#rowstatus.index}' />">
+                            <s:property value="plnTonglaiton"/> </td>
                         <!--chi tieu nhap tay tu day--> 
                         <td>
                             <input type="text" 
@@ -304,23 +305,23 @@
                         </td>
                         <td class="D0">    
                             <select id='D3_<s:property value="%{#rowstatus.index}" />' style="width: 150px;"
-                                        name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'
-                                        onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
-                                    <option value="0" style="text-align: center">----Chọn----</option>
-                                    <s:iterator value="lstDmKhac57" status="ideRows" var="language">
-                                        <s:if test="%{#language.code == '01'}">
-                                            <option value="<s:property value="code" />" disabled style="font-weight:bold; color:#333;">
-                                                <s:property value="code" /> - <s:property value="value" />
-                                            </option>
-                                        </s:if>
-                                        <s:else>
-                                            <option value="<s:property value="code" />"
-                                                    <s:if test="%{#language.code == D10}">selected</s:if>>
-                                                <s:property value="code" /> - <s:property value="value" />
-                                            </option>
-                                        </s:else>
-                                    </s:iterator>   
-                                </select>
+                                    name='lstDulieuNtPLN_T[<s:property value="%{#rowstatus.index}" />].D10'
+                                    onchange="ngnhanKntn('D3', <s:property value='%{#rowstatus.index}' />)">
+                                <option value="0" style="text-align: center">----Chọn----</option>
+                                <s:iterator value="lstDmKhac57" status="ideRows" var="language">
+                                    <s:if test="%{#language.code == '01'}">
+                                        <option value="<s:property value="code" />" disabled style="font-weight:bold; color:#333;">
+                                            <s:property value="code" /> - <s:property value="value" />
+                                        </option>
+                                    </s:if>
+                                    <s:else>
+                                        <option value="<s:property value="code" />"
+                                                <s:if test="%{#language.code == D10}">selected</s:if>>
+                                            <s:property value="code" /> - <s:property value="value" />
+                                        </option>
+                                    </s:else>
+                                </s:iterator>   
+                            </select>
                         </td>  
                         <td>
                             <textarea style="width: 300px" placeholder="Nhập tối đa 500 ký tự" id="D5_<s:property  value='%{#rowstatus.index}' />" 
@@ -364,20 +365,25 @@
                 const d1 = document.getElementById('D1_' + index);
                 const d2 = document.getElementById('D2_' + index);
                 const d3 = document.getElementById('D3_' + index);
+                const d5 = document.getElementById('D5_' + index);
                 const tongdunoText = document.getElementById('TongDno_' + index).innerText;
                 const sDnokhoanh = document.getElementById('Dnokhoanh_' + index).innerText;
+                const tongLaitonText = document.getElementById('plnTonglaiton_' + index).innerText;
                 // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
                 const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
                 const Dnokhoanh = parseFloat(sDnokhoanh.replace(/,/g, '').replace(/\./g, '')) || 0;
-
+                const tonglaiton = parseFloat(tongLaitonText.replace(/,/g, '').replace(/\./g, '')) || 0;
                 // Định dạng số có dấu phẩy
                 const formatted = tongduno.toLocaleString('en-US');
-
+                const slaiton = tonglaiton.toLocaleString('en-US');
+                const valueToUse = (formatted === "0") ? slaiton : formatted;
                 if (field === 'D1') {
-                    d1.value = formatted;
+                    d1.value = valueToUse;
                     d2.value = '0';
+                    d5.value = '';
+                    d5.disabled = true;
                 } else if (field === 'D2') {
-                    d2.value = formatted;
+                    d2.value = valueToUse;
                     d1.value = '0';
                 }
 

@@ -135,6 +135,8 @@
                                     <input type="hidden" value="<s:property  value="plnTonglaiton" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTonglaiton"/>
                                     <input type="hidden" value="<s:property  value="plnMacn" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMacn"/> 
                                     <input type="hidden" value="<s:property  value="plnNguyennhanC2" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].PlnNguyennhanC2"/> 
+                                    <input type="hidden" value="<s:property value='%{plnCKntnSodu}'/>" id="D6_<s:property value='%{#rowstatus.index}'/>"/> 
+                                    <input type="hidden" value="<s:property value='%{plnKKntnSodu}'/>" id="D7_<s:property value='%{#rowstatus.index}'/>"/> 
 
                                 </td>
 
@@ -251,8 +253,12 @@
                         var d1 = document.getElementById("D1_" + i).value;
                         var d2 = document.getElementById("D2_" + i).value;
                         var d3 = document.getElementById("sNgnhan_Clech_" + i).value;
-                        var d4 = document.getElementById("sQuanhe_Kh_" + i).value;
+//                        var d4 = document.getElementById("sQuanhe_Kh_" + i).value;
                         var d5 = document.getElementById("trangthai_" + i).value;
+                        var d6 = document.getElementById("D6_0").value;
+                        var d7 = document.getElementById("D7_0").value;
+                        console.log(d6 + " " + d7);
+
                         if (parseFloat(d1) + parseFloat(d2) > 0 && d3.length < 1) {
                             alert('Bạn phải nhập nguyên nhân chênh lệch khi đối chiếu!');
                             document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
@@ -261,6 +267,11 @@
                         if ((parseFloat(d1) + parseFloat(d2) <= 0 && d3.length > 0) && d5 !== 'R') {
                             alert('Nguyên nhân chênh lệch không hợp lệ do Không có chênh lệch nợ gốc hoặc nợ lãi. Vui lòng kiểm tra lại!');
                             document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
+                            return;
+                        }
+                        if (d6 === "0" && d7 === "0")
+                        {
+                            alert('Món vay chưa được đối chiếu, không thể lưu!');
                             return;
                         }
                     } catch (e) {

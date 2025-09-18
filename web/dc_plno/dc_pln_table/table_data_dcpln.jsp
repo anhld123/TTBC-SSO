@@ -127,20 +127,35 @@
                     var D7 = document.getElementById('D7_' + i);
                     var checkbox = document.getElementById('checkrow_' + i);
                     var DnokhoanhEl = document.getElementById('Dnokhoanh_' + i);
+                    var TongDno = document.getElementById('plnTongDno_' + i);
+                    var TongLai = document.getElementById('plnTonglaiton_' + i);
                     var dnokhoanhVal = "";
                     if (DnokhoanhEl) {
                         // Nếu là <td>, lấy text
                         dnokhoanhVal = DnokhoanhEl.textContent ? DnokhoanhEl.textContent.trim() : "";
                     }
+                    var tongdno = TongDno ? TongDno.textContent.trim() : "";
+                    var tonglai = TongLai ? TongLai.textContent.trim() : "";
+//                    console.log(tongdno + "  " + tonglai);
+                    var tongdnoNum = parseFloat(tongdno.replace(/,/g, "")) || 0;
+                    var tonglaiNum = parseFloat(tonglai.replace(/,/g, "")) || 0;
+                    var valueToUse = (tongdnoNum === 0) ? tonglaiNum.toLocaleString('en-US')
+                            : tongdnoNum.toLocaleString('en-US');
 
-// Khóa D3 khi dnokhoanh khác "0"
-                    if (dnokhoanhVal !== "0" && D3) {
-                        D3.disabled = true;
-                        continue; // tránh bị xử lý tiếp theo override
+//                    console.log(valueToUse);
+                    // 1. Gán D1 nếu cả D1 và D2 đều = 0
+                    if (D1 && D2 && D1.value === "0" && D2.value === "0") {
+                        D1.value = valueToUse;
                     }
 
-                    // 1. Khóa checkbox, D3, D5 nếu D6 hoặc D7 thỏa điều kiện
-                    if (D6 && D3 && (D6.value === "1")) {
+                    // 2. Khóa D3 nếu DnokhoanhVal !== 0
+                    if (dnokhoanhVal !== "0" && D3) {
+                        D3.disabled = true;
+                        continue;
+                    }
+
+                    // 3. Khóa checkbox, D1, D2, D3, D5 nếu D6 === "1"
+                    if (D6 && D6.value === "1") {
                         if (checkbox) {
                             checkbox.disabled = true;
                             checkbox.checked = true;
@@ -155,42 +170,39 @@
                             D3.disabled = true;
                         if (D5)
                             D5.disabled = true;
-
-                        // Bỏ qua xử lý tiếp theo để tránh bị mở khóa ở dưới
                         continue;
                     }
-                    if (D7 && D7.value !== "2") {
-                        // 4. Điều khiển D3 dựa vào D1 & D2
+
+                    // 4. Hàm cập nhật D3 dựa trên D1 & D2
+                    function updateD3() {
                         if (D1 && D2 && D3) {
                             var val1 = D1.value.trim();
                             var val2 = D2.value.trim();
                             D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
-                        }
-
-                        // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
-                        if (D3 && D5) {
-                            if (D2 && D2.value === "")
-                                D2.value = "0";
-                            D5.disabled = !(D3.value === "06" || D3.value === "07" || D3.value === "08");
                         }
                     }
-                    if (D7 && D7.value === "2") {
-                        // 4. Điều khiển D3 dựa vào D1 & D2
-                        if (D1 && D2 && D3) {
-                            var val1 = D1.value.trim();
-                            var val2 = D2.value.trim();
-                            D3.disabled = (val1 === "0" && val2 === "0") || (val1 !== "0");
-                        }
 
-                        // 5. Khóa D5 nếu D3 không thuộc 06, 07, 08
+                    // 5. Hàm cập nhật D5 dựa vào D3 và danh sách giá trị cho phép
+                    function updateD5(allowedValues) {
                         if (D3 && D5) {
                             if (D2 && D2.value === "")
                                 D2.value = "0";
-                            D5.disabled = !(D3.value === "02" || D3.value === "04");
+                            D5.disabled = !allowedValues.includes(D3.value);
+                        }
+                    }
+
+                    // 6. Áp dụng logic D3 & D5 dựa vào D7
+                    if (D7) {
+                        updateD3();
+                        if (D7.value === "2") {
+                            updateD5(["02", "04"]);
+                        } else {
+                            updateD5(["06", "07", "08"]);
                         }
                     }
                 }
             }
+
             var current_page = 1; // trang bắt đầu 
             var records_per_page = 15; // số dòng
             var l = document.getElementById("subTable").rows.length;
@@ -394,7 +406,8 @@
                         <td class="number style_h"><s:property value="plnDnoqhan"/> </td>
                         <td class="number style_h" id="Dnokhoanh_<s:property value='%{#rowstatus.index}' />">
                             <s:property value="plnDnokhoanh"/> </td>
-                        <td class="number style_h"><s:property value="plnTonglaiton"/> </td>
+                        <td class="number style_h" id="plnTonglaiton_<s:property value='%{#rowstatus.index}' />">
+                            <s:property value="plnTonglaiton"/> </td>
                         <!--chi tieu nhap tay tu day--> 
                         <td>
                             <input type="text" 
@@ -508,24 +521,30 @@
                 const d5 = document.getElementById('D5_' + index);
                 const tongdunoText = document.getElementById('TongDno_' + index).innerText;
                 const sDnokhoanh = document.getElementById('Dnokhoanh_' + index).innerText;
+                const tongLaitonText = document.getElementById('plnTonglaiton_' + index).innerText;
 
                 // Loại bỏ dấu phẩy hoặc chấm, chuyển sang số
                 const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
                 const Dnokhoanh = parseFloat(sDnokhoanh.replace(/,/g, '').replace(/\./g, '')) || 0;
+                const tonglaiton = parseFloat(tongLaitonText.replace(/,/g, '').replace(/\./g, '')) || 0;
 //                console.log("Dnokhoanh1 = " + Dnokhoanh);
                 // Định dạng số có dấu phẩy
                 const formatted = tongduno.toLocaleString('en-US');
+                const slaiton = tonglaiton.toLocaleString('en-US');
+
+                const valueToUse = (formatted === "0") ? slaiton : formatted;
 
                 if (field === 'D1') {
-                    d1.value = formatted;
+                    d1.value = valueToUse;
                     d2.value = '0';
                     d3.value = '0';
                     d5.value = '';
                     d5.disabled = true;
                 } else if (field === 'D2') {
-                    d2.value = formatted;
+                    d2.value = valueToUse;
                     d1.value = '0';
                 }
+
 
                 // Kiểm tra điều kiện để enable/disable D3
                 const d1Val = parseFloat(d1.value.replace(/,/g, '')) || 0;
