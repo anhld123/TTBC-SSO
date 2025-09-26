@@ -114,87 +114,103 @@
             });
             });
         </script>
-        <SCRIPT language="javascript">
-
-<!--
+        <script language="javascript">
             function sendAndClose(selObj, restore) {
                 if (selObj.selectedIndex != 0) {
                     self.opener.document.forms['test'].TextOutput.value = selObj.options[selObj.selectedIndex].text;
                     window.close();
                 }
             }
-//-->
 
             $(document).ready(function () {
-
-
                 $("#idRejecttmp62").click(function () {
                     $('#divBrowseRisk').empty();
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
                     var capPheDuyet = $("#capPheDuyet").val();
                     var sNN_BanKs;
-                    if(capPheDuyet == 3)
-                    {
-                        sNN_BanKs =$("#sNN_BanKs").val();
-                        if (sNN_BanKs == -1)
-                        {
+                    if (capPheDuyet === 3) {
+                        sNN_BanKs = $("#sNN_BanKs").val();
+                        if (sNN_BanKs === -1) {
                             alert('Bạn phải chọn nguyên nhân từ chối trước khi nhấn đồng ý');
                             $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
                             $('#sNN_BanKs').focus();
-                            //document.getElementById("myAnchor").focus();
                             return;
                         }
                     }
                     nguyennhan_tuchoi = nguyennhan_tuchoi.replace(/^\s*|\s*$/g, "");
-//                nguyennhan_tuchoi = trim(nguyennhan_tuchoi);
-                    if (nguyennhan_tuchoi == null || nguyennhan_tuchoi.length < 2)
-                    {
+                    if (nguyennhan_tuchoi === null || nguyennhan_tuchoi.length < 2) {
                         alert('Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý');
                         $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
                         $('#idnguyennhan_tuchoi').focus();
-                        //document.getElementById("myAnchor").focus();
                         return;
                     }
 
                     var soku = $("#soku_reject").val();
-//                    alert('vao ham goi submit ' + soku);
                     var nam_xlrr = $("#nam_xlrr").val();
                     var dot_xlrr = $("#dot_xlrr").val();
                     var vb_xlrr = $("#vb_xlrr").val();
                     nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
-//                    alert(vb_xlrr);
-//                    var trangthai_xlrr = $("#trangthai_xlrr").val();
-//                    var chuongtrinh = $("#chuongtrinh").val();
-//                    var nguon_von = $("#nguon_von").val();
-//                    var poscd = $('#poscd').val();
-                    var url = "setRejectRiskSearch62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
+
+                    var url = "setRejectRiskSearch62.action?soku_reject=" + soku
+                            + "&nam_xlrr=" + nam_xlrr
+                            + "&dot_xlrr=" + dot_xlrr
+                            + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
-                    var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nguyennhan_tuchoi=" + sNN_BanKs+nguyennhan_tuchoi
+
+                    var data1 = "soku_reject=" + soku
+                            + "&nam_xlrr=" + nam_xlrr
+                            + "&dot_xlrr=" + dot_xlrr
+                            + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
+
                     $.ajax({
                         type: 'POST',
                         url: url,
                         data: data1,
                         dataType: 'json',
                         contentType: 'application/json',
-                        type: 'POST',
                         async: true,
                         success: function (data) {
                             try {
-                                alert("Bạn đã từ chối thành công khoảng vay " + soku)
-                                self.opener.document.forms['loadFormRisk62'].loadsubmitform62.click();
+                                alert("Bạn đã từ chối thành công khoản vay " + soku);
+
+                                // Nếu opener còn tồn tại
+                                if (self.opener && !self.opener.closed) {
+                                    // 1) Đặt flag vào localStorage của opener (dùng cho trường hợp opener sẽ reload toàn bộ)
+                                    try {
+                                        self.opener.localStorage.setItem('set_page_size_after_reload', '100');
+                                    } catch (e) {
+                                        // ignore nếu cross-origin hoặc lỗi khác
+                                    }
+
+                                    // 2) Nếu opener có hàm afterReload (trường hợp AJAX update), gọi luôn
+                                    try {
+                                        if (typeof self.opener.afterReload === "function") {
+                                            self.opener.afterReload();
+                                        }
+                                    } catch (e) {
+                                        // ignore
+                                    }
+
+                                    // 3) Gọi submit/reload form ở cửa sổ cha (giữ nguyên logic của bạn)
+                                    try {
+                                        self.opener.document.forms['loadFormRisk62'].loadsubmitform62.click();
+                                    } catch (e) {
+                                        // ignore
+                                    }
+                                }
+
+                                // đóng popup
                                 window.close();
 
-                            } catch (e)
-                            {
+                            } catch (e) {
                                 alert(e.toString());
                             }
-
-                        },
-                        error: function (data)
-                        {
-                            alert('Lỗi chưa từ chối được khoản vay xin liên hệ với quản trị ');
-                            $('#divBrowseRisk').html("<h2 style='color: red'>Lỗi chưa từ chối được khoản vay xin liên hệ với quản trị ! </h2>");
+                        }
+                        ,
+                        error: function (data) {
+                            alert('Lỗi chưa từ chối được khoản vay, xin liên hệ với quản trị.');
+                            $('#divBrowseRisk').html("<h2 style='color: red'>Lỗi chưa từ chối được khoản vay, xin liên hệ với quản trị !</h2>");
                         }
                     });
                     return false;
@@ -205,8 +221,8 @@
                 window.close();
                 return true;
             }
-
         </script>
+
     </head>
     <body>
         <div id="container" style="width: 100%;">
@@ -273,7 +289,7 @@
                                 <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
                                 <td><s:property value='sMotann'/></td>
                             </tr>
-                               
+
                         </table>
 
                         <div id="divBrowseRisk"></div>
@@ -296,7 +312,7 @@
                                 </td>
                             </tr>
 
-                           <tr align="center">
+                            <tr align="center">
                                 <td  colspan="2" align="center">
                                     <s:if test="capPheDuyet==3">
                                         <s:select  
@@ -314,15 +330,15 @@
                             </tr>
                             <tr align="center">
                                 <td  colspan="2" align="center">
-                                    
-                                        <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5" >
-                                            <s:param name="value" >
-                                                <%--<s:property value='sNguyennhan_tuchoi' />--%>
-                                                ${sNguyennhan_tuchoi}
-                                            </s:param>
-                                        </s:textarea>
-                                    
-                                    
+
+                                    <s:textarea id="idnguyennhan_tuchoi" name="nguyennhan_tuchoi"   cols="60" rows="5" >
+                                        <s:param name="value" >
+                                            <%--<s:property value='sNguyennhan_tuchoi' />--%>
+                                            ${sNguyennhan_tuchoi}
+                                        </s:param>
+                                    </s:textarea>
+
+
                                 </td>
                             </tr>
                             <tr align="center">
@@ -349,7 +365,7 @@
 
             </s:form>
         </div>
-        
+
     </body>
 </html>
 

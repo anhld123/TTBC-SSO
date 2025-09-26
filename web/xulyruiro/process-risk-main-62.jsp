@@ -75,39 +75,52 @@
 //            });
 
 
-            function onclickBrowseRisk()
-            {
-
+            function onclickBrowseRisk() {
                 $("#divBrowseRisk").empty();
 
-                if ($("#frmDataRisk62 input:checkbox:checked").length > 0)
-                {
-                    if (validateRequiredFields())
-                    {
-//                        alert($("#frmDataRisk62 input:checkbox:checked").length);
+                if ($("#frmDataRisk62 input:checkbox:checked").length > 0) {
+                    if (validateRequiredFields()) {
+                        // đặt flag trước khi reload
+                        localStorage.setItem('set_page_size_after_reload', '100');
+
+                        // submit form
                         $("#BrowseSubmit62")[0].click();
+
+                        // ép chạy afterReload sau một khoảng delay (đảm bảo dữ liệu đã load)
+                        setTimeout(function () {
+                            if (typeof afterReload === "function") {
+                                afterReload();
+                            }
+                        }, 800); // có thể tăng lên 1000ms nếu dữ liệu load chậm
                     }
-                } else
-                {
-                    // none is checked
+                } else {
                     alert("Bạn phải chọn khách hàng cần phê duyệt!");
                 }
             }
-            function onchangedisableBrowseRisk()
-            {
-                //Lay ra trang thai khi 1, cho phe duyet, 2 da phe duyet, 3 chua phe duyet
 
+
+            function onchangedisableBrowseRisk() {
+                // Lấy ra trạng thái khi 1, cho phê duyệt, 2 đã phê duyệt, 3 chưa phê duyệt
                 var statusrisk = document.loadFormRisk.status_risk.value;
-                //Neu trang thai la 1 (cho phe duyet) thi enable button phe duyet
-                if (statusrisk == '1')
-                {
-                    $("#idButton").removeAttr("disabled");
 
-                } else
+                // Nếu trạng thái là 1 (chờ phê duyệt) thì enable button phê duyệt
+                if (statusrisk == '1') {
+                    $("#idButton").removeAttr("disabled");
+                } else {
                     $("#idButton").attr("disabled", "disabled");
-                //goi button tai du lieu de dua du lieu len table
+                }
+
+                // Gọi button tải dữ liệu để đưa dữ liệu lên table
                 $("#loadsubmitform").trigger('click');
+
+                // Sau khi reload, ép set page_size = 100
+                setTimeout(function () {
+                    if (typeof afterReload === "function") {
+                        afterReload();
+                    }
+                }, 800); // chờ ~0.8s để form load xong
             }
+
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
 

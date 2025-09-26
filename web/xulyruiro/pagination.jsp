@@ -55,9 +55,9 @@
                    type="label"  onblur="fnPagination(7,<%=pagination.getTotal_pages()%>);hoanthanh()"/></td>
 
         <!--onclick="fnPagination(7,<%=pagination.getTotal_pages()%>);hoanthanh();"-->
-<!--        targets="divExportReport"
-                                   onBeforeTopics="beforediv1"
-                                   onCompleteTopics="completediv1"-->
+        <!--        targets="divExportReport"
+                                           onBeforeTopics="beforediv1"
+                                           onCompleteTopics="completediv1"-->
         <td class="pagination-label" nowrap="nowrap">Của <%=pagination.getTotal_pages()%> trang</td>
 
         <td>
@@ -87,3 +87,91 @@
 <td class="pagination-label" width="100%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 </tr>
 </table>
+<script type="text/javascript">
+    (function () {
+        function applyPageSizeIfRequested() {
+            try {
+                var requested = null;
+                try {
+                    requested = localStorage.getItem('set_page_size_after_reload');
+                } catch (e) {
+                    requested = null;
+                }
+                if (!requested)
+                    return false;
+
+                var select = document.getElementById('page_size');
+                if (!select)
+                    return false;
+
+                // Set giá trị
+                select.value = requested;
+
+                // Gọi hàm phân trang / hàm hoàn thành nếu tồn tại
+                if (typeof fnPagination === 'function') {
+                    try {
+                        fnPagination(5, 0);
+                    } catch (e) {
+                    }
+                }
+                if (typeof hoanthanh === 'function') {
+                    try {
+                        hoanthanh();
+                    } catch (e) {
+                    }
+                }
+
+                // Xoá flag để không chạy lại
+                try {
+                    localStorage.removeItem('set_page_size_after_reload');
+                } catch (e) {
+                }
+
+                return true;
+            } catch (e) {
+                console && console.error && console.error(e);
+                return false;
+            }
+        }
+
+        function observeForPageSize() {
+            // nếu phần tử #page_size chưa có, quan sát DOM để phát hiện khi nó xuất hiện
+            var observer = new MutationObserver(function (mutations, obs) {
+                if (applyPageSizeIfRequested()) {
+                    obs.disconnect();
+                }
+            });
+            // observe toàn bộ document để bắt bất kỳ thay đổi nào (append element từ AJAX)
+            observer.observe(document.documentElement || document.body, {childList: true, subtree: true});
+
+            // backup: polling nhỏ trong 3s để đảm bảo không bỏ sót
+            var attempts = 0, maxAttempts = 10;
+            var poll = setInterval(function () {
+                attempts++;
+                if (applyPageSizeIfRequested() || attempts >= maxAttempts) {
+                    clearInterval(poll);
+                    try {
+                        observer.disconnect();
+                    } catch (e) {
+                    }
+                }
+            }, 300);
+        }
+
+        // Khi DOM sẵn sàng, thử apply ngay, nếu chưa thì quan sát/polling
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            if (!applyPageSizeIfRequested())
+                observeForPageSize();
+        } else {
+            document.addEventListener('DOMContentLoaded', function () {
+                if (!applyPageSizeIfRequested())
+                    observeForPageSize();
+            }, false);
+        }
+
+        // Ngoài ra expose một hàm để popup có thể gọi trực tiếp (AJAX case)
+        window.afterReload = function () {
+            applyPageSizeIfRequested();
+        };
+    })();
+</script>
