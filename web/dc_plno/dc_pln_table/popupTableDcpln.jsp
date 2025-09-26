@@ -276,8 +276,8 @@
                                            data-mapgd="<s:property value="D15"/>"
                                            data-makh="<s:property value="D2"/>"
                                            data-soku="<s:property value="D13"/>"
-                                           data-ngaybc="<s:property value="D14"/>"/>
-
+                                           data-ngaybc="<s:property value="D14"/>"
+                                           data-lock="<s:property value="txtGetData"/>"/>
                                 </td> </s:if>
                             </tr>
                     </s:iterator>
@@ -296,6 +296,7 @@
     <script>
         // Hàm gọi AJAX và trả về kết quả
         function idUnlockCif(mapgd, makh, soku, ngaybc, lock, callback) {
+//            window.alert(mapgd + " " + makh + " " + soku + " " + ngaybc + " " + lock);
             $.ajax({
                 type: "GET",
                 url: "unlock_pLN.action?" +
@@ -343,7 +344,7 @@
                         $(this).data("makh"),
                         $(this).data("soku"),
                         $(this).data("ngaybc"),
-                        "1",
+                        $(this).data("lock"),
                         function (ok) {
                             if (ok)
                                 successCount++;

@@ -1442,6 +1442,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             trangthai_xlrr = request.getParameter("trangthai_xlrr");
             chuongtrinh = request.getParameter("chuongtrinh");
             vb_xlrr = request.getParameter("vb_xlrr");
+            nguyennhan_tuchoi = request.getParameter("nguyennhan_tuchoi");
             if (new DaoProcessRisk().setStatusRejectQD62(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, soku_reject, nguyennhan_tuchoi, vb_xlrr)) {
                 setMessage("Bạn đã từ chối thành công khoản vay " + soku_reject);
             } else {

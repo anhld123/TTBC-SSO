@@ -331,7 +331,9 @@
                     <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban XLN duyệt</th>-->
                     <!--<th colspan="2" class="MA_PGD_DP">Kết quả Ban KS duyệt</th>-->
                     <th rowspan="2" width="15">
-                        <input type="checkbox" id="allCheck" name="allCheck" onclick="toggleAll(this)"/>
+                        <s:if test="!nhom_xlrr.equalsIgnoreCase('02')">
+                            <input type="checkbox" id="allCheck" name="allCheck" onclick="toggleAll(this)"/>
+                        </s:if>
                     </th>
 
 
@@ -610,7 +612,7 @@
                 }
                 document.frmDataRisk62.allCheck.checked = berror;
             }
-            function toggleAll(source) { 
+            function toggleAll(source) {
                 var fieldName = "check_legacyid"; // hoặc "lstRisk"
                 var elements = document.frmDataRisk62.elements;
                 for (var i = 0; i < elements.length; i++) {

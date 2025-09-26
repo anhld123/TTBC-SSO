@@ -169,10 +169,10 @@
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var url = "setRejectRisk62.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi="  + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi=" + sNN_BanKs + nguyennhan_tuchoi
+                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd + "&nguyennhan_tuchoi="  + nguyennhan_tuchoi
                             + "&vb_xlrr=" + vb_xlrr;
                     $.ajax({
                         type: 'POST',
