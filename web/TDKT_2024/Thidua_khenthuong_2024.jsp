@@ -514,7 +514,7 @@
                                    <s:if test="!D40.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D7" />" 
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23') || check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP19') || check_D4.equalsIgnoreCase('1')">readonly="true"</s:if>
                                    <s:if test="!D41.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="number2"/></td>
                         <td><input type="text" value="<s:property  value="D8" />" 
