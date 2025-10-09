@@ -236,6 +236,7 @@
                     <th class="STT3">TT</th>
                     <th class="STT4">GL</th>
                     <th class="STT4">Số sổ</th> 
+                    <th class="STT4">Số TK 0</th>
                     <th class="STT4">Số TK</th> 
                     <th class="STT4">Mã KH</th> 
                     <th class="STT5">Tên KH</th> 
@@ -258,6 +259,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(13)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                
                     <tr height="22">   
@@ -296,8 +298,9 @@
                         <td class="D0"><s:property value="%{#rowstatus.index + 1}" /></td>
                         <td class="D0"><s:property  value="D1" /></td> 
                         <td class="D0"><s:property  value="D14" /></td> 
-                        <td class="D0"><s:property  value="D2" /></td> 
-                        <td class="D0"><s:property  value="D3" /></td> 
+                        <td class="D00"><s:property  value="D15" /></td> 
+                        <td class="D00"><s:property  value="D2" /></td> 
+                        <td class="D00"><s:property  value="D3" /></td> 
                         <td class="D00"><s:property  value="D4" /></td> 
                         <td class="D0"><s:property  value="D5" /></td> 
                         <td class="number"><s:property  value="D6" /></td> 
