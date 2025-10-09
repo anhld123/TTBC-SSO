@@ -123,7 +123,7 @@ public class UserGroupAction extends ActionSupport
         statusList.add(activeStatus);
         ListValue closeStatus = new ListValue("C", "Đóng");
         statusList.add(closeStatus);
-        
+
         yesnoList = new ArrayList<>();
         ListValue yesStatus = new ListValue("Y", "Y - Có");
         yesnoList.add(yesStatus);
@@ -145,7 +145,7 @@ public class UserGroupAction extends ActionSupport
         statusList.add(activeStatus);
         ListValue closeStatus = new ListValue("C", "Đóng");
         statusList.add(closeStatus);
-        
+
         yesnoList = new ArrayList<>();
         ListValue yesStatus = new ListValue("Y", "Y - Có");
         yesnoList.add(yesStatus);
@@ -178,58 +178,129 @@ public class UserGroupAction extends ActionSupport
         return "success";
     }
 
+//    public String selectPrivileage() {
+//        
+//        List<MenuItem> jl_mnItem = userGroupManager.getListOfMenuItem();
+//        
+//        String userName = request.getSession().getAttribute("username").toString();
+//        administrator_pri = IMSRptDao.getMenuString(userName);
+//        
+//        if (privileageStr == null || privileageStr.trim().isEmpty()) {
+//            privileageStr = IMSRptDao.getMenuString(userName);
+//        }
+//        
+//        for (MenuItem jo_mnItem : jl_mnItem) {
+//            int ji_menuid = jo_mnItem.getMenuId();
+//            String c = privileageStr.substring(ji_menuid-1, ji_menuid);
+//            jo_mnItem.setIsDisplay(Integer.parseInt(c));
+//        }
+//        
+//        for (MenuItem jl_mnItem1 : jl_mnItem) {
+//            if (jl_mnItem1.getParentId() == -1) {
+//                menuItems.add(jl_mnItem1);
+//                for (MenuItem jl_mnItem2 : jl_mnItem) {
+//                    if (jl_mnItem2.getParentId() == jl_mnItem1.getMenuId()) {
+//                        String js_mndesc = "      " + jl_mnItem2.getText();
+//                        jl_mnItem2.setText(js_mndesc);
+//                        menuItems.add(jl_mnItem2);
+//                        for (MenuItem jl_mnItem3 : jl_mnItem) {
+//                            if (jl_mnItem3.getParentId() == jl_mnItem2.getMenuId()) {
+//                                js_mndesc = "            " + jl_mnItem3.getText();
+//                                jl_mnItem3.setText(js_mndesc);
+//                                menuItems.add(jl_mnItem3);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return "success";
+//    }
     public String selectPrivileage() {
-        
-        List<MenuItem> jl_mnItem = userGroupManager.getListOfMenuItem();
-        
-        String userName = request.getSession().getAttribute("username").toString();
-        administrator_pri = IMSRptDao.getMenuString(userName);
-        
-        if (privileageStr == null || privileageStr.trim().isEmpty()) {
+        try {
+            List<MenuItem> jl_mnItem = userGroupManager.getListOfMenuItem();
+            String userName = request.getSession().getAttribute("username").toString();
+
+            // Lấy chuỗi quyền từ DB
             privileageStr = IMSRptDao.getMenuString(userName);
-        }
-        
-        for (MenuItem jo_mnItem : jl_mnItem) {
-            int ji_menuid = jo_mnItem.getMenuId();
-            String c = privileageStr.substring(ji_menuid-1, ji_menuid);
-            jo_mnItem.setIsDisplay(Integer.parseInt(c));
-        }
-        
-        for (MenuItem jl_mnItem1 : jl_mnItem) {
-            if (jl_mnItem1.getParentId() == -1) {
-                menuItems.add(jl_mnItem1);
-                for (MenuItem jl_mnItem2 : jl_mnItem) {
-                    if (jl_mnItem2.getParentId() == jl_mnItem1.getMenuId()) {
-                        String js_mndesc = "      " + jl_mnItem2.getText();
-                        jl_mnItem2.setText(js_mndesc);
-                        menuItems.add(jl_mnItem2);
-                        for (MenuItem jl_mnItem3 : jl_mnItem) {
-                            if (jl_mnItem3.getParentId() == jl_mnItem2.getMenuId()) {
-                                js_mndesc = "            " + jl_mnItem3.getText();
-                                jl_mnItem3.setText(js_mndesc);
-                                menuItems.add(jl_mnItem3);
+            administrator_pri = privileageStr;
+
+            // Nếu null hoặc rỗng -> lấy lại
+            if (privileageStr == null || privileageStr.trim().isEmpty()) {
+                privileageStr = IMSRptDao.getMenuString(userName);
+            }
+
+            // Đảm bảo chuỗi quyền có độ dài tối thiểu 500 ký tự
+            int maxMenus = 500;
+            if (privileageStr.length() < maxMenus) {
+                privileageStr = String.format("%-" + maxMenus + "s", privileageStr).replace(' ', '0');
+                System.out.println("[INFO] Privilege string padded to 500 chars for user: " + userName);
+            }
+
+            // Gán quyền hiển thị cho từng menu
+            for (MenuItem jo_mnItem : jl_mnItem) {
+                int ji_menuid = jo_mnItem.getMenuId();
+
+                if (ji_menuid <= privileageStr.length() && ji_menuid > 0) {
+                    String c = "0";
+                    if (ji_menuid <= privileageStr.length()) {
+                        c = privileageStr.substring(ji_menuid - 1, ji_menuid);
+                    }
+                    jo_mnItem.setIsDisplay(Integer.parseInt(c));
+                    try {
+                        jo_mnItem.setIsDisplay(Integer.parseInt(c));
+                    } catch (NumberFormatException e) {
+                        jo_mnItem.setIsDisplay(0);
+                        System.err.println("[WARN] Invalid privilege char for menuId " + ji_menuid + ": '" + c + "'");
+                    }
+                } else {
+                    // Nếu menuId vượt độ dài chuỗi quyền, ẩn menu đó
+                    jo_mnItem.setIsDisplay(0);
+                    System.err.println("[WARN] menuId " + ji_menuid + " vượt giới hạn privilegeStr length=" + privileageStr.length());
+                }
+            }
+
+            // Tạo cấu trúc menu cha – con – cháu
+            menuItems.clear(); // Đảm bảo danh sách hiển thị rỗng trước khi thêm mới
+            for (MenuItem jl_mnItem1 : jl_mnItem) {
+                if (jl_mnItem1.getParentId() == -1) {
+                    menuItems.add(jl_mnItem1);
+                    for (MenuItem jl_mnItem2 : jl_mnItem) {
+                        if (jl_mnItem2.getParentId() == jl_mnItem1.getMenuId()) {
+                            jl_mnItem2.setText("      " + jl_mnItem2.getText());
+                            menuItems.add(jl_mnItem2);
+                            for (MenuItem jl_mnItem3 : jl_mnItem) {
+                                if (jl_mnItem3.getParentId() == jl_mnItem2.getMenuId()) {
+                                    jl_mnItem3.setText("            " + jl_mnItem3.getText());
+                                    menuItems.add(jl_mnItem3);
+                                }
                             }
                         }
                     }
                 }
             }
+
+            return "success";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] selectPrivileage failed: " + e.getMessage());
+            return "error";
         }
-        return "success";
     }
-    
-    
+
     public String saveReports() {
-        
+
         IMSRptDao dao = new IMSRptDao();
         ArrayList<String> reportList = null;
-        if (reports != null && reports.length > 0){
-            reportList = new ArrayList<>(Arrays.asList(reports));        
+        if (reports != null && reports.length > 0) {
+            reportList = new ArrayList<>(Arrays.asList(reports));
         }
         error_msg = dao.updateGroupOwnerListReport(userGroupCode, reportList);
-        
+
         return SUCCESS;
     }
-    
+
     public String selectOwnerReports() {
         IMSRptDao dao = new IMSRptDao();
         ownerReports = dao.getListOfReportByUserGroup(userGroupCode);
@@ -274,7 +345,7 @@ public class UserGroupAction extends ActionSupport
 
     public void setAdministrator_pri(String administrator_pri) {
         this.administrator_pri = administrator_pri;
-    }   
+    }
 
     public List<ListValue> getStatusList() {
         return statusList;
@@ -298,7 +369,7 @@ public class UserGroupAction extends ActionSupport
 
     public void setOwnerReports(List<ReportUserGroup> ownerReports) {
         this.ownerReports = ownerReports;
-    }            
+    }
 
     public String[] getReports() {
         return reports;
@@ -307,6 +378,5 @@ public class UserGroupAction extends ActionSupport
     public void setReports(String[] reports) {
         this.reports = reports;
     }
-    
-    
+
 }

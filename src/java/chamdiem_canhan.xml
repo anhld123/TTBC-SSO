@@ -11,6 +11,7 @@
         
         <action name="LoadParaChamdiemcn" class="vbsp.ims.chamdiemcn.ActionChamdiemcnMain"  method="loadPataChamdiemcn">
             <result name="success">/chamdiem_canhan/para-cdcn-main.jsp</result>
+            <result name="success_1">/chamdiem_canhan/para-cdcn-pl1.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
         </action>          
                                
@@ -51,7 +52,7 @@
             </result>  
         </action>
         
-         <action name="Nhapdiemtru" class="vbsp.ims.chamdiemcn.CDTT_CN08TH" method="ChitietChamdiem">
+        <action name="Nhapdiemtru" class="vbsp.ims.chamdiemcn.CDTT_CN08TH" method="ChitietChamdiem">
             <result name="success">  
                 /chamdiem_canhan/table_diemtru_cn.jsp
             </result>  
@@ -78,15 +79,26 @@
             <result name="error">/chamdiem_tapthe/success.jsp</result>        
         </action>
         
-        <action name="CDTT_CN01PL" class="vbsp.ims.chamdiemcn.CDTT_CN01PL"  method="load">
+        <!--        <action name="CDTT_CN01PL" class="vbsp.ims.chamdiemcn.CDTT_CN01PL"  method="load">
             <result name="success">/chamdiem_canhan/table_huydong_tk_pl01.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
-        </action>  
-        <action name="SAVE_CDTT_CN01PL" class="vbsp.ims.chamdiemcn.CDTT_CN01PL"  method="save">
+        </action>  -->
+        
+        <!--        <action name="SAVE_CDTT_CN01PL" class="vbsp.ims.chamdiemcn.CDTT_CN01PL"  method="save">
             <result name="success">/chamdiem_canhan/success.jsp</result>
+            <result name="error">/chamdiem_canhan/success.jsp</result>        
+        </action>-->
+        <action name="CDTT_CN01PL" class="vbsp.ims.chamdiemcn.CDCN_CN01PL"  method="load">
+            <result name="success">/chamdiem_canhan/table_huydong_tk_pl01_2025.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
         </action>
         
+        <action name="save_CDCN01PL_2025" class="vbsp.ims.chamdiemcn.CDCN_CN01PL"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>   
+        </action> 
     </package>
     
     <package name="main_chamdiemcnconfig" extends="struts-default,json-default">                       
@@ -124,7 +136,7 @@
     
     <package name="Upload_file_th" extends="struts-default,json-default">    
         <action name="loadAllBCTHANHHOA" class="vbsp.ims.chamdiemcn.ActionChamdiemcnUpload"
-            method="execute">
+                method="execute">
             <result name="success" type="json"></result>  
         </action>  
         

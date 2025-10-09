@@ -47,6 +47,8 @@ import vbsp.ims.define.Define;
 import vbsp.ims.model.Pagination;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT.saveDulieuNT;
+import vbsp.ims.huydongtk.clsCanBo;
+import vbsp.ims.huydongtk.clsHuyDongTK;
 
 /**
  *
@@ -64,6 +66,7 @@ public class ActionChamdiemcnMain extends ActionSupport {
     protected String pos_string;
     protected String macb;
     protected String macb_old;
+    public List<clsCanBo> lstCanBo = new ArrayList<>();
 
     public String getMacb_old() {
         return macb_old;
@@ -107,7 +110,6 @@ public class ActionChamdiemcnMain extends ActionSupport {
     public void setNhomnv_duyet(String nhomnv_duyet) {
         this.nhomnv_duyet = nhomnv_duyet;
     }
-    
 
     public String getNhomnv() {
         return nhomnv;
@@ -219,8 +221,7 @@ public class ActionChamdiemcnMain extends ActionSupport {
     public void setLstXeploai(List<ListValue> lstXeploai) {
         this.lstXeploai = lstXeploai;
     }
-    
-    
+
     protected String TT_DUYET;
 
     private List<ListValue> lstPhongBan = new ArrayList<ListValue>();
@@ -314,7 +315,6 @@ public class ActionChamdiemcnMain extends ActionSupport {
         this.lstXeploaiHTNV = lstXeploaiHTNV;
     }
 
-    
     protected String MACT;
 
     public String getMACT() {
@@ -401,32 +401,61 @@ public class ActionChamdiemcnMain extends ActionSupport {
     }
 
     private boolean setTreeNodeGrade12(List<ModelTreeNode> lstModelTree) {
-
         try {
-            for (int i = 0; i < lstModelTree.size(); i++) {
-                //String strPos_key = ArrlstPoscd.get(i);
-                ModelTreeNode modelTree = lstModelTree.get(i);
-                //Neu la row dau tien thi la node root
-                if (i == 0) {
-                    nodes_pos.setId("999999");
-                    nodes_pos.setTitle(modelTree.getStrParentDesc());
-                    nodes_pos.setState(TreeNode.NODE_STATE_OPEN);
-                    nodes_pos.setChildren(new LinkedList<TreeNode>());
-                }
-                //Khoi tao cho node child
-                TreeNode nodeChild = new TreeNode();
-                nodeChild.setId(modelTree.getStrChildCd());
-                nodeChild.setTitle(modelTree.getStrChildDesc());
-//                System.err.println(ArrlstPosDesc.get(i));
-                nodes_pos.getChildren().add(nodeChild);
+            Map<String, TreeNode> mapNodes = new HashMap<>();
 
+            // Duyệt qua tất cả phần tử để tạo node
+            for (ModelTreeNode modelTree : lstModelTree) {
+                // Tạo hoặc lấy node cha
+                TreeNode parentNode = mapNodes.get(modelTree.getStrParentCd());
+                if (parentNode == null) {
+                    parentNode = new TreeNode();
+                    parentNode.setId(modelTree.getStrParentCd());
+                    parentNode.setTitle(modelTree.getStrParentDesc());
+                    parentNode.setChildren(new LinkedList<>());
+                    mapNodes.put(modelTree.getStrParentCd(), parentNode);
+                }
+
+                // Tạo node con
+                TreeNode childNode = mapNodes.get(modelTree.getStrChildCd());
+                if (childNode == null) {
+                    childNode = new TreeNode();
+                    childNode.setId(modelTree.getStrChildCd());
+                    childNode.setTitle(modelTree.getStrChildDesc());
+                    childNode.setChildren(new LinkedList<>());
+                    mapNodes.put(modelTree.getStrChildCd(), childNode);
+                }
+
+                // Thêm node con vào danh sách children của cha
+                parentNode.getChildren().add(childNode);
             }
+
+            // Xác định node gốc (root) — có thể là node không có cha
+            TreeNode root = null;
+            for (ModelTreeNode modelTree : lstModelTree) {
+                if (!mapNodes.containsKey(modelTree.getStrParentCd())) {
+                    // Không có cha trong danh sách => là root
+                    root = mapNodes.get(modelTree.getStrChildCd());
+                    break;
+                }
+            }
+
+            if (root == null && !lstModelTree.isEmpty()) {
+                // fallback
+                ModelTreeNode first = lstModelTree.get(0);
+                root = mapNodes.get(first.getStrParentCd());
+            }
+
+            if (root != null) {
+                nodes_pos = root;
+            }
+
+            return true;
         } catch (Exception e) {
             System.err.println(e.getMessage());
             CoreLogger.error(this.getClass().getCanonicalName() + " setTreeNodeGrade12 -> " + e.getMessage());
             return false;
         }
-        return true;
     }
 
     protected boolean getParaSession() {
@@ -536,7 +565,7 @@ public class ActionChamdiemcnMain extends ActionSupport {
             //khoi tao cho treeview cac pos
             try {
                 List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_cdtt);
-                if (Grade.equals("3") || khoa_cdtt.equals("CDTT_CN01PL")) {
+                if (Grade.equals("3")) {
                     setTreeNodeGrade3(lstModelTree);
                 } else {
                     setTreeNodeGrade12(lstModelTree);
@@ -550,7 +579,7 @@ public class ActionChamdiemcnMain extends ActionSupport {
 
             int iRule = daoMain.checkRuleUser_CN08AB(UserName, Grade, khoa_cdtt);
             setRULEUSER(String.valueOf(iRule));
-
+            lstCanBo = new clsHuyDongTK().getCanBo(Grade, UserName);
             if (conn != null) {
                 conn.close();
             }
@@ -560,7 +589,7 @@ public class ActionChamdiemcnMain extends ActionSupport {
             addActionError("Bạn không có quyền với chức năng này !");
             return ERROR;
         }
-        return SUCCESS;
+        return "CDTT_CN01PL".equals(khoa_cdtt) ? "success_1" : SUCCESS;
     }
     //</editor-fold>
 

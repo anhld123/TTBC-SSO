@@ -31,6 +31,7 @@ import oracle.sql.STRUCT;
 import oracle.sql.StructDescriptor;
 import oracle.xdb.XMLType;
 import org.w3c.dom.Document;
+import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.bcqt.model.QT_MS12A;
 import vbsp.ims.bcqt.model.QT_MS12C;
@@ -1247,35 +1248,40 @@ public class DaoChamdiemcnMain {
                 while (reset.next()) {
 
                     QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
-                    value.setKHOA(reset.getString(2));
-//                    value.setTHUTU(reset.getInt(3));
-//                    value.setTT_HIENTHI(reset.getString(3));
-//                    value.setMA(reset.getString(4));
-//                    value.setTEN(reset.getString(5));
-//                    value.setNGAYBC(reset.getDate(6));
-//                    value.setNAMBC(reset.getInt(7));
-                    value.setMAPGD(reset.getString(9));
-                    value.setMACN(reset.getString(11));
-//                    value.setD1(reset.getString(14));
-//                    value.setD1(reset.getString(15));
-                    value.setD1(reset.getString(16));
-                    value.setD2(reset.getString(17));
-                    value.setD3(reset.getString(18));
-                    value.setD4(reset.getString(19));
-                    value.setD5(reset.getString(20));
-                    value.setD6(reset.getString(21));
-                    value.setD7(reset.getString(22));
-                    value.setD8(reset.getString(23));
-                    value.setD9(reset.getString(24));
-                    value.setD10(reset.getString(25));
-                    value.setD11(reset.getString(26));
-                    value.setD12(reset.getString(27));
-                    value.setD13(reset.getString(28));
-                    value.setD14(reset.getString(29));
-                    value.setD15(reset.getString(30));
-                    value.setD16(reset.getString(31));
-                    value.setD20(reset.getString(1));
-//                    value.setFONTFORMAT(reset.getString(46));
+                    value.setKHOA(reset.getString("KHOA"));
+//                    value.setTHUTU(reset.getInt("THUTU"));
+//                    value.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+//                    value.setMA(reset.getString("MA"));
+//                    value.setTEN(reset.getString("TEN"));
+//                    value.setNGAYBC(reset.getDate("NGAYBC"));
+//                    value.setNAMBC(reset.getInt("NAMBC"));
+                    value.setMAPGD(reset.getString("MAPGD"));
+//                    value.setCO_TONGHOP(reset.getString("CO_TONGHOP"));
+                    value.setMACN(reset.getString("MACN"));
+//                    value.setNGUOI_NHAP(reset.getString("NGUOI_NHAP"));
+//                    value.setNGAY_NHAP(reset.getDate("NGAY_NHAP"));
+//                    value.setNGUOI_DUYET(reset.getString("NGUOI_DUYET"));
+//                    value.setNGAY_DUYET(reset.getDate("NGAY_DUYET"));
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
+                    value.setD12(reset.getString("D12"));
+                    value.setD13(reset.getString("D13"));
+                    value.setD14(reset.getString("D14"));
+                    value.setD15(reset.getString("D15"));
+                    value.setD16(reset.getString("D16"));
+                    value.setD17(reset.getString("D17"));
+                    value.setD18(reset.getString("D18"));
+                    value.setD19(reset.getString("D19"));
+                    value.setD20(reset.getString("D20"));
 
                     lstBcqt_NT.add(value);
                 }
@@ -2349,5 +2355,133 @@ public class DaoChamdiemcnMain {
             }
         }
         return pos_cd;
+    }
+
+    public List<QT_DULIEU_NT> getDataPL01_2025(Connection conn, String sKhoa, String sUser, String sPos_Flag,
+            String sNgaybc, String sPosCd, String sMaCb, String sSeach, String check, List<String> lstArrPoscd) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            ArrayDescriptor des = ArrayDescriptor.createDescriptor("POS_CD", conn);
+            String[] arrayPoscd = lstArrPoscd.toArray(new String[0]);
+            ARRAY oracle_arrayPoscd = new ARRAY(des, conn, arrayPoscd);
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_CHAMDIEMCN.SP_GET_DATA_PL01_2025(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(9, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(10, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sUser);
+                calstatement.setString(3, sPos_Flag);
+                calstatement.setString(4, sNgaybc);
+                calstatement.setString(5, sPosCd);
+                calstatement.setString(6, sMaCb);
+                calstatement.setString(7, sSeach);
+                calstatement.setString(11, check);
+                calstatement.setArray(12, oracle_arrayPoscd);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(8);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(9);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(10);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setKHOA(reset.getString("KHOA"));
+                    value.setTHUTU(reset.getInt("THUTU"));
+                    value.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+                    value.setMA(reset.getString("MA"));
+                    value.setTEN(reset.getString("TEN"));
+                    value.setNGAYBC(reset.getDate("NGAYBC"));
+                    value.setNAMBC(reset.getInt("NAMBC"));
+                    value.setMAPGD(reset.getString("MAPGD"));
+                    value.setCO_TONGHOP(reset.getString("CO_TONGHOP"));
+                    value.setMACN(reset.getString("MACN"));
+                    value.setNGUOI_NHAP(reset.getString("NGUOI_NHAP"));
+                    value.setNGAY_NHAP(reset.getDate("NGAY_NHAP"));
+                    value.setNGUOI_DUYET(reset.getString("NGUOI_DUYET"));
+                    value.setNGAY_DUYET(reset.getDate("NGAY_DUYET"));
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
+                    value.setD12(reset.getString("D12"));
+                    value.setD13(reset.getString("D13"));
+                    value.setD14(reset.getString("D14"));
+                    value.setD15(reset.getString("D15"));
+                    value.setD16(reset.getString("D16"));
+                    value.setD17(reset.getString("D17"));
+                    value.setD18(reset.getString("D18"));
+                    value.setD19(reset.getString("D19"));
+                    value.setD20(reset.getString("D20"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+
+    public boolean save_PL01_2025(String khoa, String user, String sposcd, String scap, String sngay, String smacb, String check, List<DULIEU_NT_TQ> lstData) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+//        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
+        Object array[] = lstData.toArray();
+        ArrayDescriptor des = ArrayDescriptor
+                .createDescriptor(DULIEU_NT_TQ.ORACLE_TABLE_TYPE, connection);
+        ARRAY array_to_pass = new ARRAY(des, connection, array);
+        ArrayDescriptor des_ma = ArrayDescriptor.createDescriptor("POS_CD", connection);
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call VBSP_IMS_CHAMDIEMCN.SP_SAVE_DATA_PL01_2025(?, ?, ?, ? , ?, ?, ?, ?)}");
+            cs.setString(1, khoa);
+            cs.setString(2, user);
+            cs.setString(3, sposcd);
+            cs.setString(4, scap);
+            cs.setString(5, sngay);
+            cs.setString(6, smacb);
+            cs.setString(7, check);
+            cs.setArray(8, array_to_pass);
+            cs.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Loi trong ham to vien " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " to vien -> " + e.getMessage());
+            return false;
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return true;
     }
 }
