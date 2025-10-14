@@ -1719,8 +1719,8 @@ public class DaoChamdiemcnMain {
             switch (mabc) {
                 case "GIAO_KHNV":
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAXA, TENXA, D1, D2, D3, D4, D5, mapgd,ngaybc, "
-                            + " NGUOITAO, file_name ,D6,D7)\n"
-                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?, ?,?,?)";
+                            + " NGUOITAO, file_name ,D6,D7,D8,D9,D10)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,?)";
                     conn.setAutoCommit(false);
                     insert = conn.prepareStatement(sInsert);
                     Delete = "delete from dulieu_cdcn_imp where ngaybc=? and mapgd=? and khoa = ?";
@@ -1732,6 +1732,9 @@ public class DaoChamdiemcnMain {
                     statementDelete.execute();
                     for (int i = 0; i < lstExcel.size(); i++) {
                         ModelExcelFile value = lstExcel.get(i);
+                        if (value.getC1() == null || value.getC1().trim().isEmpty()) {
+                            continue;
+                        }
 //                        insert.setString(1, fileName);
 //                        insert.setDate(2, new java.sql.Date(ngaybc.getTime()));
                         insert.setString(1, value.getC1());
@@ -1750,10 +1753,13 @@ public class DaoChamdiemcnMain {
                         insert.setString(13, fileName);
                         insert.setString(14, value.getN8());
                         insert.setString(15, value.getN9());
+                        insert.setString(16, value.getN10());
+                        insert.setString(17, value.getN11());
+                        insert.setString(18, value.getN12());
                         insert.execute();
                     }
                     Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), "
-                            + "D1 = replace(D1,'.0','') where ngaybc=? and mapgd=? and khoa = ?";
+                            + "D1 = replace(D1,'.0',''),D8 = replace(D8,'.0',''),D9 = replace(D9,'.0',''),D10 = replace(D10,'.0','') where ngaybc=? and mapgd=? and khoa = ?";
                     statementUpdate = conn.prepareCall(Update);
                     statementUpdate.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementUpdate.setString(2, poscd);
@@ -1761,7 +1767,7 @@ public class DaoChamdiemcnMain {
                     statementUpdate.execute();
 
                     Delete = "delete from dulieu_cdcn_imp \n"
-                            + "where d1 is null and d2 is null and ngaybc=? and mapgd=? and khoa = ?";
+                            + "where trim(d1) is null and trim(d2) is null and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
                     statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementDelete.setString(2, poscd);
@@ -1824,8 +1830,8 @@ public class DaoChamdiemcnMain {
                     break;
                 case "GIAO_KHTK_TO":
                     sInsert = "insert into dulieu_cdcn_imp(KHOA, STT, MAXA, TENXA, D1, D2, D3, mapgd,ngaybc, "
-                            + " NGUOITAO, file_name, D6,D7)\n"
-                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?)";
+                            + " NGUOITAO, file_name, D6,D7,D8,D9,D10)\n"
+                            + "values(?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                     conn.setAutoCommit(false);
                     insert = conn.prepareStatement(sInsert);
                     Delete = "delete from dulieu_cdcn_imp where ngaybc=? and mapgd=? and khoa = ?";
@@ -1837,10 +1843,13 @@ public class DaoChamdiemcnMain {
                     statementDelete.execute();
                     for (int i = 0; i < lstExcel.size(); i++) {
                         ModelExcelFile value = lstExcel.get(i);
-//                        insert.setString(1, fileName);
-//                        insert.setDate(2, new java.sql.Date(ngaybc.getTime()));
+
+                        // Nếu C1 rỗng hoặc null thì bỏ qua dòng này
+                        if (value.getC1() == null || value.getC1().trim().isEmpty()) {
+                            continue;
+                        }
+
                         insert.setString(1, value.getC1());
-//                        insert.setString(4, poscd);
                         insert.setString(2, value.getC2());
                         insert.setString(3, value.getC3());
                         insert.setString(4, value.getN1());
@@ -1853,16 +1862,21 @@ public class DaoChamdiemcnMain {
                         insert.setString(11, fileName);
                         insert.setString(12, value.getN6());
                         insert.setString(13, value.getN7());
+                        insert.setString(14, value.getN8());
+                        insert.setString(15, value.getN9());
+                        insert.setString(16, value.getN10());
+
                         insert.execute();
                     }
-                    Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), D1 = replace(D1,'.0','') where ngaybc=? and mapgd=? and khoa=?";
+
+                    Update = "update dulieu_cdcn_imp set MAXA = replace(MAXA,'.0',''), D1 = replace(D1,'.0',''),D8 = replace(D8,'.0',''),D9 = replace(D9,'.0',''),D10 = replace(D10,'.0','') where ngaybc=? and mapgd=? and khoa=?";
                     statementUpdate = conn.prepareCall(Update);
                     statementUpdate.setDate(1, new java.sql.Date(ngaybc.getTime()));
                     statementUpdate.setString(2, poscd);
                     statementUpdate.setString(3, mabc);
                     statementUpdate.execute();
 
-                    Delete = "delete from dulieu_cdcn_imp where khoa ='GIAO_KHTK_TO' and d1 is null and d2 is null"
+                    Delete = "delete from dulieu_cdcn_imp where khoa ='GIAO_KHTK_TO' and trim(d1) is null and trim(d2) is null"
                             + " and ngaybc=? and mapgd=? and khoa = ?";
                     statementDelete = conn.prepareCall(Delete);
                     statementDelete.setDate(1, new java.sql.Date(ngaybc.getTime()));
@@ -2369,7 +2383,7 @@ public class DaoChamdiemcnMain {
             ResultSet reset = null;
 
             try {
-                
+
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
                 calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.NUMBER);
