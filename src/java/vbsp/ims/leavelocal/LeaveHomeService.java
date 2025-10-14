@@ -13,6 +13,7 @@ import vbsp.ims.khnv2021.PosClass;
 import java.util.List;
 import vbsp.ims.log.CoreLogger;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import vbsp.ims.dao.*;
 
 /**
@@ -475,11 +476,10 @@ public class LeaveHomeService {
 //        }
 //        return _lstData2;
 //    }
-
     public List<ListMainPos> getListCn(String provinceCode) {
         List<ListMainPos> _lstData2 = new ArrayList();
         try {
-            _lstData2 = _service.getListCn(provinceCode);        
+            _lstData2 = _service.getListCn(provinceCode);
         } catch (Exception ex) {
         }
         return _lstData2;
@@ -493,20 +493,30 @@ public class LeaveHomeService {
         }
         return _lstData3;
     }
+
     public List<ListTransactionPoint> getListPoint(String posCode, String posFlag, String keyword) {
         List<ListTransactionPoint> _lstData4 = new ArrayList();
         try {
-            _lstData4 = _service.getListPoint(posCode,posFlag,keyword);
+            _lstData4 = _service.getListPoint(posCode, posFlag, keyword);
         } catch (Exception ex) {
         }
         return _lstData4;
     }
-    
+
     public List<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode, String posCode) {
-        List<ListCommune> _lstData4 = new ArrayList();
+        List<ListCommune> _lstData4 = new ArrayList<>();
         try {
             _lstData4 = _service.getListXa(provinceCode, districtCode, communeCode, posCode);
+
+            // Lọc danh sách chỉ lấy communeCode có ký tự 3+4 = "00"
+            _lstData4 = _lstData4.stream()
+                    .filter(x -> x.getCommuneCode() != null
+                    && x.getCommuneCode().length() >= 4
+                    && x.getCommuneCode().substring(2, 4).equals("00"))
+                    .collect(Collectors.toList());
+
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return _lstData4;
     }

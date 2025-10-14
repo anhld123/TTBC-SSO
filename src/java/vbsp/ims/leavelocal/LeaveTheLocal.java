@@ -9,11 +9,8 @@ import com.opensymphony.xwork2.ActionContext;
 import java.io.InputStream;
 import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
-import java.math.BigInteger;
-import java.sql.Connection;
+import java.text.ParseException;
 import java.util.Date;
-import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.khnv2021.PosClass;
 import vbsp.ims.model.ktnb.PosMainModel;
@@ -21,13 +18,12 @@ import vbsp.ims.nghiquyet11cp.DaoNghiquyet11cp;
 import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.DuLieuNTRow;
 import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
 import vbsp.ims.restapi.ListPosCode;
-import vbsp.ims.restapi.NQ11cpModel;
 
 public class LeaveTheLocal extends ActionSupport {
+    //<editor-fold defaultstate="collapsed" desc="Khai bao cac bien">
 
     private List<DuLieuNTRow> lstData;
     private List<PosClass> lstCN;
@@ -60,7 +56,7 @@ public class LeaveTheLocal extends ActionSupport {
     private String flagPos;
     private String typeAuth;
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
-    private List<ListValue> lstXuLyNo = new ArrayList<ListValue>();
+    private List<ListValue> lstXuLyNo = new ArrayList<>();
 
     public String getNgaydenghi() {
         return ngaydenghi;
@@ -132,514 +128,6 @@ public class LeaveTheLocal extends ActionSupport {
 
     public void setLstXuLyNo(List<ListValue> lstXuLyNo) {
         this.lstXuLyNo = lstXuLyNo;
-    }
-
-    LeaveHomeService _leaveHomeService;
-    DuLieuNTService _service;
-    LeaveHomeDao homeDao = new LeaveHomeDao();
-
-    public LeaveTheLocal() {
-        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
-        sUser = (String) ActionContext.getContext().getSession().get("username");
-    }
-
-    public String execute() throws Exception {
-        return "success";
-    }
-
-    public String getLeaveLocal() throws Exception {
-        try {
-            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
-            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
-            _leaveHomeService = new LeaveHomeService();
-            String _openFlag = "0";
-            if (sGrade.equals("1") && !txtMakh.isEmpty()) {
-                _openFlag = "1";
-            }
-            System.out.println("cap phe duyet = " + gradeAuthor1);
-            List<DuLieuNTRow> lstData_tmp = new ArrayList<DuLieuNTRow>();
-            lstData = new ArrayList<DuLieuNTRow>();
-            lstData_tmp = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
-            //Kiểm tra user thuộc pos cho vay hay không
-            if (!lstData_tmp.isEmpty() && lstData_tmp.size() > 0) {
-                for (DuLieuNTRow item : lstData_tmp) {
-                    if (txtsMadv.equals(item.getPosCode())) {
-                        item.setD42("1");
-
-                        lstData.add(item);
-                    } else {
-                        item.setD42("0");
-                        if (!item.getD50().equals("4") && !item.getD50().equals("5")) {
-                            lstData.add(item);
-                        }
-                    }
-                }
-            }
-            lstCN_API = _leaveHomeService.getListCn("");
-            lstPGD_API = _leaveHomeService.getListPgd("", "");
-            lstXa_API = _leaveHomeService.getListXa("", "", "", "");
-//            lstCN = _leaveHomeService.getDonvi("M");
-//            lstPGD = _leaveHomeService.getDonvi("S");
-//            lstXa = _leaveHomeService.getXa("S");
-        } catch (Exception e) {
-            System.err.println("Loi trong ham saveData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        if (gradeAuthor1.equals("1")) {
-            return "success";
-        } else {
-            return "success_author";
-        }
-    }
-
-    public String popupThanhvien() throws Exception {
-        try {
-            _leaveHomeService = new LeaveHomeService();
-            this.lstData = _leaveHomeService.getMembers(vsbpMaPgd, "S", vsbpMakh, "1");
-        } catch (Exception e) {
-            System.err.println("Loi trong ham saveData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String popupXuLyNo() throws Exception {
-        try {
-            _leaveHomeService = new LeaveHomeService();
-            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
-            this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham saveData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String popupDeNghiHT() throws Exception {
-        try {
-            _leaveHomeService = new LeaveHomeService();
-            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
-            this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham saveData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String saveLeaveLocal() {
-        if (gradeAuthor1.equals("1")) {
-            try {
-                List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-                // Lay ra danh sach ma khach hang duoc chon
-                List<String> lstSelectedCustomer = new ArrayList<>();
-
-                for (int i = 0; i < this.lstData.size(); i++) {
-                    if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                        if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                            lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                        }
-                    }
-                }
-
-                for (int i = 0; i < this.lstData.size(); i++) {
-                    if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                        DuLieuNTRow tmp = new DuLieuNTRow();
-                        tmp = this.lstData.get(i);
-
-                        String D22 = tmp.getD22() == null ? "00" : tmp.getD22();
-
-                        //Lưu để phê duyệt đề nghị cung cấp thông tin
-                        String check = "0";
-                        String check1 = "0";
-                        try {
-                            check = tmp.getD31() == null ? "0" : tmp.getD31();
-                            check1 = tmp.getD33() == null ? "0" : tmp.getD33();
-                        } catch (Exception e) {
-                            check = "0";
-                            check1 = "0";
-                        }
-                        if (check.equals("1")) {
-//                            tmp.getD44()
-                            tmp.setD50("4");
-                            tmp.setD33("0");
-                        }
-                        if (check1.equals("1")) {
-                            tmp.setD50("5");
-                            tmp.setD31("0");
-                        }
-                        if (check.equals("0") && check1.equals("0")) {
-                            tmp.setD50("1");
-                        }
-                        lstSelectedData.add(tmp);
-                    }
-                }
-
-                List<DuLieuNTRow> lstSelectedData_Chovay = new ArrayList<>();
-                _leaveHomeService = new LeaveHomeService();
-                final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-                int _status = 0;
-                //Kiểm tra xem KH thuộc pos cho vay hay pos đề ngị hỗ trợ;
-                for (DuLieuNTRow item : lstSelectedData) {
-                    if (txtsMadv.equals(item.getPosCode())) {
-                        lstSelectedData_Chovay.add(item);
-                    } else {
-                        if (item.getD20().equals("HOVAY")) {
-                            List<DuLieuNTRow> lstSelectedData_Hotro = new ArrayList<>();
-                            String mapgd_tmp = item.getPosCode();
-                            String nguoi_nhap = item.getMakerId();
-
-                            DuLieuNTRow tmp = new DuLieuNTRow();
-                            tmp.setKey(item.getKey());
-                            tmp.setPosCode(item.getPosCode());
-                            tmp.setPosFlag(item.getPosFlag());
-                            tmp.setReportDate(item.getReportDate());
-                            tmp.setCode(item.getCode());
-                            tmp.setBranchCode(item.getBranchCode());
-                            tmp.setD11(item.getD11());
-                            tmp.setD26(item.getD26());
-                            tmp.setD27(item.getD27());
-                            tmp.setD34(item.getD34());
-                            tmp.setD41(item.getD41());
-                            tmp.setD30(item.getD30());
-                            tmp.setD32(item.getD32());
-                            tmp.setD28(item.getD28());
-                            tmp.setOrderValue(item.getOrderValue());
-
-                            lstSelectedData_Hotro.add(tmp);
-                            _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Hotro, "1");
-                            if (_status != 200) {
-                                return "success";
-                            }
-                        }
-                    }
-
-                }
-
-                String code = "";
-
-                _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Chovay, "1");
-                code = String.valueOf(_status);
-                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-            } catch (Exception e) {
-                System.err.println("Loi trong ham saveData " + e.getMessage());
-                CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-            }
-            return "success";
-        } else {
-            if (typeAuth.equals("4")) // đề nghị cung cấp tt 4 về D50 =6
-            {
-                try {
-                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-                    // Lay ra danh sach ma khach hang duoc chon
-                    List<String> lstSelectedCustomer = new ArrayList<>();
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                            }
-                        }
-                    }
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                            lstSelectedData.add(this.lstData.get(i));
-                        }
-                    }
-                    for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD50("6");
-                    }
-
-                    String code = "";
-                    _leaveHomeService = new LeaveHomeService();
-                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-//                    System.out.println("flagPos = " + flagPos);
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-                    code = String.valueOf(_status);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                } catch (Exception e) {
-                    System.err.println("Loi trong ham saveData " + e.getMessage());
-                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-                }
-                return "success";
-            } else if (typeAuth.equals("5")) // đề nghị hỗ trợ 5 về D50 =7
-            {
-                try {
-                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-                    // Lay ra danh sach ma khach hang duoc chon
-                    List<String> lstSelectedCustomer = new ArrayList<>();
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                            lstSelectedData.add(this.lstData.get(i));
-                        }
-                    }
-                    for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD50("7");
-                    }
-
-                    String code = "";
-                    _leaveHomeService = new LeaveHomeService();
-                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-//                    System.out.println("flagPos = " + flagPos);
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-                    code = String.valueOf(_status);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                } catch (Exception e) {
-                    System.err.println("Loi trong ham saveData " + e.getMessage());
-                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-                }
-                return "success";
-            } else {
-                // chuyển trạng thái D50 =9 để làm trạng thái xóa
-                try {
-                    List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-                    // Lay ra danh sach ma khach hang duoc chon
-                    List<String> lstSelectedCustomer = new ArrayList<>();
-
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                            if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                                lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                            }
-                        }
-                    }
-                    for (int i = 0; i < this.lstData.size(); i++) {
-                        if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                            lstSelectedData.add(this.lstData.get(i));
-                        }
-                    }
-                    for (DuLieuNTRow item : lstSelectedData) {
-                        item.setD50("9");
-                    }
-
-                    String code = "";
-                    _leaveHomeService = new LeaveHomeService();
-                    final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-                    int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-                    code = String.valueOf(_status);
-                    this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-                } catch (Exception e) {
-                    System.err.println("Loi trong ham saveData " + e.getMessage());
-                    CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-                }
-                return "success";
-            }
-        }
-    }
-
-    private int checkInput(List<DuLieuNTRow> lstInput) {
-        try {
-            for (int i = 0; i < lstInput.size(); i++) {
-                if (lstInput.get(i).getD22().equals("01") && lstInput.get(i).getD22().trim().length() < 5) {
-                    return 1;
-                }
-            }
-        } catch (Exception e) {
-            return 9;
-        }
-        return 0;
-    }
-
-    public String sendLeaveLocal() throws Exception {
-        try {
-            List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-            // Lay ra danh sach ma khach hang duoc chon
-            List<String> lstSelectedCustomer = new ArrayList<>();
-
-            for (int i = 0; i < this.lstData.size(); i++) {
-                if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                    if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                        lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                    }
-                }
-            }
-
-            for (int i = 0; i < this.lstData.size(); i++) {
-                if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                    lstSelectedData.add(this.lstData.get(i));
-                }
-            }
-
-            String code = "";
-            _leaveHomeService = new LeaveHomeService();
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-            int _status = _leaveHomeService.sendCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData);
-            code = String.valueOf(_status);
-            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            System.err.println("Loi trong ham sendLeaveLocal " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String fetchExcelUploadData() {
-        try {
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
-            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
-            _leaveHomeService = new LeaveHomeService();
-            this.lstData = _leaveHomeService.getUploadExcelData(this.sUser, txtsMadv, sReportdt, txtMakh, sFromDate, sToDate, "1");
-            lstCN = _leaveHomeService.getDonvi("M");
-            lstPGD = _leaveHomeService.getDonvi("S");
-        } catch (Exception e) {
-            System.err.println("Loi trong ham fetchExcelUploadData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " fetchExcelUploadData -> " + e.getMessage());
-        }
-        return "success";
-    }
-
-    public String updateMember() {
-        String code = "";
-        try {
-            _leaveHomeService = new LeaveHomeService();
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
-            int _status = _leaveHomeService.saveMembers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, this.lstData, "1");
-            code = String.valueOf(_status);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham saveData " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
-        }
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return "success";
-    }
-
-    public String debtHandling() {
-        System.err.println("vao ham debtHandling ");
-        String code = "";
-
-        try {
-            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
-            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
-            _leaveHomeService = new LeaveHomeService();
-            //Lấy thông tin khách hàng nhập xử lý nợ
-            this.lstData = _leaveHomeService.getCustomers(vsbpMaPgd, "S", vsbpMakh, sFromDate, sToDate, "1", "1", "1", "");
-            List<DuLieuNTRow> lstData_tmp = new ArrayList();
-            for (DuLieuNTRow item : lstData) {
-                if (item.getD20().equals("HOVAY")) {
-                    item.setD35(XuLyNo);
-                    item.setD36("1");
-                    //Kiểm trả trường hợp Đã thu nợ nhưng ko chọn ngày bắt đầu trả nợ
-                    if (XuLyNo.equals("2")) {
-                        System.out.println("startPaymentDate = " + startPaymentDate);
-                        if (startPaymentDate.length() < 8) {
-                            return ERROR;
-                        } else {
-                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                            Date date = inputFormat.parse(startPaymentDate);
-                            String output = outputFormat.format(date);
-                            System.out.println("startPaymentDate==== = " + output);
-                            item.setD37(output);
-                        }
-                    }
-
-                    lstData_tmp.add(item);
-                }
-            }
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
-            //Cập nhật thông tin khách hàng xử lý nợ 
-            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1");
-            System.err.println("xulyno = " + lstData.get(0).getD35() + lstData.get(0).getD36() + lstData.get(0).getCode() + "_status = " + _status);
-            code = String.valueOf(_status);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham debtHandling " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " debtHandling -> " + e.getMessage());
-        }
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return "success";
-    }
-
-    public String saveDeNghiHT() {
-        System.err.println("vao ham saveDeNghiHT ");
-        String code = "";
-
-        try {
-            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
-            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
-            _leaveHomeService = new LeaveHomeService();
-            //Lấy thông tin khách hàng nhập xử lý nợ
-            this.lstData = _leaveHomeService.getCustomers(vsbpMaPgd, "S", vsbpMakh, sFromDate, sToDate, "1", "1", "1", "");
-            List<DuLieuNTRow> lstData_tmp = new ArrayList();
-            for (DuLieuNTRow item : lstData) {
-                if (item.getD20().equals("HOVAY")) {
-//                    item.setD35(XuLyNo);
-                    item.setD33("1");
-                    item.setD38(ngaydenghi);
-                    item.setD39(sovbdenghi);
-                    item.setD50("5");    //Thông tin đề nghị hỗ trợ
-
-                    lstData_tmp.add(item);
-                }
-            }
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
-            //Cập nhật thông tin khách hàng xử lý nợ 
-            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1");
-            System.err.println("xulyno = " + lstData.get(0).getD35() + lstData.get(0).getD36() + lstData.get(0).getCode() + "_status = " + _status);
-            code = String.valueOf(_status);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham debtHandling " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " debtHandling -> " + e.getMessage());
-        }
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        return "success";
-    }
-
-    public String clearMember() {
-        String code = "";
-        try {
-            _leaveHomeService = new LeaveHomeService();
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
-            int _status = _leaveHomeService.clearMembers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, this.vsbpMakh, "1");
-            code = String.valueOf(_status);
-        } catch (Exception e) {
-            System.err.println("Loi trong ham clearMember " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " clearMember -> " + e.getMessage());
-        }
-        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-
-        return "success";
-    }
-
-    public String suggestDeteleCustomer() {
-        try {
-            List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
-            // Lay ra danh sach ma khach hang duoc chon
-            List<String> lstSelectedCustomer = new ArrayList<>();
-            for (int i = 0; i < this.lstData.size(); i++) {
-                if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
-                    if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                        lstSelectedCustomer.add(this.lstData.get(i).getD11());
-                    }
-                }
-            }
-
-            for (int i = 0; i < this.lstData.size(); i++) {
-                if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
-                    lstSelectedData.add(this.lstData.get(i));
-                }
-            }
-
-            String code = "";
-            _leaveHomeService = new LeaveHomeService();
-            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
-            int _status = _leaveHomeService.suggestDeleteCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
-            code = String.valueOf(_status);
-            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            System.err.println("Loi trong ham suggestDeteleCustomer " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " suggestDeteleCustomer -> " + e.getMessage());
-        }
-        return "success";
     }
 
     public List<DuLieuNTRow> getLstData() {
@@ -801,5 +289,562 @@ public class LeaveTheLocal extends ActionSupport {
     public void setLstXa_API(List<ListCommune> lstXa_API) {
         this.lstXa_API = lstXa_API;
     }
+    LeaveHomeService _leaveHomeService;
+    DuLieuNTService _service;
+    LeaveHomeDao homeDao = new LeaveHomeDao();
+//</editor-fold>
 
+    public LeaveTheLocal() {
+        sGrade = (String) ActionContext.getContext().getSession().get("reportGrade");
+        sUser = (String) ActionContext.getContext().getSession().get("username");
+    }
+
+    @Override
+    public String execute() throws Exception {
+        return "success";
+    }
+
+    public String getLeaveLocal() throws Exception {
+        try {
+            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
+            _leaveHomeService = new LeaveHomeService();
+            String _openFlag = "0";
+            if (sGrade.equals("1") && !txtMakh.isEmpty()) {
+                _openFlag = "1";
+            }
+            System.out.println("cap phe duyet = " + gradeAuthor1);
+            List<DuLieuNTRow> lstData_tmp = new ArrayList<>();
+            lstData = new ArrayList<>();
+            lstData_tmp = _leaveHomeService.getCustomers(txtsMadv, "S", txtMakh, sFromDate, sToDate, "1", _openFlag, gradeAuthor1, typeAuth);
+            //Kiểm tra user thuộc pos cho vay hay không
+            if (!lstData_tmp.isEmpty() && lstData_tmp.size() > 0) {
+                for (DuLieuNTRow item : lstData_tmp) {
+                    if (txtsMadv.equals(item.getPosCode())) {
+                        item.setD42("1");
+
+                        lstData.add(item);
+                    } else {
+                        item.setD42("0");
+                        if (!item.getD50().equals("4") && !item.getD50().equals("5")) {
+                            lstData.add(item);
+                        }
+                    }
+                }
+            }
+            lstCN_API = _leaveHomeService.getListCn("");
+            lstPGD_API = _leaveHomeService.getListPgd("", "");
+            lstXa_API = _leaveHomeService.getListXa("", "", "", "");
+//            lstCN = _leaveHomeService.getDonvi("M");
+//            lstPGD = _leaveHomeService.getDonvi("S");
+//            lstXa = _leaveHomeService.getXa("S");
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        if (gradeAuthor1.equals("1")) {
+            return "success";
+        } else {
+            return "success_author";
+        }
+    }
+
+    public String popupThanhvien() throws Exception {
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            this.lstData = _leaveHomeService.getMembers(vsbpMaPgd, "S", vsbpMakh, "1");
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String popupXuLyNo() throws Exception {
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
+            this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String popupDeNghiHT() throws Exception {
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            setLstXuLyNo(new DaoNghiquyet11cp().getDanhMuc("SYSTEM", "XULYNO", "1"));
+            this.lstData = homeDao.getDataDebtHandling("BO_DI_KHOI_DP_DH", vsbpMaPgd, "", "1", vsbpMakh);
+        } catch (Exception e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String saveLeaveLocal() {
+        if (gradeAuthor1.equals("1")) {
+            try {
+                List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                // Lay ra danh sach ma khach hang duoc chon
+                List<String> lstSelectedCustomer = new ArrayList<>();
+
+                for (int i = 0; i < this.lstData.size(); i++) {
+                    if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                        if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                            lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                        }
+                    }
+                }
+
+                for (int i = 0; i < this.lstData.size(); i++) {
+                    if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                        DuLieuNTRow tmp = new DuLieuNTRow();
+                        tmp = this.lstData.get(i);
+
+                        String D22 = tmp.getD22() == null ? "00" : tmp.getD22();
+
+                        //Lưu để phê duyệt đề nghị cung cấp thông tin
+                        String check = "0";
+                        String check1 = "0";
+                        try {
+                            check = tmp.getD31() == null ? "0" : tmp.getD31();
+                            check1 = tmp.getD33() == null ? "0" : tmp.getD33();
+                        } catch (Exception e) {
+                            check = "0";
+                            check1 = "0";
+                        }
+                        if (check.equals("1")) {
+//                            tmp.getD44()
+                            tmp.setD50("4");
+                            tmp.setD33("0");
+                        }
+                        if (check1.equals("1")) {
+                            tmp.setD50("5");
+                            tmp.setD31("0");
+                        }
+                        if (check.equals("0") && check1.equals("0")) {
+                            tmp.setD50("1");
+                        }
+                        lstSelectedData.add(tmp);
+                    }
+                }
+
+                List<DuLieuNTRow> lstSelectedData_Chovay = new ArrayList<>();
+                _leaveHomeService = new LeaveHomeService();
+                final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+                int _status = 0;
+                //Kiểm tra xem KH thuộc pos cho vay hay pos đề ngị hỗ trợ;
+                for (DuLieuNTRow item : lstSelectedData) {
+                    if (txtsMadv.equals(item.getPosCode())) {
+                        lstSelectedData_Chovay.add(item);
+                    } else {
+                        if (item.getD20().equals("HOVAY")) {
+                            List<DuLieuNTRow> lstSelectedData_Hotro = new ArrayList<>();
+                            String mapgd_tmp = item.getPosCode();
+                            String nguoi_nhap = item.getMakerId();
+
+                            DuLieuNTRow tmp = new DuLieuNTRow();
+                            tmp.setKey(item.getKey());
+                            tmp.setPosCode(item.getPosCode());
+                            tmp.setPosFlag(item.getPosFlag());
+                            tmp.setReportDate(item.getReportDate());
+                            tmp.setCode(item.getCode());
+                            tmp.setBranchCode(item.getBranchCode());
+                            tmp.setD11(item.getD11());
+                            tmp.setD26(item.getD26());
+                            tmp.setD27(item.getD27());
+                            tmp.setD34(item.getD34());
+                            tmp.setD41(item.getD41());
+                            tmp.setD30(item.getD30());
+                            tmp.setD32(item.getD32());
+                            tmp.setD28(item.getD28());
+                            tmp.setOrderValue(item.getOrderValue());
+
+                            lstSelectedData_Hotro.add(tmp);
+                            _status = _leaveHomeService.saveCustomers_denghi(mapgd_tmp, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Hotro, "1");
+                            if (_status != 200) {
+                                return "success";
+                            }
+                        }
+                    }
+
+                }
+
+                String code = "";
+
+                _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData_Chovay, "1");
+                code = String.valueOf(_status);
+                this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+            } catch (ParseException e) {
+                System.err.println("Loi trong ham saveData " + e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+            }
+            return "success";
+        } else {
+            switch (typeAuth) {
+                // đề nghị cung cấp tt 4 về D50 =6
+                case "4":
+                    try {
+                        List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                        // Lay ra danh sach ma khach hang duoc chon
+                        List<String> lstSelectedCustomer = new ArrayList<>();
+
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                                if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                    lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                                }
+                            }
+                        }
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                lstSelectedData.add(this.lstData.get(i));
+                            }
+                        }
+                        lstSelectedData.forEach((item) -> {
+                            item.setD50("6");
+                        });
+
+                        String code = "";
+                        _leaveHomeService = new LeaveHomeService();
+                        final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+//                    System.out.println("flagPos = " + flagPos);
+                        int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+                        code = String.valueOf(_status);
+                        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    } catch (ParseException e) {
+                        System.err.println("Loi trong ham saveData " + e.getMessage());
+                        CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+                    }
+                    return "success";
+                // đề nghị hỗ trợ 5 về D50 =7
+                case "5":
+                    try {
+                        List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                        // Lay ra danh sach ma khach hang duoc chon
+                        List<String> lstSelectedCustomer = new ArrayList<>();
+
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                                if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                    lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                lstSelectedData.add(this.lstData.get(i));
+                            }
+                        }
+                        lstSelectedData.forEach((item) -> {
+                            item.setD50("7");
+                        });
+
+                        String code = "";
+                        _leaveHomeService = new LeaveHomeService();
+                        final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+//                    System.out.println("flagPos = " + flagPos);
+                        int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+                        code = String.valueOf(_status);
+                        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    } catch (ParseException e) {
+                        System.err.println("Loi trong ham saveData " + e.getMessage());
+                        CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+                    }
+                    return "success";
+                default:
+                    // chuyển trạng thái D50 =9 để làm trạng thái xóa
+                    try {
+                        List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+                        // Lay ra danh sach ma khach hang duoc chon
+                        List<String> lstSelectedCustomer = new ArrayList<>();
+
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                                if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                    lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                                }
+                            }
+                        }
+                        for (int i = 0; i < this.lstData.size(); i++) {
+                            if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                                lstSelectedData.add(this.lstData.get(i));
+                            }
+                        }
+                        lstSelectedData.forEach((item) -> {
+                            item.setD50("9");
+                        });
+
+                        String code = "";
+                        _leaveHomeService = new LeaveHomeService();
+                        final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+                        int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+                        code = String.valueOf(_status);
+                        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+                    } catch (ParseException e) {
+                        System.err.println("Loi trong ham saveData " + e.getMessage());
+                        CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+                    }
+                    return "success";
+            }
+        }
+    }
+
+    private int checkInput(List<DuLieuNTRow> lstInput) {
+        try {
+            for (int i = 0; i < lstInput.size(); i++) {
+                if (lstInput.get(i).getD22().equals("01") && lstInput.get(i).getD22().trim().length() < 5) {
+                    return 1;
+                }
+            }
+        } catch (Exception e) {
+            return 9;
+        }
+        return 0;
+    }
+
+    public String sendLeaveLocal() throws Exception {
+        try {
+            List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+            // Lay ra danh sach ma khach hang duoc chon
+            List<String> lstSelectedCustomer = new ArrayList<>();
+
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                    if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                        lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                    }
+                }
+            }
+
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                    lstSelectedData.add(this.lstData.get(i));
+                }
+            }
+
+            String code = "";
+            _leaveHomeService = new LeaveHomeService();
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+            int _status = _leaveHomeService.sendCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData);
+            code = String.valueOf(_status);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham sendLeaveLocal " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String fetchExcelUploadData() {
+        try {
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
+            _leaveHomeService = new LeaveHomeService();
+            this.lstData = _leaveHomeService.getUploadExcelData(this.sUser, txtsMadv, sReportdt, txtMakh, sFromDate, sToDate, "1");
+            lstCN = _leaveHomeService.getDonvi("M");
+            lstPGD = _leaveHomeService.getDonvi("S");
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham fetchExcelUploadData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " fetchExcelUploadData -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String updateMember() {
+        String code = "";
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
+            int _status = _leaveHomeService.saveMembers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, this.lstData, "1");
+            code = String.valueOf(_status);
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham saveData " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " saveData -> " + e.getMessage());
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return "success";
+    }
+
+    public String debtHandling() {
+        System.err.println("vao ham debtHandling ");
+        String code = "";
+
+        try {
+            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
+            _leaveHomeService = new LeaveHomeService();
+            //Lấy thông tin khách hàng nhập xử lý nợ
+            this.lstData = _leaveHomeService.getCustomers(vsbpMaPgd, "S", vsbpMakh, sFromDate, sToDate, "1", "1", "1", "");
+            List<DuLieuNTRow> lstData_tmp = new ArrayList();
+            for (DuLieuNTRow item : lstData) {
+                if (item.getD20().equals("HOVAY")) {
+                    item.setD35(XuLyNo);
+                    item.setD36("1");
+                    //Kiểm trả trường hợp Đã thu nợ nhưng ko chọn ngày bắt đầu trả nợ
+                    if (XuLyNo.equals("2")) {
+                        System.out.println("startPaymentDate = " + startPaymentDate);
+                        if (startPaymentDate.length() < 8) {
+                            return ERROR;
+                        } else {
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = inputFormat.parse(startPaymentDate);
+                            String output = outputFormat.format(date);
+                            System.out.println("startPaymentDate==== = " + output);
+                            item.setD37(output);
+                        }
+                    }
+
+                    lstData_tmp.add(item);
+                }
+            }
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
+            //Cập nhật thông tin khách hàng xử lý nợ 
+            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1");
+            System.err.println("xulyno = " + lstData.get(0).getD35() + lstData.get(0).getD36() + lstData.get(0).getCode() + "_status = " + _status);
+            code = String.valueOf(_status);
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham debtHandling " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " debtHandling -> " + e.getMessage());
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return "success";
+    }
+
+    public String saveDeNghiHT() {
+        System.err.println("vao ham saveDeNghiHT ");
+        String code = "";
+
+        try {
+            final String sFromDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtFromDate));
+            final String sToDate = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtToDate));
+            _leaveHomeService = new LeaveHomeService();
+            //Lấy thông tin khách hàng nhập xử lý nợ
+            this.lstData = _leaveHomeService.getCustomers(vsbpMaPgd, "S", vsbpMakh, sFromDate, sToDate, "1", "1", "1", "");
+            List<DuLieuNTRow> lstData_tmp = new ArrayList();
+            lstData.stream().filter((item) -> (item.getD20().equals("HOVAY"))).map((item) -> {
+                //                    item.setD35(XuLyNo);
+                item.setD33("1");
+                return item;
+            }).map((item) -> {
+                item.setD38(ngaydenghi);
+                return item;
+            }).map((item) -> {
+                item.setD39(sovbdenghi);
+                return item;
+            }).map((item) -> {
+                item.setD50("5");    //Thông tin đề nghị hỗ trợ
+                return item;
+            }).forEachOrdered((item) -> {
+                lstData_tmp.add(item);
+            });
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
+            //Cập nhật thông tin khách hàng xử lý nợ 
+            int _status = _leaveHomeService.saveCustomers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, lstData_tmp, "1");
+            System.err.println("xulyno = " + lstData.get(0).getD35() + lstData.get(0).getD36() + lstData.get(0).getCode() + "_status = " + _status);
+            code = String.valueOf(_status);
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham debtHandling " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " debtHandling -> " + e.getMessage());
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return "success";
+    }
+
+    public String clearMember() {
+        String code = "";
+        try {
+            _leaveHomeService = new LeaveHomeService();
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.vsbpNgayBC));
+            int _status = _leaveHomeService.clearMembers(vsbpMaPgd, "S", sReportdt, this.sUser, this.sUser, this.vsbpMakh, "1");
+            code = String.valueOf(_status);
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham clearMember " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " clearMember -> " + e.getMessage());
+        }
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+
+        return "success";
+    }
+
+    public String suggestDeteleCustomer() {
+        try {
+            List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+            // Lay ra danh sach ma khach hang duoc chon
+            List<String> lstSelectedCustomer = new ArrayList<>();
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                    if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                        lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                    }
+                }
+            }
+
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                    lstSelectedData.add(this.lstData.get(i));
+                }
+            }
+
+            String code = "";
+            _leaveHomeService = new LeaveHomeService();
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+            int _status = _leaveHomeService.suggestDeleteCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+            code = String.valueOf(_status);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham suggestDeteleCustomer " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " suggestDeteleCustomer -> " + e.getMessage());
+        }
+        return "success";
+    }
+
+    public String doneCustomer() {
+        try {
+            List<DuLieuNTRow> lstSelectedData = new ArrayList<>();
+            // Lay ra danh sach ma khach hang duoc chon
+            List<String> lstSelectedCustomer = new ArrayList<>();
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (this.lstData.get(i).getManualFlag() != null && this.lstData.get(i).getManualFlag().equals("1")) {
+                    if (!lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                        lstSelectedCustomer.add(this.lstData.get(i).getD11());
+                    }
+                }
+            }
+            for (int i = 0; i < this.lstData.size(); i++) {
+                if (lstSelectedCustomer.contains(this.lstData.get(i).getD11())) {
+                    lstSelectedData.add(this.lstData.get(i));
+                }
+            }
+            lstSelectedData.forEach((item) -> {
+                item.setD50("1");
+                item.setD38("");
+                item.setD39("");
+                item.setD28("");
+                item.setD30("");
+                item.setD32("");
+                item.setD31("0");
+                item.setD33("0");
+                item.setD34("00");
+            });
+
+            String code = "";
+            _leaveHomeService = new LeaveHomeService();
+            final String sReportdt = new SimpleDateFormat("dd-MMM-yyyy").format(new SimpleDateFormat("dd/MM/yyyy").parse(this.txtNgayBc));
+            int _status = _leaveHomeService.saveCustomers(txtsMadv, "S", sReportdt, this.sUser, this.sUser, lstSelectedData, "1");
+            code = String.valueOf(_status);
+            this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+
+        } catch (ParseException e) {
+            System.err.println("Loi trong ham suggestDeteleCustomer " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " suggestDeteleCustomer -> " + e.getMessage());
+        }
+        return "success";
+    }
 }

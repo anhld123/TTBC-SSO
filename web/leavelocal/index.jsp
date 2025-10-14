@@ -62,6 +62,7 @@
                             <input type="button" id="idSearch" value="Tìm kiếm" style="height: 25px; padding: 0px 20px 0px 20px;">
                             <!--<input type="button" id="idPheduyet" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >-->
                             <input type="button" id="idSave" value="Phê duyệt" style="height: 25px;padding: 0px 20px 0px 20px;" >
+                            <input type="button" id="idDone" value="Từ chối" style="height: 25px;padding: 0px 20px 0px 20px;color: red" >
                         </div>
                     </s:if>
                     <s:else>
@@ -103,7 +104,7 @@
         </div>
         <script>
             function changValSeclect() {
-                if ($("#typeAuth").val() == 1) {
+                if ($("#typeAuth").val() === 1) {
                     $("#idPheduyet").val("Phê duyệt").prop('disabled', true);
                 } else {
                     $("#idPheduyet").val("Phê duyệt").prop('disabled', false).click(function () {
@@ -388,9 +389,9 @@
                                 }
                                 //Bắt số đt
                                 var lstData_D16 = document.getElementById('lstData_D16' + i).value;
-                                if (lstData_D16.length != 10 && lstData_D16.length != 0 && check_box !== false)
+                                if (lstData_D16.length !== 10 && lstData_D16.length !== 0 && check_box !== false)
                                 {
-                                    alert('Vui lòng nhập thông số điện thoại 10 số.')
+                                    alert('Vui lòng nhập thông số điện thoại 10 số.');
                                     document.getElementById("lstData_D16" + i).style.backgroundColor = "#EEAFA6";
                                     isValid = false;
                                     break;
@@ -524,6 +525,41 @@
 
             });
 
+            $("#idDone").click(function () {
+                let checkedCount = countCheckedItem();
+                if (checkedCount === 0 || checkedCount > 100) {
+                    alert('Bạn chưa chọn bản ghi để từ chối hoặc mỗi lần bạn chỉ được phép xử lý 100 bản ghi!');
+                } else {
+                    let aCheck = confirm("Bạn chắc chắn muốn từ chối dữ liệu ?");
+                    if (aCheck) {
+                        var url, sdata;
+                        url = "doneCustomer.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#viewData").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Từ chối dữ liệu.");
+                                    $("#idSearch").trigger("click");
+                                } else {
+                                    alert("Lỗi: Từ chối dữ liệu.");
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                            }
+                        });
+                    }
+                }
+
+            });
 
             function callDirectLink(link) {
                 //var ht = screen.availHeight / 6;

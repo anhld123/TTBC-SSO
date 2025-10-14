@@ -46,6 +46,12 @@
                 <param name="inputName">pageResult</param>
             </result>
         </action>  
+         <action name="doneCustomer" class="vbsp.ims.leavelocal.LeaveTheLocal" method="doneCustomer">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>
+        </action>  
         <action name="sendLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="sendLeaveLocal">
             <result name="success" type="stream">
                 <param name="contentType">text/html</param>

@@ -12,7 +12,6 @@ import vbsp.ims.restapi.DuLieuNTRow;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.action.ktktnb.DULIEU_NT_TQ;
@@ -23,7 +22,6 @@ import java.util.Date;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-import vbsp.ims.restapi.DuLieuNTRowX;
 
 
 /**
