@@ -356,7 +356,16 @@
             document.getElementById("lstData41" + index).disabled = true;
         }
     }
-
+    
+     function onSelectChange_dnht(value, index) {
+        if (value === '1')
+        {
+            document.getElementById("lstDNHT_D33" + index).style.visibility = "visible";
+        } else
+        {
+            document.getElementById("lstDNHT_D33" + index).style.visibility = "hidden";
+        }
+    }
     function onSelectChange_tccc_rasoat(value, index) {
         var selected;
         if (value === '01')
