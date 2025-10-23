@@ -1037,11 +1037,11 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "KTTC_QSDD_01";
             }
 
-            if (khoa_nhaptaycn.equals("HTLS_2024")) {
+            if (khoa_nhaptaycn.equals("HTLS_2024") || khoa_nhaptaycn.equals("HTLS_2025")) {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
-                return "HTLS_2024";
+                return khoa_nhaptaycn.equals("HTLS_2024") ? "HTLS_2024" : "HTLS_2025";
             }
 
             if (conn != null) {

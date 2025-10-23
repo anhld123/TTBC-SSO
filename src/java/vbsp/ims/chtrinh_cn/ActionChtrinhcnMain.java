@@ -704,7 +704,6 @@ public class ActionChtrinhcnMain extends ActionSupport {
     protected List<String> pgd = new ArrayList<String>();
 
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
     //<editor-fold defaultstate="collapsed" desc="Cho phan khoi tao form chinh">
     private boolean setTreeNodeGrade3(List<ModelTreeNode> lstModelTree) {
 
@@ -1197,6 +1196,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
     }
 
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="phan nay thua">
     private List<ModelViewSend> getViewStatusSend(List<String> lstPos, Map<String, Integer> mapStatus) {
         addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
         List<ModelViewSend> lstStatus = new ArrayList();
@@ -1554,7 +1554,9 @@ public class ActionChtrinhcnMain extends ActionSupport {
         lockStatus = daoMain.getLockStatus(sKey, sReportDate, sUserName, sReportGrade);
         return SUCCESS;
     }
+    //</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="phan cua up excel">
     public String openExcelUploadQtKh() {
         try (Connection conn = new DaoConnect().getConnect()) {
             DuLieuNTService _serverAPI = new DuLieuNTService();
@@ -1834,7 +1836,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
             throw new ExceptionInInitializerError("Failed to init Oracle type descriptors: " + e.getMessage());
         }
     }
-
+//</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
     private String mauBc;
 
