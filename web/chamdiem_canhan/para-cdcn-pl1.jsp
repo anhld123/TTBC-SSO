@@ -210,8 +210,10 @@
                 $('#message_suc_err').empty();
                 $('#divExportReportLink').empty();
 //                    console.log("vào 1");
+                let flgFilter = $("#flgFilter").val();
+                console.log("flgFilter =" + flgFilter);
                 let checkedCount = countCheckedItem();
-                if (checkedCount === 0) {
+                if (checkedCount === 0 && flgFilter !== '1') {
                     alert('Bạn chưa chọn bản ghi để lưu!');
                 } else
                 {
