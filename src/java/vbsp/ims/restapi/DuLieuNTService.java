@@ -1989,7 +1989,17 @@ public class DuLieuNTService extends ReportService {
         if (response.getStatus() == 200) {
             ListCommune listDistrict = response.readEntity(ListCommune.class);
             ArrayList<ListCommune> listOfRow = listDistrict.result;
-            return listOfRow;
+
+            // Lọc: chỉ giữ communeCode có ký tự thứ 3 và 4 là "00"
+            ArrayList<ListCommune> filteredList = new ArrayList<>();
+            for (ListCommune item : listOfRow) {
+                String code = item.getCommuneCode();
+                if (code != null && code.length() >= 4 && code.substring(2, 4).equals("00")) {
+                    filteredList.add(item);
+                }
+            }
+
+            return filteredList;
         } else {
             return null;
         }

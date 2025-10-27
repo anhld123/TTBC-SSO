@@ -332,6 +332,7 @@ public class LoadReportParamsActionSupport_Api
             }
             exportReport.ExportJasperPdf(paramHashMap, connect, strPathSave + strFileSave, reportId);
         }
+        
         //Kiem tra xem file da tao thanh cong chua
         File filerpt = new File(strPathSave + strFileSave);
         if (!filerpt.exists()) {

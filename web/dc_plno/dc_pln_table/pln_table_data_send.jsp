@@ -57,7 +57,7 @@
     .custom-scroll {
         overflow: scroll;
         width: 98%;
-        height: 500px;
+        height: 600px;
         scrollbar-width: thin; /* Firefox */
         scrollbar-color: rgba(128, 128, 128, 0.3) transparent; /* Firefox */
     }
@@ -316,7 +316,9 @@
                                                name="lstDulieuNtPLN_T[<s:property  value='%{#rowstatus.index}' />].checkrow"
                                                id="checkrow_<s:property value="%{#rowstatus.index}" />"
                                                value="0" onclick="$(this).val(this.checked ? 1 : 0)"/>      
-                            <input type="hidden" value="<s:property  value="plnSoku" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnSoku"/>                             
+                            <input type="hidden" value="<s:property  value="plnSoku" />" 
+                                   id="plnSoku_<s:property value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnSoku"/>                             
                             <input type="hidden" value="<s:property  value="plnMapgd" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMapgd"/>  
                             <input type="hidden" value="<s:property  value="plnTenkh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTenkh"/>  
                             <input type="hidden" value="<s:property  value="plnMakh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnMakh"/>  
@@ -325,7 +327,9 @@
                             <input type="hidden" value="<s:property  value="plnDnothan" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnothan"/>  
                             <input type="hidden" value="<s:property  value="plnDnoqhan" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnoqhan"/>  
                             <input type="hidden" value="<s:property  value="plnDnokhoanh" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnDnokhoanh"/>
-                            <input type="hidden" value="<s:property  value="plnTrangthai" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTrangthai"/>  
+                            <input type="hidden" value="<s:property  value="plnTrangthai" />" 
+                                   id="plnTrangthai_<s:property value='%{#rowstatus.index}' />"
+                                   name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTrangthai"/>  
                             <input type="hidden" value="<s:property  value="plnTonglaiton" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnTonglaiton"/>
                             <input type="hidden" value="<s:property  value="plnNogocClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNogocClech"/> 
                             <input type="hidden" value="<s:property  value="plnNolaiClech" />" name="lstDulieuNtPLN_T[<s:property  value="%{#rowstatus.index}" />].plnNolaiClech"/>

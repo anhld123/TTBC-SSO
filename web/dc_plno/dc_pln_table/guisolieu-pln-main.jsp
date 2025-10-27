@@ -38,7 +38,7 @@
             }
             #container{
                 width: 100%;
-                height: 500px;
+                height: auto;
                 border: 0px solid;
                 padding-left: 0px;                
             }
@@ -47,14 +47,14 @@
                 width: 15%;
                 border-left: 1px solid;
                 border-right: 1px solid;
-                height: 450px;
+                height: auto;
                 float: left;
                 overflow: scroll;
             }
 
             #containParm{
                 width: 84%;
-                height: 450px;
+                height: auto;
                 padding-left: 5px;
                 float: left;
                 overflow: scroll;
@@ -167,13 +167,22 @@
                         if (aCheck) {
                             var table = document.getElementById("subTable");
                             var rowcount = table.rows.length;
-                            console.log("dong = " + rowcount);
-                            var isValid = true; // Tạo biến để kiểm tra tính hợp lệ của dữ liệu
-
+                            var isValid = true;
                             for (var i = 0; i < rowcount; i++) {
                                 try {
+                                    var strangthai = document.getElementById("plnTrangthai_" + i).value;
+                                    var checkrow = document.getElementById("checkrow_" + i).value;
+                                    var ssokuEl = document.getElementById("plnSoku_" + i); // phần tử
+                                    var ssoku = ssokuEl.value; // giá trị
 
+                                    if (checkrow === '1' && strangthai !== 'S') {
+                                        alert('Món vay ' + ssoku + ' = ' + strangthai + ' chưa đối chiếu, không thể chốt!');
+//                                        ssokuEl.style.backgroundColor = "#EEAFA6"; // tô màu ô lỗi
+                                        isValid = false;
+                                        break;
+                                    }
                                 } catch (e) {
+                                    console.error(e);
                                 }
                             }
 
@@ -554,13 +563,11 @@
                                     if (data === "200") {
                                         alert("Thành công: Chốt dữ liệu.");
                                         $("#idSearch").click();
-                                    } 
-                                    else if
-                                    (data === "999") {
+                                    } else if
+                                            (data === "999") {
                                         alert("Thông báo: Không có tổ cần chốt dữ liệu!");
                                         $("#idSearch").click();
-                                    } 
-                                    else {
+                                    } else {
                                         alert("Lỗi: Chốt dữ liệu.");
                                         $("#idSearch").click();
                                     }
@@ -570,7 +577,7 @@
                                 },
                                 error: function (request) {
                                     alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                     $("#idSearch").click();
+                                    $("#idSearch").click();
                                 }
                             });
                         }
