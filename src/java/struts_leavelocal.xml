@@ -88,5 +88,13 @@
         <action name="fetchUploadExcelLeaveLocal" class="vbsp.ims.leavelocal.LeaveTheLocal" method="fetchExcelUploadData">
             <result name="success">/leavelocal/viewdata.jsp</result>
         </action>
+          <!--bodi tw-->
+        <action name="LEAVELOCAL_TW" class="vbsp.ims.leavelocal.LeaveHomeTW"  method="load">
+            <result name="success">/leavelocal/viewtw.jsp</result>                                                          
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="unlock_leavelocal" class="vbsp.ims.leavelocal.LeaveHomeTW" method="unlock_leavelocal">
+            <result name="success" type="json"></result>
+        </action>
     </package>
 </struts>

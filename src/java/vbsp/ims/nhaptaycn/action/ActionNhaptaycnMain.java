@@ -901,7 +901,12 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "LEAVELOCAL";
 
             }
+              if (this.khoa_nhaptaycn.equals("LEAVELOCAL_TW")) {
+                epsModel dao = new epsModel();
+                lstDonvi = dao.getDonvi(Grade, UserName);
+                return "LEAVELOCAL_TW";
 
+            }
             if (this.khoa_nhaptaycn.equals("KTTC_MUASAM_01")) {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();

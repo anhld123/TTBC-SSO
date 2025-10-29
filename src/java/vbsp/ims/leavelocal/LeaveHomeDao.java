@@ -22,7 +22,7 @@ import java.util.Date;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
-
+import vbsp.ims.define.GenericResult;
 
 /**
  *
@@ -30,8 +30,9 @@ import vbsp.ims.bcqt.model.QT_DULIEU_NT;
  */
 public class LeaveHomeDao {
 
-    public LeaveHomeDao() {}
-    
+    public LeaveHomeDao() {
+    }
+
     public List<DuLieuNTRow> getUploadExcelData(String user, String posCode, String reportDate, String customerCode, String fromDate, String toDate, String type)
             throws SQLException {
 
@@ -109,16 +110,15 @@ public class LeaveHomeDao {
 
         return _lstData;
     }
-    
+
     public int updateUploadExcelDataStatus(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String status)
-    throws SQLException, ParseException       
-    {
-        
+            throws SQLException, ParseException {
+
         final Date _reportDate = (new SimpleDateFormat("dd-MMM-yyyy")).parse(reportDate);
-        
+
         List<DULIEU_NT_TQ> lstData = new ArrayList<>();
-        
-        for(int i = 0; i < data.size(); i++) {
+
+        for (int i = 0; i < data.size(); i++) {
             final DULIEU_NT_TQ obj = DULIEU_NT_TQ.newInstance();
             obj.setKHOA(data.get(i).getKey());
             obj.setMA(data.get(i).getCode());
@@ -144,7 +144,7 @@ public class LeaveHomeDao {
             obj.setD13(data.get(i).getD13());
             obj.setD14(data.get(i).getD14());
             obj.setD15(data.get(i).getD15());
-            obj.setD16(data.get(i).getD16()); 
+            obj.setD16(data.get(i).getD16());
             obj.setD17(data.get(i).getD17());
             obj.setD18(data.get(i).getD18());
             obj.setD19(data.get(i).getD19());
@@ -168,15 +168,15 @@ public class LeaveHomeDao {
             obj.setD37(data.get(i).getD37());
             obj.setD38(data.get(i).getD38());
             obj.setD39(data.get(i).getD39());
-            
+
             obj.setD50(status);
-            
+
             lstData.add(obj);
         }
-        
+
         final DaoConnect db = new DaoConnect();
-        final Connection con = db.getConnect();        
-      
+        final Connection con = db.getConnect();
+
         final Object[] array = lstData.toArray();
         final ArrayDescriptor des = ArrayDescriptor.createDescriptor("TAB_DULIEU_NT_TQ", con);
         final ARRAY array_to_pass = new ARRAY(des, con, (Object) array);
@@ -192,20 +192,20 @@ public class LeaveHomeDao {
         calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
         calstatement.execute();
         int _recordCnt = calstatement.getInt(6);
-        
+
         if (calstatement != null) {
             calstatement.close();
-        }               
-                           
+        }
+
         return _recordCnt;
     }
-    
-    public List<DuLieuNTRow> getDataDebtHandling(String sKhoa,String sPosCD, String sNgaybc, 
+
+    public List<DuLieuNTRow> getDataDebtHandling(String sKhoa, String sPosCD, String sNgaybc,
             String sGrade, String maKH) {
         List<DuLieuNTRow> lstBcqt_NT = new ArrayList<DuLieuNTRow>();
         try {
             final DaoConnect db = new DaoConnect();
-            final Connection conn = db.getConnect();    
+            final Connection conn = db.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call BODI_KHOIDP.SP_GET_DEBT_HANDLING_INFO(?,?,?,?,?,?,?,?)}";
@@ -220,7 +220,7 @@ public class LeaveHomeDao {
                 calstatement.setString(1, sKhoa);
                 calstatement.setString(2, sPosCD);
                 calstatement.setString(3, sGrade);
-                calstatement.setString(4, sNgaybc);                
+                calstatement.setString(4, sNgaybc);
                 calstatement.setString(8, maKH);
                 //Thuc hien execute lay du lieu
                 calstatement.execute();
@@ -303,7 +303,7 @@ public class LeaveHomeDao {
         }
         return lstBcqt_NT;
     }
-    
+
     public int checkRuleUser(String UserName, String CapBC) throws SQLException {
         int _retVal = 0;
         Connection conn = new DaoConnect().getConnect();
@@ -318,7 +318,7 @@ public class LeaveHomeDao {
                     ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             calstatement.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             calstatement.setString(2, UserName);
-            calstatement.setString(3, CapBC);            
+            calstatement.setString(3, CapBC);
             //Thuc hien execute lay du lieu
             calstatement.execute();
             //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
@@ -341,6 +341,7 @@ public class LeaveHomeDao {
         }
         return _retVal;
     }
+
     public boolean save_CN_BO_DI_KHOI_DP(String khoa, String mapgd, String sGrade, String sNgaybc, String username, List<QT_DULIEU_NT> lstData, String sType) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
 //        java.util.Dictionary map = (java.util.Dictionary) (connection.getTypeMap());
@@ -373,5 +374,155 @@ public class LeaveHomeDao {
             }
         }
         return true;
+    }
+
+    public List<QT_DULIEU_NT> getLeaveHomeTW(Connection conn, String sNgaybc, String sKhoa, String sPosCd, String sKey) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call BODI_KHOIDP.GET_DATA_TW(?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sNgaybc);
+                calstatement.setString(2, sKhoa);
+                calstatement.setString(3, sPosCd);
+                calstatement.setString(4, sKey);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
+                int pn_err_cd = calstatement.getInt(5);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(6);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(7);
+                while (reset.next()) {
+
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+                    value.setKHOA(reset.getString("KHOA"));
+                    value.setTHUTU(reset.getInt("THUTU"));
+                    value.setTT_HIENTHI(reset.getString("TT_HIENTHI"));
+                    value.setMA(reset.getString("MA"));
+                    value.setTEN(reset.getString("TEN"));
+                    value.setNGAYBC(reset.getDate("NGAYBC"));
+                    value.setNAMBC(reset.getInt("NAMBC"));
+                    value.setMAPGD(reset.getString("MAPGD"));
+                    value.setCO_TONGHOP(reset.getString("CO_TONGHOP"));
+                    value.setMACN(reset.getString("MACN"));
+                    value.setNGUOI_NHAP(reset.getString("NGUOI_NHAP"));
+                    value.setNGAY_NHAP(reset.getDate("NGAY_NHAP"));
+                    value.setNGUOI_DUYET(reset.getString("NGUOI_DUYET"));
+                    value.setNGAY_DUYET(reset.getDate("NGAY_DUYET"));
+                    value.setD1(reset.getString("D1"));
+                    value.setD2(reset.getString("D2"));
+                    value.setD3(reset.getString("D3"));
+                    value.setD4(reset.getString("D4"));
+                    value.setD5(reset.getString("D5"));
+                    value.setD6(reset.getString("D6"));
+                    value.setD7(reset.getString("D7"));
+                    value.setD8(reset.getString("D8"));
+                    value.setD9(reset.getString("D9"));
+                    value.setD10(reset.getString("D10"));
+                    value.setD11(reset.getString("D11"));
+                    value.setD12(reset.getString("D12"));
+                    value.setD13(reset.getString("D13"));
+                    value.setD14(reset.getString("D14"));
+                    value.setD15(reset.getString("D15"));
+                    value.setD16(reset.getString("D16"));
+                    value.setD17(reset.getString("D17"));
+                    value.setD18(reset.getString("D18"));
+                    value.setD19(reset.getString("D19"));
+                    value.setD20(reset.getString("D20"));
+                    value.setD21(reset.getString("D21"));
+                    value.setD22(reset.getString("D22"));
+                    value.setD23(reset.getString("D23"));
+                    value.setD24(reset.getString("D24"));
+                    value.setD25(reset.getString("D25"));
+                    value.setD26(reset.getString("D26"));
+                    value.setD27(reset.getString("D27"));
+                    value.setD28(reset.getString("D28"));
+                    value.setD29(reset.getString("D29"));
+                    value.setD30(reset.getString("D30"));
+                    value.setD31(reset.getString("D31"));
+                    value.setD32(reset.getString("D32"));
+                    value.setD33(reset.getString("D33"));
+                    value.setD34(reset.getString("D34"));
+                    value.setD35(reset.getString("D35"));
+                    value.setD36(reset.getString("D36"));
+                    value.setD37(reset.getString("D37"));
+                    value.setD38(reset.getString("D38"));
+                    value.setD39(reset.getString("D39"));
+                    value.setD40(reset.getString("D40"));
+                    value.setD41(reset.getString("D41"));
+                    value.setD42(reset.getString("D42"));
+                    value.setD43(reset.getString("D43"));
+                    value.setD44(reset.getString("D44"));
+                    value.setD45(reset.getString("D45"));
+                    value.setD46(reset.getString("D46"));
+                    value.setD47(reset.getString("D47"));
+                    value.setD48(reset.getString("D48"));
+                    value.setD49(reset.getString("D49"));
+                    value.setD50(reset.getString("D50"));
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
+    }
+
+    public GenericResult<String> UnlockLeaveHomeTW(String skhoa, String makh, String macn, String mapgd, String madp) throws SQLException {
+        Connection connection = new DaoConnect().getConnect();
+        CallableStatement cs = null;
+        try {
+            cs = connection.prepareCall("{call BODI_KHOIDP.SP_UNLOCK_TW(?, ?, ?, ? ,?, ?, ? )}");
+            cs.setString(1, skhoa);
+            cs.setString(2, makh);
+            cs.setString(3, macn);
+            cs.setString(4, mapgd);
+            cs.setString(5, madp);
+            cs.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+            cs.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+            cs.execute();
+
+            //Lay ma loi neu co
+            int errorCode = cs.getInt(6);
+            String errorMessage = cs.getString(7);
+
+            if (errorCode == 0) {
+                return (new GenericResult<String>()).Success("Success");
+            } else {
+                return (new GenericResult<String>()).Fail(errorMessage, errorCode);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Loi trong ham cancelAssign " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " cancelAssign -> " + e.getMessage());
+            return (new GenericResult<String>()).Fail(e.getMessage(), e.getErrorCode());
+        } finally {
+            if (cs != null) {
+                cs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
     }
 }

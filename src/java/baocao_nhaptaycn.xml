@@ -33,6 +33,7 @@
 <!--            <result name="HTLS_2024">/htls_2024/para_htls_2024.jsp</result>-->
             <result name="TGTV_2025">/tienguitovien_2025/para_tienguitovien.jsp</result>
             <result name="HTLS_2025">/htls_2025/para_htls2025.jsp</result>
+            <result name="LEAVELOCAL_TW">/leavelocal/para_bdp.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
         </action>  
