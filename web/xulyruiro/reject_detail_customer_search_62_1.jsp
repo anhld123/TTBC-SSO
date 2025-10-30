@@ -171,40 +171,22 @@
                         contentType: 'application/json',
                         async: true,
                         success: function (data) {
+                            alert("Bạn đã từ chối thành công khoản vay " + soku);
+
                             try {
-                                alert("Bạn đã từ chối thành công khoản vay " + soku);
-
-                                // Nếu opener còn tồn tại
-                                if (self.opener && !self.opener.closed) {
-                                    // 1) Đặt flag vào localStorage của opener (dùng cho trường hợp opener sẽ reload toàn bộ)
-                                    try {
-                                        self.opener.localStorage.setItem('set_page_size_after_reload', '100');
-                                    } catch (e) {
-                                        // ignore nếu cross-origin hoặc lỗi khác
-                                    }
-
-                                    // 2) Nếu opener có hàm afterReload (trường hợp AJAX update), gọi luôn
-                                    try {
-                                        if (typeof self.opener.afterReload === "function") {
-                                            self.opener.afterReload();
-                                        }
-                                    } catch (e) {
-                                        // ignore
-                                    }
-
-                                    // 3) Gọi submit/reload form ở cửa sổ cha (giữ nguyên logic của bạn)
-                                    try {
-                                        self.opener.document.forms['loadFormRisk62'].loadsubmitform62.click();
-                                    } catch (e) {
-                                        // ignore
-                                    }
+                                // Gửi tín hiệu cho cửa sổ cha
+                                if (window.opener && !window.opener.closed) {
+                                    console.log("Gửi tín hiệu về cha");
+                                    window.opener.postMessage("RELOAD_RISK_62", "*");
+                                } else {
+                                    console.warn("Không thể gửi message - cửa sổ cha không tồn tại");
                                 }
 
-                                // đóng popup
+                                // Đóng popup
                                 window.close();
-
-                            } catch (e) {
-                                alert(e.toString());
+                            } catch (err) {
+                                alert("Lỗi khi gửi tín hiệu về cha: " + err);
+                                console.error(err);
                             }
                         }
                         ,

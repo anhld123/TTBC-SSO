@@ -75,28 +75,28 @@
 //            });
 
 
-            function onclickBrowseRisk() {
-                $("#divBrowseRisk").empty();
-
-                if ($("#frmDataRisk62 input:checkbox:checked").length > 0) {
-                    if (validateRequiredFields()) {
-                        // đặt flag trước khi reload
-                        localStorage.setItem('set_page_size_after_reload', '100');
-
-                        // submit form
-                        $("#BrowseSubmit62")[0].click();
-
-                        // ép chạy afterReload sau một khoảng delay (đảm bảo dữ liệu đã load)
-                        setTimeout(function () {
-                            if (typeof afterReload === "function") {
-                                afterReload();
-                            }
-                        }, 800); // có thể tăng lên 1000ms nếu dữ liệu load chậm
-                    }
-                } else {
-                    alert("Bạn phải chọn khách hàng cần phê duyệt!");
-                }
-            }
+//            function onclickBrowseRisk() {
+//                $("#divBrowseRisk").empty();
+//
+//                if ($("#frmDataRisk62 input:checkbox:checked").length > 0) {
+//                    if (validateRequiredFields()) {
+//                        // đặt flag trước khi reload
+//                        localStorage.setItem('set_page_size_after_reload', '100');
+//
+//                        // submit form
+//                        $("#BrowseSubmit62")[0].click();
+//
+//                        // ép chạy afterReload sau một khoảng delay (đảm bảo dữ liệu đã load)
+//                        setTimeout(function () {
+//                            if (typeof afterReload === "function") {
+//                                afterReload();
+//                            }
+//                        }, 800); // có thể tăng lên 1000ms nếu dữ liệu load chậm
+//                    }
+//                } else {
+//                    alert("Bạn phải chọn khách hàng cần phê duyệt!");
+//                }
+//            }
 
 
             function onchangedisableBrowseRisk() {
@@ -104,7 +104,7 @@
                 var statusrisk = document.loadFormRisk.status_risk.value;
 
                 // Nếu trạng thái là 1 (chờ phê duyệt) thì enable button phê duyệt
-                if (statusrisk == '1') {
+                if (statusrisk === '1') {
                     $("#idButton").removeAttr("disabled");
                 } else {
                     $("#idButton").attr("disabled", "disabled");
@@ -521,4 +521,88 @@
         </div>
     </p>
 </body>
+<script>
+    // ✅ Hàm chỉ để reload dữ liệu hiển thị, KHÔNG submit form
+    function reloadRiskData(keepPage = false) {
+        $("#divBrowseRisk").empty();
+
+        // Nếu cần giữ nguyên trang hiện tại
+//        if (keepPage) {
+//            const currentPage = $("#CurrentPage").val() || 1;
+//            localStorage.setItem('keep_page_risk62', currentPage);
+//        }
+
+        // Giữ nguyên page size (nếu có)
+        const currentPageSize = $("#PageSize").val() || 100;
+        localStorage.setItem('set_page_size_after_reload', currentPageSize);
+
+        // Chạy afterReload sau khi load xong
+        setTimeout(function () {
+            if (typeof afterReload === "function") {
+                afterReload();
+            }
+
+            // Restore lại trang nếu có
+            if (keepPage) {
+                const savedPage = localStorage.getItem('keep_page_risk62');
+                if (savedPage && typeof goToPage === "function") {
+                    goToPage(parseInt(savedPage));
+                }
+                localStorage.removeItem('keep_page_risk62');
+            }
+        }, 800);
+    }
+
+// ✅ Hàm thực hiện submit form rồi reload dữ liệu
+    function submitAndReloadRiskData(keepPage = false) {
+        $("#divBrowseRisk").empty();
+
+        if (validateRequiredFields()) {
+            // Lưu page nếu cần
+//            if (keepPage) {
+//                const currentPage = $("#CurrentPage").val() || 1;
+//                localStorage.setItem('keep_page_risk62', currentPage);
+//            }
+
+            const currentPageSize = $("#PageSize").val() || 100;
+            localStorage.setItem('set_page_size_after_reload', currentPageSize);
+
+            // 👉 Thực hiện submit form
+            $("#BrowseSubmit62")[0].click();
+
+            // Sau khi load xong thì gọi afterReload
+            setTimeout(function () {
+                if (typeof afterReload === "function") {
+                    afterReload();
+                }
+
+                if (keepPage) {
+                    const savedPage = localStorage.getItem('keep_page_risk62');
+                    if (savedPage && typeof goToPage === "function") {
+                        goToPage(parseInt(savedPage));
+                    }
+                    localStorage.removeItem('keep_page_risk62');
+                }
+            }, 800);
+    }
+    }
+
+// Người dùng bấm nút "Duyệt rủi ro" → cần submit
+    function onclickBrowseRisk() {
+        if ($("#frmDataRisk62 input:checkbox:checked").length > 0) {
+            submitAndReloadRiskData(false);
+        } else {
+            alert("Bạn phải chọn khách hàng cần phê duyệt!");
+        }
+    }
+
+// Popup gửi message → chỉ reload, không submit
+    window.addEventListener("message", function (event) {
+        if (event.data === "RELOAD_RISK_62") {
+//            console.log("Gọi reloadRiskData() từ popup - chỉ reload, KHÔNG submit");
+            reloadRiskData(true); // chỉ load lại giao diện, giữ trang, không gọi submit
+        }
+    });
+
+</script>
 </html>
