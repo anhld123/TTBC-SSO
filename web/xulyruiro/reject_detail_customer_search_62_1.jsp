@@ -173,21 +173,8 @@
                         success: function (data) {
                             alert("Bạn đã từ chối thành công khoản vay " + soku);
 
-                            try {
-                                // Gửi tín hiệu cho cửa sổ cha
-                                if (window.opener && !window.opener.closed) {
-                                    console.log("Gửi tín hiệu về cha");
-                                    window.opener.postMessage("RELOAD_RISK_62", "*");
-                                } else {
-                                    console.warn("Không thể gửi message - cửa sổ cha không tồn tại");
-                                }
-
-                                // Đóng popup
-                                window.close();
-                            } catch (err) {
-                                alert("Lỗi khi gửi tín hiệu về cha: " + err);
-                                console.error(err);
-                            }
+                            localStorage.setItem("RELOAD_RISK_62", Date.now());
+                            window.close();
                         }
                         ,
                         error: function (data) {
