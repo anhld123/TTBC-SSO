@@ -5,6 +5,7 @@
  */
 package vbsp.ims.restapi;
 
+import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -32,12 +33,12 @@ public class DuLieuPLN_T {
     private String plnMakh;
     private String plnTenkh;
     private String plnSoku;
-    private int plnDnothan;
-    private int plnDnoqhan;
-    private int plnDnokhoanh;
-    private int plnTonglaiton;
-    private int plnCKntnSodu;
-    private int plnKKntnSodu;
+    private BigDecimal plnDnothan;
+    private BigDecimal plnDnoqhan;
+    private BigDecimal plnDnokhoanh;
+    private BigDecimal plnTonglaiton;
+    private BigDecimal plnCKntnSodu;
+    private BigDecimal plnKKntnSodu;
     private String ngnhanKckntn;
     private String kNgnhanKh;
     private String plnQuanheKh;
@@ -63,7 +64,7 @@ public class DuLieuPLN_T {
     private String kKntnSodu11;
     private String ngnhanKntn;
     private String checkrow;
-    private int plnTongDno;
+    private BigDecimal plnTongDno;
     private String D1;
     private String D2;
     private String D3;
@@ -155,11 +156,11 @@ public class DuLieuPLN_T {
         this.D10 = D10;
     }
 
-    public int getPlnTongDno() {
+    public BigDecimal getPlnTongDno() {
         return plnTongDno;
     }
 
-    public void setPlnTongDno(int plnTongDno) {
+    public void setPlnTongDno(BigDecimal plnTongDno) {
         this.plnTongDno = plnTongDno;
     }
 
@@ -291,51 +292,51 @@ public class DuLieuPLN_T {
         this.plnSoku = plnSoku;
     }
 
-    public int getPlnDnothan() {
+    public BigDecimal getPlnDnothan() {
         return plnDnothan;
     }
 
-    public void setPlnDnothan(int plnDnothan) {
+    public void setPlnDnothan(BigDecimal plnDnothan) {
         this.plnDnothan = plnDnothan;
     }
 
-    public int getPlnDnoqhan() {
+    public BigDecimal getPlnDnoqhan() {
         return plnDnoqhan;
     }
 
-    public void setPlnDnoqhan(int plnDnoqhan) {
+    public void setPlnDnoqhan(BigDecimal plnDnoqhan) {
         this.plnDnoqhan = plnDnoqhan;
     }
 
-    public int getPlnDnokhoanh() {
+    public BigDecimal getPlnDnokhoanh() {
         return plnDnokhoanh;
     }
 
-    public void setPlnDnokhoanh(int plnDnokhoanh) {
+    public void setPlnDnokhoanh(BigDecimal plnDnokhoanh) {
         this.plnDnokhoanh = plnDnokhoanh;
     }
 
-    public int getPlnTonglaiton() {
+    public BigDecimal getPlnTonglaiton() {
         return plnTonglaiton;
     }
 
-    public void setPlnTonglaiton(int plnTonglaiton) {
+    public void setPlnTonglaiton(BigDecimal plnTonglaiton) {
         this.plnTonglaiton = plnTonglaiton;
     }
 
-    public int getPlnCKntnSodu() {
+    public BigDecimal getPlnCKntnSodu() {
         return plnCKntnSodu;
     }
 
-    public void setPlnCKntnSodu(int plnCKntnSodu) {
+    public void setPlnCKntnSodu(BigDecimal plnCKntnSodu) {
         this.plnCKntnSodu = plnCKntnSodu;
     }
 
-    public int getPlnKKntnSodu() {
+    public BigDecimal getPlnKKntnSodu() {
         return plnKKntnSodu;
     }
 
-    public void setPlnKKntnSodu(int plnKKntnSodu) {
+    public void setPlnKKntnSodu(BigDecimal plnKKntnSodu) {
         this.plnKKntnSodu = plnKKntnSodu;
     }
 

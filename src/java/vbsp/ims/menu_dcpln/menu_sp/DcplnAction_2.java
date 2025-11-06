@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.text.DateFormat;
@@ -25,7 +26,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import org.apache.struts2.ServletActionContext;
 import vbsp.ims.bcqt.model.QT_DULIEU_NT;
@@ -51,9 +51,10 @@ import vbsp.ims.restapi.DuLieuPLN_Save;
 import vbsp.ims.restapi.DuLieuPLN_T;
 import vbsp.ims.restapi.Meta_PLN;
 import vbsp.ims.menu_dcpln.DaoPlnMain;
+import static vbsp.ims.menu_dcpln.menu_sp.DcplnAction.toInteger;
+import static vbsp.ims.menu_dcpln.menu_sp.DcplnAction.toLong;
 import vbsp.ims.restapi.AcceptancePln;
 import vbsp.ims.restapi.DuLieuNTRowX;
-import vbsp.ims.restapi.LockSendModel;
 
 public class DcplnAction_2 extends ActionSupport {
 
@@ -791,10 +792,10 @@ public class DcplnAction_2 extends ActionSupport {
             long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                long dnoThan = item.getPlnDnothan();
-                long dnoQhan = item.getPlnDnoqhan();
-                long dnoKhoanh = item.getPlnDnokhoanh();
-                long laiTon = item.getPlnTonglaiton();
+                long dnoThan = toLong(item.getPlnDnothan());
+                long dnoQhan = toLong(item.getPlnDnoqhan());
+                long dnoKhoanh = toLong(item.getPlnDnokhoanh());
+                long laiTon = toLong(item.getPlnTonglaiton());
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
@@ -932,10 +933,10 @@ public class DcplnAction_2 extends ActionSupport {
             long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongDuno = 0, tongNlai = 0, tongMonvay = 0;
             String stmato_to = "";
             for (DuLieuPLN_T item : lstData) {
-                long dnoThan = item.getPlnDnothan();
-                long dnoQhan = item.getPlnDnoqhan();
-                long dnoKhoanh = item.getPlnDnokhoanh();
-                long laiTon = item.getPlnTonglaiton();
+                long dnoThan = toLong(item.getPlnDnothan());
+                long dnoQhan = toLong(item.getPlnDnoqhan());
+                long dnoKhoanh = toLong(item.getPlnDnokhoanh());
+                long laiTon = toLong(item.getPlnTonglaiton());
 
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
@@ -1034,20 +1035,37 @@ public class DcplnAction_2 extends ActionSupport {
             row.setPlnChtrinhTen(item.getPlnChtrinhTen());
             row.setPlnChtrinhTenvt(item.getPlnChtrinhTenvt());
 
-            int dnothan = safeInt(item.getPlnDnothan());
-            int dnoqhan = safeInt(item.getPlnDnoqhan());
-            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            int dnothan = safeInt(item.getPlnDnothan());
+//            int dnoqhan = safeInt(item.getPlnDnoqhan());
+//            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            row.setPlnDnothan(dnothan);
+//            row.setPlnDnoqhan(dnoqhan);
+//            row.setPlnDnokhoanh(dnokhoanh);
+//            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+//
+//            row.setPlnLaitonthan(safeInt(item.getPlnLaitonthan()));
+//            row.setPlnLaitonqhan(safeInt(item.getPlnLaitonqhan()));
+//            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
+//            row.setPlnTonglaiTt(safeInt(item.getPlnTonglaiTt()));
+//            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
+//            row.setPlnKKntnSodu(safeInt(item.getPlnKKntnSodu()));
+            BigDecimal dnothan = BigDecNull(item.getPlnDnothan());
+            BigDecimal dnoqhan = BigDecNull(item.getPlnDnoqhan());
+            BigDecimal dnokhoanh = BigDecNull(item.getPlnDnokhoanh());
+
+            BigDecimal tongDno = dnothan.add(dnoqhan).add(dnokhoanh);
+
             row.setPlnDnothan(dnothan);
             row.setPlnDnoqhan(dnoqhan);
             row.setPlnDnokhoanh(dnokhoanh);
-            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+            row.setPlnTongDno(tongDno);
 
-            row.setPlnLaitonthan(safeInt(item.getPlnLaitonthan()));
-            row.setPlnLaitonqhan(safeInt(item.getPlnLaitonqhan()));
-            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
-            row.setPlnTonglaiTt(safeInt(item.getPlnTonglaiTt()));
-            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
-            row.setPlnKKntnSodu(safeInt(item.getPlnKKntnSodu()));
+            row.setPlnLaitonthan(BigDecNull(item.getPlnLaitonthan()));
+            row.setPlnLaitonqhan(BigDecNull(item.getPlnLaitonqhan()));
+            row.setPlnTonglaiton(BigDecNull(item.getPlnTonglaiton()));
+            row.setPlnTonglaiTt(BigDecNull(item.getPlnTonglaiTt()));
+            row.setPlnCKntnSodu(BigDecNull(item.getPlnCKntnSodu()));
+            row.setPlnKKntnSodu(BigDecNull(item.getPlnKKntnSodu()));
             row.setNgnhanKckntn(item.getNgnhanKckntn());
 
             row.setPlnQuanheKh(item.getPlnQuanheKh());
@@ -1100,17 +1118,30 @@ public class DcplnAction_2 extends ActionSupport {
             row.setPlnTenkh(item.getPlnTenkh());
             row.setPlnSoku(item.getPlnSoku());
 
-            int dnothan = safeInt(item.getPlnDnothan());
-            int dnoqhan = safeInt(item.getPlnDnoqhan());
-            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            int dnothan = safeInt(item.getPlnDnothan());
+//            int dnoqhan = safeInt(item.getPlnDnoqhan());
+//            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            row.setPlnDnothan(dnothan);
+//            row.setPlnDnoqhan(dnoqhan);
+//            row.setPlnDnokhoanh(dnokhoanh);
+//            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+//
+//            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
+//            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
+            BigDecimal dnothan = BigDecNull(item.getPlnDnothan());
+            BigDecimal dnoqhan = BigDecNull(item.getPlnDnoqhan());
+            BigDecimal dnokhoanh = BigDecNull(item.getPlnDnokhoanh());
+
+            BigDecimal tongDno = dnothan.add(dnoqhan).add(dnokhoanh);
+
             row.setPlnDnothan(dnothan);
             row.setPlnDnoqhan(dnoqhan);
             row.setPlnDnokhoanh(dnokhoanh);
-            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+            row.setPlnTongDno(tongDno);
 
-            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
-            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
-
+            row.setPlnTonglaiton(BigDecNull(item.getPlnTonglaiton()));
+            row.setPlnCKntnSodu(BigDecNull(item.getPlnCKntnSodu()));
+            row.setPlnKKntnSodu(BigDecNull(item.getPlnKKntnSodu()));
             row.setNgnhanKckntn(item.getNgnhanKckntn());
             row.setkNgnhanKh(item.getkNgnhanKh());
             row.setPlnQuanheKh(item.getPlnQuanheKh());
@@ -1125,7 +1156,7 @@ public class DcplnAction_2 extends ActionSupport {
             row.setPlnNguyennhanC2(item.getPlnNguyennhanC2());
 
             String kntnSodu01 = item.getkKntnSodu01();
-            row.setPlnKKntnSodu(parseIntSafe(kntnSodu01));
+//            row.setPlnKKntnSodu(parseIntSafe(kntnSodu01));
 
             row.setkKntnSodu02(item.getkKntnSodu02());
             row.setkKntnSodu03(item.getkKntnSodu03());
@@ -1242,7 +1273,8 @@ public class DcplnAction_2 extends ActionSupport {
 //                    -- 4 trường màn hình cha
                     tempadd.setReason_Deviant(tmp.getPlnNgnhanClech());
                     tempadd.setUpdateTime(date2);
-                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+//                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+                    tempadd.setAble_ToPay_Amt(toInteger(tmp.getPlnCKntnSodu()));
                     tempadd.setReason_Deviant02(tmp.getPlnNguyennhanC2() == null ? "0" : tmp.getPlnNguyennhanC2());
                     tempadd.setD1(tmp.getD1());
                     tempadd.setD2(tmp.getD2());
@@ -1458,7 +1490,6 @@ public class DcplnAction_2 extends ActionSupport {
 
     }
 
-    
     public String unlock_pLN() {
         try {
             String mapgd = ServletActionContext.getRequest().getParameter("mapgd");
@@ -1523,7 +1554,7 @@ public class DcplnAction_2 extends ActionSupport {
             String[] values = maxa_key1.split("\\|");
             String maxa = values[1];   // giá trị posName
             String mahoi = hmParameter.get("mahoi").toString();
-            lstDulieuNt = daoMain.getDataPlnCn(conn, sngaybc, "PLN_KNTN_CN", mapgd, maxa,mahoi);
+            lstDulieuNt = daoMain.getDataPlnCn(conn, sngaybc, "PLN_KNTN_CN", mapgd, maxa, mahoi);
 
             for (QT_DULIEU_NT item : lstDulieuNt) {
                 String smato = item.getD1();
@@ -1540,10 +1571,15 @@ public class DcplnAction_2 extends ActionSupport {
                 );
 
                 for (DuLieuPLN_T dt : lstData) {
-                    tongThan += dt.getPlnDnothan();
-                    tongQhan += dt.getPlnDnoqhan();
-                    tongKhoanh += dt.getPlnDnokhoanh();
-                    tongNlai += dt.getPlnTonglaiton();
+//                    tongThan += dt.getPlnDnothan();
+//                    tongQhan += dt.getPlnDnoqhan();
+//                    tongKhoanh += dt.getPlnDnokhoanh();
+//                    tongNlai += dt.getPlnTonglaiton();
+                    tongThan += toLong(dt.getPlnDnothan());
+                    tongQhan += toLong(dt.getPlnDnoqhan());
+                    tongKhoanh += toLong(dt.getPlnDnokhoanh());
+                    tongNlai += toLong(dt.getPlnTonglaiton());
+
                     tongMonvay++;
 
                     if (dt.getPlnMakh() != null && !dt.getPlnMakh().isEmpty()) {
@@ -1693,5 +1729,9 @@ public class DcplnAction_2 extends ActionSupport {
             message = e.getMessage();
         }
         return SUCCESS;
+    }
+
+    private static BigDecimal BigDecNull(BigDecimal v) {
+        return v == null ? BigDecimal.ZERO : v;
     }
 }

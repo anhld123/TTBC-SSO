@@ -5,7 +5,7 @@
  */
 package vbsp.ims.restapi;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,15 +34,15 @@ public class DuLieuPLN {
     public String plnChtrinh;
     public String plnChtrinhTen;
     public String plnChtrinhTenvt;
-    public int plnDnothan;
-    public int plnDnoqhan;
-    public int plnDnokhoanh;
-    public int plnLaitonthan;
-    public int plnLaitonqhan;
-    public int plnTonglaiton;
-    public int plnTonglaiTt;
-    public int plnCKntnSodu;
-    public int plnKKntnSodu;
+    public BigDecimal plnDnothan;
+    public BigDecimal plnDnoqhan;
+    public BigDecimal plnDnokhoanh;
+    public BigDecimal plnLaitonthan;
+    public BigDecimal plnLaitonqhan;
+    public BigDecimal plnTonglaiton;
+    public BigDecimal plnTonglaiTt;
+    public BigDecimal plnCKntnSodu;
+    public BigDecimal plnKKntnSodu;
     public String ngnhanKckntn;
     public String plnQuanheKh;
     public String plnTrangthai;
@@ -64,15 +64,7 @@ public class DuLieuPLN {
     public String plnMacn;
     public String plnMapgd;
     public String plnMaxa;
-    private int plnTongDno;
-
-    public int getPlnTongDno() {
-        return plnTongDno;
-    }
-
-    public void setPlnTongDno(int plnTongDno) {
-        this.plnTongDno = plnTongDno;
-    }
+    private BigDecimal plnTongDno;
     
     public int getStt() {
         return stt;
@@ -202,78 +194,87 @@ public class DuLieuPLN {
         this.plnChtrinhTenvt = plnChtrinhTenvt;
     }
 
-    public int getPlnDnothan() {
+    public BigDecimal getPlnDnothan() {
         return plnDnothan;
     }
 
-    public void setPlnDnothan(int plnDnothan) {
+    public void setPlnDnothan(BigDecimal plnDnothan) {
         this.plnDnothan = plnDnothan;
     }
 
-    public int getPlnDnoqhan() {
+    public BigDecimal getPlnDnoqhan() {
         return plnDnoqhan;
     }
 
-    public void setPlnDnoqhan(int plnDnoqhan) {
+    public void setPlnDnoqhan(BigDecimal plnDnoqhan) {
         this.plnDnoqhan = plnDnoqhan;
     }
 
-    public int getPlnDnokhoanh() {
+    public BigDecimal getPlnDnokhoanh() {
         return plnDnokhoanh;
     }
 
-    public void setPlnDnokhoanh(int plnDnokhoanh) {
+    public void setPlnDnokhoanh(BigDecimal plnDnokhoanh) {
         this.plnDnokhoanh = plnDnokhoanh;
     }
 
-    public int getPlnLaitonthan() {
+    public BigDecimal getPlnLaitonthan() {
         return plnLaitonthan;
     }
 
-    public void setPlnLaitonthan(int plnLaitonthan) {
+    public void setPlnLaitonthan(BigDecimal plnLaitonthan) {
         this.plnLaitonthan = plnLaitonthan;
     }
 
-    public int getPlnLaitonqhan() {
+    public BigDecimal getPlnLaitonqhan() {
         return plnLaitonqhan;
     }
 
-    public void setPlnLaitonqhan(int plnLaitonqhan) {
+    public void setPlnLaitonqhan(BigDecimal plnLaitonqhan) {
         this.plnLaitonqhan = plnLaitonqhan;
     }
 
-    public int getPlnTonglaiton() {
+    public BigDecimal getPlnTonglaiton() {
         return plnTonglaiton;
     }
 
-    public void setPlnTonglaiton(int plnTonglaiton) {
+    public void setPlnTonglaiton(BigDecimal plnTonglaiton) {
         this.plnTonglaiton = plnTonglaiton;
     }
 
-    public int getPlnTonglaiTt() {
+    public BigDecimal getPlnTonglaiTt() {
         return plnTonglaiTt;
     }
 
-    public void setPlnTonglaiTt(int plnTonglaiTt) {
+    public void setPlnTonglaiTt(BigDecimal plnTonglaiTt) {
         this.plnTonglaiTt = plnTonglaiTt;
     }
 
-    public int getPlnCKntnSodu() {
+    public BigDecimal getPlnCKntnSodu() {
         return plnCKntnSodu;
     }
 
-    public void setPlnCKntnSodu(int plnCKntnSodu) {
+    public void setPlnCKntnSodu(BigDecimal plnCKntnSodu) {
         this.plnCKntnSodu = plnCKntnSodu;
     }
 
-    public int getPlnKKntnSodu() {
+    public BigDecimal getPlnKKntnSodu() {
         return plnKKntnSodu;
     }
 
-    public void setPlnKKntnSodu(int plnKKntnSodu) {
+    public void setPlnKKntnSodu(BigDecimal plnKKntnSodu) {
         this.plnKKntnSodu = plnKKntnSodu;
     }
 
+    public BigDecimal getPlnTongDno() {
+        return plnTongDno;
+    }
+
+    public void setPlnTongDno(BigDecimal plnTongDno) {
+        this.plnTongDno = plnTongDno;
+    }
+
+    
     public String getNgnhanKckntn() {
         return ngnhanKckntn;
     }

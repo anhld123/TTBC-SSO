@@ -10,6 +10,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.text.SimpleDateFormat;
@@ -535,11 +536,14 @@ public class DcplnAction extends ActionChtrinhcnMain
             Set<String> setKhachHang = new HashSet<>();
 
             for (DuLieuPLN_T item : lstData) {
-                long dnoThan = item.getPlnDnothan();
-                long dnoQhan = item.getPlnDnoqhan();
-                long dnoKhoanh = item.getPlnDnokhoanh();
-                long laiTon = item.getPlnTonglaiton();
-
+//                long dnoThan = item.getPlnDnothan();
+//                long dnoQhan = item.getPlnDnoqhan();
+//                long dnoKhoanh = item.getPlnDnokhoanh();
+//                long laiTon = item.getPlnTonglaiton();
+                long dnoThan = toLong(item.getPlnDnothan());
+                long dnoQhan = toLong(item.getPlnDnoqhan());
+                long dnoKhoanh = toLong(item.getPlnDnokhoanh());
+                long laiTon = toLong(item.getPlnTonglaiton());
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
@@ -611,20 +615,33 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnChtrinhTen(item.getPlnChtrinhTen());
             row.setPlnChtrinhTenvt(item.getPlnChtrinhTenvt());
 
-            int dnothan = safeInt(item.getPlnDnothan());
-            int dnoqhan = safeInt(item.getPlnDnoqhan());
-            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            int dnothan = safeInt(item.getPlnDnothan());
+//            int dnoqhan = safeInt(item.getPlnDnoqhan());
+//            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            BigDecimal dnothan = item.getPlnDnothan();
+//            BigDecimal dnoqhan = item.getPlnDnoqhan();
+//            BigDecimal dnokhoanh = item.getPlnDnokhoanh();
+//            row.setPlnDnothan(dnothan);
+//            row.setPlnDnoqhan(dnoqhan);
+//            row.setPlnDnokhoanh(dnokhoanh);
+//            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+            BigDecimal dnothan = BigDecNull(item.getPlnDnothan());
+            BigDecimal dnoqhan = BigDecNull(item.getPlnDnoqhan());
+            BigDecimal dnokhoanh = BigDecNull(item.getPlnDnokhoanh());
+
+            BigDecimal tongDno = dnothan.add(dnoqhan).add(dnokhoanh);
+
             row.setPlnDnothan(dnothan);
             row.setPlnDnoqhan(dnoqhan);
             row.setPlnDnokhoanh(dnokhoanh);
-            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+            row.setPlnTongDno(tongDno);
 
-            row.setPlnLaitonthan(safeInt(item.getPlnLaitonthan()));
-            row.setPlnLaitonqhan(safeInt(item.getPlnLaitonqhan()));
-            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
-            row.setPlnTonglaiTt(safeInt(item.getPlnTonglaiTt()));
-            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
-            row.setPlnKKntnSodu(safeInt(item.getPlnKKntnSodu()));
+            row.setPlnLaitonthan(BigDecNull(item.getPlnLaitonthan()));
+            row.setPlnLaitonqhan(BigDecNull(item.getPlnLaitonqhan()));
+            row.setPlnTonglaiton(BigDecNull(item.getPlnTonglaiton()));
+            row.setPlnTonglaiTt(BigDecNull(item.getPlnTonglaiTt()));
+            row.setPlnCKntnSodu(BigDecNull(item.getPlnCKntnSodu()));
+            row.setPlnKKntnSodu(BigDecNull(item.getPlnKKntnSodu()));
             row.setNgnhanKckntn(item.getNgnhanKckntn());
 
             row.setPlnQuanheKh(item.getPlnQuanheKh());
@@ -677,17 +694,30 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnTenkh(item.getPlnTenkh());
             row.setPlnSoku(item.getPlnSoku());
 
-            int dnothan = safeInt(item.getPlnDnothan());
-            int dnoqhan = safeInt(item.getPlnDnoqhan());
-            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            int dnothan = safeInt(item.getPlnDnothan());
+//            int dnoqhan = safeInt(item.getPlnDnoqhan());
+//            int dnokhoanh = safeInt(item.getPlnDnokhoanh());
+//            row.setPlnDnothan(dnothan);
+//            row.setPlnDnoqhan(dnoqhan);
+//            row.setPlnDnokhoanh(dnokhoanh);
+//            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+//
+//            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
+//            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
+            BigDecimal dnothan = BigDecNull(item.getPlnDnothan());
+            BigDecimal dnoqhan = BigDecNull(item.getPlnDnoqhan());
+            BigDecimal dnokhoanh = BigDecNull(item.getPlnDnokhoanh());
+
+            BigDecimal tongDno = dnothan.add(dnoqhan).add(dnokhoanh);
+
             row.setPlnDnothan(dnothan);
             row.setPlnDnoqhan(dnoqhan);
             row.setPlnDnokhoanh(dnokhoanh);
-            row.setPlnTongDno(dnothan + dnoqhan + dnokhoanh);
+            row.setPlnTongDno(tongDno);
 
-            row.setPlnTonglaiton(safeInt(item.getPlnTonglaiton()));
-            row.setPlnCKntnSodu(safeInt(item.getPlnCKntnSodu()));
-
+            row.setPlnTonglaiton(BigDecNull(item.getPlnTonglaiton()));
+            row.setPlnCKntnSodu(BigDecNull(item.getPlnCKntnSodu()));
+            row.setPlnKKntnSodu(BigDecNull(item.getPlnKKntnSodu()));
             row.setNgnhanKckntn(item.getNgnhanKckntn());
             row.setkNgnhanKh(item.getkNgnhanKh());
             row.setPlnQuanheKh(item.getPlnQuanheKh());
@@ -702,7 +732,7 @@ public class DcplnAction extends ActionChtrinhcnMain
             row.setPlnNguyennhanC2(item.getPlnNguyennhanC2());
 
             String kntnSodu01 = item.getkKntnSodu01();
-            row.setPlnKKntnSodu(parseIntSafe(kntnSodu01));
+//            row.setPlnKKntnSodu(parseIntSafe(kntnSodu01));
 
             row.setkKntnSodu02(item.getkKntnSodu02());
             row.setkKntnSodu03(item.getkKntnSodu03());
@@ -826,7 +856,8 @@ public class DcplnAction extends ActionChtrinhcnMain
 //                    -- 4 trường màn hình cha
                     tempadd.setReason_Deviant(tmp.getPlnNgnhanClech());
                     tempadd.setUpdateTime(date2);
-                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+//                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+                    tempadd.setAble_ToPay_Amt(toInteger(tmp.getPlnCKntnSodu()));
                     tempadd.setReason_Deviant02(tmp.getPlnNguyennhanC2() == null ? "0" : tmp.getPlnNguyennhanC2());
                     tempadd.setD1(tmp.getD1());
                     tempadd.setD2(tmp.getD2());
@@ -1038,7 +1069,8 @@ public class DcplnAction extends ActionChtrinhcnMain
 //                    -- 4 trường màn hình cha
                     tempadd.setReason_Deviant(tmp.getPlnNgnhanClech());
                     tempadd.setUpdateTime(date2);
-                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+//                    tempadd.setAble_ToPay_Amt(tmp.getPlnCKntnSodu());
+                    tempadd.setAble_ToPay_Amt(toInteger(tmp.getPlnCKntnSodu()));
                     tempadd.setReason_Deviant02(tmp.getPlnNguyennhanC2() == null ? "0" : tmp.getPlnNguyennhanC2());
                     tempadd.setD1(tmp.getD1());
                     tempadd.setD2(tmp.getD2());
@@ -1154,6 +1186,18 @@ public class DcplnAction extends ActionChtrinhcnMain
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    private static BigDecimal BigDecNull(BigDecimal v) {
+        return v == null ? BigDecimal.ZERO : v;
+    }
+
+    public static long toLong(BigDecimal value) {
+        return value == null ? 0L : value.longValueExact();
+    }
+
+    public static Integer toInteger(BigDecimal val) {
+        return val == null ? 0 : val.intValueExact();
     }
 
 }
