@@ -220,6 +220,8 @@
                                                <s:if test="!MA.equalsIgnoreCase('CDTT140102')&&!MA.equalsIgnoreCase('CDTT140101')
                                                      &&!MA.equalsIgnoreCase('CDTT140201')&&!MA.equalsIgnoreCase('CDTT01')
                                                      &&!MA.equalsIgnoreCase('CDTT02')
+                                                     &&!MA.equalsIgnoreCase('CDTT04')
+                                                     &&!MA.equalsIgnoreCase('CDTT07')
                                                      &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
                                                      &&!MA.equalsIgnoreCase('CDTT06a')&&!MA.equalsIgnoreCase('CDTT09')
                                                      &&!MA.equalsIgnoreCase('CDTT08')

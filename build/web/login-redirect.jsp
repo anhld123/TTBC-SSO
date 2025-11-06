@@ -1,386 +1,175 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<s:head/>
-
 <html style="height:100%;">
     <head>
         <link href="css/login.css" type="text/css" rel="stylesheet" />
         <link rel="shortcut icon" type="image/x-icon" href="img/Logo_VBSP.ico"/>
-        <title>Ngân hàng chính sách xã hội VN</title>
+        <title>Ngân hàng Chính sách Xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
         <style>
-            /*            body {
-                            font-family: Arial, sans-serif;
-                            text-align: left;
-                            background-color: #f9f9f9;
-                            color: #333;
-                            background-image: url('img/anh33.jpg');
-                            background-image: url('img/backgroud_logo.jpg');
-                            background-size: contain;   
-                            background-size: cover;
-                            background-repeat: no-repeat;  
-                            background-position: left;  
-                            background-attachment: fixed;  
-                            background-blend-mode: multiply;
-                            background-position: 50px;
-                        }*/
             body {
                 font-family: Arial, sans-serif;
                 text-align: center;
-                background-color: #f9f9f9;
-                color: #333;
-                background-image: url('img/backgroud_logo.jpg');
-                background-size: contain; /* Hiển thị ảnh đầy đủ trong khung */
-                background-repeat: no-repeat; /* Không lặp lại ảnh */
-                background-position: center; /* Căn giữa ảnh */
-                background-attachment: fixed; /* Giữ ảnh cố định khi cuộn trang */
-                background-blend-mode: multiply; /* Hòa trộn màu nền với ảnh */
-                background-position: center 50px;
+                margin: 0;
+                padding: 0;
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
             }
 
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
+            .header {
+                background: url('img/baner11_2025.png') no-repeat left;
+                background-size: cover;
+                height: 65px;
+                position: relative;
+                border-bottom: 3px solid #2a9d8f;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            }
+            .header-date {
+                position: absolute;
+                bottom: 5px; right: 10px;
+                font: 9pt Tahoma;
+                color: #fff;
             }
 
-            h1 {
-                font-size: 36px;
-                color: #444;
-            }
-
-            h2 {
-                font-size: 28px;
-                color: #222;
-                font-weight: bold;
-            }
-
-            p {
-                font-size: 18px;
-                color: #666;
-            }
-
-            .countdown-container {
-                text-align: center;
-                font-size: 36px; /* Increase title font size */
-                margin-top: 20px;
-            }
-
-            .countdown {
+            .login-modal {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                background-image: url('img/tet2025.jpg');
-                background-size: cover; 
-                background-position: center; 
-                border-radius: 10px;
-                padding: 80px; 
-                width: 100%; 
-                height: 100%; 
-                max-width: 1000px;
-                max-height: 800px;
-                margin: 0 auto;
+                justify-content: center;
+                z-index: 1000;
             }
-
-            .time-box {
-                background-color: rgba(255, 193, 7, 0.8); 
-                padding: 30px; 
-                margin: 0 15px; 
-                border-radius: 10px; 
-                font-size: 48px; 
-                font-weight: bold;
+            .login-box {
+                position: relative;
+                padding: 30px 35px;
+                border: 2px solid #2a9d8f;
+                border-radius: 6px;
+                width: 340px;
                 text-align: center;
-                color: #000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+                background: url('img/backgroud_logo.jpg') no-repeat center center;
+                background-size: contain;
+                background-color: #fff;
             }
 
-            .time-box {
-                background-color: rgba(255, 217, 102, 0.8); /* Đặt màu nền với độ trong suốt */
-                border-radius: 15px;
-                padding: 20px;
-                margin: 10px;
-                width: 100px;
-                text-align: center;
+            .login-box .login-logo {
+                width: 60px;
+                margin-bottom: 10px;
             }
 
-            .time {
-                font-size: 48px;
+            .login-box h3 {
+                margin-bottom: 20px;
+                font-size: 18px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #1e4d2b;
+            }
+            .form-group {
+                text-align: left;
+                margin-bottom: 18px;
+                font-size: 13px;
                 font-weight: bold;
                 color: #333;
             }
-
-            .label {
-                font-size: 20px;
-                color: #666;
-            }
-
-            .footer-text {
+            .inputsuse, .inputpass {
+                width: 100%;
+                padding: 10px 12px;
+                border: 2px solid #555;
+                border-radius: 4px;
                 font-size: 14px;
-                color: #888;
-                margin-top: 20px;
+                font-weight: 600;
+                color: #222;
+                outline: none;
             }
-            @-webkit-keyframes my {
-                0% { color: red; } 
-                50% { color: #fff;  } 
-                100% { color: red;  } 
+            .inputsuse:focus, .inputpass:focus {
+                border-color: #2a9d8f;
             }
-            @-moz-keyframes my { 
-                0% { color: red;  } 
-                50% { color: #fff;  }
-                100% { color: red;  } 
-            }
-            @-o-keyframes my { 
-                0% { color: red; } 
-                50% { color: #fff; } 
-                100% { color: red;  } 
-            }
-            @keyframes my { 
-                0% { color: red;  } 
-                50% { color: #fff;  }
-                100% { color: red;  } 
-            } 
-            .color_11 {
-                background: none;
-                font-size:14px;
-                font-weight:bold;
-                -webkit-animation: my 700ms infinite;
-                -moz-animation: my 700ms infinite; 
-                -o-animation: my 700ms infinite; 
-                animation: my 700ms infinite;
+            input[type="radio"] {
+                accent-color: green;
             }
         </style>
-        <script type="text/javascript">
-//            $(document).ready(function ()
-//            {
-//                $.ajaxSetup({
-//                    // Disable caching of AJAX responses */
-//                    cache: false
-//                });
-//
-////                var refreshId = setInterval(function ()
-////                {
-////                    $("#vbspnews").load('vbsp-news.jsp').fadeIn("slow");
-////                }, 5000);
-//                function updateTime() {
-//                    var endOfYear = new Date(2025, 0, 29, 0, 0, 0); // Thời gian Tết Ất Tỵ
-//                    var now = new Date();
-//                    var timeDiff = endOfYear - now;
-//
-//                    // Tính số ngày, giờ, phút, giây còn lại
-//                    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-//                    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//                    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-//                    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-//
-//                    // Hiển thị trên giao diện
-//                    document.getElementById("days").textContent = days;
-//                    document.getElementById("hours").textContent = (hours < 10 ? "0" : "") + hours;
-//                    document.getElementById("minutes").textContent = (minutes < 10 ? "0" : "") + minutes;
-//                    document.getElementById("seconds").textContent = (seconds < 10 ? "0" : "") + seconds;
-//
-//                    // Khi hết thời gian, hiển thị thông báo
-//                    if (timeDiff <= 0) {
-//                        // Xóa bộ đếm thời gian và ẩn các tiêu đề
-//                        clearInterval(updateTime);
-//                        document.getElementById("title98").style.display = "none";
-//                        document.getElementById("title99").style.display = "none";
-//
-//// Tạo nội dung video và nút bật/tắt âm thanh
-//                        const countdownContainer = document.querySelector(".countdown");
-//                        countdownContainer.innerHTML = `
-//    <video autoplay loop muted playsinline id="background-video" 
-//           style="position: relative; width: 100%; height: 100%; object-fit: cover" controls>
-//        <source src="img/videotet.mp4" type="video/mp4">  
-//    </video>
-//  `;
-//                    }
-//                }
-//                setInterval(updateTime, 1000);
-//            });
-            function CheckKey(e)
-            {
-                var code = e.keyCode ? e.keyCode : e.which;
-                if (code === 13) {
-                    document.getElementById("loginform").submit();
-                }
-            }
-            function ngaythang()
-            {
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth() + 1;
-                var yyyy = today.getFullYear();
-                var x = document.getElementById("ngaythang");
-                x.innerHTML = "Ngày " + dd + " Tháng " + mm + " năm " + yyyy + "&nbsp;";
-            }
-            function js_changeGrade() {
-                var jo_user = document.getElementById("js_usernameid").value;
-                var ji_usertotal = document.getElementById("js_totalid").value;
-                for (i = 1; i <= ji_usertotal; i++) {
-                    var js_hidden_id = "js_hd_" + i.toString();
-                    var js_hidden_obj = document.getElementById(js_hidden_id);
-                    var js_searchusr = js_hidden_obj.name.toString().substr(6);
-                    var js_grade = parseInt(js_hidden_obj.value);
-                    if (jo_user === js_searchusr) {
-                        if (js_grade === 1)
-                            document.getElementById("js_r1").checked = true;
-                        else if (js_grade === 2)
-                            document.getElementById("js_r2").checked = true;
-                        else
-                            document.getElementById("js_r3").checked = true;
-                    }
-                }
-//                alert('aaa');
-            }
+        <script>
+            const backgrounds = [
+                "img/bgr22025.jpg",
+                "img/bgr12025.png",
+                "img/bgr32025.png",
+                "img/bgr42025.png",
+                "img/bgr52025.png",
+                "img/bgr62025.png"
+            ];
+            const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            document.body.style.backgroundImage = "url('" + randomBg + "')";
 
-//            const images = [
-//                'img/anh30.jpg',
-//                'img/anh32.png',
-//                'img/anh33.jpg'
-//            ];
-//
-//            let index = 0;
-//
-//            function changeBackground() {
-//                document.body.style.backgroundImage = "url('" + images[index] + "')";
-//                index = (index + 1) % images.length;
-//            }
-//            setInterval(changeBackground, 3000); // thay đổi mỗi 3 giây
         </script>
     </head>
-    <body style="height:100%;" topmargin="0" leftmargin="0">
+
+    <body>
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-date">
+                <script>
+
+                    var dt = new Date();
+                    var strMonth = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+                    var strDay = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+                    var years = dt.getFullYear();
+                    var date = strDay[dt.getDay()] + ", ngày " + dt.getDate() +
+                            " tháng " + strMonth[dt.getMonth()] + " năm " + years;
+                    document.write("<i>" + date + "</i>");
+                </script>
+            </div>
+        </div>
         <s:form action="User_login" theme="simple" id="loginform">
-            <table width="100%" border="0"  cellpadding="0" cellspacing="0" style="height:100%;">
-                <tr>
-                    <td colspan="4" height=65"
-                        style="background-image: url('img/baner11_2025.png'); 
-                        background-size: cover; 
-                        background-position: left; 
-                        background-repeat: no-repeat; 
-                        position: relative; 
-                        padding: 0;">
-                        <div style="position: absolute; bottom: 5px; right: 10px;">
-                            <script language="javascript">
-                                var dt = new Date();
-                                var strMonth = new Array(" 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " 10", " 11", " 12");
-                                var strDay = new Array("Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy");
-                                var date = strDay[dt.getDay()] + ", ngày ";
-                                var years = dt.getYear();
-                                if (years < 1900)
-                                    years += 1900;
-                                date += dt.getDate() + " tháng " + strMonth[dt.getMonth()] + " năm " + years;
-                                document.write("<i><font face='Tahoma' style='font-size: 9pt' color='#FFFFFF'>" + date + "</font></i>");
-                            </script>
-                        </div>
-                    </td>
-                </tr>
+            <div class="login-modal">
+                <div class="login-box">
 
-                <tr>
-                    <td height="26">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
+                    <h3 style="display: flex; justify-content: center; align-items: center; gap: 8px; height: 28px;">
+                        <img src="img/login2025.png" width="27" height="24" alt="Login Icon">
+                        Đăng nhập hệ thống
+                    </h3>
+                    <div style="font-size:15px; margin-bottom:10px; text-align:center;">
+                        <input type="radio" id="js_r1" name="reportGrade" value="1"> Ngân hàng
+                        <input type="radio" id="js_r2" name="reportGrade" value="2" checked> Chi nhánh
+                        <input type="radio" id="js_r3" name="reportGrade" value="3"> Toàn quốc
+                    </div>
 
-                <tr>
-                    <td height="28" colspan="4">
-                        <table width="100%" height="100%" border="0"  cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td width="5%" height="30"></td>
-                                <td width="95%" align="left" style="text-transform: uppercase;font-size: 12px;font-weight: bold;">
-                                    Thông báo mới <br><hr height="1px" width="90%" align="left"><br>
-                                </td>
-                                <td align="center">
-                                    <table border="0"  cellpadding="0" cellspacing="0" width="325px">
-                                        <tr>
-                                            <td height="28" align="left"><img src="img/login2025.png" width="27" height="24" /></td>
-                                            <td align="left" style="text-transform: uppercase;font-size: 12px;font-weight: bold;">Đăng nhập hệ thống <br><hr height="1px"></td>
-                                        </tr>
-                                    </table></td>
-                            </tr>
-                        </table></td>
-                </tr>
-                <tr>                    
-                    <!--                                        <td height="50" valign="top">
-                                                                <table border="0"  cellpadding="0" cellspacing="0">
-                                                                    <div class="container" style="font-family: Brush Script MT">
-                                                                        <h1 id="title99" style="font-family: Comic Sans MS">Đếm ngược</h1>
-                                                                        <h2 id="title98" style="font-family: Bradley Hand">Tết Ất Tỵ, 2025</h2>
-                                                                        <div class="countdown" style="position: relative; width: 100%; height: 300px; background-color: #000; border-radius: 10px; overflow: hidden; padding: 0;">
-                                                                            <div class="time-box">
-                                                                                <span id="days" class="time">00</span><br>
-                                                                                <span class="label">Ngày</span>
-                                                                            </div>
-                                                                            <div class="time-box">
-                                                                                <span id="hours" class="time">00</span><br>
-                                                                                <span class="label">Giờ</span>
-                                                                            </div>
-                                                                            <div class="time-box">
-                                                                                <span id="minutes" class="time">00</span><br>
-                                                                                <span class="label">Phút</span>
-                                                                            </div>
-                                                                            <div class="time-box">
-                                                                                <span id="seconds" class="time">00</span><br>
-                                                                                <span class="label">Giây</span>
-                                                                            </div>
-                                                                        </div>
-                                        
-                                                                    </div>
-                                                                    <div class="container" style="font-family: Brush Script MT">
-                                                                        title2 ở đây
-                                                                    </div>
-                                                                </table>
-                                                            </td>-->
-                    <!--<td><img src="img/anh3004_0105.jpg"/></td>-->                    
-                    <td >&nbsp;</td> 
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td> 
-                    <!--<td><img src="img/linelogin.jpg" width="188" height="330" /></td>-->
-                    <td valign="top" align="right">
-                        <table border="0"  cellspacing="10" cellpadding="0" width="310px">
-                            <tr>
-                                <td style="font-size: 12px;">
-                                    <input type="radio" id="js_r1" name="reportGrade" value="1" > Ngân hàng
-                                    <input type="radio" id="js_r2" name="reportGrade" value="2" checked> Chi nhánh
-                                    <input type="radio" id="js_r3" name="reportGrade" value="3"> Toàn quốc
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="font-size: 12px;font-weight: bold;">
-                                    <s:label value="Tên đăng nhập"/><br>
-                                    <s:textfield name="username" cssClass="inputsuse" placeholder="Administrator@vbsp.org.vn"
-                                                 onchange="js_changeGrade();" id="js_usernameid"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="font-size: 12px;font-weight: bold;">
-                                    <s:label value="Mật khẩu"/><br>
-                                    <s:password name="password" cssClass="inputpass" placeholder="************"  onkeypress="CheckKey(event)"/></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td align="right"><a href='javascript:document.getElementById("loginform").submit();'><img src="img/dangnhap.jpg" border="0"/></a></td>
-                            </tr>
-                            <td>&nbsp;</td>
-                </tr>
-                <tr>
-                <div style="color: red"><p style="color: red"><s:property value="message" /> </p></div>
-            </tr>
-        </table>
-    </td>
-</tr>
+                    <div class="form-group">
+                        <s:label value="Tên đăng nhập"/>
+                        <s:textfield name="username" cssClass="inputsuse"
+                                     placeholder="Administrator@vbsp.org.vn"
+                                     onchange="js_changeGrade();" id="js_usernameid"/>
+                    </div>
 
-</table>
-</s:form>
+                    <div class="form-group">
+                        <s:label value="Mật khẩu"/>
+                        <s:password name="password" cssClass="inputpass"
+                                    placeholder="************"
+                                    onkeypress="CheckKey(event)"/>
+                    </div>
 
-<!-- Phần bổ sung để tạo dữ liệu -->
-<s:set var="st_total" value = "grade_static.size()" />                    
-<s:iterator value="grade_static" status="stat">    
-    <input type="hidden" value="<s:property value='grade_static' />" name="js_hd_<s:property value='code' />" 
-           id="js_hd_<s:property value='%{#stat.index+1}' />"/>
-</s:iterator>
-<input type="hidden" name="js_mntotal" 
-       value="<s:property value='%{#st_total}'/>" id="js_totalid"/> 
-</body>
+                    <div style="text-align:right; margin-top:10px;">
+                        <a href="javascript:document.getElementById('loginform').submit();">
+                            <img src="img/dangnhap.jpg" border="0"/>
+                        </a>
+                    </div>
+
+                    <div style="color:red; margin-top:10px;">
+                        <s:property value="message"/>
+                    </div>
+                </div>
+            </div>
+        </s:form>
+
+        <s:set var="st_total" value="grade_static.size()" />                    
+        <s:iterator value="grade_static" status="stat">    
+            <input type="hidden" value="<s:property value='grade_static' />" 
+                   name="js_hd_<s:property value='code' />" 
+                   id="js_hd_<s:property value='%{#stat.index+1}' />"/>
+        </s:iterator>
+        <input type="hidden" name="js_mntotal" 
+               value="<s:property value='%{#st_total}'/>" id="js_totalid"/> 
+    </body>
 </html>
