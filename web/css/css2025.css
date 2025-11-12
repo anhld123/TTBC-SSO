@@ -1,0 +1,159 @@
+table.editDelete,
+table.subTable {
+    border-collapse: collapse;
+    width: 98%;
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+table.editDelete th,
+table.subTable th {
+    background-color: #eef6ff;
+    color: #000;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+}
+
+/* Nội dung */
+table.editDelete td,
+table.subTable td {
+    border: 1px solid #eee;
+    padding: 6px 8px;
+}
+
+/* Dòng lẻ */
+table.editDelete tr:nth-child(odd),
+table.subTable tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Dòng chẵn */
+table.editDelete tr:nth-child(even),
+table.subTable tr:nth-child(even) {
+    background-color: #f7faff;
+}
+
+/* Hover */
+table.editDelete tr:hover,
+table.subTable tr:hover {
+    background-color: #dceeff;
+}
+
+/* Căn phải số */
+td.number {
+    text-align: right;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Thanh cuộn */
+.custom-scroll {
+    overflow: auto;
+    height: 500px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 128, 128, 0.3) transparent;
+}
+
+/* Webkit Scrollbar */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.3);
+    border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+@-webkit-keyframes my {
+    0% { color: red; } 
+    50% { color: #fff;  } 
+    100% { color: red;  } 
+}
+@-moz-keyframes my { 
+    0% { color: red;  } 
+    50% { color: #fff;  }
+    100% { color: red;  } 
+}
+@-o-keyframes my { 
+    0% { color: red; } 
+    50% { color: #fff; } 
+    100% { color: red;  } 
+}
+@keyframes my { 
+    0% { color: red;  } 
+    50% { color: #fff;  }
+    100% { color: red;  } 
+} 
+.color_11 {
+    background:#fff;
+    font-size:14px;
+    font-weight:bold;
+    -webkit-animation: my 700ms infinite;
+    -moz-animation: my 700ms infinite; 
+    -o-animation: my 700ms infinite; 
+    animation: my 700ms infinite;
+}
+th{
+    background-color: #DCDCDC;
+    border-color: #999;
+    height: 18px;
+}
+td{
+    border-color: #999;
+    height: 20px;
+}
+table.editDelete{
+    border-collapse: collapse;
+    width: 97%;
+    border-color: #999;
+}
+table.editDelete tr:focus{
+    background-color:#FFE47A;
+    /*cursor: pointer; hover*/
+}
+.highlight_row {
+    background-color: #FFB951; 
+    color:#000;
+}
+#divDonvitinh{
+    text-align: right;
+    padding-right: 30px;
+    color: red; 
+    font-weight: initial;
+}
+#divSubTitle{    
+    text-align: left;
+    color: red;     
+    font-size: large
+}
+#divTitle{
+    color: blue; 
+    font-weight: bolder; 
+    font-size: larger;
+}
+input[type="text"]
+{
+    width: 100%;
+    border: 0px;
+
+    /*color: #000000*/
+    border-color: #18ab29;
+    /*background: #F9F9F9;*/
+    color:#666666;
+}
+input[type=text]:focus, textarea:focus {
+    box-shadow: 0 0 5px fuchsia;
+    border: 1px solid fuchsia;
+}
+input:read-only {
+    background-color: #E5E5E5;
+}

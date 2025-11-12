@@ -43,6 +43,7 @@ import vbsp.ims.leavelocal.LeaveHomeDao;
 import vbsp.ims.leavelocal.LeaveHomeService;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.menu_dcpln.DaoPlnMain;
 import vbsp.ims.model.ModelTreeNode;
 import vbsp.ims.model.Pagination;
 import vbsp.ims.model.ktnb.PosMainModel;
@@ -83,6 +84,64 @@ public class ActionNhaptaycnMain extends ActionSupport {
     private List<ListCommune> lstXa_API;
     private String pos_cd;
     private String main_pos;
+    private List<ListOfValue> lstDmKhac17;
+    private List<ListOfValue> lstDmKhac197;
+
+    public LeaveHomeService getServer_tmp() {
+        return _server_tmp;
+    }
+
+    public void setServer_tmp(LeaveHomeService _server_tmp) {
+        this._server_tmp = _server_tmp;
+    }
+
+    public List<ListOfValue> getLstDmKhac17() {
+        return lstDmKhac17;
+    }
+
+    public void setLstDmKhac17(List<ListOfValue> lstDmKhac17) {
+        this.lstDmKhac17 = lstDmKhac17;
+    }
+
+    public List<ListOfValue> getLstDmKhac197() {
+        return lstDmKhac197;
+    }
+
+    public void setLstDmKhac197(List<ListOfValue> lstDmKhac197) {
+        this.lstDmKhac197 = lstDmKhac197;
+    }
+
+    public String getDvut_ksnb02() {
+        return dvut_ksnb02;
+    }
+
+    public void setDvut_ksnb02(String dvut_ksnb02) {
+        this.dvut_ksnb02 = dvut_ksnb02;
+    }
+
+    public String getCapkt_ksnb02() {
+        return capkt_ksnb02;
+    }
+
+    public void setCapkt_ksnb02(String capkt_ksnb02) {
+        this.capkt_ksnb02 = capkt_ksnb02;
+    }
+
+    public String getMato_ksnb02() {
+        return mato_ksnb02;
+    }
+
+    public void setMato_ksnb02(String mato_ksnb02) {
+        this.mato_ksnb02 = mato_ksnb02;
+    }
+
+    public String getChutich_ksnb02() {
+        return chutich_ksnb02;
+    }
+
+    public void setChutich_ksnb02(String chutich_ksnb02) {
+        this.chutich_ksnb02 = chutich_ksnb02;
+    }
 
     public List<ListOfValue> getLstDmKhac() {
         return lstDmKhac;
@@ -901,7 +960,7 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 return "LEAVELOCAL";
 
             }
-              if (this.khoa_nhaptaycn.equals("LEAVELOCAL_TW")) {
+            if (this.khoa_nhaptaycn.equals("LEAVELOCAL_TW")) {
                 epsModel dao = new epsModel();
                 lstDonvi = dao.getDonvi(Grade, UserName);
                 return "LEAVELOCAL_TW";
@@ -1047,6 +1106,30 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
                 return khoa_nhaptaycn.equals("HTLS_2024") ? "HTLS_2024" : "HTLS_2025";
+            }
+
+            if (khoa_nhaptaycn.equals("HTLS_NGUONDP2025")) {
+                main_pos = posMainModel.getMainPosCd();
+                _server_tmp = new LeaveHomeService();
+                lstCN_API = _server_tmp.getListCn("");
+                DaoPlnMain daoMain_Plno = new DaoPlnMain();
+                setLstMaxa(daoMain_Plno.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain_Plno.getDanhMuc(UserName, "MATO_HOI", Grade));
+                lstDmKhac17 = _serverAPI.getListOfValue("17", "");
+                lstDmKhac17.removeIf(item
+                        -> "10".equals(item.getCode()) || "20".equals(item.getCode())
+                );
+                lstDmKhac17.sort((a, b) -> Integer.compare(
+                        Integer.parseInt(a.getCode()),
+                        Integer.parseInt(b.getCode())
+                ));
+
+//            dm san pham
+                lstDmKhac197 = _serverAPI.getListOfValue("197", "");
+                lstDmKhac197.sort((a, b)
+                        -> Integer.compare(a.getSortOrder(), b.getSortOrder())
+                );
+                return "HTLS_NGUONDP2025";
             }
 
             if (conn != null) {

@@ -33,6 +33,7 @@
 <!--            <result name="HTLS_2024">/htls_2024/para_htls_2024.jsp</result>-->
             <result name="TGTV_2025">/tienguitovien_2025/para_tienguitovien.jsp</result>
             <result name="HTLS_2025">/htls_2025/para_htls2025.jsp</result>
+            <result name="HTLS_NGUONDP2025">/htls_nguondp2025/para_giamlai.jsp</result>
             <result name="LEAVELOCAL_TW">/leavelocal/para_bdp.jsp</result>
             <result name="error">/nhaptay-cn/success.jsp</result>    
                 
@@ -1049,6 +1050,31 @@
         </action>
         <action name="unlock_HTLS_2025_c3" class="vbsp.ims.nhaptaycn.action.HTLS_2025" method="unlock_c3">
             <result name="success" type="json"></result>
+        </action>
+        <!--giam lai diaphuong 2025-->
+        <action name="HTLS_NGUONDP2025" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="load">
+            <result name="success_1">/htls_nguondp2025/table_giamlai_pgd.jsp</result>     
+            <result name="success_2">/htls_nguondp2025/table_giamlai_cn.jsp</result>     
+            <result name="success_3">/htls_nguondp2025/table_giamlai_tw.jsp</result> 
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="save_htls_nguondp" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="save">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result> 
+        </action>   
+        <action name="lock_htls_nguondp" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="send_cn">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
+        <action name="popupgiamlaipgd" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025" method="popupTablePos">
+            <result name="success">/htls_nguondp2025/popupTablePgd.jsp</result>
+        </action>
+        <action name="unlock_htls_nguondp" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="unlock_tw">
+            <result name="success" type="json"></result>   
         </action>
     </package>
 </struts>
