@@ -107,105 +107,83 @@
         <script>
             $(document).ready(function () {
                 $("#idRejecttmp").click(function () {
+
+                    // Khóa nút ngay khi bấm
+                    var $btn = $(this);
+                    $btn.prop("disabled", true);
+
                     $('#divBrowseRisk').empty();
 
-
                     var soku = $("#soku").val();
-
-                    var sTenkh = $("#sTenkh").val();
-                    sTenkh = sTenkh.replace(/^\s*|\s*$/g, "");
-
-                    var sNgayvay = $("#sNgayvay").val();
-                    sNgayvay = sNgayvay.replace(/^\s*|\s*$/g, "");
-
-                    var dbMdthiethai = $("#dbMdthiethai").val();
-                    dbMdthiethai = dbMdthiethai.replace(/^\s*|\s*$/g, "");
-
-                    var sNgayrr = $("#sNgayrr").val();
-                    sNgayrr = sNgayrr.replace(/^\s*|\s*$/g, "");
-
-                    var dbDnghi_Tg = $("#dbDnghi_Tg").val();
-                    dbDnghi_Tg = dbDnghi_Tg.replace(/^\s*|\s*$/g, "");
-
-                    var dbPduyet_Tg = $("#dbPduyet_Tg").val();
-                    dbPduyet_Tg = dbPduyet_Tg.replace(/^\s*|\s*$/g, "");
-
-                    var dbHt_Dno = $("#dbHt_Dno").val();
-                    dbHt_Dno = dbHt_Dno.replace(/^\s*|\s*$/g, "");
-
-                    var dbHt_Lai = $("#dbHt_Lai").val();
-                    dbHt_Lai = dbHt_Lai.replace(/^\s*|\s*$/g, "");
-
-                    var dbSolanxl = $("#dbSolanxl").val();
-                    dbSolanxl = dbSolanxl.replace(/^\s*|\s*$/g, "");
-
-                    var dbDnghi_Lai = $("#dbDnghi_Lai").val();
-                    dbDnghi_Lai = dbDnghi_Lai.replace(/^\s*|\s*$/g, "");
-
+                    var sTenkh = $.trim($("#sTenkh").val());
+                    var sNgayvay = $.trim($("#sNgayvay").val());
+                    var dbMdthiethai = $.trim($("#dbMdthiethai").val());
+                    var sNgayrr = $.trim($("#sNgayrr").val());
+                    var dbDnghi_Tg = $.trim($("#dbDnghi_Tg").val());
+                    var dbPduyet_Tg = $.trim($("#dbPduyet_Tg").val());
+                    var dbHt_Dno = $.trim($("#dbHt_Dno").val());
+                    var dbHt_Lai = $.trim($("#dbHt_Lai").val());
+                    var dbSolanxl = $.trim($("#dbSolanxl").val());
+                    var dbDnghi_Lai = $.trim($("#dbDnghi_Lai").val());
                     var nam_xlrr = $("#nam_xlrr").val();
                     var dot_xlrr = $("#dot_xlrr").val();
                     var nhom_xlrr = $("#nhom_xlrr").val();
-//                    alert(nhom_xlrr);
                     var trangthai_xlrr = $("#trangthai_xlrr").val();
                     var chuongtrinh = $("#chuongtrinh").val();
                     var nguon_von = $("#nguon_von").val();
                     var vb_xlrr = $("#vb_xlrr").val();
                     var poscd = $('#poscd').val();
                     var sNguyennhan = $("#sNguyennhan").val();
-                    
-                    var dbDnghi_Dno = $("#dbDnghi_Dno").val();
-                    dbDnghi_Dno = dbDnghi_Dno.replace(/^\s*|\s*$/g, "");
-                    var url = "khonglamgica.action?soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd
-                            + "&vb_xlrr=" + vb_xlrr
-                            + "&sTenkh=" + sTenkh + "&sNgayvay=" + sNgayvay + "&dbMdthiethai=" + dbMdthiethai
-                            + "&sNgayrr=" + sNgayrr + "&dbDnghi_Tg=" + dbDnghi_Tg + "&dbPduyet_Tg=" + dbPduyet_Tg
-                            + "&dbHt_Dno=" + dbHt_Dno + "&dbHt_Lai=" + dbHt_Lai
-                            + "&dbSolanxl=" + dbSolanxl + "&dbDnghi_Lai=" + dbDnghi_Lai
-                            + "&sNguyennhan=" + sNguyennhan
-                            + "&dbDnghi_Dno=" + dbDnghi_Dno
-                            ;
+                    var dbDnghi_Dno = $.trim($("#dbDnghi_Dno").val());
 
-                    var data1 = "soku_reject=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&nhom_xlrr=" + nhom_xlrr
-                            + "&trangthai_xlrr=" + trangthai_xlrr + "&chuongtrinh=" + chuongtrinh + "&nguon_von=" + nguon_von + "&poscd=" + poscd
-                            + "&vb_xlrr=" + vb_xlrr
-                            + "&sTenkh=" + sTenkh + "&sNgayvay=" + sNgayvay + "&dbMdthiethai=" + dbMdthiethai
-                            + "&sNgayrr=" + sNgayrr + "&dbDnghi_Tg=" + dbDnghi_Tg + "&dbPduyet_Tg=" + dbPduyet_Tg
-                            + "&dbHt_Dno=" + dbHt_Dno + "&dbHt_Lai=" + dbHt_Lai
-                            + "&dbSolanxl=" + dbSolanxl + "&dbDnghi_Lai=" + dbDnghi_Lai
-                            + "&sNguyennhan=" + sNguyennhan
-                            ;
+                    var data1 = {
+                        soku_reject: soku,
+                        nam_xlrr: nam_xlrr,
+                        dot_xlrr: dot_xlrr,
+                        nhom_xlrr: nhom_xlrr,
+                        trangthai_xlrr: trangthai_xlrr,
+                        chuongtrinh: chuongtrinh,
+                        nguon_von: nguon_von,
+                        poscd: poscd,
+                        vb_xlrr: vb_xlrr,
+                        sTenkh: sTenkh,
+                        sNgayvay: sNgayvay,
+                        dbMdthiethai: dbMdthiethai,
+                        sNgayrr: sNgayrr,
+                        dbDnghi_Tg: dbDnghi_Tg,
+                        dbPduyet_Tg: dbPduyet_Tg,
+                        dbHt_Dno: dbHt_Dno,
+                        dbHt_Lai: dbHt_Lai,
+                        dbSolanxl: dbSolanxl,
+                        dbDnghi_Lai: dbDnghi_Lai,
+                        sNguyennhan: sNguyennhan,
+                        dbDnghi_Dno: dbDnghi_Dno
+                    };
 
                     $.ajax({
                         type: 'POST',
-                        url: url,
+                        url: "khonglamgica.action",
                         data: data1,
                         dataType: 'json',
-                        contentType: 'application/json',
-                        type: 'POST',
-                        async: true,
                         success: function (data) {
-                            try {
-                                alert("Bạn đã cập nhật thành công thông tin rủi ro cho khoản vay " + soku)
-                                self.opener.document.forms['paginationForm'].idSubmit.click();
-                                window.close();
-
-                            } catch (e)
-                            {
-                                alert(e.toString());
-                            }
-
+                            alert("Bạn đã cập nhật thành công thông tin rủi ro cho khoản vay " + soku);
+                            self.opener.document.forms['paginationForm'].idSubmit.click();
+                            window.close();
                         },
-                        error: function (data)
-                        {
-                            alert('Lỗi chưa cập nhật được thông tin rủi ro khoản vay. Xin liên hệ với quản trị ');
-                            $('#divBrowseRisk').html("<h2 style='color: red'>Lỗi chưa cập nhật được thông tin rủi ro khoản vay. Xin liên hệ với quản trị ! </h2>");
+                        error: function () {
+                            alert('Lỗi chưa cập nhật được thông tin rủi ro khoản vay. Xin liên hệ với quản trị');
+                            $('#divBrowseRisk').html("<h2 style='color: red'>Lỗi chưa cập nhật được thông tin rủi ro khoản vay. Xin liên hệ với quản trị !</h2>");
+                        },
+                        complete: function () {
+                            // Mở lại nút
+                            $btn.prop("disabled", false);
                         }
                     });
+
                     return false;
                 });
-
             });
+
         </script>
         <script>
             function closeSelf() {
