@@ -862,7 +862,7 @@ public class DcplnAction extends ActionChtrinhcnMain
                     tempadd.setD1(tmp.getD1());
                     tempadd.setD2(tmp.getD2());
                     tempadd.setD3(tmp.getD3());
-                    tempadd.setD4(tmp.getD4());
+                    tempadd.setD4(tmp.getD4() == null ? "0" : tmp.getD4());
                     tempadd.setD5(tmp.getD5());
                     tempadd.setD7(tmp.getD7());
                     tempadd.setD10(tmp.getD10());

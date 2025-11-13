@@ -123,8 +123,7 @@
                     <th  class="TD_SOKU">Trong hạn</th>
                     <th  class="TD_SOKU">Quá hạn</th>
                     <th  class="TD_SOKU">Khoanh</th>                            
-
-                    <th  class="TD_TOTIEN">Lãi giảm tháng 09</th>                                                        
+                                                     
                     <th  class="TD_TOTIEN">Lãi giảm tháng 10</th>                                                        
                     <th  class="TD_TOTIEN">Lãi giảm tháng 11</th>   
                     <th  class="TD_TOTIEN">Lãi giảm tháng 12</th> 
@@ -164,11 +163,11 @@
 
                         <!--lai suat-->
                         
-                        <td align = "right" class="TD_TOTIEN" >
+<!--                        <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D14" />" 
                                    name="lstDulieuNt_tong[<s:property  value="%{#rowstatus.index}" />].D14" class="TEN_KH number" onfocus="this.select();" 
                                    readonly="true"/>
-                        </td>
+                        </td>-->
                         
                         <td align = "right" class="TD_TOTIEN" >
                             <input type="text"   value="<s:property  value="D5" />" 
@@ -226,7 +225,7 @@
                             <th rowspan="2"  class="TD_NGAY">Lãi suất</th>   
                             <th rowspan="2"  class="TD_NGAY">Trạng thái món vay</th>   
                             <th colspan="3"  class="TD_MAKH">Dư nợ</th>                             
-                            <th colspan="4"  class="TD_MAKH">Lãi giảm các tháng trong năm 2024</th>                                                         
+                            <th colspan="3"  class="TD_MAKH">Lãi giảm các tháng trong năm 2024</th>                                                         
                             <th rowspan="2"  class="TD_MAKH">Phân loại RPA hoặc Phải trả</th>                             
                             <th rowspan="2"  class="TD_MAKH">Số tiền hạch toán giảm lãi</th>  
                             <th colspan="3"  class="TD_MAKH">Tháng <s:property  value="thangbc"/></th>
@@ -235,8 +234,7 @@
                         <tr>
                             <th  class="TD_TOTIEN">Trong hạn</th>
                             <th  class="TD_TOTIEN">Quá hạn</th>
-                            <th  class="TD_TOTIEN">Khoanh</th>
-                            <th  class="TD_NGAY">Tháng 09</th>                                                        
+                            <th  class="TD_TOTIEN">Khoanh</th>                                                       
                             <th  class="TD_NGAY">Tháng 10</th>                                                        
                             <th  class="TD_NGAY">Tháng 11</th>                                                        
                             <th  class="TD_NGAY">Tháng 12</th>  
@@ -263,7 +261,6 @@
                             <td style="text-align: center">(19)</td>
                             <td style="text-align: center">(20)</td>
                             <td style="text-align: center">(21)</td>
-                            <td style="text-align: center">(22)</td>
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
@@ -323,11 +320,11 @@
                                            readonly="true"/>
                                 </td>
                                 <!--Lai giam cac tháng-->
-                                <td align = "right" class="TD_MAKH" >
+<!--                                <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D47" />" style="background: #C0C0C0 !important;"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D47" class="TEN_KH number" onfocus="this.select();" 
                                            readonly="true"/>
-                                </td>
+                                </td>-->
                                 
                                 <td align = "right" class="TD_MAKH" >
                                     <input type="text"   value="<s:property  value="D18" />" style="background: #C0C0C0 !important;"
