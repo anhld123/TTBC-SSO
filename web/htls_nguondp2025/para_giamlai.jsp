@@ -314,7 +314,7 @@
                             url = "save_htls_nguondp.action";
                             sdata = jQuery("#frmdata").serialize();
 //                                 console.log("data = " + sdata);
-                            $("#viewData").html('<img src="img/loading.gif"/>');
+                            $("#divExportReport").html('<img src="img/loading.gif"/>');
                             btnDisabled(1);
                             $.ajax({
                                 type: "POST",
@@ -340,7 +340,6 @@
                     }
                 }
             });
-
 
             function btnDisabled(status) {
                 if (status === 1) {
@@ -476,156 +475,6 @@
                 return result;
             }
 
-            function openClick()
-            {
-                var khoa = $("#khoa").val() + "_open";
-                var idform = 'idform_open_' + '<s:property value="khoa_nhaptaycn"/>';
-                if ($('#' + idform + ' input:checkbox:checked').length > 0)
-                {
-                    $("#" + khoa)[0].click();
-                } else
-                {
-                    // none is checked
-                    alert("Bạn phải chọn phòng giao dịch cần mở khóa !");
-//                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
-                }
-            }
-            $("#idSend").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-
-                let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
-                if (aCheck) {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    var chot = document.getElementById("chotsl").value;
-                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    var isValid = true;
-                    if (chot === "2") {
-                        alert("Chi nhánh đã chốt dữ liệu lên Tw!");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot === "1") {
-                        alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    if (chot_tw === "0") {
-                        alert(chot_tw);
-                        alert("Chưa có dữ liệu, đề nghị lưu dữ liệu trước khi gửi, ít nhất phải chọn 1 cán bộ chuyên trách!");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                    }
-                    for (var i = 0; i < rowcount; i++) {
-                        try {
-                        } catch (e) {
-                        }
-                    }
-                    if (isValid) {
-                        var url, sdata;
-                        url = "send_KTKSNB_00_2024.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Gửi dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
-                                    onLoadData();
-                                } else {
-                                    alert("Lỗi: Gửi dữ liệu.");
-                                    onLoadData();
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
-                            }
-                        });
-                    }
-                }
-
-            });
-
-            $("#idSendTW").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-
-                let aCheck = confirm("Bạn chắc chắn muốn gửi số liệu báo cáo ?");
-                if (aCheck) {
-                    var table = document.getElementById("subTable");
-                    var rowcount = table.rows.length;
-                    var chot_tw = document.getElementById("chotsl_tw").value;
-                    var isValid = true;
-                    if (chot_tw === "2") {
-                        alert("Dữ liệu đã gửi, không thể tiếp tục gửi.");
-                        isValid = false; // Không cho phép lưu dữ liệu
-                        onLoadData();
-                    }
-                    for (var i = 0; i < rowcount; i++) {
-                        try {
-                        } catch (e) {
-                        }
-                    }
-                    if (isValid) {
-                        var url, sdata;
-                        url = "send_KPBL_2024_C2.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: sdata,
-                            success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Gửi dữ liệu.");
-                                    $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã gửi dữ liệu thành công!</h>");
-                                    onLoadData();
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
-                                    onLoadData();
-                                }
-                            },
-                            complete: function () {
-                                btnDisabled(0);
-                            },
-                            error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
-                            }
-                        });
-                    }
-                }
-
-            });
-
-            function reLoadValue(val) {
-                var var2, vartxt, selected;
-                $("#mato").children().remove().end();
-
-                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
-                $("#mato_data > option").each(function () {
-                    var2 = $(this).val().substr(0, 6);
-                    if (val.trim() === var2.trim()) {
-                        $(this).val() === vartxt ? selected = " selected" : selected = "";
-                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
-                    }
-                });
-
-                $("#mato").html($("#mato option").sort(function (a, b) {
-                    return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-            }
-            ;
         </script>
     </head>
     <body>
@@ -644,7 +493,7 @@
                             <sj:datepicker name="ngay_bc_DATE" value="%{'31/12/2023'}"  id="ngay_bc_DATE" 
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/> 
 
-                            <s:if test="Grade.equalsIgnoreCase('1')">
+                            <s:if test="Grade.equalsIgnoreCase('1') && gradeAuthor1.equalsIgnoreCase('1')">
                                 &nbsp;<s:label value="Mã xã " cssStyle="color: #029c44;" />
                                 <s:select style="width: 200px;"
                                           list="lstMaxa"
@@ -656,7 +505,7 @@
                                           headerValue="-- Chọn xã --"
                                           onchange="onXaChange(this.value)" />
 
-                                &nbsp;<s:label value="Mã hội " cssStyle="color: #029c44;" />
+                                <%--&nbsp;<s:label value="Mã hội " cssStyle="color: #029c44;" />
                                 <select id="mahoi" name="mahoi" style="width: 150px" disabled onchange="onHoiChange(this.value)" >
                                     <option value="0" style="text-align: center">-- Chọn hội đoàn thể --</option>
                                     <s:iterator value="lstDmKhac17">                                    
@@ -678,9 +527,9 @@
                                           headerKey="-1"
                                           headerValue="--- Chọn ---"
                                           cssStyle="display:none;"
-                                          disabled="true" />
+                                          disabled="true" />--%>
 
-
+                                &nbsp;
                                 <s:label value="Chương trình " cssStyle="color: #029c44;" />
                                 <select id="chtrinh" name="chtrinh" style="width: 150">
                                     <option value="0">-- Tất cả --</option>
@@ -688,22 +537,35 @@
                                         <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
                                     </s:iterator>   
                                 </select>
-<!--                                &nbsp;
+                                &nbsp;
                                 <s:label value="Nguồn vốn " cssStyle="color: #029c44;" />
                                 <select id="nguonvon" name="nguonvon">
                                     <option value="0">-- Tất cả --</option>
                                     <option value="1">Nguồn TW</option>
                                     <option value="2">Nguồn ĐP</option>
-                                </select>-->
+                                </select>
+                                &nbsp;
+                                <s:label value="Phân loại" cssStyle="color: #029c44;" />
+                                <select id="phanloai" name="phanloai">
+                                    <option value="">-- Tất cả --</option>
+                                    <option value="1">Đã xác nhận</option>
+                                    <option value="0">Chưa xác nhận</option>
+                                </select>
                             </s:if>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                       onBeforeTopics="beforediv_data"
-                                       onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                            <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
-                            <s:if test="Grade.equalsIgnoreCase('1')">
-                                <input type="button" id="idSave" value="Lưu dữ liệu"/>
+                            <s:if test="gradeAuthor1.equalsIgnoreCase('1')">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                           onBeforeTopics="beforediv_data"
+                                           onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
+                                <s:if test="Grade.equalsIgnoreCase('1')">
+                                    <input type="button" id="idSave" value="Lưu dữ liệu"/>
+                                </s:if>
                             </s:if>
+                            <s:else>
+                                &nbsp;<input type="button" id="idSearch" value="Danh sách xã" style="color: red" targets="divExportReport">
+                                &nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/> 
+                            </s:else>
                         </td> 
 
                     </tr>
@@ -723,7 +585,7 @@
             $(document).ready(function () {
 //            $("#ngay_dcpln").val("31/12/2021");
                 document.getElementById('ngay_bc_DATE').value = "31/12/2025";
-            })
+            });
 
             function onXaChange(maXa) {
                 $("#mahoi").val("0");
@@ -758,6 +620,77 @@
                 $("#mato").val("10_000000_0000000");
                 $("#mato").prop("disabled", false);
             }
+
+            $("#idSearch").click(function () {
+                var url, sdata;
+                url = "search_htls_nguondp.action";
+                sdata = jQuery("#frmdata").serialize();
+                $("#divExportReport").html('<img src="img/loading.gif"/>');
+//                btnDisabled(1);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: sdata,
+                    success: function (data) {
+                        $("#divExportReport").html(data);
+                    },
+                    complete: function () {
+//                        btnDisabled(0);
+                    },
+                    error: function (request) {
+                        console.log(request);
+                        alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                    }
+                });
+            });
+
+            $("#idSend").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+                let aCheck = confirm("Bạn chắc chắn muốn chốt số liệu báo cáo của PGD?");
+                if (aCheck) {
+                    var chot = document.getElementById("chotsl").value;
+                    if (chot === "2" || chot === "1") {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
+                        return;
+                    }
+                    var chotcic = document.getElementById("chotcic").value;
+                    if (chotcic === "2" || chotcic === "1") {
+                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, khoogn thể thao tác!</h>");
+                        return;
+                    }
+                    var isValid = true;
+                    if (isValid) {
+                        var url, sdata;
+                        url = "lock_htls_nguondp_pgd.action";
+                        sdata = jQuery("#frmdata").serialize();
+                        $("#divExportReport").html('<img src="img/loading.gif"/>');
+                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                if (data === "200") {
+                                    alert("Thành công: Chốt dữ liệu.");
+                                    $('#idSearch').click();
+                                } else {
+                                    alert("Lỗi: Chốt dữ liệu.");
+                                    $('#idSearch').click();
+                                }
+                            },
+                            complete: function () {
+                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                $('#idSearch').click();
+                            }
+                        });
+                    }
+                }
+
+            });
         </script>
     </body>
 </html>

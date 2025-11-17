@@ -65,11 +65,11 @@
                     <th rowspan="2">Trong hạn</th>
                     <th rowspan="2">Quá hạn</th>
                     <th rowspan="2">Khoanh</th>
-                    <th colspan="2">Giảm lãi</th>
+                    <th colspan="2">Số món thay đổi lãi suất</th>
                 </tr>  
                 <tr>
-                    <th>Đã nhập</th>
-                    <th>Xác nhận</th>
+                    <th>Không thay đổi</th>
+                    <th>Có thay đổi</th>
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>

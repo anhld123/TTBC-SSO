@@ -1,0 +1,71 @@
+/* Ô tìm kiếm */
+.myTableWrapper #search {
+    padding: 6px 10px;
+    width: 250px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* Bảng */
+.myTableWrapper #subTable {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+
+.myTableWrapper #subTable th {
+    background: #4a90e2;
+    color: #fff;
+    padding: 6px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.myTableWrapper #subTable td {
+    padding: 6px;
+    border: 1px solid #ddd;
+}
+
+/* Hover */
+.myTableWrapper #subTable tr:hover {
+    background: #f3f8ff;
+}
+
+/* Phân trang */
+.myTableWrapper .pagination-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.myTableWrapper .pagination-btn {
+    background: #4a90e2;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.myTableWrapper .pagination-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.myTableWrapper #page {
+    font-weight: bold;
+    color: #333;
+}
+
+.myTableWrapper #pageInput {
+    width: 45px;
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 13px;
+}

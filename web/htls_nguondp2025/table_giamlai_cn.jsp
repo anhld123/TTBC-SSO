@@ -72,15 +72,10 @@
                     <th style="width: 30px">STT</th>
                     <th style="width: 60px">Mã PGD</th>
                     <th style="STT3">Tên PGD</th>
-                    <th>Trong hạn</th>
-                    <th>Quá hạn</th>
-                    <th>Khoanh</th>
-                    <th>Đã nhập</th>
-                    <th>Xác nhận</th>
                     <th>Người chốt</th>
                     <th>Ngày chốt</th>
-                    <th style="width: 150px">Chốt dữ liệu</th>
-
+                    <th style="width: 150px">Chốt dữ liệu PGD</th>
+                    <th style="width: 150px">Chốt dữ liệu TW</th>
                 </tr>  
                 <tr>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
@@ -90,31 +85,45 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
                         <td class="D0" ><s:property value="%{#rowstatus.index + 1}" />
                         <td class="D0" ><s:property value="D1" /></td>
                         <td><s:property value="D2" /></td>
-                        <td class="number"><s:property value="D9" /></td>
-                        <td class="number"><s:property value="D10" /></td>
-                        <td class="number"><s:property value="D11" /></td>
-                        <td class="number"><s:property value="D12" /></td>
-                        <td class="number"><s:property value="D13" /></td>
                         <td class="D0"><s:property value="D14" /></td>
                         <td class="D0"><s:property value="D15" /></td>
+                        <!--                        <td class="D0">
+                        <s:if test="D8.equalsIgnoreCase('0')">
+                            <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="D1"/>', $('#ngay_bc_DATE').val(), '<s:property value="D8"/>', '3');">Chốt dữ liệu</a>
+                        </s:if>
+                        <s:else>
+                            <a style="color: #009900">Đã chốt dữ liệu TW</a>
+                        </s:else>
+                    </td>-->
                         <td class="D0">
-                            <s:if test="D8.equalsIgnoreCase('0')">
-                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="D1"/>', $('#ngay_bc_DATE').val(), '<s:property value="D8"/>', '3');">Chốt dữ liệu</a>
+                            <s:if test="D8.equalsIgnoreCase('1')">
+                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="D1"/>', $('#ngay_bc_DATE').val(), '<s:property value="D8"/>', '0');">Mở chốt dữ liệu PGD</a>
                             </s:if>
+                            <s:elseif test="D8.equalsIgnoreCase('0')">
+                                <a style="color: red">Chưa chốt dữ liệu</a>
+                            </s:elseif>
                             <s:else>
                                 <a style="color: #009900">Đã chốt dữ liệu TW</a>
                             </s:else>
                         </td>
+                        <td class="D0">
+                            <s:if test="D8.equalsIgnoreCase('1')">
+                                <a style="text-decoration: underline" href="#" onclick="idSend('<s:property value="D1"/>', $('#ngay_bc_DATE').val(), '<s:property value="D8"/>', '2');">Chốt dữ liệu TW</a>
+                            </s:if>
+                            <s:elseif test="D8.equalsIgnoreCase('0')">
+                                <a style="color: red">Chưa chốt dữ liệu</a>
+                            </s:elseif>
+                            <s:else>
+                                <a style="color: #009900">Đã chốt dữ liệu TW</a>
+                            </s:else>
+                        </td>
+
                     </tr>
                 </s:iterator>
             </table>
@@ -144,10 +153,15 @@
                 data: sdata,
                 success: function (data) {
                     if (data === "200") {
-                        alert("Chốt dữ liệu thành công!");
+                        if (D4 === "0")
+                        {
+                            alert("Mở chốt dữ liệu PGD thành công!");
+                        } else {
+                            alert("Chốt dữ liệu gửi TW thành công!");
+                        }
                         onLoadData();
                     } else {
-                        alert("Lỗi: Chốt dữ liệu.");
+                        alert("Lỗi: Mở/Chốt dữ liệu.");
                         onLoadData();
                     }
                 },

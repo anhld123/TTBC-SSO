@@ -324,30 +324,35 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                     return ERROR;
                 }
 
-                String ssmahoi = hmParameter.get("mahoi").toString();
-                if (ssmahoi.equals("0")) {
-                    addActionError("Bạn chưa chọn mã hội!");
-                    return ERROR;
-                }
-                String snguonvon = "2";
+//                String ssmahoi = hmParameter.get("mahoi").toString();
+//                if (ssmahoi.equals("0")) {
+//                    addActionError("Bạn chưa chọn mã hội!");
+//                    return ERROR;
+//                }
+//                String smato = hmParameter.get("mato").toString();
+//                if (smato.equals("10_000000_0000000")) {
+//                    addActionError("Bạn chưa chọn tổ TK&VV!");
+//                    return ERROR;
+//                }
+                String snguonvon = (hmParameter.get("nguonvon") + "").trim();
                 String schtrinh = (hmParameter.get("chtrinh") + "").trim();
-                String smato = (hmParameter.get("mato") + "").trim();
-                String[] values = smato.split("\\_");
-                String ssmato = values[2];
-//                10_000000_0000000
-                String condition = "D6=" + smaxa + "|D20=" + ssmahoi + "|"
-                        + (ssmato.equals("0000000") ? "" : "D4=" + ssmato + "|")
+                String sphanloai = (hmParameter.get("phanloai") + "").trim();
+                setStype(sphanloai);
+//                String[] values = smato.split("\\_");
+//                String smahoi = values[0];
+//                String ssmato = values[2];
+//                String condition = "D4=" + ssmato + "|D6=" + smaxa + "|D20=" + smahoi + "|"
+//                        + (snguonvon.isEmpty() || snguonvon.equals("0") ? "" : "D17=" + snguonvon + "|")
+//                        + (schtrinh.isEmpty() || schtrinh.equals("0") ? "" : "D10=" + schtrinh + "|");
+                String condition = "D6=" + smaxa + "|"
                         + (snguonvon.isEmpty() || snguonvon.equals("0") ? "" : "D17=" + snguonvon + "|")
-                        + (schtrinh.isEmpty() || schtrinh.equals("0") ? "" : "D10=" + schtrinh + "|");
-//                System.out.println("condition= " + condition + " ssmato= " + ssmato);
+                        + (schtrinh.isEmpty() || schtrinh.equals("0") ? "" : "D10=" + schtrinh + "|")
+                        + (sphanloai.isEmpty() || schtrinh.equals("") ? "" : "D19=" + sphanloai + "|");
+                System.out.println("condition= " + condition);
                 lstData_Api = _serverAPI.getData_condition("GIAMLAI_2025", pos_cd_username, "S", _reportDate, condition);
             }
             if (lstData_Api == null || lstData_Api.isEmpty()) {
                 addActionError("Không có dữ liệu giảm lãi!");
-                return ERROR;
-            }
-             if (lstData_Api.size() > 100) {
-                addActionError("Dữ liệu quá lớn, vui lòng chọn theo tổ TK&VV!");
                 return ERROR;
             }
             for (DuLieuNTRow item : lstData_Api) {
@@ -356,6 +361,11 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
             lstDulieuNt.sort(
                     Comparator.comparing(obj -> layTen(obj.getD2()), String.CASE_INSENSITIVE_ORDER)
             );
+//            lstDulieuNt.sort(
+//                    Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getD18())) 
+//                            .thenComparing(obj -> layTen(obj.getD2()), String.CASE_INSENSITIVE_ORDER) 
+//            );
+
             List<QT_DULIEU_NT> lstData = new ArrayList<>(lstDulieuNt);
 
 // 4. Tính tổng trên lstData
@@ -368,17 +378,15 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                 long dnoThan = toLong(item.getD14());
                 long dnoQhan = toLong(item.getD15());
                 long dnoKhoanh = toLong(item.getD16());
-                long lai_nhap = toLong(item.getD18());
-                long lai_xnhan = 0;
-                if (item.getD19().equals("1")) {
-                    lai_xnhan = toLong(item.getD18());
-                }
 
+                if (item.getD19().equals("1")) {
+                    laixnhan++;
+                } else {
+                    lainhap++;
+                }
                 tongThan += dnoThan;
                 tongQhan += dnoQhan;
                 tongKhoanh += dnoKhoanh;
-                lainhap += lai_nhap;
-                laixnhan += lai_xnhan;
                 tongMonvay++;
 
                 if (item.getD1() != null && !item.getD1().isEmpty()) {
@@ -438,24 +446,6 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                         row.setD5(dateStr);
                         row.setD6(null);
                         row.setD7(_reportDate);
-                        lstData_Api = _serverAPI.getData_condition("GIAMLAI_2025", item.getPosCode(), "S", _reportDate, "");
-                        int d_tronghan = 0;
-                        int d_quahan = 0;
-                        int d_khoanh = 0;
-                        int lai_nhap = 0;
-                        int lai_xnhan = 0;
-                        if (lstData_Api != null) {
-                            for (DuLieuNTRow apiRow : lstData_Api) {
-                                d_tronghan += toInt(apiRow.getD14());
-                                d_quahan += toInt(apiRow.getD15());
-                                d_khoanh += toInt(apiRow.getD16());
-                                if ("0".equals(apiRow.getD19())) {
-                                    lai_nhap += toInt(apiRow.getD18());
-                                } else {
-                                    lai_xnhan += toInt(apiRow.getD18());
-                                }
-                            }
-                        }
                         String supdateId = "";
                         String supdateDate = "";
 
@@ -474,11 +464,6 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                             setChotCic("0");
                         }
                         row.setD8(getChotCic());
-                        row.setD9(String.valueOf(d_tronghan));
-                        row.setD10(String.valueOf(d_quahan));
-                        row.setD11(String.valueOf(d_khoanh));
-                        row.setD12(String.valueOf(lai_nhap));
-                        row.setD13(String.valueOf(lai_xnhan));
                         row.setD14(supdateId);
                         row.setD15(supdateDate);
 
@@ -529,11 +514,11 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
             String dateStr = hmParameter.get("ngay_bc").toString();
             String[] values1 = dateStr.split("\\-");
             String snambc = values1[2];
-            String smato = hmParameter.get("mato").toString();
-            String[] values = smato.split("\\_");
-            String smahoi = values[0];
-            String smaxa = values[1];
-            String ssmato = values[2];
+//            String smato = hmParameter.get("mato").toString();
+//            String[] values = smato.split("\\_");
+//            String smahoi = values[0];
+//            String smaxa = values[1];
+//            String ssmato = values[2];
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();
             main_pos_username = posMainModel.getMainPosCd();
@@ -563,16 +548,8 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                     tempadd.setPosCode(tmp.getMAPGD());
                     tempadd.setPosFlag("S");
                     tempadd.setBranchCode(tmp.getMACN());
-
-                    for (int i = 1; i <= 20; i++) {
-                        try {
-                            Method getter = tmp.getClass().getMethod("getD" + i);
-                            Method setter = tempadd.getClass().getMethod("setD" + i, getter.getReturnType());
-                            Object value = getter.invoke(tmp);
-                            setter.invoke(tempadd, value);
-                        } catch (Exception e) {
-                        }
-                    }
+                    tempadd.setD18(tmp.getD18() == null ? "0" : tmp.getD18());
+                    tempadd.setD19(tmp.getD19() == null ? "0" : tmp.getD19());
 
                     lstUpdateDate.add(tempadd);
 
@@ -590,7 +567,7 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
             _serverAPI = new DuLieuNTService();
             int status = _serverAPI.getGQVL2023("GIAMLAI_2025", pos_cd_username, "S", _reportDate, "", "", lstUpdateDate);
 
-            if (status == 200 && !daoMain.save_giamlai_2025("GIAMLAI_2025", dateStr, pos_cd_username, smaxa, ssmato, UserName, lstLocalDataUpdate)) {
+            if (status == 200 && !daoMain.save_giamlai_2025("GIAMLAI_2025", dateStr, pos_cd_username, "", "", UserName, lstLocalDataUpdate)) {
                 String code = String.valueOf(status);
                 this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
                 return SUCCESS;
@@ -598,6 +575,68 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> save giam lai 1: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> save giam lai 1: " + e.getMessage());
+        }
+        String code = String.valueOf(200);
+        this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
+        return SUCCESS;
+    }
+
+    public String search() {
+        try {
+            DaoBranchMain daoMain = new DaoBranchMain();
+            Connection conn = new DaoConnect().getConnect();
+            HashMap hmParameter = getParameter();
+            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
+            pos_cd_username = posMainModel.getPosCd();
+            main_pos_username = posMainModel.getMainPosCd();
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            ActionContext.getContext().getSession().put("smapgd", pos_cd_username);
+            ActionContext.getContext().getSession().put("sUserName", UserName);
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("GIAMLAI_2025", main_pos_username, "M", _reportDate);
+            try {
+                setChotsl(lstData_tmp.get(0).getStatus());
+            } catch (Exception e) {
+                setChotsl("0");
+            }
+            ArrayList<LockSendModel> lstData_tmp1 = _serverAPI.getDataLockManual("GIAMLAI_2025", pos_cd_username, "S", _reportDate);
+            try {
+                setChotCic(lstData_tmp1.get(0).getStatus());
+            } catch (Exception e) {
+                setChotCic("0");
+            }
+//            System.err.println("pos_cd_username= " + pos_cd_username);
+            lstDulieuNt = daoMain.get_data_giamlai(conn, "GIAMLAI_2025", pos_cd_username, dateStr, "S", "GIAMLAI_SEARCH");
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
+    }
+
+    public String unlock_c1() {
+        try {
+            if (!getParaSession()) {
+                return ERROR;
+            }
+            HashMap hmParameter = getParameter();
+//            lay tu load send xuong
+            String mapgd = (String) ActionContext.getContext().getSession().get("smapgd");
+            UserName = (String) ActionContext.getContext().getSession().get("sUserName");
+            String dateStr = hmParameter.get("ngay_bc").toString();
+            final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
+            int status = _serverAPI.updateChotSL("GIAMLAI_2025", mapgd, "S", _reportDate, "1", UserName, null);
+            if (status != 200) {
+                this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
+                return ERROR;
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> unlock_c1 giamlai: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> unlock_c1 giamlai: " + e.getMessage());
+            this.pageResult = new ByteArrayInputStream("500".getBytes(StandardCharsets.UTF_8));
+            return ERROR;
         }
         String code = String.valueOf(200);
         this.pageResult = new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8));
@@ -650,7 +689,8 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
             String snam = values[2];
             String _reportDate = snam + sthang + sngay;
             String mapgd = ServletActionContext.getRequest().getParameter("smapgd");
-            int status = _serverAPI.updateChotSL("GIAMLAI_2025", mapgd, "S", _reportDate, "1", UserName, null);
+            String stype = ServletActionContext.getRequest().getParameter("sstype");
+            int status = _serverAPI.updateChotSL("GIAMLAI_2025", mapgd, "S", _reportDate, stype, UserName, null);
             if (status != 200) {
                 this.pageResult = new ByteArrayInputStream(String.valueOf(status).getBytes(StandardCharsets.UTF_8));
                 return ERROR;
@@ -689,6 +729,7 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
         }
         return SUCCESS;
     }
+
     public String popupTablePos() throws Exception {
         try {
             String smapgd = ServletActionContext.getRequest().getParameter("mapgd");

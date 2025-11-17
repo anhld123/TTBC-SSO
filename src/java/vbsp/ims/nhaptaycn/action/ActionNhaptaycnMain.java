@@ -1115,6 +1115,8 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 DaoPlnMain daoMain_Plno = new DaoPlnMain();
                 setLstMaxa(daoMain_Plno.getDanhMuc(UserName, "MAXA", Grade));
                 setLstMato(daoMain_Plno.getDanhMuc(UserName, "MATO_HOI", Grade));
+                int iRol = new LeaveHomeDao().checkRuleUser(UserName, Grade);
+                setGradeAuthor1(String.valueOf(iRol));
                 lstDmKhac17 = _serverAPI.getListOfValue("17", "");
                 lstDmKhac17.removeIf(item
                         -> "10".equals(item.getCode()) || "20".equals(item.getCode())

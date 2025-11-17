@@ -1076,5 +1076,15 @@
         <action name="unlock_htls_nguondp" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="unlock_tw">
             <result name="success" type="json"></result>   
         </action>
+        <action name="search_htls_nguondp" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="search">
+            <result name="success">/htls_nguondp2025/table_seach_pgd.jsp</result>                              
+            <result name="error">/nhaptay-cn/success.jsp</result>       
+        </action>
+        <action name="lock_htls_nguondp_pgd" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="unlock_c1">
+            <result name="success" type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">pageResult</param>
+            </result>      
+        </action>
     </package>
 </struts>

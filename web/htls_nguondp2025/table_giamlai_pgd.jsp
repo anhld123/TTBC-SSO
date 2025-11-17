@@ -2,67 +2,20 @@
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css"  href="css/css2025.css" />
+<link rel="stylesheet" type="text/css"  href="htls_nguondp2025/css.css" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
-        <script>
-            var popWindow;
-            var max_row = 0;
-
-            $(document).ready(function () {
-                $('.sstyle').css({"color": "#000", "font-size": "12px"});
-                $('input.number').css({"text-align": "right"});
-                $('.D0').css({"text-align": "center"});
-                $('.D00').css({"text-align": "left"});
-                $('input.number2').css({"text-align": "right"});
-                $(".datepicker").datepicker({dateFormat: 'dd/mm/yy'});
-                $('#ui-datepicker-div').css('clip', 'auto');
-                //Cac truong bang so --> se co so truong = 0
-                $('.number').number(true, 0);
-//            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 0);
-                $(".STT1").css({"width": "50px"});
-                $(".STT2").css({"width": "80px"});
-                $(".STT3").css({"width": "150"});
-                $(".STT4").css({"width": "200px"});
-                $(".STT5").css({"width": "70px"});
-                $(".STT6").css({"width": "65px"});
-                $(".TD_NGUYENGIA").css({"width": "80px"});
-                $(".TD_THUTU").css({"width": "30px"});
-                $(".TD_CHITIEU").css({"width": "220px"});
-                $(".TEN_KH").css({"width": "100%"});
-            });
-            $(document).ready(function () {
-                initTable();
-            });
-            function initTable()
-            {
-                var table = document.getElementById("subTable");
-                var rowcount = table.rows.length;
-                rowcount = rowcount > max_row ? rowcount : max_row;
-                for (var i = 0; i < rowcount; i++)
-                {
-                    try {
-                        var D19 = document.getElementById("D19_" + i).value;
-                        if (D19 === "1")
-                        {
-                            document.getElementById("D19_" + i).checked = true;
-                        }
-                    } catch (e) {
-                    }
-                }
-
-            }
-        </script>        
+        <script src="htls_nguondp2025/jquery.js"></script>     
     </head>
     <body>
         <div style="overflow:scroll; width: 98%;height: 40vw;">    
             <div style="height: 10px"></div>
             <div id="divTitle">
-                XÁC NHẬN KHOẢN VAY THUỘC NGUỒN ĐỊA PHƯƠNG CÓ THAY ĐỔI LÃI SUẤT
+                XÁC NHẬN KHOẢN VAY CÓ THAY ĐỔI LÃI SUẤT
                 <s:if test="chotsl.equalsIgnoreCase('2')" ><a class="color_11">(TW đã khóa nhập dữ liệu)</a></s:if>
                 <s:elseif test="chotCic.equalsIgnoreCase('2')" ><a class="color_11">(CN đã gửi dữ liệu)</a></s:elseif>
                 <s:elseif test="chotCic.equalsIgnoreCase('1')" ><a class="color_11">(PGD đã chốt dữ liệu)</a></s:elseif>
@@ -70,35 +23,79 @@
                 <input type="hidden" value="<s:property value="chotCic"/>" name="chotcic" id="chotcic"/> 
             </div>
             <div style="height: 10px"></div>
-            <table border="1" class="editDelete" align="center" style="width: 60%">
-                <tr>
-                    <th rowspan="3" class="STT2">Tổng cộng</th>
-                    <th rowspan="2">Tổng số KH</th>
-                    <th rowspan="2">Tổng số món vay</th>
-                    <th rowspan="2">Tổng dư nợ</th>
-                    <th colspan="3">Dư nợ</th>
-                    <th colspan="2">Giảm lãi</th>
-                </tr>
+            <s:if test="stype.equalsIgnoreCase('0')||stype.equalsIgnoreCase('1')">
+                <table border="1" class="editDelete" align="center" style="width: 60%">
+                    <tr>
+                        <th rowspan="3" class="STT2">Tổng cộng</th>
+                        <th rowspan="2">Tổng số KH</th>
+                        <th rowspan="2">Tổng số món vay</th>
+                        <th rowspan="2">Tổng dư nợ</th>
+                        <th colspan="3">Dư nợ</th>
+                    </tr>
 
-                <tr>
-                    <th>Trong hạn</th>
-                    <th>Quá hạn</th>
-                    <th>Khoanh</th>
-                    <th>Đã nhập</th>
-                    <th>Xác nhận</th>
-                </tr>
-                <tr>   
-                    <td class="number STT2"><s:property value="tong_kh"/> </td>
-                    <td class="number STT2"><s:property value="tong_monvay"/> </td>
-                    <td class="number STT3 style_h"><s:property value="tong_duno"/> </td>
-                    <td class="number STT3 style_h"><s:property value="tong_than"/> </td>
-                    <td class="number STT3 style_h"><s:property value="tong_qhan"/> </td>
-                    <td class="number STT3"><s:property value="tong_khoanh"/> </td>
-                    <td class="number STT3"><s:property value="lai_nhap"/> </td>
-                    <td class="number STT3"><s:property value="lai_xnhan"/> </td>
-                </tr>
-            </table>
+                    <tr>
+                        <th>Trong hạn</th>
+                        <th>Quá hạn</th>
+                        <th>Khoanh</th>
+
+                    </tr>
+                    <tr>   
+                        <td class="number STT2"><s:property value="tong_kh"/> </td>
+                        <td class="number STT2"><s:property value="tong_monvay"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_duno"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_than"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_qhan"/> </td>
+                        <td class="number STT3"><s:property value="tong_khoanh"/> </td>
+                    </tr>
+                </table> 
+            </s:if>
+            <s:else>
+                <table border="1" class="editDelete" align="center" style="width: 60%">
+                    <tr>
+                        <th rowspan="3" class="STT2">Tổng cộng</th>
+                        <th rowspan="2">Tổng số KH</th>
+                        <th rowspan="2">Tổng số món vay</th>
+                        <th rowspan="2">Tổng dư nợ</th>
+                        <th colspan="3">Dư nợ</th>
+                        <th colspan="2">Đơn vị nhập lãi giảm</th>
+                    </tr>
+
+                    <tr>
+                        <th>Trong hạn</th>
+                        <th>Quá hạn</th>
+                        <th>Khoanh</th>
+                        <th style="color: red">Số món chưa tích lãi giảm</th>
+                        <th style="color: blue">Số món dã tích lãi giảm</th>
+
+                    </tr>
+                    <tr>   
+                        <td class="number STT2"><s:property value="tong_kh"/> </td>
+                        <td class="number STT2"><s:property value="tong_monvay"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_duno"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_than"/> </td>
+                        <td class="number STT3 style_h"><s:property value="tong_qhan"/> </td>
+                        <td class="number STT3"><s:property value="tong_khoanh"/> </td>
+                        <td class="number STT3"><s:property value="lai_nhap"/> </td>
+                        <td class="number STT3"><s:property value="lai_xnhan"/> </td>
+                    </tr>
+                </table>
+            </s:else>
             <br>
+            <div class="myTableWrapper" id="divDonvitinh">
+                <button id="btn_prev" class="pagination-btn" onclick="prevPage()">Trước</button>
+                <span id="page">1/1</span>
+
+                <button id="btn_next" class="pagination-btn" onclick="nextPage()">Sau</button>
+
+                | Tới trang: 
+                <input type="text" id="pageInput" />
+                <button class="pagination-btn" onclick="goToPage()">Đi</button>
+                <span style="margin-left: 30px">Tra cứu: </span>
+                <input type="text" id="search" placeholder="Tìm kiếm ..." style="width: 200px" />
+                <br>
+                Đơn vị tính: Đồng,%.
+            </div>
+
             <table border="1" class="editDelete" id="subTable" align="center">               
                 <tr>
                     <th rowspan="2" style="width: 50px">STT</th>
@@ -106,11 +103,13 @@
                     <th rowspan="2" class="STT3">Họ và tên khách hàng</th>
                     <th rowspan="2" class="STT3">Mã khoản vay</th>
                     <th rowspan="2" class="STT2">Chương trình tín dụng</th>
-                    <th rowspan="2" class="STT2">Lãi suất</th>
+
                     <th rowspan="2" class="STT2">Tình trạng món vay</th>
                     <th colspan="3" >Dư nợ</th>
-                    <th rowspan="2" class="STT3">Số tiền giảm lãi</th>
-                    <th rowspan="2" class="STT2">Đơn vị xác nhận số tiền giảm lãi (Có/Không)</th>
+                    <th rowspan="2" class="STT2" style="color: red">Lãi suất ban đầu</th>
+                    <th rowspan="2" class="STT2">Đơn vị xác nhận(Có/Không)</th>
+                    <th rowspan="2" class="STT3" style="color: blue">Lãi suất giảm</th>
+
                     <th rowspan="2" class="STT2">Cập nhật</th>
                 </tr>
                 <tr>
@@ -119,18 +118,20 @@
                     <th class="STT3">Khoanh</th>
                 </tr>
                 <tr>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(1)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(2)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(3)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(4)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(5)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(6)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(7)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
-                    <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
+                    <th class="D99">(1)</th>
+                    <th class="D99">(2)</th>
+                    <th class="D99">(3)</th>
+                    <th class="D99">(4)</th>
+                    <th class="D99">(5)</th>
+                    <th class="D99">(6)</th>
+                    <th class="D99">(7)</th>
+                    <th class="D99">(8)</th>
+                    <th class="D99">(9)</th>
+                    <th class="D99">(10)</th>
                     <th><input type="checkbox" id ="select-all1"/></th>
+                    <th class="D99">(11)</th>
+                    <!--<th style="color: #000; font-style: italic; font-size: xx-small;">(12)</th>-->
+
                     <th><input type="checkbox" id ="select-all"/></th>  
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -159,22 +160,35 @@
                         <td><s:property  value="D2" /></td>
 
                         <td class="D0"><s:property  value="D3" /></td>
-                        <td class="D0"><s:property  value="D10" /></td>
-                        <td class="D0"><s:property  value="D12" /></td>
+                        <td><s:property  value="D10" /> - <s:property  value="D23" /></td>
+
                         <td class="D0"><s:property  value="D13" /></td>
                         <td class="number"><s:property  value="D14" /></td>
                         <td class="number"><s:property  value="D15" /></td>
                         <td class="number"><s:property  value="D16" /></td>
-                        <td>
-                            <input type="text" value="<s:property value="D18" />" 
-                                   id="D18_<s:property value='%{#rowstatus.index}' />" 
-                                   name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D18" 
-                                   class="number2" style="background: yellow"/>
-                        </td>
+                        <!--                        <td>
+                                                    <input type="text" value="<s:property value="D21" />" 
+                                                           id="D21_<s:property value='%{#rowstatus.index}' />" 
+                                                           name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D21" 
+                                                           class="number2" style="background: yellow"/>
+                                                </td>-->
+                        <td style="color: red; text-align: right" id="D12_<s:property value='%{#rowstatus.index}' />"><s:property  value="D12" /></td>
                         <td class="D0">
                             <input type="checkbox" id ="D19_<s:property value="%{#rowstatus.index}" />" 
                                    onclick="$(this).val(this.checked ? 1 : 0)" class="myCheckBox1"
+                                   oninput="onSelectChange(this.value, <s:property  value='%{#rowstatus.index}'/>)"
                                    name="lstDulieuNt[<s:property  value='%{#rowstatus.index}' />].D19" value="<s:property  value="D19" />"/>      
+                        </td>
+                        <td>
+                            <input type="text" value="<s:property value="D18" />"  
+                                   id="D18_<s:property value='%{#rowstatus.index}' />" 
+                                   name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D18" 
+                                   class="number2" style="color: blue;background: #ffcdbb"
+                                   onblur="if (this.value == '') {
+                                               this.value = 0
+                                           }
+                                           ;
+                                           check(<s:property value="%{#rowstatus.index}"/>);"/>
                         </td>
                         <td class="D0">
                             <input type="checkbox" class="myCheckBox"
@@ -187,37 +201,5 @@
             </table>
         </div>
         <div id="luu_thanhcong"></div>
-        <script>
-
-            $(function () {
-                $('#select-all1').click(function () {
-                    const isChecked = $('#select-all1').prop('checked');
-
-                    // Lặp qua các checkbox và cập nhật trạng thái
-                    $('.myCheckBox1').each(function (index) {
-                        if (!this.disabled) {
-                            this.checked = isChecked;
-                            this.value = isChecked ? '1' : '0';
-//                            onSelectChange_dnht1(this.value, index);
-                        }
-                    });
-                });
-            });
-            $(function () {
-                $('#select-all').click(function (event) {
-                    if (this.checked) {
-                        $('.myCheckBox').each(function () {
-                            this.checked = true;
-                            this.value = '1';
-                        });
-                    } else {
-                        $('.myCheckBox').each(function () {
-                            this.checked = false;
-                            this.value = '0';
-                        });
-                    }
-                });
-            });
-        </script>
     </body>
 </html>
