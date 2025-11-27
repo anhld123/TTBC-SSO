@@ -231,75 +231,124 @@ $(function () {
 //    document.getElementById("D18_" + index).style.background = "white";
 //}
 function onSelectChange(value, index) {
-    if (value === '1')
-    {
-        let D7_text = document.getElementById("D7_" + index).value;
-        console.log("d7= " + D7_text);
-        const allowed = ["032SC1", "032MC1", "032LC1", "033SC1", "033MC1", "033LC1", "034SC1", "034MC1", "034LC1", "252SC1", "252MC1"
-        ];
+    const D18 = document.getElementById("D18_" + index);
+    const D7 = document.getElementById("D7_" + index).value;
+    const D12 = document.getElementById("D12_" + index).innerText;
+    if (value === '1') {
+        const allowed = ["032SC1", "032MC1", "032LC1",
+            "033SC1", "033MC1", "033LC1",
+            "034SC1", "034MC1", "034LC1",
+            "252SC1", "252MC1"];
 
-        if (allowed.includes(D7_text)) {
-            document.getElementById("D18_" + index).disabled = false;
-            document.getElementById("D18_" + index).value = "3.744";
-        } else if (D7_text === "161SC1" || D7_text === "161MC1" || D7_text === "161LC1") {
-            document.getElementById("D18_" + index).disabled = false;
-            document.getElementById("D18_" + index).value = "3.12";
+        D18.disabled = false;
+        D12.disabled = false;
+        if (allowed.includes(D7)) {
+            D18.value = "3.744";
+            D18.style.background = "white";
+        } else if (["161SC1", "161MC1", "161LC1"].includes(D7)) {
+            D18.value = "3.12";
+            D18.style.background = "white";
+        } else if (["251SC1", "251MC1", "251LC1"].includes(D7)) {
+            console.log("change d12=" + D12);
+            if (D12 === "3.3")
+            {
+                D18.value = "3.12";
+            } else if (D12 === "3.96")
+            {
+                D18.value = "3.744";
+            } else {
+                D18.value = "0.0000";
+            }
+            D18.style.background = "white";
         } else {
-            document.getElementById("D18_" + index).disabled = false;
-            document.getElementById("D18_" + index).style.background = "#ffcdbb";
-            document.getElementById("D18_" + index).value = "0.0000";
+            D18.value = "0.0000";
+            D18.style.background = "#ffcdbb";
         }
-    } else
-    {
-        document.getElementById("D18_" + index).disabled = true;
-        document.getElementById("D18_" + index).value = "";
-        document.getElementById("D18_" + index).style.background = "#E5E5E5";
-        document.getElementById("D18_" + index).value = "0.0000";
+    } else {
+        D18.disabled = true;
+        D18.style.background = "#E5E5E5";
+        D18.value = "0.0000";
     }
 }
+
 function check(index) {
 
     let D7 = document.getElementById("D7_" + index).value;
-    let D18_input = document.getElementById("D18_" + index);
-    let val = parseFloat(D18_input.value);
+    let D12 = document.getElementById("D12_" + index).innerText;
+    let D18 = document.getElementById("D18_" + index);
+    let val = parseFloat(D18.value);  // lãi giảm
 
-    const allowed = ["032SC1", "032MC1", "032LC1", "033SC1", "033MC1", "033LC1",
-        "034SC1", "034MC1", "034LC1", "252SC1", "252MC1"];
+    const allowed = ["032SC1", "032MC1", "032LC1",
+        "033SC1", "033MC1", "033LC1",
+        "034SC1", "034MC1", "034LC1",
+        "252SC1", "252MC1"];
 
     if (allowed.includes(D7)) {
         if (val !== 3.744) {
             alert("Mã " + D7 + " chỉ được phép nhập 3.744!");
-            D18_input.value = "3.744";
+            D18.value = "3.744";
         }
         return;
     }
-    if (D7 === "161SC1" || D7 === "161MC1" || D7 === "161LC1") {
+
+    if (["161SC1", "161MC1", "161LC1"].includes(D7)) {
         if (val !== 3.12) {
             alert("Mã " + D7 + " chỉ được phép nhập 3.12!");
-            D18_input.value = "3.12";
+            D18.value = "3.12";
         }
         return;
     }
-    let D12_text = document.getElementById("D12_" + index).innerText;
-    let D12 = parseFloat(D12_text.replace('%', ''));
+
+    if (["251SC1", "251MC1", "251LC1"].includes(D7)) {
+        console.log(D12);
+        if (D12 === "3.3") {
+            alert("Mã " + D7 + " chỉ được phép nhập 3.12!");
+            D18.value = "3.12";
+            return;
+        }
+        if (D12 === "3.96") {
+            alert("Mã " + D7 + " chỉ được phép nhập 3.744!");
+            D18.value = "3.744";
+            return;
+        }
+        if (isNaN(val))
+            return;
+
+        if (val > D12) {
+            alert("Lãi giảm không thể cao hơn lãi ban đầu!");
+            D18.style.background = "red";
+            D18.value = "0.0000";
+            return;
+        }
+
+        if (val < 0) {
+            alert("Không được phép nhập số âm!");
+            D18.style.background = "red";
+            D18.value = "0.0000";
+            return;
+        }
+        D18.style.background = "white";
+        return;
+    }
 
     if (isNaN(val))
         return;
 
     if (val > D12) {
         alert("Lãi giảm không thể cao hơn lãi ban đầu!");
-        D18_input.style.background = "red";
-        D18_input.value = "0.0000";
+        D18.style.background = "red";
+        D18.value = "0.0000";
         return;
     }
 
     if (val < 0) {
         alert("Không được phép nhập số âm!");
-        D18_input.style.background = "red";
-        D18_input.value = "0.0000";
+        D18.style.background = "red";
+        D18.value = "0.0000";
         return;
     }
 
-    D18_input.style.background = "white";
+    D18.style.background = "white";
 }
+
 
