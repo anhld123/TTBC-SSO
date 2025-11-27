@@ -40,9 +40,7 @@ import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.restapi.CommissionDetailModel;
 import vbsp.ims.restapi.CommissionMasterModel;
 import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.ListCommune;
 import vbsp.ims.restapi.ListMainPos;
-import vbsp.ims.restapi.ListPosCode;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
 import vbsp.ims.xml.XmlBcqtSync;
@@ -64,17 +62,15 @@ public class ActionBcqtMain extends ActionSupport {
     protected TreeNode nodes_pos = new TreeNode();
     protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     private List<ListMainPos> lstCN_API;
-    private List<ListPosCode> lstPGD_API;
-    private List<ListCommune> lstXa_API;
-    private String pos_cd;
-    private String main_pos;
     protected ArrayList<CommissionMasterModel> lstDulieuHoahong = new ArrayList<>();
-
+    
 //    protected CommissionMasterModel hoahongMaster = new CommissionMasterModel();
+    
     protected ArrayList<CommissionMasterModel> hoahongMaster = new ArrayList<>();
-
+    
     protected ArrayList<CommissionDetailModel> lstHHDetail = new ArrayList<>();
-
+    
+    
     protected List<ListValue> lstParameters = new ArrayList<>();
     protected List<String> poscd = new ArrayList<String>();
     private List<ListValue> lstCBChuongtrinh = new ArrayList<ListValue>();
@@ -89,6 +85,7 @@ public class ActionBcqtMain extends ActionSupport {
     protected List<ListValue> lstNguonvon = new ArrayList<ListValue>();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected List<ListValue> lstMato = new ArrayList<ListValue>();
+   
 
     protected PosMainModel posMainModel;
     protected String pos_cd_username;
@@ -100,38 +97,8 @@ public class ActionBcqtMain extends ActionSupport {
     public void setLstCN_API(List<ListMainPos> lstCN_API) {
         this.lstCN_API = lstCN_API;
     }
-
-    public List<ListPosCode> getLstPGD_API() {
-        return lstPGD_API;
-    }
-
-    public void setLstPGD_API(List<ListPosCode> lstPGD_API) {
-        this.lstPGD_API = lstPGD_API;
-    }
-
-    public List<ListCommune> getLstXa_API() {
-        return lstXa_API;
-    }
-
-    public void setLstXa_API(List<ListCommune> lstXa_API) {
-        this.lstXa_API = lstXa_API;
-    }
-
-    public String getPos_cd() {
-        return pos_cd;
-    }
-
-    public void setPos_cd(String pos_cd) {
-        this.pos_cd = pos_cd;
-    }
-
-    public String getMain_pos() {
-        return main_pos;
-    }
-
-    public void setMain_pos(String main_pos) {
-        this.main_pos = main_pos;
-    }
+    
+    
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xu ly cho action">
@@ -318,55 +285,11 @@ public class ActionBcqtMain extends ActionSupport {
             Connection conn = new DaoConnect().getConnect();
             DaoBcqtMain daoMain = new DaoBcqtMain();
             //khoi tao cho treeview cac pos
-            DuLieuNTService _serverAPI = new DuLieuNTService();
-            posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
-            pos_cd = posMainModel.getPosCd();
-            main_pos = posMainModel.getMainPosCd();
-//            List<ModelTreeNode> lstModelTree;
-            List<ModelTreeNode> lstModelTree = new ArrayList<>();
-//            = daoMain.getDataPosTreeNode(conn, UserName, Grade);
-            switch (Grade) {
-                case "3":
-                    lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade);
-                    setTreeNodeGrade3(lstModelTree);
-                    break;
-                case "2":
-//                    System.out.println("main_pos= " + main_pos);
-                    lstCN_API = _serverAPI.getListCn(main_pos.substring(2, 4));
-                    String MainName = lstCN_API.get(0).getProvinceName();
-//                    System.out.println("MainName = " + MainName);
-                    lstPGD_API = _serverAPI.getListPgd(main_pos, "");
-                    for (ListPosCode item : lstPGD_API) {
-                        if (item.getStatus().equals("O")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getMainPos(), // strParentCd
-                                    item.getMainPos() + " -> " + MainName, // strParentDesc
-                                    item.getPosCode(), // strChildCd
-                                    item.getPosCode() + " -> " + item.getPosName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
-                        }
-                    }
-                    setTreeNodeGrade12(lstModelTree);
-                    break;
-                default:
-                    lstPGD_API = _serverAPI.getListPgd("", pos_cd);
-                    String PosName = lstPGD_API.get(0).getPosName();
-                    lstXa_API = _serverAPI.getListXa("", "", "", pos_cd);
-
-                    for (ListCommune item : lstXa_API) {
-                        if (item.getStatus().equals("A")) {
-                            ModelTreeNode row = new ModelTreeNode(
-                                    item.getPosCode(), // strParentCd
-                                    item.getCommuneCode() + " -> " + PosName, // strParentDesc
-                                    item.getCommuneCode(), // strChildCd
-                                    item.getCommuneCode() + " -> " + item.getCommuneName() // strChildDesc
-                            );
-                            lstModelTree.add(row);
-                        }
-                    }
-                    setTreeNodeGrade12(lstModelTree);
-                    break;
+            List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade);
+            if (Grade.equals("3")) {
+                setTreeNodeGrade3(lstModelTree);
+            } else {
+                setTreeNodeGrade12(lstModelTree);
             }
             lstBcqtParams = daoMain.getReportParmams(conn, khoa_bcqt);
 
@@ -376,19 +299,22 @@ public class ActionBcqtMain extends ActionSupport {
             if (conn != null) {
                 conn.close();
             }
-            if (khoa_bcqt.equals("BCQT_LAITONAM") && Grade.equals("1")) {
-                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
-                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));
-                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
+            if(khoa_bcqt.equals("BCQT_LAITONAM")  && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_LAIAM", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_LAIAM", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO", Grade));
                 return "BCQT_LAIAM";
-            } else if (khoa_bcqt.equals("BCQT_HOAHONG") && Grade.equals("1")) {
-                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();
-                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_HOAHONG", Grade));
-                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_HOAHONG", Grade));
-                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON_HOAHONG", Grade));
-                setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
+            }
+            else if (khoa_bcqt.equals("BCQT_HOAHONG") && Grade.equals("1"))
+            {
+                DaoNghiquyet11cp daoMain11 = new DaoNghiquyet11cp();                
+                setLstChuongtrinh(daoMain11.getDanhMuc(UserName, "CT_HOAHONG", Grade));                
+                setLstMaxa(daoMain11.getDanhMuc(UserName, "MAXA_HOAHONG", Grade));                
+                setLstNguonvon(daoMain11.getDanhMuc(UserName, "NGUONVON_HOAHONG", Grade));         
+                 setLstMato(daoMain11.getDanhMuc(UserName, "MATO_HOAHONG", Grade));
                 return "BCQT_LAIAM";
             }
             if (khoa_bcqt.equals("QT_MS13_2023")) {
@@ -400,7 +326,7 @@ public class ActionBcqtMain extends ActionSupport {
                 System.err.println("SDQ---3");
                 return "mau13A_sk";
             }
-            if (khoa_bcqt.equals("BCQT_MS11C") || khoa_bcqt.equals("BCQT_MS18B") || khoa_bcqt.equals("BCQT_MS19A")) {
+            if (khoa_bcqt.equals("BCQT_MS11C") || khoa_bcqt.equals("BCQT_MS18B")||khoa_bcqt.equals("BCQT_MS19A")) {
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
                 return "BCQT_MS11C";
@@ -660,7 +586,7 @@ public class ActionBcqtMain extends ActionSupport {
         return SUCCESS;
     }
 //</editor-fold>
-
+    
     public String resetData() {
         try {
             if (!getParaSession()) {
@@ -670,17 +596,19 @@ public class ActionBcqtMain extends ActionSupport {
 
             HashMap hmParameter = getParameter();
             List<String> lstPos = (List<String>) hmParameter.get("poscd");
-            if (lstPos.size() > 1 || lstPos.size() == 0) {
+            if(lstPos.size()>1 || lstPos.size() ==0)
+            {
                 addActionError("Bạn chỉ được reset dữ liệu cho 1 phòng giao dịch");
                 return ERROR;
             }
-
+            
             DaoBcqtMain daoMain = DaoBcqtMain.newInstance();
 //            String s= hmParameter.get("ngay_bc").toString();
 //            System.out.println("Ngaybc="+s);
-
+            
 //            String pos_cd_check = daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),"");
-            if (!daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(), lstPos.get(0))) {
+            
+            if (!daoMain.ResetData(type_bcqt, hmParameter.get("khoa_bcqt").toString(), UserName, hmParameter.get("ngay_bc").toString(),lstPos.get(0))) {
                 addActionError("Bạn chưa lưu được báo cáo xin liên hệ với quản trị để khắc phục");
                 return ERROR;
             }
@@ -725,6 +653,7 @@ public class ActionBcqtMain extends ActionSupport {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">
+
     public ArrayList<CommissionMasterModel> getHoahongMaster() {
         return hoahongMaster;
     }
@@ -732,6 +661,8 @@ public class ActionBcqtMain extends ActionSupport {
     public void setHoahongMaster(ArrayList<CommissionMasterModel> hoahongMaster) {
         this.hoahongMaster = hoahongMaster;
     }
+
+
 
     public ArrayList<CommissionDetailModel> getLstHHDetail() {
         return lstHHDetail;
@@ -741,6 +672,8 @@ public class ActionBcqtMain extends ActionSupport {
         this.lstHHDetail = lstHHDetail;
     }
 
+    
+
     public PosMainModel getPosMainModel() {
         return posMainModel;
     }
@@ -748,6 +681,7 @@ public class ActionBcqtMain extends ActionSupport {
     public void setPosMainModel(PosMainModel posMainModel) {
         this.posMainModel = posMainModel;
     }
+    
 
     public DaoListPosFromUser getListKTNBDA() {
         return listKTNBDA;
@@ -765,6 +699,7 @@ public class ActionBcqtMain extends ActionSupport {
         this.pos_cd_username = pos_cd_username;
     }
 
+    
     public List<ListValue> getLstChuongtrinh() {
         return lstChuongtrinh;
     }
@@ -796,6 +731,8 @@ public class ActionBcqtMain extends ActionSupport {
     public void setLstDulieuHoahong(ArrayList<CommissionMasterModel> lstDulieuHoahong) {
         this.lstDulieuHoahong = lstDulieuHoahong;
     }
+    
+    
 
     public String getMsgError() {
         return msgError;
@@ -803,8 +740,8 @@ public class ActionBcqtMain extends ActionSupport {
 
     public void setMsgError(String msgError) {
         this.msgError = msgError;
-    }
-
+    }    
+       
     public List<ListValue> getLstDmkhac() {
         return lstDmkhac;
     }
@@ -933,7 +870,7 @@ public class ActionBcqtMain extends ActionSupport {
         this.lstViewSend = lstViewSend;
     }
 
-    public List<ListValue> getLstMato() {
+     public List<ListValue> getLstMato() {
         return lstMato;
     }
 
@@ -942,4 +879,5 @@ public class ActionBcqtMain extends ActionSupport {
     }
 //</editor-fold>
 
+   
 }

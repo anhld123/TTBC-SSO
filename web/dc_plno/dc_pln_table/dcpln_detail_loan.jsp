@@ -257,9 +257,10 @@
                         var d5 = document.getElementById("trangthai_" + i).value;
                         var d6 = document.getElementById("D6_0").value;
                         var d7 = document.getElementById("D7_0").value;
+                        var trangthai = document.getElementById("trangthai_0").value;
                         const tongdunoText = document.getElementById('TongDno_0').innerText;
                         const tongduno = parseFloat(tongdunoText.replace(/,/g, '').replace(/\./g, '')) || 0;
-                        console.log(tongduno);
+
                         if (parseFloat(d1) + parseFloat(d2) > 0 && d3.length < 1) {
                             alert('Bạn phải nhập nguyên nhân chênh lệch khi đối chiếu!');
                             document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
@@ -270,11 +271,11 @@
                             document.getElementById("sNgnhan_Clech_" + i).style.backgroundColor = "#EEAFA6";
                             return;
                         }
-                        if (Number(tongduno) !== 0 && d6 === "0" && d7 === "0") {
+                        if (Number(tongduno) !== 0 && d6 === "0" && d7 === "0" && trangthai === 'S') {
+                            console.log("tongduno=" + tongduno + "  d6== " + d6 + " d7 == " + d7 +" trangthai== " +trangthai);
                             alert('Món vay chưa được đối chiếu, không thể lưu!');
                             return;
                         }
-
 
                     } catch (e) {
                     }

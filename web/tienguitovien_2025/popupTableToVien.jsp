@@ -199,7 +199,7 @@
                         <td class="D0"><s:property  value="D5" /></td>
                         <td class="D0"><s:property  value="D6" /></td>
                         <s:if test="txtGetData.equalsIgnoreCase('1')">
-                            <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D1"/>', '<s:property value="NGAYBC"/>', '<s:property value="D6"/>', '<s:property value="MAPGD"/>');">Mở Cif</a>
+                            <td class="D0"><a style="text-decoration: underline" href="#" onclick="idUnlockCif('<s:property value="D1"/>', '<s:property value="D40"/>', '<s:property value="D6"/>', '<s:property value="MAPGD"/>');">Mở Cif</td></a>
                             </td> </s:if>
                         </tr>
                 </s:iterator>

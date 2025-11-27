@@ -598,7 +598,9 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                     row.setCO_TONGHOP(item.getPosFlag());
                     row.setNGUOI_NHAP(item.getMakerId());
                     Date reportDate = DateUtil.toDate(item.getReportDate());
-                    row.setNGAYBC(reportDate);
+                    String formatted = new SimpleDateFormat("dd/MM/yyyy").format(reportDate);
+//                    row.setNGAYBC(formatted);
+
                     row.setNAMBC(item.getReportYear());
                     row.setMAPGD(item.getPosCode());
                     row.setMACN(item.getBranchCode());
@@ -622,6 +624,7 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                     row.setD18(item.getD18());
                     row.setD19(item.getD19());
                     row.setD20(item.getD20());
+                    row.setD40(formatted);
                     lstDulieuNt.add(row);
                 } catch (Exception e) {
                 }

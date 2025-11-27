@@ -253,6 +253,7 @@
             #idSaveLock {
                 display: block; 
             }
+
         </style>
         <script>
             var bsubmit = false;
@@ -475,6 +476,44 @@
                 return result;
             }
 
+            $(document).ready(function () {
+                function updateTime() {
+
+                    var target = new Date(2025, 10, 29, 0, 0, 0);
+
+                    var now = new Date();
+                    var timeDiff = target - now;
+
+                    if (timeDiff <= 0) {
+                        document.getElementById("countdownText").innerHTML = "Hết thời gian nhập";
+                        var elements = ["loaddata", "idSave", "idSearch", "idSend"];
+
+                        elements.forEach(function (id) {
+                            var el = document.getElementById(id);
+                            if (el) {
+                                el.style.display = "none";
+                            }
+                        });
+
+                        return;
+                    }
+
+                    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                    document.getElementById("countdownText").innerHTML =
+                            "Thời gian nhập còn " + days + " ngày " +
+                            hours.toString().padStart(2, "0") + " giờ " +
+                            minutes.toString().padStart(2, "0") + " phút " +
+                            seconds.toString().padStart(2, "0") + " giây";
+                }
+
+                setInterval(updateTime, 1000);
+                updateTime();
+            });
+
         </script>
     </head>
     <body>
@@ -505,30 +544,6 @@
                                           headerValue="-- Chọn xã --"
                                           onchange="onXaChange(this.value)" />
 
-                                <%--&nbsp;<s:label value="Mã hội " cssStyle="color: #029c44;" />
-                                <select id="mahoi" name="mahoi" style="width: 150px" disabled onchange="onHoiChange(this.value)" >
-                                    <option value="0" style="text-align: center">-- Chọn hội đoàn thể --</option>
-                                    <s:iterator value="lstDmKhac17">                                    
-                                        <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
-                                    </s:iterator>   
-                                </select>
-                                &nbsp;<s:label value="Mã tổ " cssStyle="color: #029c44;" />
-                                <s:select style="width: 200px;"
-                                          list="lstMato"
-                                          id="mato"
-                                          name="mato"
-                                          listKey="sKey"
-                                          listValue="sDesc"
-                                          disabled="true" />
-                                <s:select id="mato_data"
-                                          list="lstMato"
-                                          listKey="sKey"
-                                          listValue="sDesc"
-                                          headerKey="-1"
-                                          headerValue="--- Chọn ---"
-                                          cssStyle="display:none;"
-                                          disabled="true" />--%>
-
                                 &nbsp;
                                 <s:label value="Chương trình " cssStyle="color: #029c44;" />
                                 <select id="chtrinh" name="chtrinh" style="width: 150">
@@ -547,12 +562,43 @@
                                 &nbsp;
                                 <s:label value="Phân loại" cssStyle="color: #029c44;" />
                                 <select id="phanloai" name="phanloai">
-                                    <option value="">-- Tất cả --</option>
+                                    <option value="99">-- Tất cả --</option>
                                     <option value="1">Đã xác nhận</option>
                                     <option value="0">Chưa xác nhận</option>
                                 </select>
+                                <br>
+                                <s:label value="Mã hội " cssStyle="color: #029c44;" />
+                                <select id="mahoi" name="mahoi" style="width: 150px" disabled onchange="onHoiChange(this.value)" >
+                                    <option value="0" style="text-align: center">-- Chọn hội đoàn thể --</option>
+                                    <s:iterator value="lstDmKhac17">                                    
+                                        <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
+                                    </s:iterator>
+                                </select>
+                                &nbsp;<s:label value="Mã tổ " cssStyle="color: #029c44;" />
+                                <s:select style="width: 200px;"
+                                          list="lstMato"
+                                          id="mato"
+                                          name="mato"
+                                          listKey="sKey"
+                                          listValue="sDesc"
+                                          disabled="true" />
+                                <s:select id="mato_data"
+                                          list="lstMato"
+                                          listKey="sKey"
+                                          listValue="sDesc"
+                                          headerKey="-1"
+                                          headerValue="--- Chọn ---"
+                                          cssStyle="display:none;"
+                                          disabled="true" />
+
                             </s:if>
-                            <s:if test="gradeAuthor1.equalsIgnoreCase('1')">
+                            <s:if test="!gradeAuthor1.equalsIgnoreCase('1') && Grade.equalsIgnoreCase('1')">
+                                &nbsp;<input type="button" id="idSearch" value="Danh sách xã" style="color: red" targets="divExportReport">
+                                &nbsp;&nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/> 
+
+                            </s:if>
+                            <s:else>
+
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
                                            onBeforeTopics="beforediv_data"
@@ -561,12 +607,10 @@
                                 <s:if test="Grade.equalsIgnoreCase('1')">
                                     <input type="button" id="idSave" value="Lưu dữ liệu"/>
                                 </s:if>
-                            </s:if>
-                            <s:else>
-                                &nbsp;<input type="button" id="idSearch" value="Danh sách xã" style="color: red" targets="divExportReport">
-                                &nbsp;<input style="color: red" type="button" id="idSend" value="Chốt dữ liệu PGD"/> 
                             </s:else>
-                        </td> 
+                            &nbsp;&nbsp;<h id="countdownText" style="font-size:14px;font-weight:bold;color:red"/>
+                    </td> 
+
 
                     </tr>
                 </table>
@@ -583,8 +627,37 @@
 
         <script>
             $(document).ready(function () {
-//            $("#ngay_dcpln").val("31/12/2021");
-                document.getElementById('ngay_bc_DATE').value = "31/12/2025";
+                function updateDatepicker() {
+                    var datepicker = $('#ngay_bc_DATE');
+                    var currentDate = new Date();
+                    var year = currentDate.getFullYear();
+                    var month = currentDate.getMonth(); // Tháng hiện tại (0-based)
+
+                    // Tính ngày cuối cùng của tháng hiện tại
+                    var lastDayOfMonth = new Date(year, month + 1, 0);
+                    var formattedDate = ('0' + lastDayOfMonth.getDate()).slice(-2) + '/' +
+                            ('0' + (lastDayOfMonth.getMonth() + 1)).slice(-2) + '/' +
+                            lastDayOfMonth.getFullYear();
+
+                    // Đặt giá trị mặc định cho datepicker
+                    datepicker.val(formattedDate);
+
+                    // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của tháng
+                    datepicker.datepicker("option", {
+                        beforeShowDay: function (date) {
+                            var lastDayOfShownMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                            return [date.getTime() === lastDayOfShownMonth.getTime(), ""];
+                        }
+                    });
+                }
+
+                // Khởi tạo datepicker với cấu hình mới
+                $('#ngay_bc_DATE').datepicker({
+                    dateFormat: 'dd/mm/yy' // Định dạng ngày
+                });
+
+                // Gọi hàm cập nhật datepicker
+                updateDatepicker();
             });
 
             function onXaChange(maXa) {

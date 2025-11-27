@@ -66,6 +66,7 @@
                     <th rowspan="2">Quá hạn</th>
                     <th rowspan="2">Khoanh</th>
                     <th colspan="2">Số món thay đổi lãi suất</th>
+                    <th rowspan="2" style="width: 80px">Trạng thái</th>
                 </tr>  
                 <tr>
                     <th>Không thay đổi</th>
@@ -82,6 +83,7 @@
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(8)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(9)</th>
                     <th style="color: #000; font-style: italic; font-size: xx-small;">(10)</th>
+                    <th style="color: #000; font-style: italic; font-size: xx-small;">(11)</th>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <tr>
@@ -98,11 +100,55 @@
                         <td class="number"><s:property  value="D7"/></td>
                         <td class="number"><s:property  value="D8"/></td>
                         <td class="number"><s:property  value="D9"/></td>
+                        <td style="width: 80px; text-align: center;">
+                            <s:if test="D11.equalsIgnoreCase('1')">
+                                <a href="#" style="text-decoration: underline;"
+                                   onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D10"/>', '2');">Mở dữ liệu</a>
+                            </s:if>  
+                            <s:else>
 
+                            </s:else>     
+                        </td>
                     </tr>
                 </s:iterator>
 
         </div>      
         <div id="luu_thanhcong"></div>
     </body>
+    <script>
+        function cancelAssign(mapgd, ngaybc, stype) {
+            console.log("mapgd= " + mapgd + " ngaybc=" + ngaybc + " stype= " + stype);
+            var table = document.getElementById("subTable");
+            var rows = table.querySelectorAll("td a");
+            function unlockLinks() {
+                rows.forEach(function (row) {
+                    row.style.pointerEvents = "auto"; // Kích hoạt lại sự kiện chuột
+                    row.style.color = "red"; // Trả về màu mặc định
+                });
+            }
+            // Khóa các liên kết trong bảng
+            rows.forEach(function (row) {
+                row.style.pointerEvents = "none";
+                row.style.color = "gray";
+            });
+            $.ajax({
+                type: "GET",
+                url: "unlock_htls_nguondp.action?" + "mapgd=" + mapgd + "&ngaybc=" + ngaybc + "&type=" + stype,
+                success: function (res) {
+                    var status = parseInt(res.status);
+                    if (status === 1) {
+                        alert('Mở phê duyệt thành công!');
+                        onLoadData();
+                    } else {
+                        alert('Mở phê duyệt lỗi: ' + res.message);
+                        onLoadData();
+                    }
+                },
+                error: function (res) {
+                    alert("Mở phê duyệt lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
+                    onLoadData();
+                }
+            });
+        }
+    </script>
 </html>

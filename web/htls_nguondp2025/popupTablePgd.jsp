@@ -98,7 +98,7 @@
                         <td class="D0"><s:property  value="D11"/></td>
                         <td class="D0"><s:property  value="D12"/></td>
                         <td style="width: 80px; text-align: center;">
-                            <s:if test="D10.equalsIgnoreCase('1')">
+                            <s:if test="D10.equalsIgnoreCase('2')">
                                 <a href="#" onclick="cancelAssign('<s:property value="D1"/>', '<s:property value="D13"/>', '1');">Mở dữ liệu</a>
                             </s:if>  
                             <s:else>
@@ -149,5 +149,9 @@
                 }
             });
         }
+        $("#cmdLuu").click(function () {
+            window.opener.document.getElementById('loaddata').click();
+            window.close();
+        });
     </script>
 </html>

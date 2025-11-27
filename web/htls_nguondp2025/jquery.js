@@ -12,6 +12,8 @@ $(document).ready(function () {
     $('.number').number(true, 0);
 //            //Cac truong bang so --> se co so truong = 0
     $('.number2').number(true, 1);
+    $('input.number3').css({"text-align": "right"});
+    $('.number3').number(true, 4);
     $(".STT1").css({"width": "50px"});
     $(".STT2").css({"width": "80px"});
     $(".STT3").css({"width": "150"});
@@ -197,45 +199,107 @@ $(function () {
         }
     });
 });
-
-function check(index) {
-    // D12 là text hiển thị
-    let D12_text = document.getElementById("D12_" + index).innerText;
-    // D18 là input người nhập
-    let D18_text = document.getElementById("D18_" + index).value;
-    // jQuery Number dùng dấu chấm --> chỉ cần bỏ %
-    let D12 = parseFloat(D12_text.replace('%', ''));
-    let D18 = parseFloat(D18_text.replace('%', ''));
-    console.log("d12= " + D12 + " d18= " + D18);
-    if (isNaN(D18))
-        return; // tránh lỗi
-
-    if (D18 > D12) {
-        alert("Lãi giảm không thể cao hơn lãi ban đầu!");
-        document.getElementById("D18_" + index).style.background = "red";
-        document.getElementById("D18_" + index).value = "0.0";
-        calc();
-        return;
-    }
-
-    if (D18 < 0) {
-        alert("Không được phép nhập số âm!");
-        document.getElementById("D18_" + index).style.background = "red";
-        document.getElementById("D18_" + index).value = "0.0";
-        return;
-    }
-
-    document.getElementById("D18_" + index).style.background = "white";
-}
+//
+//function check(index) {
+//    // D12 là text hiển thị
+//    let D12_text = document.getElementById("D12_" + index).innerText;
+//    // D18 là input người nhập
+//    let D18_text = document.getElementById("D18_" + index).value;
+//
+//    // jQuery Number dùng dấu chấm --> chỉ cần bỏ %
+//    let D12 = parseFloat(D12_text.replace('%', ''));
+//    let D18 = parseFloat(D18_text.replace('%', ''));
+//
+//    if (isNaN(D18))
+//        return; // tránh lỗi
+//
+//    if (D18 > D12) {
+//        alert("Lãi giảm không thể cao hơn lãi ban đầu!");
+//        document.getElementById("D18_" + index).style.background = "red";
+//        document.getElementById("D18_" + index).value = "0.0000";
+//        return;
+//    }
+//
+//    if (D18 < 0) {
+//        alert("Không được phép nhập số âm!");
+//        document.getElementById("D18_" + index).style.background = "red";
+//        document.getElementById("D18_" + index).value = "0.0000";
+//        return;
+//    }
+//
+//
+//    document.getElementById("D18_" + index).style.background = "white";
+//}
 function onSelectChange(value, index) {
     if (value === '1')
     {
-        document.getElementById("D18_" + index).disabled = false;
-        document.getElementById("D18_" + index).style.background = "#ffcdbb";
+        let D7_text = document.getElementById("D7_" + index).value;
+        console.log("d7= " + D7_text);
+        const allowed = ["032SC1", "032MC1", "032LC1", "033SC1", "033MC1", "033LC1", "034SC1", "034MC1", "034LC1", "252SC1", "252MC1"
+        ];
+
+        if (allowed.includes(D7_text)) {
+            document.getElementById("D18_" + index).disabled = false;
+            document.getElementById("D18_" + index).value = "3.744";
+        } else if (D7_text === "161SC1" || D7_text === "161MC1" || D7_text === "161LC1") {
+            document.getElementById("D18_" + index).disabled = false;
+            document.getElementById("D18_" + index).value = "3.12";
+        } else {
+            document.getElementById("D18_" + index).disabled = false;
+            document.getElementById("D18_" + index).style.background = "#ffcdbb";
+            document.getElementById("D18_" + index).value = "0.0000";
+        }
     } else
     {
         document.getElementById("D18_" + index).disabled = true;
         document.getElementById("D18_" + index).value = "";
-        document.getElementById("D18_" + index).style.background = "#E5E5E5"
+        document.getElementById("D18_" + index).style.background = "#E5E5E5";
+        document.getElementById("D18_" + index).value = "0.0000";
     }
 }
+function check(index) {
+
+    let D7 = document.getElementById("D7_" + index).value;
+    let D18_input = document.getElementById("D18_" + index);
+    let val = parseFloat(D18_input.value);
+
+    const allowed = ["032SC1", "032MC1", "032LC1", "033SC1", "033MC1", "033LC1",
+        "034SC1", "034MC1", "034LC1", "252SC1", "252MC1"];
+
+    if (allowed.includes(D7)) {
+        if (val !== 3.744) {
+            alert("Mã " + D7 + " chỉ được phép nhập 3.744!");
+            D18_input.value = "3.744";
+        }
+        return;
+    }
+    if (D7 === "161SC1" || D7 === "161MC1" || D7 === "161LC1") {
+        if (val !== 3.12) {
+            alert("Mã " + D7 + " chỉ được phép nhập 3.12!");
+            D18_input.value = "3.12";
+        }
+        return;
+    }
+    let D12_text = document.getElementById("D12_" + index).innerText;
+    let D12 = parseFloat(D12_text.replace('%', ''));
+
+    if (isNaN(val))
+        return;
+
+    if (val > D12) {
+        alert("Lãi giảm không thể cao hơn lãi ban đầu!");
+        D18_input.style.background = "red";
+        D18_input.value = "0.0000";
+        return;
+    }
+
+    if (val < 0) {
+        alert("Không được phép nhập số âm!");
+        D18_input.style.background = "red";
+        D18_input.value = "0.0000";
+        return;
+    }
+
+    D18_input.style.background = "white";
+}
+

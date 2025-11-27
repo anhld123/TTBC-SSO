@@ -102,13 +102,13 @@
                     <th rowspan="2" class="STT2">Mã khách hàng</th>
                     <th rowspan="2" class="STT3">Họ và tên khách hàng</th>
                     <th rowspan="2" class="STT3">Mã khoản vay</th>
-                    <th rowspan="2" class="STT2">Chương trình tín dụng</th>
+                    <th rowspan="2" class="STT3">Chương trình tín dụng</th>
 
                     <th rowspan="2" class="STT2">Tình trạng món vay</th>
                     <th colspan="3" >Dư nợ</th>
                     <th rowspan="2" class="STT2" style="color: red">Lãi suất ban đầu</th>
                     <th rowspan="2" class="STT2">Đơn vị xác nhận(Có/Không)</th>
-                    <th rowspan="2" class="STT3" style="color: blue">Lãi suất giảm</th>
+                    <th rowspan="2" class="STT2" style="color: blue">Lãi suất giảm</th>
 
                     <th rowspan="2" class="STT2">Cập nhật</th>
                 </tr>
@@ -139,7 +139,8 @@
                         <td class="D0"><s:property value="%{#rowstatus.index + 1}" />
                             <input type="hidden" value="<s:property  value="THUTU" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU"/>                             
                             <input type="hidden" value="<s:property value="%{#rowstatus.index + 1}" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI"/>
-                            <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"/>  
+                            <input type="hidden" value="<s:property  value="MA" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MA"
+                                   id="MA_<s:property value='%{#rowstatus.index}' />"/>
                             <input type="hidden" value="<s:property  value="MAPGD" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MAPGD"/>
                             <input type="hidden" value="<s:property  value="MACN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].MACN"/>
                             <input type="hidden" value="<s:property  value="TEN" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN"/>
@@ -149,7 +150,8 @@
                             <input type="hidden" value="<s:property  value="D4" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D4"/>
                             <input type="hidden" value="<s:property  value="D5" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5"/>
                             <input type="hidden" value="<s:property  value="D6" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6"/>
-                            <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7"/>
+                            <input type="hidden" value="<s:property  value="D7" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" 
+                                   id="D7_<s:property value='%{#rowstatus.index}' />"/>
                             <input type="hidden" value="<s:property  value="D8" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D8"/>
                             <input type="hidden" value="<s:property  value="D15" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D15"/>
                             <input type="hidden" value="<s:property  value="D17" />" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17"/>
@@ -183,7 +185,7 @@
                             <input type="text" value="<s:property value="D18" />"  
                                    id="D18_<s:property value='%{#rowstatus.index}' />" 
                                    name="lstDulieuNt[<s:property value="%{#rowstatus.index}" />].D18" 
-                                   class="number2" style="color: blue;background: #ffcdbb"
+                                   class="number3" style="color: blue;background: #ffcdbb"
                                    onblur="if (this.value == '') {
                                                this.value = 0
                                            }
