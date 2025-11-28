@@ -620,7 +620,48 @@ public class HTLS_NGUONDP2025 extends ActionNhaptaycnMain
                 setChotCic("0");
             }
 //            System.err.println("pos_cd_username= " + pos_cd_username);
-            lstDulieuNt = daoMain.get_data_giamlai(conn, "GIAMLAI_2025", pos_cd_username, dateStr, "S", "GIAMLAI_SEARCH");
+//            lstDulieuNt = daoMain.get_data_giamlai(conn, "GIAMLAI_2025", pos_cd_username, dateStr, "S", "GIAMLAI_SEARCH");
+            lstXa_API = _serverAPI.getListXa("", "", "", pos_cd_username);
+            for (ListCommune item : lstXa_API) {
+                QT_DULIEU_NT row = new QT_DULIEU_NT();
+                try {
+                    row.setD1(item.getCommuneCode());
+                    row.setD2(item.getCommuneName());
+                    lstData_Api = _serverAPI.getData_condition("GIAMLAI_2025", pos_cd_username, "S", _reportDate, "D6=" + item.getCommuneCode() + "|");
+
+                    long tongThan = 0, tongQhan = 0, tongKhoanh = 0, tongMonvay = 0, lainhap = 0, laixnhan = 0, tongDuno = 0;
+                    Set<String> setKhachHang = new HashSet<>();
+                    if (lstData_Api != null) {
+                        for (DuLieuNTRow apiRow : lstData_Api) {
+                            tongThan += toLong(apiRow.getD14());
+                            tongQhan += toLong(apiRow.getD15());
+                            tongKhoanh += toLong(apiRow.getD16());
+                            tongMonvay++;
+                            tongDuno = tongThan + tongQhan + tongKhoanh;
+                            if ("1".equals(apiRow.getD19())) {
+                                laixnhan++;
+                            } else {
+                                lainhap++;
+                            }
+                            if (apiRow.getD1() != null && !apiRow.getD1().isEmpty()) {
+                                setKhachHang.add(apiRow.getD1());
+                            }
+                        }
+                    }
+                    row.setD3(String.valueOf(setKhachHang.size()));
+                    row.setD4(String.valueOf(tongMonvay));
+                    row.setD5(String.valueOf(tongThan));
+                    row.setD6(String.valueOf(tongQhan));
+                    row.setD7(String.valueOf(tongKhoanh));
+                    row.setD8(String.valueOf(lainhap));
+                    row.setD9(String.valueOf(laixnhan));
+                    row.setD10(String.valueOf(tongDuno));
+                    lstDulieuNt.add(row);
+                } catch (Exception e) {
+                    System.err.println("Error processing posCode " + item.getPosCode() + ": " + e.getMessage());
+                }
+            }
+
             if (conn != null) {
                 conn.close();
             }
