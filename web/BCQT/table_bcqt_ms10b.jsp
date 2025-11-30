@@ -133,10 +133,10 @@
                     <th colspan="2">Trung ương</th>
                 </tr>
                 <tr>
-                    <th>NSNN</th>
                     <th>Điều lệ hoặc khấu hao</th>
-                    <th>NSNN</th>
+                    <th>Vốn khác</th>
                     <th>Điều lệ hoặc khấu hao</th>
+                    <th>Vốn khác</th>
                 </tr>
                 <tr>         
                     <th class="css_25" name="head">2</th>

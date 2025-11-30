@@ -11,6 +11,7 @@ import vbsp.ims.gqvl_2023.*;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import vbsp.ims.nhaptaycn.action.*;
 import java.sql.Connection;
@@ -572,36 +573,17 @@ public class BCQT_19A_2024 extends ActionNhaptaycnMain
                 tempadd.setPosCode(tmp.getMAPGD());
                 tempadd.setPosFlag(tmp.getCO_TONGHOP());
                 tempadd.setBranchCode(tmp.getMACN());
-                tempadd.setD1(tmp.getD1());
-                tempadd.setD2(tmp.getD2());
-                tempadd.setD3(tmp.getD3());
-                tempadd.setD4(tmp.getD4());
-                tempadd.setD5(tmp.getD5());
-                tempadd.setD6(tmp.getD6());
-                tempadd.setD7(tmp.getD7());
-                tempadd.setD8(tmp.getD8());
-                tempadd.setD9(tmp.getD9());
-                tempadd.setD10(tmp.getD10());
-                tempadd.setD11(tmp.getD11());
-                tempadd.setD12(tmp.getD12());
-                tempadd.setD13(tmp.getD13());
-                tempadd.setD14(tmp.getD14());
-                tempadd.setD15(tmp.getD15());
-                tempadd.setD16(tmp.getD16());
-                tempadd.setD17(tmp.getD17());
-                tempadd.setD18(tmp.getD18());
-                tempadd.setD19(tmp.getD19());
-                tempadd.setD20(tmp.getD20());
-                tempadd.setD21(tmp.getD21());
-                tempadd.setD22(tmp.getD22());
-                tempadd.setD23(tmp.getD23());
-                tempadd.setD24(tmp.getD24());
-                tempadd.setD25(tmp.getD25());
+                for (int i = 1; i <= 25; i++) {
+                    Method getter = tmp.getClass().getMethod("getD" + i);
+                    Method setter = tempadd.getClass().getMethod("setD" + i, String.class);
+                    setter.invoke(tempadd, getter.invoke(tmp));
+                }
                 tempadd.setStyle(tmp.getKIEUIN());
                 lstUpdateDate.add(tempadd);
             }
 
             _serverAPI = new DuLieuNTService();
+            _serverAPI.deleteManualData("BCQT_MS19A", smapgd, "S", _reportDate, "", "", lstUpdateDate);
             int status = _serverAPI.getGQVL2023("BCQT_MS19A", smapgd, "S", _reportDate, "", "", lstUpdateDate);
             _serverAPI.updateChotSL("BCQT_MS19A", smapgd, "S", _reportDate, "2", UserName, null);
             if (status != 200) {

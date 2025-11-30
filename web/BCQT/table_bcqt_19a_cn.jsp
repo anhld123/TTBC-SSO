@@ -272,12 +272,12 @@
                                     unlockLinks();
                                     return;
                                 }
-                                if (sGL.length !== 10) {
-                                    alert("GL không hợp lệ, số ký tự là " + sGL.length + " ký tự hợp lệ là 10!");
-                                    document.getElementById("sGL_" + i).style.backgroundColor = "#EEAFA6";
-                                    unlockLinks();
-                                    return;
-                                }
+//                                if (sGL.length !== 10) {
+//                                    alert("GL không hợp lệ, số ký tự là " + sGL.length + " ký tự hợp lệ là 10!");
+//                                    document.getElementById("sGL_" + i).style.backgroundColor = "#EEAFA6";
+//                                    unlockLinks();
+//                                    return;
+//                                }
 
                             } catch (e) {
                                 unlockLinks();
