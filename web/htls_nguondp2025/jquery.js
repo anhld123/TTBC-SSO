@@ -235,7 +235,7 @@ function onSelectChange(value, index) {
     const D7 = document.getElementById("D7_" + index).value;
     const D12 = document.getElementById("D12_" + index).innerText;
     if (value === '1') {
-        const allowed = ["032SC1", "032LC1",
+        const allowed = ["032SC1",
             "033SC1", "033MC1", "033LC1",
             "034SC1", "034MC1", "034LC1",
             "252SC1", "252MC1"];
@@ -248,7 +248,7 @@ function onSelectChange(value, index) {
         } else if (["161SC1", "161MC1", "161LC1"].includes(D7)) {
             D18.value = "3.12";
             D18.style.background = "white";
-        } else if (["251SC1", "251MC1", "251LC1","032MC1"].includes(D7)) {
+        } else if (["251SC1", "251MC1", "251LC1","032MC1","032LC1"].includes(D7)) {
             console.log("change d12=" + D12);
             if (D12 === "3.3")
             {
@@ -278,7 +278,7 @@ function check(index) {
     let D18 = document.getElementById("D18_" + index);
     let val = parseFloat(D18.value);  // lãi giảm
 
-    const allowed = ["032SC1", "032LC1",
+    const allowed = ["032SC1",
         "033SC1", "033MC1", "033LC1",
         "034SC1", "034MC1", "034LC1",
         "252SC1", "252MC1"];
@@ -299,7 +299,7 @@ function check(index) {
         return;
     }
 
-    if (["251SC1", "251MC1", "251LC1","032MC1"].includes(D7)) {
+    if (["251SC1", "251MC1", "251LC1","032MC1","032LC1"].includes(D7)) {
         console.log(D12);
         if (D12 === "3.3") {
             alert("Mã " + D7 + " chỉ được phép nhập 3.12!");

@@ -479,15 +479,15 @@
             $(document).ready(function () {
                 function updateTime() {
 
-                    var target = new Date(2025, 10, 29, 0, 0, 0);
+                    var target = new Date(2025, 10, 29, 00, 0, 0);
 
                     var now = new Date();
                     var timeDiff = target - now;
 
                     if (timeDiff <= 0) {
                         document.getElementById("countdownText").innerHTML = "Hết thời gian nhập";
-                        var elements = ["loaddata", "idSave", "idSearch", "idSend"];
-
+//                        var elements = ["loaddata", "idSave", "idSearch", "idSend"];
+                        var elements = ["idSave", "idSend"];
                         elements.forEach(function (id) {
                             var el = document.getElementById(id);
                             if (el) {
