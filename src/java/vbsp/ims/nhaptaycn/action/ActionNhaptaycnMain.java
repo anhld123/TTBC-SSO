@@ -1105,6 +1105,23 @@ public class ActionNhaptaycnMain extends ActionSupport {
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
                 lstCN_API = _server_tmp.getListCn("");
+                DaoPlnMain daoMain_Plno = new DaoPlnMain();
+                setLstMaxa(daoMain_Plno.getDanhMuc(UserName, "MAXA", Grade));
+                setLstMato(daoMain_Plno.getDanhMuc(UserName, "MATO_HOI", Grade));
+                lstDmKhac17 = _serverAPI.getListOfValue("17", "");
+                lstDmKhac17.removeIf(item
+                        -> "10".equals(item.getCode()) || "20".equals(item.getCode())
+                );
+                lstDmKhac17.sort((a, b) -> Integer.compare(
+                        Integer.parseInt(a.getCode()),
+                        Integer.parseInt(b.getCode())
+                ));
+                lstDmKhac = _serverAPI.getListOfValue("196", "HTLS_2025");
+                try {
+                    setType_action(lstDmKhac.get(0).getValue());
+                } catch (Exception e) {
+                    setType_action("0");
+                }
                 return khoa_nhaptaycn.equals("HTLS_2024") ? "HTLS_2024" : "HTLS_2025";
             }
 

@@ -124,7 +124,7 @@
             </s:iterator>   
             </br>
             <div id="divTitle">
-                XÁC NHẬN SỐ TIỀN LÃI GIẢM THEO QUYẾT ĐỊNH SỐ ..../QĐ-TTg
+                XÁC NHẬN SỐ TIỀN LÃI GIẢM THEO QUYẾT ĐỊNH SỐ 2654/QĐ-TTg
                 <div id="luu_thanhcong_del"></div>
             </div>
             <s:hidden name="khoa_nhaptaycn"/>            

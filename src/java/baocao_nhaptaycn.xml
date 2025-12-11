@@ -1051,6 +1051,9 @@
         <action name="unlock_HTLS_2025_c3" class="vbsp.ims.nhaptaycn.action.HTLS_2025" method="unlock_c3">
             <result name="success" type="json"></result>
         </action>
+        <action name="lock_htls_2025_tw" class="vbsp.ims.nhaptaycn.action.HTLS_2025" method="unlock_tw">
+            <result name="success" type="json"></result>
+        </action>
         <!--giam lai diaphuong 2025-->
         <action name="HTLS_NGUONDP2025" class="vbsp.ims.nhaptaycn.action.HTLS_NGUONDP2025"  method="load">
             <result name="success_1">/htls_nguondp2025/table_giamlai_pgd.jsp</result>     

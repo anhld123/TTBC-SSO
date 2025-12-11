@@ -9,93 +9,131 @@ package vbsp.ims.restapi;
  *
  * @author HP
  */
-
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
- 
+
 //@XmlRootElement(name = "dulieuNT")
-@XmlAccessorType (XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class IntDeductionModel {
-private String mainPos;
- private String posCode;
- private String reportDate;
- private String groupId;
- private String customerId;
- private String loanId;
- private double prinTotal;
- private double normalAmt;
- private double overdueAmt;
- private double freezeAmt;
- private double interestRate;
- private String loanProgram;
- private String specificProductCode;
- private String decisionCode;
- private String loanStatus;
- private String capitalSourceCode;
- private String investorCode;
- private String casaAccount;
- private float intTotalAmt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionTotalAmt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionM09Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionM10Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionM11Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionM12Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionAdjustM09Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionAdjustM10Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionAdjustM11Amt;
- 
- @XmlElement(defaultValue = "0")
- private BigInteger intDeductionAdjustM12Amt;
- 
- private String paymentFlag;
- private String intConfirmFlag;
- private String deductionTranRef;
- private String deductionTranDate;
- private BigInteger accountingIntAmt;
- private BigInteger rpaAmt;
- private BigInteger casaAmt;
- private BigInteger cashAmt;
- private String posTranRef;
- private String m09Status;
- private String m10Status;
- private String m11Status;
- private String m12Status;
- private String makerId;
- private String makerDate;
- private String m09UpdateId;
- private String m09UpdateDate;
- private String m10UpdateId;
- private String m10UpdateDate;
- private String m11UpdateId;
- private String m11UpdateDate;
- private String m12UpdateId;
- private String m12UpdateDate;
- private double intTotalM09Amt;
- private double intTotalM10Amt;
- private double intTotalM11Amt;
- private double intTotalM12Amt;
- private String communeId;
- private String customerName;
- private String disbursalDate;
+
+    private String mainPos;
+    private String posCode;
+    private String reportDate;
+    private String groupId;
+    private String customerId;
+    private String loanId;
+    private double prinTotal;
+    private double normalAmt;
+    private double overdueAmt;
+    private double freezeAmt;
+    private double interestRate;
+    private String loanProgram;
+    private String specificProductCode;
+    private String decisionCode;
+    private String loanStatus;
+    private String capitalSourceCode;
+    private String investorCode;
+    private String casaAccount;
+    private float intTotalAmt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionTotalAmt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionM09Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionM10Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionM11Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionM12Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionAdjustM09Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionAdjustM10Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionAdjustM11Amt;
+
+    @XmlElement(defaultValue = "0")
+    private BigInteger intDeductionAdjustM12Amt;
+
+    private String paymentFlag;
+    private String intConfirmFlag;
+    private String deductionTranRef;
+    private String deductionTranDate;
+//    14
+    @XmlElement(defaultValue = "0")
+    private BigInteger accountingIntAmt;
+    @XmlElement(defaultValue = "0")
+    private BigInteger rpaAmt;
+    @XmlElement(defaultValue = "0")
+    private BigInteger casaAmt;
+    // 19
+    @XmlElement(defaultValue = "0")
+    private BigInteger cashAmt;
+    // 20
+    private String posTranRef;
+    private String m09Status;
+    private String m10Status;
+    private String m11Status;
+    private String m12Status;
+    private String makerId;
+    private String makerDate;
+    private String m09UpdateId;
+    private String m09UpdateDate;
+    private String m10UpdateId;
+    private String m10UpdateDate;
+    private String m11UpdateId;
+    private String m11UpdateDate;
+    private String m12UpdateId;
+    private String m12UpdateDate;
+    private double intTotalM09Amt;
+    private double intTotalM10Amt;
+    private double intTotalM11Amt;
+    private double intTotalM12Amt;
+    private String communeId;
+    private String customerName;
+    private String disbursalDate;
+
+//    2025
+    private BigInteger glAdjustAmt;
+    @XmlElement(defaultValue = "0")
+    private BigInteger accountingCasaAmt;
+    @XmlElement(defaultValue = "0")
+    private BigInteger accountingGLAmt;
+
+    public BigInteger getGlAdjustAmt() {
+        return glAdjustAmt;
+    }
+
+    public void setGlAdjustAmt(BigInteger glAdjustAmt) {
+        this.glAdjustAmt = glAdjustAmt;
+    }
+
+    public BigInteger getAccountingCasaAmt() {
+        return accountingCasaAmt;
+    }
+
+    public void setAccountingCasaAmt(BigInteger accountingCasaAmt) {
+        this.accountingCasaAmt = accountingCasaAmt;
+    }
+
+    public BigInteger getAccountingGLAmt() {
+        return accountingGLAmt;
+    }
+
+    public void setAccountingGLAmt(BigInteger accountingGLAmt) {
+        this.accountingGLAmt = accountingGLAmt;
+    }
 
     public String getDisbursalDate() {
 //        return disbursalDate;
@@ -105,7 +143,6 @@ private String mainPos;
     public void setDisbursalDate(String disbursalDate) {
         this.disbursalDate = disbursalDate;
     }
- 
 
     public String getMainPos() {
         return mainPos;
@@ -260,7 +297,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionTotalAmt() {
-        return intDeductionTotalAmt==null? new BigInteger("0"):intDeductionTotalAmt;
+        return intDeductionTotalAmt == null ? new BigInteger("0") : intDeductionTotalAmt;
     }
 
     public void setIntDeductionTotalAmt(BigInteger intDeductionTotalAmt) {
@@ -268,7 +305,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM10Amt() {
-        return intDeductionM10Amt==null? new BigInteger("0"):intDeductionM10Amt;
+        return intDeductionM10Amt == null ? new BigInteger("0") : intDeductionM10Amt;
     }
 
     public void setIntDeductionM10Amt(BigInteger intDeductionM10Amt) {
@@ -276,7 +313,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM11Amt() {
-        return intDeductionM11Amt==null? new BigInteger("0"):intDeductionM11Amt;
+        return intDeductionM11Amt == null ? new BigInteger("0") : intDeductionM11Amt;
     }
 
     public void setIntDeductionM11Amt(BigInteger intDeductionM11Amt) {
@@ -284,7 +321,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM12Amt() {
-        return intDeductionM12Amt==null? new BigInteger("0"):intDeductionM12Amt;
+        return intDeductionM12Amt == null ? new BigInteger("0") : intDeductionM12Amt;
     }
 
     public void setIntDeductionM12Amt(BigInteger intDeductionM12Amt) {
@@ -292,7 +329,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM10Amt() {
-        return intDeductionAdjustM10Amt==null? new BigInteger("0"):intDeductionAdjustM10Amt;
+        return intDeductionAdjustM10Amt == null ? new BigInteger("0") : intDeductionAdjustM10Amt;
     }
 
     public void setIntDeductionAdjustM10Amt(BigInteger intDeductionAdjustM10Amt) {
@@ -300,7 +337,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM11Amt() {
-        return intDeductionAdjustM11Amt==null? new BigInteger("0"):intDeductionAdjustM11Amt;
+        return intDeductionAdjustM11Amt == null ? new BigInteger("0") : intDeductionAdjustM11Amt;
     }
 
     public void setIntDeductionAdjustM11Amt(BigInteger intDeductionAdjustM11Amt) {
@@ -308,7 +345,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM12Amt() {
-        return intDeductionAdjustM12Amt==null? new BigInteger("0"):intDeductionAdjustM12Amt;
+        return intDeductionAdjustM12Amt == null ? new BigInteger("0") : intDeductionAdjustM12Amt;
     }
 
     public void setIntDeductionAdjustM12Amt(BigInteger intDeductionAdjustM12Amt) {
@@ -348,7 +385,7 @@ private String mainPos;
     }
 
     public BigInteger getAccountingIntAmt() {
-        return accountingIntAmt==null? new BigInteger("0"):accountingIntAmt;
+        return accountingIntAmt == null ? new BigInteger("0") : accountingIntAmt;
     }
 
     public void setAccountingIntAmt(BigInteger accountingIntAmt) {
@@ -356,7 +393,7 @@ private String mainPos;
     }
 
     public BigInteger getRpaAmt() {
-        return rpaAmt==null? new BigInteger("0"):rpaAmt;
+        return rpaAmt == null ? new BigInteger("0") : rpaAmt;
     }
 
     public void setRpaAmt(BigInteger rpaAmt) {
@@ -364,7 +401,7 @@ private String mainPos;
     }
 
     public BigInteger getCasaAmt() {
-        return casaAmt==null? new BigInteger("0"):casaAmt;
+        return casaAmt == null ? new BigInteger("0") : casaAmt;
     }
 
     public void setCasaAmt(BigInteger casaAmt) {
@@ -372,7 +409,7 @@ private String mainPos;
     }
 
     public BigInteger getCashAmt() {
-        return cashAmt==null? new BigInteger("0"):cashAmt;
+        return cashAmt == null ? new BigInteger("0") : cashAmt;
     }
 
     public void setCashAmt(BigInteger cashAmt) {
@@ -497,7 +534,7 @@ private String mainPos;
 
     public void setIntTotalM12Amt(double intTotalM12Amt) {
         this.intTotalM12Amt = intTotalM12Amt;
-    }    
+    }
 
     public String getCommuneId() {
         return communeId;
@@ -516,7 +553,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionM09Amt() {
-        return intDeductionM09Amt ==null? new BigInteger("0"): intDeductionM09Amt;
+        return intDeductionM09Amt == null ? new BigInteger("0") : intDeductionM09Amt;
     }
 
     public void setIntDeductionM09Amt(BigInteger intDeductionM09Amt) {
@@ -524,7 +561,7 @@ private String mainPos;
     }
 
     public BigInteger getIntDeductionAdjustM09Amt() {
-        return intDeductionAdjustM09Amt ==null? new BigInteger("0"): intDeductionAdjustM09Amt;
+        return intDeductionAdjustM09Amt == null ? new BigInteger("0") : intDeductionAdjustM09Amt;
     }
 
     public void setIntDeductionAdjustM09Amt(BigInteger intDeductionAdjustM09Amt) {
@@ -563,6 +600,4 @@ private String mainPos;
         this.m09Status = m09Status;
     }
 
-    
- 
 }

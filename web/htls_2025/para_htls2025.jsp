@@ -207,7 +207,7 @@
                     $("#" + khoa)[0].click();
                 }
                 alert("Thao tác thành công!");
-                onLoadData();
+                $("#loadData")[0].click();
             }
 
             function onSaveDataHTLai()
@@ -230,6 +230,7 @@
                 {
                     $("#" + khoa)[0].click();
                 }
+                $("#loadData")[0].click();
             }
 
             function wait(ms) {
@@ -414,6 +415,8 @@
             <s:hidden name="ReportDate" id="ReportDate" value=""/>
             <s:hidden name="Grade" id="Grade"/>
             <s:hidden name="UserName" id="UserName"/>
+            <s:hidden name="type_action" id="type_action"/>
+            <s:hidden id="formRealId" value="id_%{khoa_nhaptaycn}"/>
             <div id="container" >            
                 <div id="navParamUp" > 
                     <s:if test="Grade.equalsIgnoreCase('1')">
@@ -435,7 +438,41 @@
                                         <s:if test="type.equalsIgnoreCase('D')">  
                                             <sj:datepicker name="%{fieldName}_DATE" value="%{new java.util.Date()}"  id="%{fieldName}_DATE"
                                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy" cssClass="NGAY_SL" onChangeTopics="changeTopic"/>                                           
-
+                                            <s:if test="Grade.equalsIgnoreCase('1')">
+                                                <s:label value="Mã xã " cssStyle="color: #029c44;" />
+                                                <s:select style="width: 200px;"
+                                                          list="lstMaxa"
+                                                          id="maxa"
+                                                          name="maxa"
+                                                          listKey="sKey"
+                                                          listValue="sDesc"
+                                                          headerKey=""
+                                                          headerValue="-- Chọn xã --"
+                                                          onchange="onXaChange(this.value)" />
+                                                <s:label value="Mã hội " cssStyle="color: #029c44;" />
+                                                <select id="mahoi" name="mahoi" style="width: 150px" disabled onchange="onHoiChange(this.value)" >
+                                                    <option value="0" style="text-align: center">-- Chọn hội đoàn thể --</option>
+                                                    <s:iterator value="lstDmKhac17">                                    
+                                                        <option value="<s:property value="code"/>"><s:property value="code"/> - <s:property value="value"/></option>                                         
+                                                    </s:iterator>
+                                                </select>
+                                                &nbsp;<s:label value="Mã tổ " cssStyle="color: #029c44;" />
+                                                <s:select style="width: 200px;"
+                                                          list="lstMato"
+                                                          id="mato"
+                                                          name="mato"
+                                                          listKey="sKey"
+                                                          listValue="sDesc"
+                                                          disabled="true" />
+                                                <s:select id="mato_data"
+                                                          list="lstMato"
+                                                          listKey="sKey"
+                                                          listValue="sDesc"
+                                                          headerKey="-1"
+                                                          headerValue="--- Chọn ---"
+                                                          cssStyle="display:none;"
+                                                          disabled="true" />
+                                            </s:if>    
                                         </s:if>
                                     </td>
                                 </s:iterator>     
@@ -468,6 +505,7 @@
                                         </s:iterator>
                                     </select> 
                                 </td>
+
                             </s:if>
                             <td style="padding-left: 10px; padding-right: 10px;">                                
                                 <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
@@ -481,6 +519,12 @@
                                 </s:if>  
                                 <s:elseif test="Grade.equalsIgnoreCase('2')">
                                     &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
+                                </s:elseif>
+                                <s:elseif test="Grade.equalsIgnoreCase('3') && type_action.equalsIgnoreCase('1')">
+                                    &nbsp;&nbsp;<input  type="button" id="idSend" style="color: blue" value="Mở nhập điều chỉnh ngày 31/12 kéo dài"/>
+                                </s:elseif>
+                                <s:elseif test="Grade.equalsIgnoreCase('3') && type_action.equalsIgnoreCase('2')">
+                                    &nbsp;&nbsp;<input  type="button" id="idSend" style="color: red" value="Đóng điều chỉnh ngày 31/12 kéo dài"/>
                                 </s:elseif>
                             </td>   
                             <td>
@@ -556,6 +600,82 @@
             // Đặt giá trị cho #dtNgayBC
             $("#dtNgayBC_temp").val(formattedDate);
             document.getElementById('ngay_bc_DATE').value = formattedDate;
+            <s:if test="Grade.equalsIgnoreCase('1')">
+            function onXaChange(maXa) {
+                $("#mahoi").val("0");
+                $("#mahoi").prop("disabled", false);
+
+                $("#mato").children().remove();
+                $("#mato").append("<option value=''>-- Chọn tổ --</option>");
+                $("#mato").prop("disabled", true);
+            }
+            function onHoiChange(maHoi) {
+                var maXa = $("#maxa").val();
+                var prefix = maHoi + "_" + maXa;
+
+                $("#mato").children().remove();
+
+                // Thêm mặc định
+                $("#mato").append("<option value='10_000000_0000000'> -- Tất cả -- </option>");
+                $("#mato").append("<option value='1_000000_NOGROUP'> NOGROUP -> Trực tiếp</option>");
+
+                // Lọc danh sách tổ theo hội + xã
+                $("#mato_data option").each(function () {
+                    var val = $(this).val();
+                    if (val.indexOf(prefix) === 0) {
+                        $("#mato").append($(this).clone());
+                    }
+                });
+
+                $("#mato").html($("#mato option").sort(function (a, b) {
+                    return a.text.localeCompare(b.text);
+                }));
+
+                $("#mato").val("10_000000_0000000");
+                $("#mato").prop("disabled", false);
+            }
+            </s:if>
+
+            $("#idSend").click(function () {
+                $('#message_suc_err').empty();
+                $('#divExportReportLink').empty();
+                let khoa = $("#formRealId").val();
+                let aCheck = confirm("Bạn chắc chắn muốn thao tác này?");
+                if (aCheck) {
+
+                    var isValid = true;
+                    if (isValid) {
+                        var url, sdata;
+                        url = "lock_htls_2025_tw.action";
+                        sdata = jQuery("#" + khoa).serialize();
+                        $("#divExportReport").html('<img src="img/loading.gif"/>');
+//                        btnDisabled(1);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: sdata,
+                            success: function (data) {
+                                var status = parseInt(data.status);
+                                if (status === 1) {
+                                    alert("Thành công!");
+                                    window.location.reload();
+                                } else {
+                                    alert("Lỗi!");
+                                    $window.location.reload();
+                                }
+                            },
+                            complete: function () {
+//                                btnDisabled(0);
+                            },
+                            error: function (request) {
+                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+//                                $('#idSearch').click();
+                            }
+                        });
+                    }
+                }
+
+            });
         </script>
     </body>
 </html>
