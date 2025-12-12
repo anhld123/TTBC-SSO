@@ -93,9 +93,9 @@
                             <th rowspan="3"  class="TD_NGAY">Trạng thái món vay</th>   
                             <th colspan="3" class="TD_MAKH">Dư nợ</th>                             
                             <th colspan="3"  class="TD_MAKH">Lãi giảm các tháng</th>                                                         
-                            <th colspan="4"  class="TD_MAKH">Số tiền GL </th>   
-                            <th colspan="4"  class="TD_MAKH" style="color: red">Số tiền GL</th>
-                            <th rowspan="3"  class="TD_MAKH">Tổng số tiền</th>
+                            <th colspan="4"  class="TD_MAKH">Số tiền GL hệ thống đã hạch toán tự động</th>   
+                            <th colspan="4"  class="TD_MAKH" style="color: red">Số tiền GL điều chỉnh ngày 31/12 kéo dài</th>
+                            <th rowspan="3"  class="TD_MAKH">Tổng số tiền giảm lãi sau điều chỉnh ngày 31/12 kéo dài</th>
                             <th rowspan="3"  class="TD_MAKH" title="Xác nhận để chốt lại số GL sau điều chỉnh thủ công ngày 31 kéo dài" >Cập nhật(*)</th>
 
                         </tr>         
