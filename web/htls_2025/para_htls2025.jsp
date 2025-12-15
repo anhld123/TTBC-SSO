@@ -474,6 +474,7 @@
                                                           disabled="true" />
                                             </s:if>    
                                         </s:if>
+
                                     </td>
                                 </s:iterator>     
                             </tr>
@@ -520,10 +521,15 @@
                                 <s:elseif test="Grade.equalsIgnoreCase('2')">
                                     &nbsp;&nbsp;&nbsp;<input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/> 
                                 </s:elseif>
-                                <s:elseif test="Grade.equalsIgnoreCase('3') && type_action.equalsIgnoreCase('1')">
+                                <s:elseif test="Grade.equalsIgnoreCase('3') 
+                                          && type_action.equalsIgnoreCase('1') 
+                                          && (UserName.equalsIgnoreCase('HANNM_KTTC')
+                                          || UserName.equalsIgnoreCase('NGOCLM_KTTC'))">
                                     &nbsp;&nbsp;<input  type="button" id="idSend" style="color: blue" value="Mở nhập điều chỉnh ngày 31/12 kéo dài"/>
                                 </s:elseif>
-                                <s:elseif test="Grade.equalsIgnoreCase('3') && type_action.equalsIgnoreCase('2')">
+                                <s:elseif test="Grade.equalsIgnoreCase('3') && type_action.equalsIgnoreCase('2')
+                                          && (UserName.equalsIgnoreCase('HANNM_KTTC')
+                                          || UserName.equalsIgnoreCase('NGOCLM_KTTC'))">
                                     &nbsp;&nbsp;<input  type="button" id="idSend" style="color: red" value="Đóng điều chỉnh ngày 31/12 kéo dài"/>
                                 </s:elseif>
                             </td>   
