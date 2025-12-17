@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -161,7 +162,15 @@ public class HTLS_2025 extends ActionNhaptaycnMain
 
         // Nếu đã chốt → chỉ lấy PaymentFlag=1 & ConfirmFlag=1
         if (isLock) {
-            return "1".equals(item.getPaymentFlag()) && "1".equals(item.getIntConfirmFlag());
+            if (!giaingan.equals("-1")) {
+                LocalDate limitDate = LocalDate.of(2025, 12, 30);
+
+                LocalDate disbursalDate = item.getDisbursalDate() == null ? null : LocalDate.parse(item.getDisbursalDate().substring(0, 10));
+
+                return "1".equals(item.getPaymentFlag()) && "1".equals(item.getIntConfirmFlag()) && disbursalDate != null && disbursalDate.isAfter(limitDate);
+            } else {
+                return "1".equals(item.getPaymentFlag()) && "1".equals(item.getIntConfirmFlag());
+            }
         }
 
         return true;
@@ -248,7 +257,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
         BigDecimal d54 = safeBD(item.getAccountingGLAmt());
         BigDecimal dInt = safeBD(item.getAccountingIntAmt());
         BigDecimal dCash = safeBD(item.getCashAmt());
-
+        BigDecimal d58 = safeBD(item.getRpaAddAmt());
         // D55 = Int + Casa + GL
         BigDecimal d55 = dInt.add(d53).add(d54);
         // D56 = Adjust + Cash
@@ -262,6 +271,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
         r.setD55(df.format(d55));
         r.setD56(df.format(d56));
         r.setD57(df.format(d57));
+        r.setD58(df.format(d58));
 
         return r;
     }
@@ -334,7 +344,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
             BigDecimal d16 = BigDecimal.ZERO;
             BigDecimal d18 = BigDecimal.ZERO;
             BigDecimal d19 = BigDecimal.ZERO;
-
+            BigDecimal d20 = BigDecimal.ZERO;
             DecimalFormat df = new DecimalFormat("#.##");
             int index = 1;
 
@@ -368,7 +378,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                 d16 = d16.add(safeBD(item.getAccountingGLAmt()));
                 d18 = d18.add(safeBD(item.getGlAdjustAmt()));
                 d19 = d19.add(safeBD(item.getCashAmt()));
-
+                d20 = d20.add(safeBD(item.getRpaAddAmt()));
                 lstDulieuNt.add(row);
             }
 
@@ -401,7 +411,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
             tong.setD19(df.format(d16));
             tong.setD20(df.format(d56));
             tong.setD21(df.format(d57));
-
+            tong.setD22(df.format(d20));
             lstDulieuNt_tong.add(tong);
 
             return isLock ? "xacnhanht" : SUCCESS;
@@ -1125,6 +1135,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                             tempadd.setCashAmt(new BigInteger(tmp.getD31()));
                             tempadd.setPosTranRef(tmp.getD32());
                             tempadd.setGlAdjustAmt(new BigInteger(tmp.getD52()));
+                            tempadd.setRpaAddAmt(new BigInteger(tmp.getD58()));
                             lstUpdateDate.add(tempadd);
                         }
                     }
@@ -1139,6 +1150,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                             updateRow.setD3(df.format(item.getCashAmt()));
                             updateRow.setD4(item.getPosTranRef());
                             updateRow.setD10(df.format(item.getGlAdjustAmt()));
+                            updateRow.setD11(df.format(item.getRpaAddAmt()));
 
                             lstLocalDataUpdate.add(updateRow);
                         }
@@ -1203,7 +1215,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
             DaoNghiquyet11cp daoMain = new DaoNghiquyet11cp();
             HashMap hmParameter = getParameter();
             String skey = hmParameter.get("type_action").toString();
-            System.out.println("skey== " +skey);
+            System.out.println("skey== " + skey);
             service = new DuLieuNTService();
             posMainModel = listKTNBDA.get_pos_main_pos(UserName, Grade);
             pos_cd_username = posMainModel.getPosCd();

@@ -110,6 +110,16 @@ public class IntDeductionModel {
     private BigInteger accountingCasaAmt;
     @XmlElement(defaultValue = "0")
     private BigInteger accountingGLAmt;
+    @XmlElement(defaultValue = "0")
+    private BigInteger rpaAddAmt;
+
+    public BigInteger getRpaAddAmt() {
+        return rpaAddAmt;
+    }
+
+    public void setRpaAddAmt(BigInteger rpaAddAmt) {
+        this.rpaAddAmt = rpaAddAmt;
+    }
 
     public BigInteger getGlAdjustAmt() {
         return glAdjustAmt;

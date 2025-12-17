@@ -55,8 +55,9 @@
                     <th rowspan="1"  class="TD_TOTIEN">Tài khoản phải trả bên ngoài</th> 
                     <th rowspan="1"  class="TD_TOTIEN">Số tiền GL điều chỉnh ngày 31/12 kéo dài</th> 
                     <th rowspan="1"  class="TD_TOTIEN">Tổng số tiền giảm lãi sau điều chỉnh ngày 31/12 kéo dài</th> 
+                    <th rowspan="1"  class="TD_TOTIEN">Số tiền hạch toán bổ sung</th> 
                 </tr> 
-                <tr> <% for (int i = 1; i <= 13; i++) {%>
+                <tr> <% for (int i = 1; i <= 14; i++) {%>
                     <th class="D99">(<%= i%>)</th>
                         <% }%>
                 </tr>
@@ -77,6 +78,7 @@
                         <td class="number5" style="text-align: right"><s:property  value="D19" /> </td>  
                         <td class="number5" style="text-align: right"><s:property  value="D20" /> </td>  
                         <td class="number5" style="text-align: right"><s:property  value="D21" /> </td>  
+                        <td class="number5" style="text-align: right"><s:property  value="D22" /> </td>  
                     </tr>                                                                                                                                                                                   
                 </s:iterator>
             </table>     
@@ -94,7 +96,7 @@
                             <th colspan="3" class="TD_MAKH">Dư nợ</th>                             
                             <th colspan="3"  class="TD_MAKH">Lãi giảm các tháng</th>                                                         
                             <th colspan="4"  class="TD_MAKH">Số tiền GL hệ thống đã hạch toán tự động</th>   
-                            <th colspan="4"  class="TD_MAKH" style="color: red">Số tiền GL điều chỉnh ngày 31/12 kéo dài</th>
+                            <th colspan="5"  class="TD_MAKH" style="color: red">Số tiền GL điều chỉnh ngày 31/12 kéo dài</th>
                             <th rowspan="3"  class="TD_MAKH">Tổng số tiền giảm lãi sau điều chỉnh ngày 31/12 kéo dài</th>
                             <th rowspan="3"  class="TD_MAKH" title="Xác nhận để chốt lại số GL sau điều chỉnh thủ công ngày 31 kéo dài" >Cập nhật(*)</th>
 
@@ -109,19 +111,19 @@
                             <th  class="TD_NGAY" rowspan="2">Tổng số tiền</th>
                             <th  colspan="3" class="TD_NGAY">Trong đó</th>
                             <th  class="TD_NGAY" rowspan="2" style="color: red">Tổng số tiền</th>
-                            <th  colspan="3" class="TD_NGAY" style="color: red">Trong đó</th>
+                            <th  colspan="4" class="TD_NGAY" style="color: red">Trong đó</th>
                         </tr>         
                         <tr>
                             <th  class="TD_NGAY" title="Hạch toán vào khoản trả trước của khách hàng">RPA(*)</th>  
                             <th  class="TD_NGAY">Hạch toán CASA</th>  
                             <th  class="TD_NGAY">Tài khoản phải trả bên ngoài</th>   
+                            <th  class="TD_NGAY" style="color: red">Số tiền hạch toán bổ sung</th> 
                             <th  class="TD_NGAY" style="color: red">Hạch toán CASA</th>  
                             <th  class="TD_NGAY" style="color: red">Tài khoản phải trả bên ngoài</th>  
                             <th  class="TD_NGAY" style="color: red">Số bút toán điều chỉnh</th>  
 
                         </tr>
-                        </tr>
-                        <tr> <% for (int i = 1; i <= 22; i++) {%>
+                        <tr> <% for (int i = 1; i <= 23; i++) {%>
                             <th class="D99">(<%= i%>)</th>
                                 <% }%>
                         </tr>
@@ -160,6 +162,15 @@
 
                                 <td class="number5" id="D56<s:property value='%{#rowstatus.index}'/>">
                                     <s:property value="D56"/>
+                                </td>
+
+                                <td align = "right" class="TD_MAKH" >
+                                    <input type="text"   value="<s:property  value="D58" />" 
+                                           name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D58" class="TEN_KH number" 
+                                           id  ='D52<s:property  value="%{#rowstatus.index}" />'
+                                           <s:if test="ngay3112.equalsIgnoreCase('1')">readonly </s:if>
+                                           <s:else>style="background: #ffe6f2 !important;" </s:else>
+                                           />
                                 </td>
 
                                 <td align = "right" class="TD_MAKH" >

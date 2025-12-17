@@ -207,7 +207,7 @@
                     $("#" + khoa)[0].click();
                 }
                 alert("Thao tác thành công!");
-                $("#loadData")[0].click();
+                onLoadData();
             }
 
             function onSaveDataHTLai()
@@ -230,7 +230,7 @@
                 {
                     $("#" + khoa)[0].click();
                 }
-                $("#loadData")[0].click();
+                onLoadData();
             }
 
             function wait(ms) {
@@ -483,11 +483,11 @@
                     <table>
                         <tr>
                             <s:if test="Grade.equalsIgnoreCase('1')">
-                                <td style="padding-left: 10px; padding-right: 10px;">Giải ngân:
+                                <td style="padding-left: 10px; padding-right: 10px;">Thay đổi dư nợ:
                                     &nbsp;&nbsp;
                                     <select name="giaingan" id="giaingan">
                                         <option value="-1">--Tất cả--</option>
-                                        <option value="1">Giải ngân 12/2025</option>                                    
+                                        <option value="1">Thay dư nợ ngày 30,31/12</option>                                    
                                     </select>
                                 </td> 
                             </s:if>

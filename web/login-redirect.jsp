@@ -90,6 +90,13 @@
             input[type="radio"] {
                 accent-color: green;
             }
+            #snowCanvas_noel,#snowCanvas_tet {
+                position: fixed;
+                inset: 0;
+                z-index: 20;           /* trên cây thông, dưới login */
+                pointer-events: none;
+            }
+
         </style>
         <script>
             const backgrounds = [
@@ -108,6 +115,8 @@
 
     <body>
         <!-- HEADER -->
+        <canvas id="snowCanvas_tet"></canvas>
+        <script type="text/javascript" src="css/js/jquerymain.js"></script>
         <div class="header">
             <div class="header-date">
                 <script>
@@ -171,5 +180,7 @@
         </s:iterator>
         <input type="hidden" name="js_mntotal" 
                value="<s:property value='%{#st_total}'/>" id="js_totalid"/> 
+
+
     </body>
 </html>
