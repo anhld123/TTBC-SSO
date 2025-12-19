@@ -367,7 +367,8 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                     row.setD3(item.getD3());
                     row.setD4(item.getD4());
                     row.setD5(item.getD5());
-                    row.setD6(item.getD6() == null || item.getD6().equals("") ? "0" : item.getD6());
+//                    row.setD6(item.getD6() == null || item.getD6().equals("") ? "0" : item.getD6());
+                    row.setD6("1");
                     row.setD7(item.getD7() == null || item.getD7().equals("") ? "0" : item.getD7());
                     row.setD8(item.getD8() == null || item.getD8().equals("") ? "0" : item.getD8());
                     row.setD9(item.getD9());
@@ -465,7 +466,7 @@ public class Service_KKTS_2024 extends ActionNhaptaycnMain
                 tempadd.setD3(tmp.getD3());
                 tempadd.setD4(tmp.getD4());
                 tempadd.setD5(tmp.getD5());
-                tempadd.setD6(tmp.getD6());
+                tempadd.setD6("1");
                 tempadd.setD7(tmp.getD7());
                 tempadd.setD8(tmp.getD8());
                 tempadd.setD9(tmp.getD9());

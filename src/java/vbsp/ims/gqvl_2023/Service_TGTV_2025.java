@@ -20,6 +20,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -335,6 +336,9 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
                 }
             }
 //            lstDulieuNt.sort(Comparator.comparingInt((QT_DULIEU_NT obj) -> Integer.parseInt(obj.getD1().toString())));
+            lstDulieuNt.sort(
+                    Comparator.comparing(obj -> layTen(obj.getD2()), String.CASE_INSENSITIVE_ORDER)
+            );
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> thong tin ca nhan sms : " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> thong tin ca nhan sms: " + e.getMessage());
@@ -855,4 +859,11 @@ public class Service_TGTV_2025 extends ActionNhaptaycnMain
         return SUCCESS;
     }
 
+    private static String layTen(String hoTen) {
+        if (hoTen == null || hoTen.trim().isEmpty()) {
+            return "";
+        }
+        String[] parts = hoTen.trim().split("\\s+");
+        return parts[parts.length - 1]; // lấy tên cuối
+    }
 }

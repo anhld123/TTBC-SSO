@@ -115,7 +115,7 @@
 
     <body>
         <!-- HEADER -->
-        <canvas id="snowCanvas_tet"></canvas>
+        <canvas id="snowCanvas_noel"></canvas>
         <script type="text/javascript" src="css/js/jquerymain.js"></script>
         <div class="header">
             <div class="header-date">

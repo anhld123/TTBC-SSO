@@ -51,7 +51,7 @@ function addRow(indx) {
             '<td><select style="width: 150px;border: hidden; background: #f2f2f2" onmousedown="return false" name="lstDulieuNt[' + max_row + '].D3" id="' + idNhomTb + '"></select></td>' +
             '<td><select style="width: 150px;border: hidden" name="lstDulieuNt[' + max_row + '].D4" id="' + idNsd + '"></select></td>' +
             '<td><select style="width: 80px;border: hidden; background: #f2f2f2" onmousedown="return false" name="lstDulieuNt[' + max_row + '].D5" id="' + idDvt + '"></select></td>' +
-            '<td><input type="text" value="1" id="D6' + max_row + '" name="lstDulieuNt[' + max_row + '].D6" class="number" onfocus="this.select();" onchange="calc(this);"/></td>' +
+            '<td><input type="text" value="1" id="D6' + max_row + '" readonly="true" name="lstDulieuNt[' + max_row + '].D6" class="number" onfocus="this.select();" onchange="calc(this);"/></td>' +
             '<td><input type="text" value="0" id="D7' + max_row + '" name="lstDulieuNt[' + max_row + '].D7" class="number" onfocus="this.select();" onchange="calc(this);"/></td>' +
             '<td><input readonly type="text" value="0" id="D8' + max_row + '" name="lstDulieuNt[' + max_row + '].D8" class="number" onfocus="this.select();"/></td>' +
             '<td class="D0"><select style="width: 150px;border: hidden; background: #f2f2f2" onmousedown="return false" name="lstDulieuNt[' + max_row + '].D9" id="' + idKyhieu + '"></select></td>' +

@@ -487,7 +487,7 @@
                                     &nbsp;&nbsp;
                                     <select name="giaingan" id="giaingan">
                                         <option value="-1">--Tất cả--</option>
-                                        <option value="1">Thay dư nợ ngày 30,31/12</option>                                    
+                                        <option value="1">Dư nợ ngày 30,31/12</option>                                    
                                     </select>
                                 </td> 
                             </s:if>
