@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -116,7 +117,13 @@ public class HTLS_2025 extends ActionNhaptaycnMain
             if (!getParaSession()) {
                 return ERROR;
             }
+            service = new DuLieuNTService();
+            lstDmKhac = service.getListOfValue("196", "HTLS_2025_ON");
 
+            if ("1".equals(lstDmKhac.get(0).getValue()) && ("1".equals(Grade) || "2".equals(Grade))) {
+                addActionError("Chương trình hiện tại chưa được quyền khai thác!");
+                return ERROR;
+            }
             switch (Grade) {
                 case "1":
                     return loadCap1();
@@ -309,7 +316,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
 
             String ct = hm.get("chuongtrinh").toString();
             String maxa = String.valueOf(hm.get("maxa"));
-            if (maxa == null || maxa.equals("000000") || maxa.trim().isEmpty()) {
+            if (maxa == null || maxa.trim().isEmpty()) {
                 addActionError("Bạn chưa chọn mã xã!");
                 return ERROR;
             }
@@ -322,10 +329,11 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                     mato = v[2];
                 }
             }
-
-            ArrayList<IntDeductionModel> lst = service.getDataHTLS2021(pos_cd_username, dateStr, ct, maxa, mato);
+//            System.out.println("ma ct == " + ct);
+            ArrayList<IntDeductionModel> lst = service.getDataHTLS2021(pos_cd_username, dateStr, ct.equals("00") ? "" : ct,
+                    maxa.equals("000000") ? "" : maxa, mato);
             if (lst.size() > 400) {
-                addActionError("Dữ liệu quá lớn, vui lòng chọn mã xã hoặc mã tổ!");
+                addActionError("Dữ liệu quá lớn, vui lòng chọn mã xã, mã tổ hoặc mã chương trình!");
                 return ERROR;
             }
 
@@ -381,7 +389,13 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                 d20 = d20.add(safeBD(item.getRpaAddAmt()));
                 lstDulieuNt.add(row);
             }
-
+            lstDulieuNt.sort(
+                    Comparator.comparing(obj -> layTen(obj.getD51()), String.CASE_INSENSITIVE_ORDER)
+            );
+            int stt = 1;
+            for (QT_DULIEU_NT r : lstDulieuNt) {
+                r.setTHUTU(stt++);
+            }
             QT_DULIEU_NT tong = new QT_DULIEU_NT();
 
             tong.setD1(df.format(dn_tronhan + dn_quahan + dn_khoanh));
@@ -1007,7 +1021,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                                 tempadd.setPosCode(tmp.getMAPGD());
                                 tempadd.setLoanId(tmp.getD3());
 
-                                tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
+//                                tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
                                 tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
                                 tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
                                 tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
@@ -1020,7 +1034,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                                 tempadd.setPosCode(tmp.getMAPGD());
                                 tempadd.setLoanId(tmp.getD3());
 
-                                tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
+//                                tempadd.setIntDeductionAdjustM09Amt(new BigInteger(tmp.getD47()));
                                 tempadd.setIntDeductionAdjustM10Amt(new BigInteger(tmp.getD18()));
                                 tempadd.setIntDeductionAdjustM11Amt(new BigInteger(tmp.getD19()));
                                 tempadd.setIntDeductionAdjustM12Amt(new BigInteger(tmp.getD20()));
@@ -1049,7 +1063,6 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                             updateRow.setD3(df.format(item.getIntDeductionAdjustM11Amt()));
                             updateRow.setD4(df.format(item.getIntDeductionAdjustM12Amt()));
                             updateRow.setD5(item.getIntConfirmFlag());
-
                             lstLocalDataUpdate.add(updateRow);
                         }
                         daoMain.saveGiamLai2024(UserName, pos_cd_username, strDate1, lstLocalDataUpdate, "1");
@@ -1235,5 +1248,13 @@ public class HTLS_2025 extends ActionNhaptaycnMain
             message = e.getMessage();
         }
         return SUCCESS;
+    }
+
+    private static String layTen(String hoTen) {
+        if (hoTen == null || hoTen.trim().isEmpty()) {
+            return "";
+        }
+        String[] parts = hoTen.trim().split("\\s+");
+        return parts[parts.length - 1]; // lấy tên cuối
     }
 }

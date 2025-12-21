@@ -129,7 +129,7 @@
                         </tr>
                         <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">                             
                             <tr>                               
-                                <td class="D0"><s:property value="%{#rowstatus.index + 1}" />
+                                <td class="D0"><s:property value="THUTU" />
                                     <input type="hidden" value="<s:property  value="D3" />"
                                            name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3" value="<s:property  value="D3"/>"/>
                                     <input type="hidden" value="<s:property  value="MACN" />"

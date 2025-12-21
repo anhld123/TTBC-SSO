@@ -623,8 +623,9 @@
 
                 // Thêm mặc định
                 $("#mato").append("<option value='10_000000_0000000'> -- Tất cả -- </option>");
-                $("#mato").append("<option value='1_000000_NOGROUP'> NOGROUP -> Trực tiếp</option>");
-
+                if (maHoi === "1" || maHoi === 1) {
+                    $("#mato").append("<option value='1_000000_NOGROUP'> NOGROUP -> Trực tiếp</option>");
+                }
                 // Lọc danh sách tổ theo hội + xã
                 $("#mato_data option").each(function () {
                     var val = $(this).val();
