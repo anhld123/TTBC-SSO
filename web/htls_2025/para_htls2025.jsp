@@ -489,6 +489,9 @@
                                         <option value="-1">--Tất cả--</option>
                                         <option value="1">Dư nợ ngày 30,31/12</option>                                    
                                     </select>
+
+                                    <s:label value="Tìm kiếm " cssStyle="color: #029c44;" />
+                                    <input type="text" name="soku" id="soku" placeholder="Mã món vay" value="" style="width: 150px">
                                 </td> 
                             </s:if>
                             <s:else>
@@ -682,6 +685,24 @@
                     }
                 }
 
+            });
+
+            $(function () {
+                $("#soku").on("input", function () {
+                    const hasValue = this.value.trim() !== "";   // đã nhập hay chưa
+
+                    if (hasValue) {
+                        // Đặt lại lựa chọn rồi khóa ngay
+                        $("#maxa").prop("selectedIndex", 0).prop("disabled", true);
+                        $("#chuongtrinh").prop("selectedIndex", 0).prop("disabled", true);
+                        $("#mato").prop("selectedIndex", 0).prop("disabled", true);
+                        $("#mahoi").prop("selectedIndex", 0).prop("disabled", true);
+                    } else {
+                        // Mở khóa nếu người dùng xoá sạch
+                        $("#maxa").prop("disabled", false);
+                        $("#chuongtrinh").prop("disabled", false);
+                    }
+                });
             });
         </script>
     </body>

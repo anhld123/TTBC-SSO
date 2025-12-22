@@ -117,7 +117,7 @@ public class HTLS2024 extends ActionNhaptaycnMain
                     String _chuongTrinh = hmParameter.get("chuongtrinh").toString();
                     String _maXa = hmParameter.get("maxa").toString();
                     String _maTo = hmParameter.get("mato").toString();
-                    ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo);
+                    ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo,"");
                     if (lstData.size() > 400) {
                         addActionError("Dữ liệu quá lớn vui lòng chọn mã xã hoặc mã tổ, để tải dữ liệu!");
                         return ERROR;

@@ -81,7 +81,7 @@ public class HTLS2021 extends ActionNhaptaycnMain
                 }
 
                 ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, hmParameter.get("chuongtrinh").toString(),
-                        hmParameter.get("maxa").toString(), hmParameter.get("mato").toString());
+                        hmParameter.get("maxa").toString(), hmParameter.get("mato").toString(),"");
                 int i = 1;
 
                 QT_DULIEU_NT tong = new QT_DULIEU_NT();

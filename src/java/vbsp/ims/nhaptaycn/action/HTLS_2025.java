@@ -313,30 +313,39 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                 setNgay3112("0");
             }
             setSchot(chotsl);
-
-            String ct = hm.get("chuongtrinh").toString();
-            String maxa = String.valueOf(hm.get("maxa"));
-            if (maxa == null || maxa.trim().isEmpty()) {
-                addActionError("Bạn chưa chọn mã xã!");
-                return ERROR;
-            }
-
-            String smato = String.valueOf(hm.get("mato")).trim();
-            String mato = "";
-            if (!smato.isEmpty()) {
-                String[] v = smato.split("_");
-                if (v.length >= 3) {
-                    mato = v[2];
+            String loanId = (hm.get("soku") + "").trim();
+            System.out.println("ma loanId == " + loanId);
+            ArrayList<IntDeductionModel> lst;
+            if (loanId == null || loanId.trim().isEmpty()) {
+                String ct = hm.get("chuongtrinh").toString();
+                String maxa = String.valueOf(hm.get("maxa"));
+                if (maxa == null || maxa.trim().isEmpty()) {
+                    addActionError("Bạn chưa chọn mã xã!");
+                    return ERROR;
                 }
+
+                String smato = String.valueOf(hm.get("mato")).trim();
+                String mato = "";
+                if (!smato.isEmpty()) {
+                    String[] v = smato.split("_");
+                    if (v.length >= 3) {
+                        mato = v[2];
+                    }
+                }
+
+                lst = service.getDataHTLS2021(pos_cd_username, dateStr, ct.equals("00") ? "" : ct,
+                        maxa.equals("000000") ? "" : maxa, mato, "");
+            } else {
+                lst = service.getDataHTLS2021(pos_cd_username, dateStr, "", "", "", loanId);
             }
-//            System.out.println("ma ct == " + ct);
-            ArrayList<IntDeductionModel> lst = service.getDataHTLS2021(pos_cd_username, dateStr, ct.equals("00") ? "" : ct,
-                    maxa.equals("000000") ? "" : maxa, mato);
             if (lst.size() > 400) {
                 addActionError("Dữ liệu quá lớn, vui lòng chọn mã xã, mã tổ hoặc mã chương trình!");
                 return ERROR;
             }
-
+            if (lst == null || lst.isEmpty()) {
+                addActionError("Không có dữ liệu!");
+                return ERROR;
+            }
             String phanloai = hm.get("phanloai").toString();
             String giaingan = hm.get("giaingan").toString();
             boolean isLock = chotsl.equals("2");
@@ -611,7 +620,7 @@ public class HTLS_2025 extends ActionNhaptaycnMain
                     }
 //                    String _maXa = hmParameter.get("maxa").toString();
 //                    String _maTo = hmParameter.get("mato").toString();
-                    ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo);
+                    ArrayList<IntDeductionModel> lstData = service.getDataHTLS2021(pos_cd_username, dateStr, _chuongTrinh, _maXa, _maTo, "");
                     if (lstData.size() > 400) {
                         addActionError("Dữ liệu quá lớn vui lòng chọn mã xã hoặc mã tổ, để tải dữ liệu!");
                         return ERROR;

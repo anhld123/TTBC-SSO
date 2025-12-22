@@ -337,7 +337,7 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
-    public ArrayList<IntDeductionModel> getDataHTLS2021(String posCode, String reportDate, String program, String communeId, String groupId) {
+    public ArrayList<IntDeductionModel> getDataHTLS2021(String posCode, String reportDate, String program, String communeId, String groupId, String loanId) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("int-deduction-data")
@@ -346,7 +346,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("reportDate", reportDate)
                 .queryParam("program", program)
                 .queryParam("communeId", communeId.equals("000000") ? "" : communeId)
-                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId);
+                .queryParam("groupId", groupId.equals("0000000") ? "" : groupId)
+                .queryParam("loanId", loanId.trim().isEmpty() ? "" : loanId);
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
@@ -604,7 +605,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-            System.out.println("ResultingJSONstring = " + json);            
+            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
