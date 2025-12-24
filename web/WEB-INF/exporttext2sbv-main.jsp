@@ -69,14 +69,12 @@
         $("#contentDiv").hide();
         $("#loadingImageDiv").show();
     });
-
     $.subscribe('completediv1', function (event, data) {
         com.mudrick.onPeopleTableLoad();
         $("#loadingImageDiv").hide();
         $("#contentDiv").show();
         //$("#contentDiv").slideDown('slow');
     });
-
     function clk_glkhtd() {
         var lstPos = "";
         $('#treeView').jstree("get_checked", null, true).each(
@@ -88,7 +86,6 @@
     $(function () {
         new DateMask("dd/MM/yyyy", "reportDate");
     });
-
     if (!com)
         var com = {};
     com.mudrick = {
@@ -106,7 +103,6 @@
                     return false;
                 });
             });
-
             $("#contentDiv .pagelinks a").each(function () {
                 // Iterate over the pagination-generated links to override also
                 $(this).click(function () {
@@ -116,14 +112,12 @@
                     return false;
                 });
             });
-
             $("#contentDiv .pagelinks strong").each(function () {
                 var htmlString = $(this).html();
                 $(this).text("Trang " + htmlString);
             });
         }
     };
-
 //    $(document).ready(function() {
 //        // Load the initial rendering when the dom is ready.  Assuming you are injecting into a div
 //        // with id "peopleData" that exists in the page.    
@@ -180,7 +174,7 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       onchange="js_changetopic(); toggleParameters(this.value);"
+                                       onchange="js_changetopic(); toggleTitles();"
                                        headerValue="--- Chọn báo cáo ---" 
                                        theme="simple"></sj:select>
                             </td>
@@ -193,7 +187,7 @@
                                            id="selectedrptDate" size="15"/>
                         </td>                    
                     </tr>
-                    <tr class="optional-parameter2">
+                    <tr class="optional-parameter2" id="title_1">
                         <td>Kỳ báo cáo:</td>
                         <td>                        
                             <s:url var="buildComboUrl2" action="buildReportPeriodCombo"></s:url>
@@ -201,7 +195,7 @@
                                        name="reportPeriod"
                                        id="reportPeriod"
                                        list="lstRptPeriod"      
-                                       reloadTopics="reloadModuleList"
+                                       reloadTopics="reloadPeriod"
                                        listKey="sKey"
                                        listValue="sDesc"
                                        emptyOption="false" 
@@ -211,7 +205,7 @@
                             </td>                    
                         </tr>
 
-                        <tr class="optional-parameter3">
+                        <tr class="optional-parameter3" id="title_2">
                             <td>Tên file:</td>
                             <td>                        
                             <s:url var="buildComboUrl3" action="buildPara"></s:url>
@@ -219,20 +213,21 @@
                                        name="txtGetData"
                                        id="txtGetData"
                                        list="lstPara"
-                                       reloadTopics="reloadModuleList"
+                                       reloadTopics="reloadFile"
                                        listKey="sKey"
                                        listValue="sDesc"
                                        emptyOption="false"
                                        headerKey="NULL"
                                        headerValue="--- Chọn file báo cáo ---"
                                        theme="simple" />
-                            <!--                            <td>                        
-                                                            <select name="txtGetData" id="txtGetData">                                                    
-                                                                <option value="1">KYC_01</option>                                                    
-                                                                <option value="2">KYC_02</option>
-                                                                <option value="3">KYC_03</option>
-                                                            </select> 
-                                                        </td>                    -->
+                        </td>
+                        <!--                            <td>                        
+                                                        <select name="txtGetData" id="txtGetData">                                                    
+                                                            <option value="1">KYC_01</option>                                                    
+                                                            <option value="2">KYC_02</option>
+                                                            <option value="3">KYC_03</option>
+                                                        </select> 
+                                                    </td>                    -->
                     </tr>
                     <%--</s:else>--%>
                     <!--                        <tr>
@@ -288,24 +283,21 @@
     </div>    
 </div>
 <script>
-    function toggleParameters(selectedValue) {
-        const optionalRows1 = document.querySelectorAll('.optional-parameter1');
-        const optionalRows2 = document.querySelectorAll('.optional-parameter2');
-        const optionalRows3 = document.querySelectorAll('.optional-parameter3');
-
-        if (selectedValue === 'EX050001') {
-            // Ẩn các tham số
-            optionalRows1.forEach(row => row.style.display = 'none');
-            optionalRows2.forEach(row => row.style.display = 'none');
-            optionalRows3.forEach(row => row.style.display = '');
+    function toggleTitles() {
+        const report = $("#selectedReport").val();
+        if (report === 'EX050001') {
+            $("#title_1").hide();
+            $("#title_2").show();
         } else {
-            // Hiển thị các tham số
-            optionalRows1.forEach(row => row.style.display = '');
-            optionalRows2.forEach(row => row.style.display = '');
-            optionalRows3.forEach(row => row.style.display = 'none');
+            $("#title_2").hide();
+            $("#title_1").show();
         }
     }
-    ;
-    toggleParameters();
+
+    $(document).ready(function () {
+        $("#selectedReport").on("change", toggleTitles);
+        toggleTitles(); // chạy lúc load
+    });
 </script>
+
 
