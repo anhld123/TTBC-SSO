@@ -17,18 +17,25 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.log.CoreLogger;
+import vbsp.ims.restapi.CommisionFeeModel;
 
 /**
  *
- * @author Trung
- * sua ngay 14/jan/2015
+ * @author Trung sua ngay 14/jan/2015
  */
 public class SbvExcelTemplateExport {
 
     //--------------------------------------------------------------------------
-
     private static DaoConnect daoConnect;
     private static Connection conn;
 
@@ -36,48 +43,48 @@ public class SbvExcelTemplateExport {
         daoConnect = new DaoConnect();
         conn = daoConnect.getConnect();
     }
-    
-    public String generateExcelFile(String sReport,String sPosCode, String sConflag, String sNgaybc,
-            String sPeriod, String sPath){
+
+    public String generateExcelFile(String sReport, String sPosCode, String sConflag, String sNgaybc,
+            String sPeriod, String sPath) {
         String lcfullPath = "";
-        switch(sReport){
+        switch (sReport) {
             case "TT31_B29":
-                lcfullPath = gen_B29_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
+                lcfullPath = gen_B29_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
                 break;
             case "TT31_B30":
-                lcfullPath = gen_B30_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;    
+                lcfullPath = gen_B30_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "TT31_B20":
-                lcfullPath = gen_B20_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;      
+                lcfullPath = gen_B20_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "TT31_B09":
-                lcfullPath = gen_B09_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;          
+                lcfullPath = gen_B09_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "TT31_B28":
-                lcfullPath = gen_B28_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;       
+                lcfullPath = gen_B28_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "TT31_B35":
-                lcfullPath = gen_B35_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
+                lcfullPath = gen_B35_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
                 break;
             case "01_NHCS":
-                lcfullPath = gen_01NHSC_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;  
+                lcfullPath = gen_01NHSC_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "BC_30A":
-                lcfullPath = gen_30A_Report(sPosCode,sConflag,sNgaybc,sPeriod,sPath);
-                break;    
+                lcfullPath = gen_30A_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
+                break;
             case "TT31_B20TM":
                 lcfullPath = gen_B20TM_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
-                break;  
+                break;
             case "TT31_B29TM":
                 lcfullPath = gen_B29TM_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
-                break;    
+                break;
             case "B65_NHNN":
                 lcfullPath = gen_B65_NHNN_Report(sPosCode, sConflag, sNgaybc, sPeriod, sPath);
-                break;    
+                break;
         }
         return lcfullPath;
     }
-    
+
     public String gen_B29_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle, sNameBr;
@@ -134,8 +141,7 @@ public class SbvExcelTemplateExport {
 
     public String gen_B30_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
-        if(sPosCode != "000100")
-        {
+        if (sPosCode != "000100") {
             return "";
         }
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle;
@@ -155,7 +161,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -178,8 +184,7 @@ public class SbvExcelTemplateExport {
 
     public String gen_B28_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
-        if(sPosCode != "000100")
-        {
+        if (sPosCode != "000100") {
             return "";
         }
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle;
@@ -199,7 +204,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -239,7 +244,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -279,7 +284,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -302,8 +307,7 @@ public class SbvExcelTemplateExport {
 
     public String gen_B09_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
-        if(sPosCode != "000100")
-        {
+        if (sPosCode != "000100") {
             return "";
         }
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle;
@@ -323,7 +327,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -343,11 +347,10 @@ public class SbvExcelTemplateExport {
         }
         return sfullPath;
     }
-    
+
     public String gen_B65_NHNN_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
-        if(sPosCode != "000100")
-        {
+        if (sPosCode != "000100") {
             return "";
         }
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle;
@@ -367,7 +370,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -390,8 +393,7 @@ public class SbvExcelTemplateExport {
 
     public String gen_B35_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
-        if(sPosCode != "000100")
-        {
+        if (sPosCode != "000100") {
             return "";
         }
         String sfileName, sfullPath = "", sTimeStamp, sSubTitle;
@@ -411,7 +413,7 @@ public class SbvExcelTemplateExport {
             calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
             //Thuc hien execute lay du lieu
             calstatement.execute();
-                //Lay cursor ra resultset
+            //Lay cursor ra resultset
 
             sfileName = (String) calstatement.getObject(2);
             sSubTitle = (String) calstatement.getObject(3);
@@ -537,30 +539,23 @@ public class SbvExcelTemplateExport {
                         CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() + " Loi khi khoi tao UTF-8 ExportFileHstdCt -> " + ex.getMessage());
                     }
                     try {
-                        if(sPosCode == "000100")
-                        {
-                             data = "@HD#01207004#01207000#1#Esign##" +"\r\n"   ;
+                        if (sPosCode == "000100") {
+                            data = "@HD#01207004#01207000#1#Esign##" + "\r\n";
+                        } else {
+                            data = "@HD#" + sBran_TQ + "#" + sBran_CN + "#1#Esign##" + "\r\n";
                         }
-                        else
-                        {
-                            data = "@HD#"+sBran_TQ + "#" + sBran_CN + "#1#Esign##" +"\r\n"   ;
-                        }
-                        
+
                         outfile.append(data);
                         String ngbc = "";
-                           ngbc = sfileName.substring(4, 10);
-                        
-                        
-                        data = "@B20#"+ngbc+"#Gui lai Bao cao#" +"\r\n";
+                        ngbc = sfileName.substring(4, 10);
+
+                        data = "@B20#" + ngbc + "#Gui lai Bao cao#" + "\r\n";
                         outfile.append(data);
-                        
-                        if(sPosCode == "000100")
-                        {
-                             data = "@FT#01207004#01207000#1#"  +"\r\n" ;
-                        }
-                        else
-                        {
-                            data = "@FT#"+sBran_TQ + "#" + sBran_CN + "#1#"  +"\r\n" ;
+
+                        if (sPosCode == "000100") {
+                            data = "@FT#01207004#01207000#1#" + "\r\n";
+                        } else {
+                            data = "@FT#" + sBran_TQ + "#" + sBran_CN + "#1#" + "\r\n";
                         }
                         outfile.append(data);
 
@@ -585,6 +580,7 @@ public class SbvExcelTemplateExport {
         }
         return sfullPath;
     }
+
     public String gen_B29TM_Report(String sPosCode, String sConflag, String sNgaybc,
             String sPeriod, String sPath) {
 
@@ -612,7 +608,7 @@ public class SbvExcelTemplateExport {
             sBran_TQ = (String) calstatement.getObject(6);
             sBran_CN = (String) calstatement.getObject(7);
 
-            sfullPath = sPath + sfileName ;
+            sfullPath = sPath + sfileName;
 //                    + ".txt";
 
             try {
@@ -632,30 +628,23 @@ public class SbvExcelTemplateExport {
                         CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() + " Loi khi khoi tao UTF-8 ExportFileHstdCt -> " + ex.getMessage());
                     }
                     try {
-                        if(sPosCode == "000100")
-                        {
-                             data = "@HD#01207004#01207000#1#Esign##" +"\r\n"   ;
+                        if (sPosCode == "000100") {
+                            data = "@HD#01207004#01207000#1#Esign##" + "\r\n";
+                        } else {
+                            data = "@HD#" + sBran_TQ + "#" + sBran_CN + "#1#Esign##" + "\r\n";
                         }
-                        else
-                        {
-                            data = "@HD#"+sBran_TQ + "#" + sBran_CN + "#1#Esign##" +"\r\n"   ;
-                        }
-                        
+
                         outfile.append(data);
                         String ngbc = "";
-                           ngbc = sfileName.substring(4, 10);
-                        
-                        
-                        data = "@B29#"+ngbc+"#Gui lai Bao cao#" +"\r\n";
+                        ngbc = sfileName.substring(4, 10);
+
+                        data = "@B29#" + ngbc + "#Gui lai Bao cao#" + "\r\n";
                         outfile.append(data);
-                        
-                        if(sPosCode == "000100")
-                        {
-                             data = "@FT#01207004#01207000#1#"  +"\r\n" ;
-                        }
-                        else
-                        {
-                            data = "@FT#"+sBran_TQ + "#" + sBran_CN + "#1#"  +"\r\n" ;
+
+                        if (sPosCode == "000100") {
+                            data = "@FT#01207004#01207000#1#" + "\r\n";
+                        } else {
+                            data = "@FT#" + sBran_TQ + "#" + sBran_CN + "#1#" + "\r\n";
                         }
                         outfile.append(data);
 
@@ -678,8 +667,70 @@ public class SbvExcelTemplateExport {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-     
+
         return sfullPath;
     }
-    
+
+    public String generateExcelFromCommisionModel(ArrayList<CommisionFeeModel> data, String posCd, String considateFlag, String reportDate,
+            String period, String outputDir) throws Exception {
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("FEE_REPORT");
+
+        CellStyle headerStyle = wb.createCellStyle();
+        Font font = wb.createFont();
+        font.setBold(true); // font đậm
+        headerStyle.setFont(font);
+
+        Row header = sheet.createRow(0);
+        String[] cols = {
+            "Serial no", "POS", "Account_GL_Flag",
+            "Account_GL_Number", "Debit / Credit", "Currency",
+            " TRANAMT ", "NARRATION"
+        };
+        for (int i = 0; i < cols.length; i++) {
+            Cell cell = header.createCell(i);
+            cell.setCellValue(cols[i].toUpperCase()); // in hoa
+            cell.setCellStyle(headerStyle);           // in đậm
+        }
+
+        int rowNum = 1;
+        int serialNo = 1;
+        for (CommisionFeeModel r : data) {
+            Row row = sheet.createRow(rowNum++);
+
+            row.createCell(0).setCellValue(serialNo++);
+            row.createCell(1).setCellValue(r.getPosCode());
+            row.createCell(2).setCellValue("A");
+            row.createCell(3).setCellValue(r.getLegacyAc());
+            row.createCell(4).setCellValue(r.getFlagDRCR());
+            row.createCell(5).setCellValue(r.getCurrency());
+            row.createCell(6).setCellValue(r.getAmount());
+            row.createCell(7).setCellValue(r.getReason());
+//            row.createCell(0).setCellValue(r.getPosCode());
+//            row.createCell(1).setCellValue(r.getRefNo());
+//            row.createCell(2).setCellValue(r.getValDate());
+//            row.createCell(3).setCellValue(r.getLegacyAc());
+//            row.createCell(4).setCellValue(r.getAccountPosCode());
+//            row.createCell(5).setCellValue(r.getFlagDRCR());
+//            row.createCell(6).setCellValue(r.getAmount());
+//            row.createCell(7).setCellValue(r.getReason());
+//            row.createCell(8).setCellValue(r.getCurrency());
+        }
+
+        for (int i = 0; i < cols.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        String fileName = "fee_" + posCd + "_" + reportDate + ".xlsx";
+        String fullPath = outputDir + File.separator + fileName;
+
+        try (FileOutputStream fos = new FileOutputStream(fullPath)) {
+            wb.write(fos);
+        }
+        wb.close();
+
+        return fullPath;
+    }
+
 }

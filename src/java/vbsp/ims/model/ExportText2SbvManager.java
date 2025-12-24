@@ -14,7 +14,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +31,7 @@ import vbsp.ims.report.fast.ListValue;
 import vbsp.ims.zip.FileZip;
 import vbsp.ims.restapi.*;
 import java.util.Date;
+import java.util.Locale;
 import vbsp.ims.util.*;
 
 /**
@@ -99,7 +103,7 @@ public class ExportText2SbvManager {
     //--------------------------------------------------------------------------
     public boolean exportTextFile(String report, String lstOfPos,
             String reportDate, String considateFlag, String period, String sbvSendIndiGroup,
-            boolean send2Sbv, boolean send9acc) {
+            boolean send2Sbv, boolean send9acc) throws ParseException, Exception {
         String mapReport = exportDao.getMappingReport(report);
         templateExport = new SbvExcelTemplateExport();
         Date dReportDate = DateUtil.stringToDate(reportDate, "dd-MMM-yyyy");
@@ -136,11 +140,98 @@ public class ExportText2SbvManager {
                     case "TT31_B20TM":
                     case "TT31_B29TM":
                     case "B65_NHNN":
-                        textFilePath = templateExport.generateExcelFile(mapReport, pos_cd,
-                                considateFlag, reportDate, period,
-                                Define.M_ROOT + Define.M_REPORT_XLS);
-                        zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                    case "PHI":
+                        SimpleDateFormat src = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                        SimpleDateFormat dest = new SimpleDateFormat("yyyyMMdd");
+                        int reportDateNum = Integer.parseInt(dest.format(src.parse(reportDate)));
+                        List<String> posList = Arrays.asList(pos_cd.split(","));
+
+                        List<String> generatedFiles = new ArrayList<>();
+
+//                        for (String pos : posList) {
+//
+//                            System.out.println("pos_cd = " + pos);
+//
+//                            ArrayList<CommisionFeeModel> commisionData = getCommisionFeeFromApi(pos, apiReportDate, "F");
+//
+//                            if (commisionData == null || commisionData.isEmpty()) {
+//                                continue;
+//                            }
+//                            textFilePath = null;
+//                            if (reportDateNum > 20250901) {
+//                                ensureFolder(Define.M_ROOT + Define.M_REPORT_XLS);
+//                                textFilePath = templateExport.generateExcelFromCommisionModel(
+//                                        commisionData,
+//                                        pos,
+//                                        considateFlag,
+//                                        reportDate,
+//                                        period,
+//                                        Define.M_ROOT + Define.M_REPORT_XLS
+//                                );
+//                            } else {
+//                                ensureFolder(Define.M_ROOT + Define.M_REPORT_TXT);
+//                                textFilePath = Define.M_ROOT + Define.M_REPORT_TXT
+//                                        + "/fee_" + pos + "_" + apiReportDate + ".txt";
+//
+//                                exportToFile(textFilePath, commisionData);
+//                            }
+//
+//                            generatedFiles.add(textFilePath);
+//                        }
+                        for (String pos : posList) {
+                            System.out.println("pos_cd = " + pos);
+
+                            ArrayList<CommisionFeeModel> commisionData = getCommisionFeeFromApi(pos, apiReportDate, "F");
+
+                            textFilePath = null;
+
+                            if (reportDateNum > 20250901) {
+                                ensureFolder(Define.M_ROOT + Define.M_REPORT_XLS);
+
+                                // Nếu không có dữ liệu, tạo Excel rỗng
+                                if (commisionData == null) {
+                                    commisionData = new ArrayList<>();
+                                }
+
+                                textFilePath = templateExport.generateExcelFromCommisionModel(
+                                        commisionData,
+                                        pos,
+                                        considateFlag,
+                                        reportDate,
+                                        period,
+                                        Define.M_ROOT + Define.M_REPORT_XLS
+                                );
+
+                            } else {
+                                ensureFolder(Define.M_ROOT + Define.M_REPORT_TXT);
+
+                                textFilePath = Define.M_ROOT + Define.M_REPORT_TXT
+                                        + "/fee_" + pos + "_" + apiReportDate + ".txt";
+
+                                if (commisionData == null) {
+                                    commisionData = new ArrayList<>();
+                                }
+                                exportToFile(textFilePath, commisionData);
+                            }
+
+                            generatedFiles.add(textFilePath);
+                        }
+
+                        if (!generatedFiles.isEmpty()) {
+                            zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                            ensureFolder(Define.M_ROOT + Define.M_REPORT_XLS);
+                            FileZip.ZipFileFromArray(new ArrayList<>(generatedFiles), zipPath);
+                        }
+
+                        // Zip tất cả file sau loop
+                        if (!generatedFiles.isEmpty()) {
+                            zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                            ensureFolder(Define.M_ROOT + Define.M_REPORT_XLS);
+                            FileZip.ZipFileFromArray(new ArrayList<>(generatedFiles), zipPath);
+                        }
+
                         break;
+
                     case "SBV-BAL":
                         String send2sbvStr;
                         if (send2Sbv) {
@@ -157,29 +248,24 @@ public class ExportText2SbvManager {
                                 reportDate, period, send2sbvStr, Define.M_ROOT + Define.M_REPORT_TXT);
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
-                    case "HOA_HONG":                        
+                    case "HOA_HONG":
                         textFilePath = Define.M_ROOT + Define.M_REPORT_TXT + "/commision_" + pos_cd + "_" + apiReportDate + ".txt";
                         exportCommisionFee(textFilePath, pos_cd, apiReportDate, "C");
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
-                    case "PHI":                        
-                        textFilePath = Define.M_ROOT + Define.M_REPORT_TXT + "/fee_" + pos_cd + "_" + apiReportDate + ".txt";
-                        exportCommisionFee(textFilePath, pos_cd, apiReportDate, "F");
-                        zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
-                        break;
-                    case "EX050001":                        
+                    case "EX050001":
                         textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag,
                                 reportDate, period, "", Define.M_ROOT + Define.M_REPORT_XLS);
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
                     default:
                         textFilePath = exportDao.getDataExportFile(
-                                mapReport, 
-                                pos_cd, 
+                                mapReport,
+                                pos_cd,
                                 considateFlag,
-                                reportDate, 
-                                period, 
-                                sbvSendIndiGroup, 
+                                reportDate,
+                                period,
+                                sbvSendIndiGroup,
                                 Define.M_ROOT + Define.M_REPORT_TXT);
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
@@ -232,19 +318,16 @@ public class ExportText2SbvManager {
             saveDir.mkdir();
         }
     }
-    
 
 // type : C - Hoa hong, F - Phi    
-    void exportCommisionFee(String commisionFile, String posCode, String reportDate, String type)
-    {
-        DuLieuNTService service = new DuLieuNTService();        
+    void exportCommisionFee(String commisionFile, String posCode, String reportDate, String type) {
+        DuLieuNTService service = new DuLieuNTService();
         //String commisionFile = Define.M_ROOT + Define.M_REPORT_TXT + "/commision.txt";
         //String feeFile = Define.M_ROOT + Define.M_REPORT_TXT + "/fee.txt";
         //Date dReportDate = DateUtil.stringToDate(reportDate, "dd-MMM-yyyy");
         //String apiReportDate = DateUtil.dateToString(dReportDate, "yyyyMMdd");
-        ArrayList<CommisionFeeModel> commisionData = service.getCommisionFeeData(posCode, reportDate, type); 
-        if (commisionData != null && commisionData.size() > 0)
-        {
+        ArrayList<CommisionFeeModel> commisionData = service.getCommisionFeeData(posCode, reportDate, type);
+        if (commisionData != null && commisionData.size() > 0) {
             exportToFile(commisionFile, commisionData);
         }
 //        ArrayList<CommisionFeeModel> feeData = service.getCommisionFeeData(posCode, reportDate, "F"); 
@@ -252,35 +335,69 @@ public class ExportText2SbvManager {
 //        {
 //            exportToFile(feeFile, feeData);
 //        }
-        
+
     }
-    
-    void exportToFile(String filePath, ArrayList<CommisionFeeModel> data)
-    {
+
+    void exportToFile(String filePath, ArrayList<CommisionFeeModel> data) {
         try {
             Writer outfile = null;
             try {
                 outfile = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(filePath), "UTF-8"));
+                        new FileOutputStream(filePath), "UTF-8"));
             } catch (UnsupportedEncodingException ex) {
-                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName()
                         + " Loi khi khoi tao UTF-8 ExportFileHstdCt -> " + ex.getMessage());
             }
             try {
-                for(int i = 0; i < data.size(); i++)
-                {
-                    String strRow =  data.get(i).toString() + "\r\n";
+                for (int i = 0; i < data.size(); i++) {
+                    String strRow = data.get(i).toString() + "\r\n";
                     Writer append = outfile.append(strRow);
-                }                
+                }
                 outfile.flush();
-                outfile.close();                
+                outfile.close();
             } catch (IOException efile) {
-                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+                CoreLogger.error(ExportFileHstdCt.class.getCanonicalName()
                         + " Loi khi ghi file ExportFile2Sbv -> " + efile.getMessage());
             }
         } catch (Exception e) {
-            CoreLogger.error(ExportFileHstdCt.class.getCanonicalName() 
+            CoreLogger.error(ExportFileHstdCt.class.getCanonicalName()
                     + " Loi khi getdata ExportFile2Sbv -> " + e.getMessage());
+        }
+    }
+
+    public ArrayList<CommisionFeeModel> getCommisionFeeFromApi(String posCode, String reportDate, String flagType) {
+        DuLieuNTService service = new DuLieuNTService();
+        ArrayList<CommisionFeeModel> result = new ArrayList<>();
+
+        ArrayList<CommisionFeeModel> apiResponse
+                = service.getCommisionFeeData(posCode, reportDate, "F");
+        if (apiResponse == null || apiResponse.isEmpty()) {
+            return result;
+        }
+        for (CommisionFeeModel r : apiResponse) {
+            CommisionFeeModel m = new CommisionFeeModel();
+            m.setPosCode(r.getPosCode());
+            m.setRefNo(r.getRefNo());
+            m.setValDate(r.getValDate());
+            m.setLegacyAc(r.getLegacyAc());
+            m.setAccountPosCode(r.getAccountPosCode());
+            m.setFlagDRCR(r.getFlagDRCR());
+
+            m.setAmount(r.getAmount());
+
+            m.setReason(r.getReason());
+            m.setCurrency(r.getCurrency());
+
+            result.add(m);
+        }
+
+        return result;
+    }
+
+    private void ensureFolder(String folderPath) {
+        File dir = new File(folderPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
     }
 }

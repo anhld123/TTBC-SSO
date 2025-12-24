@@ -99,7 +99,7 @@ public class ExportText2SbvAction extends ActionSupport
     }
 
     //--------------------------------------------------------------------------
-    public String exportFile() {
+    public String exportFile() throws Exception {
         if (!selectedReport.equals("EX050001") && (reportPeriod == null || selectedReport == null
                 || reportPeriod.isEmpty() || selectedReport.isEmpty()
                 || reportPeriod.trim().equals("NULL"))) {
