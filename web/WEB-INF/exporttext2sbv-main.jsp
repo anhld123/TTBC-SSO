@@ -69,12 +69,14 @@
         $("#contentDiv").hide();
         $("#loadingImageDiv").show();
     });
+
     $.subscribe('completediv1', function (event, data) {
         com.mudrick.onPeopleTableLoad();
         $("#loadingImageDiv").hide();
         $("#contentDiv").show();
         //$("#contentDiv").slideDown('slow');
     });
+
     function clk_glkhtd() {
         var lstPos = "";
         $('#treeView').jstree("get_checked", null, true).each(
@@ -86,6 +88,7 @@
     $(function () {
         new DateMask("dd/MM/yyyy", "reportDate");
     });
+
     if (!com)
         var com = {};
     com.mudrick = {
@@ -103,6 +106,7 @@
                     return false;
                 });
             });
+
             $("#contentDiv .pagelinks a").each(function () {
                 // Iterate over the pagination-generated links to override also
                 $(this).click(function () {
@@ -112,12 +116,14 @@
                     return false;
                 });
             });
+
             $("#contentDiv .pagelinks strong").each(function () {
                 var htmlString = $(this).html();
                 $(this).text("Trang " + htmlString);
             });
         }
     };
+
 //    $(document).ready(function() {
 //        // Load the initial rendering when the dom is ready.  Assuming you are injecting into a div
 //        // with id "peopleData" that exists in the page.    
@@ -162,7 +168,7 @@
                 <table style="border:solid 3px #cccccc;width: 75%; padding: 5px 5px 10px 5px;"
                        CELLSPACING="5px">
                     <tr>
-                        <td>Báo cáo:</td>
+                        <td>Báo cáo: </td>
                         <td>
                             <s:url var="buildComboUrl1" action="buildReportGroupCombo"></s:url>
                             <sj:select href="%{buildComboUrl1}" 
@@ -174,38 +180,41 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       onchange="js_changetopic(); toggleTitles();"
-                                       headerValue="--- Chọn báo cáo ---" 
-                                       theme="simple"></sj:select>
+                                       onchange="js_changetopic();"
+                                       headerValue="--- Chọn báo cáo ---" theme="simple"
+                                       ></sj:select>   
                             </td>
                         </tr>
-                        <tr class="optional-parameter1">
-                            <td>Ngày báo cáo:</td>
+                        <tr>
+                            <td>
+                                Ngày báo cáo: 
+                            </td>
                             <td>                        
-                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}" onblur="validatedate(this.value)"
+                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}"  onblur="validatedate(this.value)"
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy"
                                            id="selectedrptDate" size="15"/>
                         </td>                    
                     </tr>
-                    <tr class="optional-parameter2" id="title_1">
-                        <td>Kỳ báo cáo:</td>
+                    <tr id="title_1">
+                        <td>
+                            Kỳ báo cáo: 
+                        </td>
                         <td>                        
                             <s:url var="buildComboUrl2" action="buildReportPeriodCombo"></s:url>
-                            <sj:select href="%{buildComboUrl2}" 
+                            <sj:select href="%{buildComboUrl1}" 
                                        name="reportPeriod"
                                        id="reportPeriod"
                                        list="lstRptPeriod"      
-                                       reloadTopics="reloadPeriod"
+                                       reloadTopics="reloadModuleList"
                                        listKey="sKey"
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       headerValue="--- Chọn kỳ báo cáo ---" 
-                                       theme="simple"></sj:select>
+                                       headerValue="--- Chọn kỳ báo cáo ---" theme="simple"
+                                       ></sj:select>
                             </td>                    
                         </tr>
-
-                        <tr class="optional-parameter3" id="title_2">
+                        <tr id="title_2">
                             <td>Tên file:</td>
                             <td>                        
                             <s:url var="buildComboUrl3" action="buildPara"></s:url>
@@ -221,18 +230,9 @@
                                        headerValue="--- Chọn file báo cáo ---"
                                        theme="simple" />
                         </td>
-                        <!--                            <td>                        
-                                                        <select name="txtGetData" id="txtGetData">                                                    
-                                                            <option value="1">KYC_01</option>                                                    
-                                                            <option value="2">KYC_02</option>
-                                                            <option value="3">KYC_03</option>
-                                                        </select> 
-                                                    </td>                    -->
-                    </tr>
-                    <%--</s:else>--%>
-                    <!--                        <tr>
-                                                <td colspan="2"><br/></td>
-                                            </tr>-->
+                        <!--                        <tr>
+                                                    <td colspan="2"><br/></td>
+                                                </tr>-->
                     <tr>
                         <td></td>
                         <td>
@@ -299,5 +299,3 @@
         toggleTitles(); // chạy lúc load
     });
 </script>
-
-

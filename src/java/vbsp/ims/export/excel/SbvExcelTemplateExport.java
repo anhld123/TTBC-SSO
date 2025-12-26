@@ -701,7 +701,7 @@ public class SbvExcelTemplateExport {
 
             row.createCell(0).setCellValue(serialNo++);
             row.createCell(1).setCellValue(r.getPosCode());
-            row.createCell(2).setCellValue("A");
+            row.createCell(2).setCellValue(r.getAccountType());
             row.createCell(3).setCellValue(r.getLegacyAc());
             row.createCell(4).setCellValue(r.getFlagDRCR());
             row.createCell(5).setCellValue(r.getCurrency());

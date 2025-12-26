@@ -12,9 +12,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
  *
  * @author HP
  */
-
-@XmlAccessorType (XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CommisionFeeModel {
+
     private String posCode;
     private String refNo;
     private String valDate;
@@ -24,6 +24,15 @@ public class CommisionFeeModel {
     private int amount;
     private String reason;
     private String currency;
+    private String accountType;
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
 
     public String getPosCode() {
         return posCode;
@@ -96,12 +105,10 @@ public class CommisionFeeModel {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    
-    @Override
-    public String toString()
-    {
-        return posCode + "~" + refNo + "~" + valDate + "~" + legacyAc + "~" + accountPosCode + "~" + flagDRCR +"~" +  String.valueOf(amount) +"~" +  reason +"~" +  currency + "~" ;
-    }
-    
-}
 
+    @Override
+    public String toString() {
+        return posCode + "~" + refNo + "~" + valDate + "~" + legacyAc + "~" + accountPosCode + "~" + flagDRCR + "~" + String.valueOf(amount) + "~" + reason + "~" + currency + "~";
+    }
+
+}
