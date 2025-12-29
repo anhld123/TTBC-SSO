@@ -64,10 +64,10 @@
 
             // Tinh cho dong A1
             for (i = 0; i < arrCot.length; i++) {
-                
+
                 let rawValue06 = $(arrCot[i]).eq(6).val();
                 let value06 = rawValue06 === null || rawValue06 === "" ? 0 : parseFloat(rawValue06);
-                
+
                 //Tinh tong cho dong "Các khoan thu noi bang"
                 $(arrCot[i]).eq(1).val(
                         parseFloat($(arrCot[i]).eq(2).val())
@@ -90,13 +90,13 @@
                 //Tinh tong cho dong "Các khoản được cộng"
                 let rawValue11 = $(arrCot[i]).eq(11).val();
                 let value11 = rawValue11 === null || rawValue11 === "" ? 0 : parseFloat(rawValue11);
-                
+
                 let rawValue12 = $(arrCot[i]).eq(12).val();
                 let value12 = rawValue12 === null || rawValue12 === "" ? 0 : parseFloat(rawValue12);
-                
+
                 let rawValue13 = $(arrCot[i]).eq(13).val();
                 let value13 = rawValue13 === null || rawValue13 === "" ? 0 : parseFloat(rawValue13);
-                
+
                 $(arrCot[i]).eq(8).val(parseFloat($(arrCot[i]).eq(9).val())
                         + parseFloat($(arrCot[i]).eq(10).val())
                         + value11
@@ -348,7 +348,7 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5    <s:property value='FONTFORMAT'/> TEN_KH" onfocus="this.select()"
                                    readonly/>
                         </td>
-                        <s:if test="MA.equalsIgnoreCase('CT9999') && Grade.equalsIgnoreCase('1')">
+                        <s:if test="(MA.equalsIgnoreCase('CT9999')||MA.equalsIgnoreCase('CT9998') )&& Grade.equalsIgnoreCase('1')">
                             <td align = "right" class="TD_GHICHU">
                                 <input type="text" value="<s:property  value="D10" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="D10 number5 <s:property value='FONTFORMAT'/>  <s:property value='FONTFORMAT'/> TEN_KH" onfocus="this.select()" onblur="autoEvaluate()"                                  

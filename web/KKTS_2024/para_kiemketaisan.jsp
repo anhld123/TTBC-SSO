@@ -284,6 +284,12 @@
                                 document.getElementById("lstDm114_" + i).style.backgroundColor = "#EEAFA6";
                                 return;
                             }
+                            var lstD7 = document.getElementById("D7_" + i).value;
+                            if (lstD7 === "" || lstD7 ==="0") {
+                                $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Bạn chưa nhập sổ sách kiểm kê!</h>");
+                                document.getElementById("D7_" + i).style.backgroundColor = "#EEAFA6";
+                                return;
+                            }
                         } catch (e) {
                         }
                     }
