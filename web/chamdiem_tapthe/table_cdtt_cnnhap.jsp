@@ -141,8 +141,7 @@
                                    <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
                                          && !MA.equalsIgnoreCase('CDTT00')&&!MA.equalsIgnoreCase('CDTT02A')
                                          &&!MA.equalsIgnoreCase('CDTT03')
-                                         &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
-                                         &&!MA.equalsIgnoreCase('CDTT06A')&&!MA.equalsIgnoreCase('CDTT08')
+                                         &&!MA.equalsIgnoreCase('CDTT08')
                                          &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
                                          &&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
@@ -176,8 +175,7 @@
                                          (!MA.equalsIgnoreCase('CDTT01') && !MA.equalsIgnoreCase('CDTT02') &&
                                          !MA.equalsIgnoreCase('CDTT00') && !MA.equalsIgnoreCase('CDTT02A') &&
                                          !MA.equalsIgnoreCase('CDTT03') && 
-                                         !MA.equalsIgnoreCase('CDTT05') && !MA.equalsIgnoreCase('CDTT06') &&
-                                         !MA.equalsIgnoreCase('CDTT06A') && 
+                                         
                                          !MA.equalsIgnoreCase('CDTT08') && !MA.equalsIgnoreCase('CDTT09') &&
                                          !MA.equalsIgnoreCase('CDTT140102') && !MA.equalsIgnoreCase('CDTT140201') &&
                                          !MA.equalsIgnoreCase('CDTT140202') && !MA.equalsIgnoreCase('CDTT140301') &&

@@ -123,222 +123,218 @@
             }
 
             $("#idSave").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-                let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
-                if (aCheck) {
-                    var isValid = true;
+            $('#message_suc_err').empty();
+                    $('#divExportReportLink').empty();
+                    let aCheck = confirm("Bạn chắc chắn muốn lưu số liệu báo cáo ?");
+                    if (aCheck) {
+            var isValid = true;
                     var ngaybc = document.getElementById('ngay_bc_DATE').value.trim();
                     var ngaybcParts = ngaybc.split('/');
-
                     var ngaybcDay = parseInt(ngaybcParts[0], 10);
                     var ngaybcMonth = parseInt(ngaybcParts[1], 10);
                     var ngaybcYear = parseInt(ngaybcParts[2], 10);
-
                     var currentDate = new Date();
                     var currentDay = currentDate.getDate();
                     var currentMonth = currentDate.getMonth() + 1; // JS month = 0-11
                     var currentYear = currentDate.getFullYear();
-
 // Lấy ngày cuối cùng của tháng hiện tại
                     var lastDayOfCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
-
 // Nếu hôm nay < ngày cuối tháng => cho nhập ngày cuối tháng trước
                     if (currentDay < lastDayOfCurrentMonth) {
-                        var allowedMonth = currentMonth - 1;
-                        var allowedYear = currentYear;
-                        if (allowedMonth === 0) {
-                            allowedMonth = 12;
-                            allowedYear--;
-                        }
-                        var lastDayOfAllowedMonth = new Date(allowedYear, allowedMonth, 0).getDate();
-
+            var allowedMonth = currentMonth - 1;
+                    var allowedYear = currentYear;
+                    if (allowedMonth === 0) {
+            allowedMonth = 12;
+                    allowedYear--;
+            }
+            var lastDayOfAllowedMonth = new Date(allowedYear, allowedMonth, 0).getDate();
                         if (!(ngaybcDay === lastDayOfAllowedMonth && ngaybcMonth === allowedMonth && ngaybcYear === allowedYear)) {
                             alert("Hết hạn nhập dữ liệu, chọn tháng " + currentDate.getMonth() + " để thao tác!");
                             return;
                         }
-                    } else {
-                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
-                        var nextMonth = currentMonth + 1;
-                        var nextYear = currentYear;
-                        if (nextMonth > 12) {
-                            nextMonth = 1;
-                            nextYear++;
-                        }
-
-                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
-                        var allowedDay = lastDayOfNextMonth - 1;
-
-                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
-                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
-                            return;
-                        }
                     }
+//                    } else {
+//                        // Hôm nay >= ngày cuối tháng => chỉ được nhập ngày cuối tháng kế tiếp - 1
+//                        var nextMonth = currentMonth + 1;
+//                        var nextYear = currentYear;
+//                        if (nextMonth > 12) {
+//                            nextMonth = 1;
+//                            nextYear++;
+//                        }
+//
+//                        var lastDayOfNextMonth = new Date(nextYear, nextMonth, 0).getDate();
+//                        var allowedDay = lastDayOfNextMonth - 1;
+//
+//                        if (!(ngaybcDay === allowedDay && ngaybcMonth === nextMonth && ngaybcYear === nextYear)) {
+//                            alert("Chỉ được nhập ngày trước ngày cuối của tháng kế tiếp!");
+//                            return;
+//                        }
+//                    }
                     var chot = document.getElementById("chotsl").value;
                     if (chot === "2" || chot === "1") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
-                        return;
-                    }
-                    var chotcic = document.getElementById("chotcic").value;
+            $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
+                    return;
+            }
+            var chotcic = document.getElementById("chotcic").value;
                     if (chotcic === "2" || chotcic === "1") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, không thể thao tác!</h>");
-                        return;
-                    }
-                    if (isValid) {
-                        var url, sdata;
-                        url = "save_TGTV_2025.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
+            $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, không thể thao tác!</h>");
+                    return;
+            }
+            if (isValid) {
+            var url, sdata;
+                    url = "save_TGTV_2025.action";
+                    sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
+                    $.ajax({
+                    type: "POST",
                             url: url,
                             data: sdata,
                             success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Lưu dữ liệu.");
+                            if (data === "200") {
+                            alert("Thành công: Lưu dữ liệu.");
                                     $('#message_suc_err').html("<h style='color: green; font-size: 13px ; font-weight: bold'>Bạn đã lưu dữ liệu thành công!</h>");
                                     onLoadData();
-                                } else {
-                                    alert("Lỗi: Lưu dữ liệu.");
+                            } else {
+                            alert("Lỗi: Lưu dữ liệu.");
                                     onLoadData();
-                                }
+                            }
                             },
                             complete: function () {
-                                btnDisabled(0);
+                            btnDisabled(0);
                             },
                             error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
+                            alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                    onLoadData();
                             }
-                        });
-                    }
-                }
+                    });
+            }
+            }
 
             });
-            function btnDisabled(status) {
-                if (status === 1) {
+                    function btnDisabled(status) {
+                    if (status === 1) {
                     $("#loadDatatmp").prop('disabled', true);
-                    $("#idPheduyet").prop('disabled', true);
-                    $("#idSave").prop('disabled', true);
-                    $("#idSaveLock").prop('disabled', true);
-                    $("#idDelete").prop('disabled', true);
-                } else {
+                            $("#idPheduyet").prop('disabled', true);
+                            $("#idSave").prop('disabled', true);
+                            $("#idSaveLock").prop('disabled', true);
+                            $("#idDelete").prop('disabled', true);
+                    } else {
                     $("#idPheduyet").prop('disabled', false);
-                    $("#idSave").prop('disabled', false);
-                    $("#loadDatatmp").prop('disabled', false);
-                    $("#idSaveLock").prop('disabled', false);
-                    $("#idDelete").prop('disabled', false);
-                }
-            }
+                            $("#idSave").prop('disabled', false);
+                            $("#loadDatatmp").prop('disabled', false);
+                            $("#idSaveLock").prop('disabled', false);
+                            $("#idDelete").prop('disabled', false);
+                    }
+                    }
             ;
-            function countCheckedItem() {
-                let counter = 0;
-                $('.myCheckBox').each(function () {
+                    function countCheckedItem() {
+                    let counter = 0;
+                            $('.myCheckBox').each(function () {
                     if (this.checked === true)
-                        counter++;
-                });
-                return counter;
-            }
+                            counter++;
+                    });
+                            return counter;
+                    }
             function wait(ms) {
-                var start = new Date().getTime();
-                var end = start;
-                while (end < start + ms) {
-                    end = new Date().getTime();
-                }
+            var start = new Date().getTime();
+                    var end = start;
+                    while (end < start + ms) {
+            end = new Date().getTime();
+            }
             }
 
             function onUpExcel()
             {
-                $('#message_suc_err').empty();
-                $('#divExportReport').empty();
-                $("#idUpExcel")[0].click();
-                bsubmit = true;
+            $('#message_suc_err').empty();
+                    $('#divExportReport').empty();
+                    $("#idUpExcel")[0].click();
+                    bsubmit = true;
             }
 
             // TRUNG BO SUNG PHAN THUYET MINH
 
             $.subscribe("beforediv_data", function (event, data) {
-                $("#loadingImageDiv_data").show();
+            $("#loadingImageDiv_data").show();
             });
-            $.subscribe("completediv_data", function (event, data) {
-                $("#loadingImageDiv_data").hide();
-            });
-            $.subscribe("beforediv_ss", function (event, data) {
-                $("#loadingImageDiv_data").show();
-            });
-            $.subscribe("completediv_ss", function (event, data) {
-                $("#loadingImageDiv_data").hide();
-            });
-            $.subscribe("beforediv_send", function (event, data) {
-                $("#loadingImageDiv_data").show();
-            });
-            $.subscribe("completediv_send", function (event, data) {
-                $("#loadingImageDiv_data").hide();
-            });
-            $("#idSend").click(function () {
-                $('#message_suc_err').empty();
-                $('#divExportReportLink').empty();
-                let aCheck = confirm("Bạn chắc chắn muốn chốt số liệu báo cáo của PGD?");
-                if (aCheck) {
-                    var chot = document.getElementById("chotsl").value;
+                    $.subscribe("completediv_data", function (event, data) {
+                    $("#loadingImageDiv_data").hide();
+                    });
+                    $.subscribe("beforediv_ss", function (event, data) {
+                    $("#loadingImageDiv_data").show();
+                    });
+                    $.subscribe("completediv_ss", function (event, data) {
+                    $("#loadingImageDiv_data").hide();
+                    });
+                    $.subscribe("beforediv_send", function (event, data) {
+                    $("#loadingImageDiv_data").show();
+                    });
+                    $.subscribe("completediv_send", function (event, data) {
+                    $("#loadingImageDiv_data").hide();
+                    });
+                    $("#idSend").click(function () {
+            $('#message_suc_err').empty();
+                    $('#divExportReportLink').empty();
+                    let aCheck = confirm("Bạn chắc chắn muốn chốt số liệu báo cáo của PGD?");
+                    if (aCheck) {
+            var chot = document.getElementById("chotsl").value;
                     if (chot === "2" || chot === "1") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
-                        return;
-                    }
-                    var chotcic = document.getElementById("chotcic").value;
+            $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: TW đã khóa nhập dữ liệu!</h>");
+                    return;
+            }
+            var chotcic = document.getElementById("chotcic").value;
                     if (chotcic === "2" || chotcic === "1") {
-                        $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, khoogn thể thao tác!</h>");
-                        return;
-                    }
-                    var isValid = true;
+            $('#message_suc_err').html("<h class='color_11' style='color: red; font-size: 13px ; font-weight: bold'> Cảnh báo: Dữ liệu đã chốt, khoogn thể thao tác!</h>");
+                    return;
+            }
+            var isValid = true;
                     if (isValid) {
-                        var url, sdata;
-                        url = "lock_TGTV_2025_c1.action";
-                        sdata = jQuery("#frmdata").serialize();
-                        $("#viewData").html('<img src="img/loading.gif"/>');
-                        btnDisabled(1);
-                        $.ajax({
-                            type: "POST",
+            var url, sdata;
+                    url = "lock_TGTV_2025_c1.action";
+                    sdata = jQuery("#frmdata").serialize();
+                    $("#viewData").html('<img src="img/loading.gif"/>');
+                    btnDisabled(1);
+                    $.ajax({
+                    type: "POST",
                             url: url,
                             data: sdata,
                             success: function (data) {
-                                if (data === "200") {
-                                    alert("Thành công: Chốt dữ liệu.");
+                            if (data === "200") {
+                            alert("Thành công: Chốt dữ liệu.");
                                     onLoadData();
-                                } else {
-                                    alert("Lỗi: Chốt dữ liệu.");
+                            } else {
+                            alert("Lỗi: Chốt dữ liệu.");
                                     onLoadData();
-                                }
+                            }
                             },
                             complete: function () {
-                                btnDisabled(0);
+                            btnDisabled(0);
                             },
                             error: function (request) {
-                                alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
-                                onLoadData();
+                            alert("Lỗi: Vui lòng liên hệ với quản trị viên.");
+                                    onLoadData();
                             }
-                        });
-                    }
-                }
+                    });
+            }
+            }
 
             });
-            function reLoadValue(val) {
-                var var2, vartxt, selected;
-                $("#mato").children().remove().end();
-                $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
-                $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
-                $("#mato_data > option").each(function () {
+                    function reLoadValue(val) {
+                    var var2, vartxt, selected;
+                            $("#mato").children().remove().end();
+                            $("#mato").prepend("<option value='000000_0000000' " + selected + "> -- Tất cả -- </option>");
+                            $("#mato").prepend("<option value='000000_NOGROUP' " + selected + "> NOGROUP -> Trực tiếp</option>");
+                            $("#mato_data > option").each(function () {
                     var2 = $(this).val().substr(0, 6);
-                    if (val.trim() === var2.trim()) {
-                        $(this).val() === vartxt ? selected = " selected" : selected = "";
-                        $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
+                            if (val.trim() === var2.trim()) {
+                    $(this).val() === vartxt ? selected = " selected" : selected = "";
+                            $("#mato").prepend("<option value='" + $(this).val() + "' " + selected + "> " + $(this).text() + " </option>");
                     }
-                });
-                $("#mato").html($("#mato option").sort(function (a, b) {
-                    return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;
-                }));
-            }
+                    });
+                            $("#mato").html($("#mato option").sort(function (a, b) {
+                    return a.text === b.text ? 0 : a.text < b.text ? - 1 : 1;
+                    }));
+                    }
             ;
         </script>
     </head>
@@ -431,80 +427,73 @@
         </s:form>
 
         <script>
-            $(document).ready(function () {
-                function updateDatepicker() {
-                    var datepicker = $('#ngay_bc_DATE');
+                    $(document).ready(function () {
+            function updateDatepicker() {
+            var datepicker = $('#ngay_bc_DATE');
                     var currentDate = new Date();
                     var year = currentDate.getFullYear();
                     var month = currentDate.getMonth(); // Tháng hiện tại (0-based)
 
                     // Tính ngày cuối cùng của tháng trước
                     var lastDayOfPreviousMonth = new Date(year, month, 0);
-                    var formattedDate = ('0' + lastDayOfPreviousMonth.getDate()).slice(-2) + '/' +
-                            ('0' + (lastDayOfPreviousMonth.getMonth() + 1)).slice(-2) + '/' +
-                            lastDayOfPreviousMonth.getFullYear();
-
+                    var formattedDate = ('0' + lastDayOfPreviousMonth.getDate()).slice( - 2) + '/' +
+                    ('0' + (lastDayOfPreviousMonth.getMonth() + 1)).slice( - 2) + '/' +
+                    lastDayOfPreviousMonth.getFullYear();
                     // Đặt giá trị mặc định cho datepicker
                     datepicker.val(formattedDate);
-
                     // Cập nhật cấu hình datepicker để chỉ cho phép chọn ngày cuối cùng của các tháng
                     datepicker.datepicker("option", {
-                        beforeShowDay: function (date) {
-                            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    beforeShowDay: function (date) {
+                    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                             var isLastDay = date.getTime() === lastDay.getTime();
                             return [isLastDay, ""];
-                        }
+                    }
                     });
-                }
-
-                // Khởi tạo datepicker
-                $('#ngay_bc_DATE').datepicker({
-                    dateFormat: 'dd/mm/yy'
-                });
-
-                // Gọi hàm cập nhật datepicker
-                updateDatepicker();
-            });
-
-
-            function callDirectLink(link) {
-                PopupCenter(link, 'Upload excel', 800, 400);
             }
+
+            // Khởi tạo datepicker
+            $('#ngay_bc_DATE').datepicker({
+            dateFormat: 'dd/mm/yy'
+            });
+                    // Gọi hàm cập nhật datepicker
+                    updateDatepicker();
+            });
+                    function callDirectLink(link) {
+                    PopupCenter(link, 'Upload excel', 800, 400);
+                    }
             function PopupCenter(pageURL, title, w, h) {
-                var left = (screen.width / 2) - (w / 2);
-                var top = (screen.height / 2) - (h / 2);
-                var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-                return targetWin;
+            var left = (screen.width / 2) - (w / 2);
+                    var top = (screen.height / 2) - (h / 2);
+                    var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+                    return targetWin;
             }
             $(document).ready(function () {
-                $('#mato').on('change', function () {
-                    const mato = $("#mato").val();
+            $('#mato').on('change', function () {
+            const mato = $("#mato").val();
                     if (mato === '000000_0000000') {
-                        $('#idSaveLock').show();
-                    } else {
-                        $('#idSaveLock').hide();
-                    }
-                });
-
-                // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
-                if ($('#mato').val() === '000000_0000000') {
-                    $('#idSaveLock').show();
-                }
+            $('#idSaveLock').show();
+            } else {
+            $('#idSaveLock').hide();
+            }
             });
-
-            $(document).ready(function () {
-                $('#txtGetData').on('change', function () {
-                    const txtGetData = $("#txtGetData").val();
+                    // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
+                    if ($('#mato').val() === '000000_0000000') {
+            $('#idSaveLock').show();
+            }
+            });
+                    $(document).ready(function () {
+            $('#txtGetData').on('change', function () {
+            const txtGetData = $("#txtGetData").val();
                     if (txtGetData === '0') {
-                        $('#idSave').show();
-                    } else {
-                        $('#idSave').hide();
-                    }
-                });
-                // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
-                if ($('#txtGetData').val() === '0') {
-                    $('#idSave').show();
-                }
+            $('#idSave').show();
+            } else {
+            $('#idSave').hide();
+            }
+            });
+                    // Kiểm tra giá trị ban đầu nếu đã được chọn sẵn
+                    if ($('#txtGetData').val() === '0') {
+            $('#idSave').show();
+            }
             });
         </script>         
     </body>
