@@ -690,8 +690,8 @@ public class SbvExcelTemplateExport {
         };
         for (int i = 0; i < cols.length; i++) {
             Cell cell = header.createCell(i);
-            cell.setCellValue(cols[i].toUpperCase()); // in hoa
-            cell.setCellStyle(headerStyle);           // in đậm
+            cell.setCellValue(cols[i]);
+            cell.setCellStyle(headerStyle);
         }
 
         int rowNum = 1;
@@ -722,7 +722,7 @@ public class SbvExcelTemplateExport {
             sheet.autoSizeColumn(i);
         }
 
-        String fileName = "fee_" + posCd + "_" + reportDate + ".xlsx";
+        String fileName = "fee_" + posCd + "_" + reportDate + ".xls";
         String fullPath = outputDir + File.separator + fileName;
 
         try (FileOutputStream fos = new FileOutputStream(fullPath)) {
