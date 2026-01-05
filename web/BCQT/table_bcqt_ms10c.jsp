@@ -46,7 +46,7 @@
                                 onfocus="clickme(this.parentNode.parentNode.rowIndex);" \n\
                                 onblur="outme(this.parentNode.parentNode.rowIndex);" /></td>\n\
                                 <td><input type="text" value="' + rand(12).toUpperCase() + '" id="D2" name="lstDulieuNt[' + rowCount + '].D2" \n\
-                                class="css_text" readonly="readonly" \n\
+                                class="css_text" \n\
                                 onfocus="clickme(this.parentNode.parentNode.rowIndex);" \n\
                                 onblur="outme(this.parentNode.parentNode.rowIndex);" /></td>\n\
                                 <td><input type="text" value="0" id="D5" name="lstDulieuNt[' + rowCount + '].D5" \n\
