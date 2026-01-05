@@ -7,6 +7,9 @@ package vbsp.ims.khnv2021.excel;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,6 +57,7 @@ import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.khnv2021.model.DULIEU_NT_100;
 import vbsp.ims.khnv2021.model.DistrictInfo;
 import vbsp.ims.model.khnv.POSModel;
@@ -2198,6 +2202,45 @@ public class ExcelExport {
                 XSSFCellStyle codeStyle;
                 XSSFCellStyle nameStyle;
                 XSSFCellStyle lockStyle;
+
+                XSSFWorkbook workbook1 = sheet.getWorkbook();
+                XSSFCellStyle boldCenterStyle = workbook1.createCellStyle();
+
+                XSSFFont boldFont = workbook1.createFont();
+                boldFont.setBold(true);
+                boldFont.setFontName("Times New Roman"); // font Times New Roman
+                boldFont.setFontHeightInPoints((short) 12);
+                boldCenterStyle.setFont(boldFont);
+//                boldCenterStyle.setAlignment(HorizontalAlignment.CENTER);
+//                boldCenterStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+                String posDesc = "";
+                String addCity = "";
+                Connection conn = new DaoConnect().getConnect();
+                String sql = "SELECT UPPER(POS_DESC) POS_DESC, UPPER(ADD_CITY) ADD_CITY FROM PO850MB WHERE POS_CD = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, posCode);
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    posDesc = rs.getString("POS_DESC");
+                    addCity = rs.getString("ADD_CITY");
+                }
+
+                rs.close();
+                ps.close();
+
+                String title1 = "1".equals(capbc) ? posDesc : "2".equals(capbc) ? addCity : "";
+
+                XSSFRow rowTitle1 = sheet.getRow(3);
+                if (rowTitle1 == null) {
+                    rowTitle1 = sheet.createRow(3);
+                }
+
+                XSSFCell cellTitle1 = rowTitle1.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cellTitle1.setCellValue(title1);
+                cellTitle1.setCellStyle(boldCenterStyle);
+
                 for (int i = 0; i < lstData.size(); i++) {
                     XSSFRow xssfRow = sheet.getRow(i + ReportTemplate.MAU_01A_START_ROW);
                     if (xssfRow == null) {
@@ -2251,22 +2294,40 @@ public class ExcelExport {
                     XSSFCellStyle numberStyletmp = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
                     XSSFCellStyle numberStyletmp1 = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
 
-                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCellStyle cellStyle = (i == 0 || i == 1 || i == 2 || i == 3 
-                            || i == 7 || i == 8 || i == 29 || i == 36) ? numberStyletmp : numberStyletmp1;
-                    cellStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    // style KHÓA
+                    XSSFCellStyle numberLockStyle = workbook.createCellStyle();
+                    numberLockStyle.cloneStyleFrom(numberStyletmp);
+                    numberLockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberLockStyle.setBorderTop(BorderStyle.THIN);
+                    numberLockStyle.setBorderBottom(BorderStyle.THIN);
+                    numberLockStyle.setBorderLeft(BorderStyle.THIN);
+                    numberLockStyle.setBorderRight(BorderStyle.THIN);
 
-                    cellStyle.setBorderTop(BorderStyle.THIN);
-                    cellStyle.setBorderBottom(BorderStyle.THIN);
-                    cellStyle.setBorderLeft(BorderStyle.THIN);
-                    cellStyle.setBorderRight(BorderStyle.THIN);
-                    xssfCell03.setCellStyle(cellStyle);
+                    // style KHÔNG KHÓA
+                    XSSFCellStyle numberUnlockStyle = workbook.createCellStyle();
+                    numberUnlockStyle.cloneStyleFrom(numberStyletmp1);
+                    numberUnlockStyle.setDataFormat(format.getFormat("#,##0.00"));
+                    numberUnlockStyle.setBorderTop(BorderStyle.THIN);
+                    numberUnlockStyle.setBorderBottom(BorderStyle.THIN);
+                    numberUnlockStyle.setBorderLeft(BorderStyle.THIN);
+                    numberUnlockStyle.setBorderRight(BorderStyle.THIN);
+                    boolean isOldRule = i == 0 || i == 1 || i == 2 || i == 3 || i == 7 || i == 8;
+
+                    boolean forceCol3Only = i != 13 && i != 16 && i != 27 && i != 28 && i != 6;
+
+                    // ===== CỘT 3 =====
+                    XSSFCell xssfCell03 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCellStyle styleCol3 = (isOldRule || forceCol3Only) ? numberUnlockStyle : numberUnlockStyle;
+                    xssfCell03.setCellStyle(styleCol3);
                     xssfCell03.setCellValue(lstData.get(i).d1);
 
+                    // ===== CỘT 4 =====
                     XSSFCell xssfCell04 = xssfRow.getCell(4, Row.CREATE_NULL_AS_BLANK);
+                    XSSFCellStyle cellStyle = isOldRule ? numberLockStyle : numberUnlockStyle;
                     xssfCell04.setCellStyle(cellStyle);
                     xssfCell04.setCellValue(lstData.get(i).d2);
 
+                    // ===== CỘT 5 =====
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     xssfCell05.setCellStyle(cellStyle);
                     xssfCell05.setCellValue(lstData.get(i).d3);

@@ -16,6 +16,7 @@
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
+                background-size: cover;
             }
 
             .header {
@@ -100,12 +101,14 @@
         </style>
         <script>
             const backgrounds = [
-                "img/bgr22025.jpg",
-                "img/bgr12025.png",
-                "img/bgr32025.png",
-                "img/bgr42025.png",
-                "img/bgr52025.png",
-                "img/bgr62025.png"
+//                "img/2025_tet1.png",
+//                "img/2025_tet2.png",
+//                "img/2025_tet3.png",
+//                "img/2025_tet4.png",
+//                "img/bgr32025.png",
+//                "img/bgr42025.png",
+//                "img/bgr52025.png",
+                "img/2025_tet77.png"
             ];
             const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
             document.body.style.backgroundImage = "url('" + randomBg + "')";
@@ -115,8 +118,8 @@
 
     <body>
         <!-- HEADER -->
-        <canvas id="snowCanvas_noel"></canvas>
-        <script type="text/javascript" src="css/js/jquerymain.js"></script>
+        <!--        <canvas id="snowCanvas_noel"></canvas>
+                <script type="text/javascript" src="css/js/jquerymain.js"></script>-->
         <div class="header">
             <div class="header-date">
                 <script>
