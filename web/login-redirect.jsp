@@ -101,14 +101,14 @@
         </style>
         <script>
             const backgrounds = [
-//                "img/2025_tet1.png",
-//                "img/2025_tet2.png",
-//                "img/2025_tet3.png",
-//                "img/2025_tet4.png",
+                "img/2025_tet1.png",
+                "img/2025_tet2.png",
+                "img/2025_tet3.png",
+                "img/2025_tet4.png",
 //                "img/bgr32025.png",
 //                "img/bgr42025.png",
 //                "img/bgr52025.png",
-                "img/2025_tet77.png"
+                "img/2025_tet6.png"
             ];
             const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
             document.body.style.backgroundImage = "url('" + randomBg + "')";
