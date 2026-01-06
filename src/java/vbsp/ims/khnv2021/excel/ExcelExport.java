@@ -2331,10 +2331,15 @@ public class ExcelExport {
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     xssfCell05.setCellStyle(cellStyle);
                     xssfCell05.setCellValue(lstData.get(i).d3);
-                    
-                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCellStyle styleCol7 = (isOldRule || forceCol3Only) ? numberLockStyle : numberUnlockStyle;
-                    xssfCell07.setCellStyle(styleCol7);
+
+                    // ===== CỘT 7 (% 2 số thập phân) =====
+                    XSSFCell xssfCell07 = xssfRow.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFDataFormat dataFormat1 = workbook.createDataFormat();
+                    XSSFCellStyle percentStyle = workbook.createCellStyle();
+                    percentStyle.cloneStyleFrom((isOldRule || forceCol3Only) ? numberLockStyle : numberUnlockStyle);
+                    percentStyle.setDataFormat(dataFormat1.getFormat("0.00%"));
+                    xssfCell07.setCellStyle(percentStyle);
+
                 }
 
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
