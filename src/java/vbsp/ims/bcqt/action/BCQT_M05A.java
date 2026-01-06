@@ -32,7 +32,7 @@ implements BcqtFunction{
             Connection conn = new DaoConnect().getConnect();
             DaoBcqtMain daoMain = new DaoBcqtMain();
             //khoi tao cho treeview cac pos
-            lstAllBcqt = daoMain.getDmKhac(conn, "56");
+            lstAllBcqt = daoMain.getDmKhac(conn, "KH6");
 //            lstDulieuNt = daoMain.getDataBCQT_NT(conn, khoa_bcqt, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
             lstDulieuNt = daoMain.getDataBCQT_05A(conn, khoa_bcqt, hmParameter.get("ngay_bc").toString(),UserName, Grade,poscd);
             if (conn != null) {

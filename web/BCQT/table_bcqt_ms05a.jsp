@@ -66,10 +66,12 @@
                     <th rowspan="2"  class="TD_THUTU">TT</th>
                     <th rowspan="2" class="TD_CHITIEU">Chỉ tiêu</th>
                     <th  rowspan="2" class="TD_TEN_KH">Mã tài sản</th>
+                     <th  rowspan="2" class="TD_TEN_KH">Phân loại TS</th>
                     <th  colspan="2" class="TD_CHITIEU">Đặc điểm tài sản</th>
                     <th rowspan="2"  class="TD_SOLUONG">Đơn vị tính</th>
                     <th  colspan="3">TỔNG CỘNG</th>
                     <th colspan="2">TR.ĐÓ: VỐN ĐP, CHO, TẶNG; VỐN KHÁC</th> 
+                     <th  rowspan="2" class="TD_TEN_KH">Ghi chú</th>
                 </tr>
                 <tr>      
                     <th style="width: 5%">Thời hạn sử dụng <br>đối với QSD đất (năm)</th>
@@ -84,6 +86,7 @@
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_THUTU">(A)</th>
                     <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_CHITIEU">(B)</th>
                     <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(C)</th>
+                     <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(D)</th>
                     <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_CHITIEU">(1)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_SOLUONG">(2)</th>
                     <th style="width: 30px; font: italic; font-size: xx-small;" class="TD_SOLUONG">(3)</th>
@@ -92,6 +95,7 @@
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">(6)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">(7)</th>
                     <th style="width: 40px; font: italic; font-size: xx-small;" class="TD_NGUYENGIA">(8)</th>
+                     <th style="width: 20px; font: italic; font-size: xx-small;" class="TD_TEN_KH">(E)</th>
 
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
@@ -102,8 +106,10 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TT_HIENTHI" class="D0 TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"    readonly="readonly" />                                                                   
                             <input type="hidden" value="<s:property  value="THUTU" />"
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].THUTU" value="<s:property  value="THUTU"/>"/> 
+                            <input type="hidden" value="<s:property  value="D11" />"
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D11" value="<s:property  value="D11"/>"/> 
 
-                        </td>
+                        </td> 
                         <td  align="right" class="TD_TEN_KH">    
                             <input type="text" value="<s:property  value="TEN" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].TEN" class="TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"    readonly="readonly" />                                  
@@ -112,6 +118,40 @@
                             <input type="text" value="<s:property  value="D10" />" 
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"    readonly="readonly" />                                  
                         </td>
+<!--                        <td  align="right" class="TD_NGUYENGIA">    
+                            <input type="text" value="<s:property  value="D10" />" 
+                                   name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"    readonly="readonly" />                                  
+                        </td>-->
+                        <s:if test="((D11.equalsIgnoreCase('ATI11') || D11.equalsIgnoreCase('ATI12')) && Grade.equalsIgnoreCase('1') )">
+                            <td align = "right" class="TD_TEN_KH">
+                                    <input type="hidden" id="TMP_D16_<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="D16" />" 
+                                           name="d55" class="TEN_KH number3" onfocus="this.select()"/>
+                                    <s:select 
+                                        id="D16_%{#rowstatus.index}"
+                                        name="lstDulieuNt[%{#rowstatus.index}].D16"
+                                        list="lstAllBcqt" 
+                                        listKey="sKey"
+                                        listValue="sDesc"           
+                                        headerKey="-1"
+                                        headerValue="-- Chọn --" 
+                                        cssStyle="font-weight: bold;vertical-align: middle;width: 30px;"
+                                        onBeforeTopics="myBeforeHandler" 
+                                        onCompleteTopics="myCompleteTopics" cssClass="TEN_KH"
+                                        >                    
+                                    </s:select>
+                                </td>
+                        </s:if>
+                                <s:else>
+                                    <td>
+                                      <input type="text" value="<s:property  value="D16" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D16" 
+                                       class="TD_CHITIEU  TEN_KH <s:property  value="NHAPTAY" />"
+                                       onfocus="this.select()"  readonly="readonly"/>   
+                                       </td>
+                                </s:else>        
+                                
+                         
+                                
                         <s:if test="NHAPTAY.equalsIgnoreCase('CLS-BOLD')">
                             <td  align="right">    
                                 <input type="text" value="<s:property  value="D15" />" 
@@ -148,7 +188,12 @@
                                 <input type="text" value="<s:property  value="D7" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()" readonly="readonly"/>
                             </td>
-
+                            <td  align="right">    
+                                <input type="text" value="<s:property  value="D17" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
+                                       class="TD_CHITIEU  TEN_KH <s:property  value="NHAPTAY" />"
+                                       readonly="readonly"/>                                  
+                            </td>
                         </s:if>
                         <s:else>
                             <td  align="right">    
@@ -187,8 +232,14 @@
                                     <input type="text" value="<s:property  value="D7" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="D9 number TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"  <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if>/>
                                 </td>
-
+                                <td>
+                                <input type="text" value="<s:property  value="D17" />" 
+                                       name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D17" 
+                                       class="TD_CHITIEU TEN_KH <s:property  value="NHAPTAY" />" onfocus="this.select()"   
+                                       <s:if test="Grade.equalsIgnoreCase('2')">readonly="readonly"</s:if> />                                   
+                                </td>
                         </s:else>
+s                       
 
                     </tr>
 
