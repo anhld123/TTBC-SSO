@@ -2311,13 +2311,13 @@ public class ExcelExport {
                     numberUnlockStyle.setBorderBottom(BorderStyle.THIN);
                     numberUnlockStyle.setBorderLeft(BorderStyle.THIN);
                     numberUnlockStyle.setBorderRight(BorderStyle.THIN);
-                    boolean isOldRule = i == 0 || i == 1 || i == 2 || i == 3 || i == 7 || i == 8;
+                    boolean isOldRule = i == 0 || i == 1 || i == 2 || i == 3 || i == 7 || i == 8 || i == 33 || i == 40;
 
-                    boolean forceCol3Only = i != 13 && i != 16 && i != 27 && i != 28 && i != 6;
-
+//                    boolean forceCol3Only = i != 13 && i != 16 && i != 27 && i != 28 && i != 6;
+                    boolean forceCol3Only = i == 0 && i == 1 && i == 3 && i == 4 && i == 5 && i == 7 && i == 8 && i == 33 && i == 40;
                     // ===== CỘT 3 =====
                     XSSFCell xssfCell03 = xssfRow.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                    XSSFCellStyle styleCol3 = (isOldRule || forceCol3Only) ? numberUnlockStyle : numberUnlockStyle;
+                    XSSFCellStyle styleCol3 = (isOldRule || forceCol3Only) ? numberLockStyle : numberUnlockStyle;
                     xssfCell03.setCellStyle(styleCol3);
                     xssfCell03.setCellValue(lstData.get(i).d1);
 
@@ -2331,7 +2331,10 @@ public class ExcelExport {
                     XSSFCell xssfCell05 = xssfRow.getCell(5, Row.CREATE_NULL_AS_BLANK);
                     xssfCell05.setCellStyle(cellStyle);
                     xssfCell05.setCellValue(lstData.get(i).d3);
-
+                    
+                     XSSFCell xssfCell07 = xssfRow.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                    XSSFCellStyle styleCol7 = (isOldRule || forceCol3Only) ? numberLockStyle : numberUnlockStyle;
+                    xssfCell07.setCellStyle(styleCol7);
                 }
 
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
