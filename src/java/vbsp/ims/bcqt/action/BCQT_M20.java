@@ -43,7 +43,7 @@ implements BcqtFunction{
                 conn.close();
             }
             System.err.println("Goi bao cao quyet toan BCQT_M20 khoa_bcqt=" + khoa_bcqt);
-
+            System.err.println("Goi b= " + poscd + "  UserName== " + UserName);
         } catch (Exception e) {
             CoreLogger.error(this.getClass().getName() + " Exception -> BCQT_M20: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> BCQT_M20: " + e.getMessage());

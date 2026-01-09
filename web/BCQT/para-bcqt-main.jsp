@@ -196,7 +196,7 @@
 
                 if (validateRequiredFields())
                     $("#" + khoa)[0].click();
-                if (khoa === 'BCQT_M05B_save' || khoa ==='BCQT_MS11A_save')
+                if (khoa === 'BCQT_M05B_save' || khoa === 'BCQT_MS11A_save')
                 {
                     function saveData() {
                         return new Promise((resolve, reject) => {
@@ -207,7 +207,7 @@
                     }
                     saveData().then(onLoadData);
                     alert("Lưu dữ liệu thành công!");
-                } 
+                }
 //                alert(khoa);
             }
             // TRUNG BO SUNG PHAN THUYET MINH
@@ -225,8 +225,8 @@
                 $("#loadingImageDiv_data").show();
             });
             $.subscribe("completediv_ss", function (event, data) {
-                var khoa_bcqt = $("#khoa_bcqt").val();                
-                $("#loadingImageDiv_data").hide();                
+                var khoa_bcqt = $("#khoa_bcqt").val();
+                $("#loadingImageDiv_data").hide();
                 //if (khoa_bcqt === 'KHOANTC001')
                 $("#loadData").click();
             });
@@ -423,73 +423,9 @@
                                         </s:if>
                                     </td>
 
-                                </s:iterator>     
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
-                                               onBeforeTopics="beforediv_data"
-                                               onCompleteTopics="completediv_data" cssStyle="display:none"/>
-                                    <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu" style="background-color: #DCDCDC;"/>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <s:if test="Grade.equalsIgnoreCase('1')">
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>
-                                    </s:if>
-                                    <s:elseif test="Grade.equalsIgnoreCase('2') && (khoa_bcqt.equalsIgnoreCase('KHOANTC001') || khoa_bcqt.equalsIgnoreCase('BCQT_26A') || khoa_bcqt.equalsIgnoreCase('BCQT_26B'))" >
-                                        <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>
-                                        &nbsp;&nbsp;&nbsp;
-                                        <s:url id="idSendData" action="sendBCQT.action"></s:url>                                      
-                                        <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
-                                                   onBeforeTopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>                                    
-                                        <!--<input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>-->
-                                        <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
-                                        <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
-                                                   onBeforeTopics="beforediv_send"
-                                                   onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                        <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
-
-                                        <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
-                                            <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
-                                            <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
-                                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
-                                        </s:if>
-                                        <s:else>
-                                            <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
-                                        </s:else>
-
-                                    </s:elseif>
-                                    <s:else>
-                                        <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
-                                            <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
-                                                <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
-                                                <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
-                                                          cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
-                                            </s:if>
-                                            <s:else>
-                                                <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
-                                            </s:else>
-                                            <s:url id="idSendData" action="sendBCQT.action"></s:url>                                      
-                                            <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
-
-                                            <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                             
-                                            <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
-                                                       onBeforeTopics="beforediv_send"
-                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
-                                        </s:if>
-                                        <s:else>
-                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
-                                        </s:else>    
-
-
-
-                                    </s:else>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
+                                </s:iterator>   
+                                <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_M11')">
+                                    <td>
                                         <s:url id="idTMData" action="GET_BCQT_THUYETMINH.action"></s:url>                                      
                                         <sj:a id="idTMDatatmp" 
                                               name="nameTMDatatmp"  
@@ -502,16 +438,100 @@
                                               ></sj:a>
                                         <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
                                             <input type="button" id="idTMtmp" name="nameTMtmp"  onclick="onTMData()" value="Thuyết minh"/>      
+                                        </s:if> 
+
+                                    </td>
+                                </s:if>
+                                <s:else>
+                                    <td>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <sj:submit id="loadData" name="loadData" value="Tải dữ liệu" targets="divExportReport"
+                                                   onBeforeTopics="beforediv_data"
+                                                   onCompleteTopics="completediv_data" cssStyle="display:none"/>
+                                        <input type="button" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tải dữ liệu" style="background-color: #DCDCDC;"/>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <s:if test="Grade.equalsIgnoreCase('1')">
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>
                                         </s:if>
-                                        <s:if test="Grade.equalsIgnoreCase('2')">
-                                            <s:url id="idResetTemp" action="Reset_Data_BCQT.action"></s:url>                                      
-                                            <sj:submit id="idResettmpTemp" name="nameSendTemp" href="%{idResetTemp}" value="Mẫu danh sách NLĐ" targets="divExportReport"
+                                        <s:elseif test="Grade.equalsIgnoreCase('2') && (khoa_bcqt.equalsIgnoreCase('KHOANTC001') || khoa_bcqt.equalsIgnoreCase('BCQT_26A') || khoa_bcqt.equalsIgnoreCase('BCQT_26B'))" >
+                                            <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Lưu dữ liệu"/>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <s:url id="idSendData" action="sendBCQT.action"></s:url>                                      
+                                            <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
                                                        onBeforeTopics="beforediv_send"
                                                        onCompleteTopics="completediv_send" cssStyle="display:none"/>
-                                            <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ResetTemp()" style="color: red" title="Xóa dữ liệu đã nhập, nhập lại từ đầu." value="Reset DL" />
-                                        </s:if>  
-                                    </s:if>        
-                                </td>
+                                            <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>                                    
+                                            <!--<input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>-->
+                                            <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                      
+                                            <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
+                                                       onBeforeTopics="beforediv_send"
+                                                       onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                            <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
+
+                                            <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
+                                                <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
+                                                <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
+                                                          cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                                            </s:if>
+                                            <s:else>
+                                                <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
+                                            </s:else>
+
+                                        </s:elseif>
+                                        <s:else>
+                                            <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
+                                                <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
+                                                    <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
+                                                    <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
+                                                              cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                                                </s:if>
+                                                <s:else>
+                                                    <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
+                                                </s:else>
+                                                <s:url id="idSendData" action="sendBCQT.action"></s:url>                                      
+                                                <sj:submit id="idSend" name="nameSend" href="%{idSendData}" value="Gửi dữ liệu" targets="divExportReport"
+                                                           onBeforeTopics="beforediv_send"
+                                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                                <input type="button" id="idSendtmp" name="nameidSendtmp"  onclick="onSentData()" value="Gửi dữ liệu"/>
+
+                                                <s:url id="idxacnhan" action="sendLockBCQT.action"></s:url>                                             
+                                                <sj:submit id="idSendLock" name="nameSend" href="%{idxacnhan}" value="Gửi dữ liệu" targets="divExportReport"
+                                                           onBeforeTopics="beforediv_send"
+                                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                                <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
+                                            </s:if>
+                                            <s:else>
+                                                <input type="button" id="idsaveDatatmp" name="namesaveDatatmp"  onclick="onSaveData()" value="Chốt số liệu"/>
+                                            </s:else>    
+
+
+
+                                        </s:else>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
+                                            <s:url id="idTMData" action="GET_BCQT_THUYETMINH.action"></s:url>                                      
+                                            <sj:a id="idTMDatatmp" 
+                                                  name="nameTMDatatmp"  
+                                                  href="%{idTMData}"
+                                                  formIds="id_%{khoa_bcqt}"
+                                                  targets="divExportReport"
+                                                  onBeforeTopics="beforediv_data"
+                                                  onCompleteTopics="completediv_data"
+                                                  onclick="onThuyetminh();"
+                                                  ></sj:a>
+                                            <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
+                                                <input type="button" id="idTMtmp" name="nameTMtmp"  onclick="onTMData()" value="Thuyết minh"/>      
+                                            </s:if>
+                                            <s:if test="Grade.equalsIgnoreCase('2')">
+                                                <s:url id="idResetTemp" action="Reset_Data_BCQT.action"></s:url>                                      
+                                                <sj:submit id="idResettmpTemp" name="nameSendTemp" href="%{idResetTemp}" value="Mẫu danh sách NLĐ" targets="divExportReport"
+                                                           onBeforeTopics="beforediv_send"
+                                                           onCompleteTopics="completediv_send" cssStyle="display:none"/>
+                                                <input type="button" id="idReLoadtmpTemp" name="nameidReLoadtmpTemp"  onclick="ResetTemp()" style="color: red" title="Xóa dữ liệu đã nhập, nhập lại từ đầu." value="Reset DL" />
+                                            </s:if>  
+                                        </s:if>        
+                                    </td>
+                                </s:else>
                                 <td>
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >
