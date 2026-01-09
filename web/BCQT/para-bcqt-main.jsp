@@ -424,7 +424,7 @@
                                     </td>
 
                                 </s:iterator>   
-                                <s:if test="khoa_bcqt.equalsIgnoreCase('BCQT_M11')">
+                                <s:if test="{'BCQT_M11','BCQT_M12'}.contains(khoa_bcqt)">
                                     <td>
                                         <s:url id="idTMData" action="GET_BCQT_THUYETMINH.action"></s:url>                                      
                                         <sj:a id="idTMDatatmp" 
