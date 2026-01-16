@@ -1630,13 +1630,13 @@ public class ActionChtrinhcnMain extends ActionSupport {
             }
             uploadedRows = excelData.size();
 
-            // ===== Gọi thủ tục INSERT_REPORT_DATA =====
+            // Gọi thủ tục INSERT_REPORT_DATA
             callInsertReportData(conn, excelData, fileName, Key, sUserName, ngaybc, startrow, startcell, endcell);
 
-            // ===== Gọi EVEN_EXCEL =====
+            //Gọi EVEN_EXCEL
             callEvenExcel(conn, Key, fileName, ngaybc);
 
-            // ===== Lưu file =====
+            //Lưu file
             saveUploadedFile(fileUpload, fileName);
 
             addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
@@ -1791,8 +1791,12 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
 
         try {
-            String templateFolder = ServletActionContext.getServletContext()
-                    .getRealPath("/EXCEL_TEMPLATE/HSRR/");
+            String templateFolder;
+            if (mauBc.equals("RRBANKS")) {
+                templateFolder = ServletActionContext.getServletContext().getRealPath("/EXCEL_TEMPLATE/HSRR/");
+            } else {
+                templateFolder = ServletActionContext.getServletContext().getRealPath("/EXCEL_TEMPLATE/");
+            }
             String templateFileName = mauBc + "_.xlsx";
             File templateFile = new File(templateFolder, templateFileName);
 
@@ -1829,8 +1833,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
     static {
         try (Connection conn = new DaoConnect().getConnect()) {
-            structDesc = StructDescriptor.createDescriptor("INTELLECT.TYPE_UPLOAD_EXCEL", conn);
-            arrayDesc = ArrayDescriptor.createDescriptor("INTELLECT.TAB_UPLOAD_EXCEL", conn);
+            structDesc = StructDescriptor.createDescriptor("TYPE_UPLOAD_EXCEL", conn);
+            arrayDesc = ArrayDescriptor.createDescriptor("TAB_UPLOAD_EXCEL", conn);
             System.out.println("Oracle type descriptors preloaded at class load!");
         } catch (SQLException e) {
             throw new ExceptionInInitializerError("Failed to init Oracle type descriptors: " + e.getMessage());
