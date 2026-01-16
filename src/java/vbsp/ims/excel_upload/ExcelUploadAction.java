@@ -70,7 +70,7 @@ public class ExcelUploadAction extends ActionSupport
 
     public String upload_file() throws Exception {
 
-        //System.err.println("Vao phan upload file");
+        System.err.println("Vao phan upload file");
         if (fileUploadFileName.isEmpty()) {
 
             message = "(*) Chưa có file nào được lựa chọn. Bạn hãy kiểm tra lại. ";
@@ -142,17 +142,21 @@ public class ExcelUploadAction extends ActionSupport
                         || fileExtend.toLowerCase().equals("xlsx")) {
                     ExcelUploader excelUploader = new ExcelUploader();
                     ResultModel status = excelUploader.import_file(new_file.getAbsolutePath(), font_type);
-
+                    boolean status_up = status.status;
                     DtwUploadDao uploadDao = new DtwUploadDao();
                     String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
 
                     logPath = file_name;
                     logPathType = ReportTemplate.FILE;
                     logObj = uploadDao.get_uploaded_log(file_name, ReportTemplate.FILE);
-                    if (status.status) {
-                        if (file_name.startsWith(Define.NV_QT)) {
+                    System.out.println("file_name== " + file_name + " == " + status_up);
+//                    if (status_up = false) {
+//                        if (file_name.startsWith(Define.NV_QT)) {
+                    if (!status_up) {
+                        if (file_name.contains(Define.NV_QT)) {
                             List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
                             lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, file_name);
+                            System.out.println("du lieu cn == " + lstDulieuNt.size());
                             String sReturn = sendDataNV_QTByApi(lstDulieuNt, file_name);
                             if (sReturn.equals(SUCCESS)) {
                                 message = "(*) Xử lý file thành công: [" + file_name + "].";
