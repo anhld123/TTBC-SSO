@@ -12,6 +12,7 @@
         <action name="LoadParaChamdiemcn" class="vbsp.ims.chamdiemcn.ActionChamdiemcnMain"  method="loadPataChamdiemcn">
             <result name="success">/chamdiem_canhan/para-cdcn-main.jsp</result>
             <result name="success_1">/chamdiem_canhan/para-cdcn-pl1.jsp</result>
+            <result name="success_2">/chamdiem_canhan/para-cdcn-pl2.jsp</result>
             <result name="error">/chamdiem_canhan/success.jsp</result>        
         </action>          
                                
@@ -152,5 +153,9 @@
             <result name="error">/chamdiem_tapthe/success.jsp</result>     
         </action>
         
+        <action name="CDTT_CN02PL" class="vbsp.ims.chamdiemcn.CDCN_CN02PL"  method="load">
+            <result name="success">/chamdiem_canhan/table_pl2.jsp</result>
+            <result name="error">/chamdiem_canhan/success.jsp</result>        
+        </action>
     </package>
 </struts>
