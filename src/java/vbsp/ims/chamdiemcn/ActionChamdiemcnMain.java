@@ -556,30 +556,33 @@ public class ActionChamdiemcnMain extends ActionSupport {
 
     public String loadPataChamdiemcn() {
         try {
-//            System.err.println("khoa_cdtt=" + khoa_cdtt);
+            System.err.println("khoa_cdtt=" + khoa_cdtt);
             if (!getParaSession()) {
                 return ERROR;
             }
+            //khoi tao cho treeview cac pos
+
             Connection conn = new DaoConnect().getConnect();
             DaoChamdiemcnMain daoMain = new DaoChamdiemcnMain();
-            //khoi tao cho treeview cac pos
-            try {
-                List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_cdtt);
-                if (Grade.equals("3")) {
-                    setTreeNodeGrade3(lstModelTree);
-                } else {
-                    setTreeNodeGrade12(lstModelTree);
+            if (!"CDTT_CN02PL".equals(khoa_cdtt)) {
+                try {
+                    List<ModelTreeNode> lstModelTree = daoMain.getDataPosTreeNode(conn, UserName, Grade, khoa_cdtt);
+                    if (Grade.equals("3")) {
+                        setTreeNodeGrade3(lstModelTree);
+                    } else {
+                        setTreeNodeGrade12(lstModelTree);
+                    }
+                } catch (SQLException e) {
+                    CoreLogger.error(this.getClass().getName() + " Exception -> for lstModelTree cap bang 2 : " + e.getMessage());
+                    System.err.println(this.getClass().getName() + " Exception -> for lstModelTree cap bang 2 : " + e.getMessage());
                 }
-            } catch (SQLException e) {
-                CoreLogger.error(this.getClass().getName() + " Exception -> for lstModelTree cap bang 2 : " + e.getMessage());
-                System.err.println(this.getClass().getName() + " Exception -> for lstModelTree cap bang 2 : " + e.getMessage());
-            }
-//            lstCdttParams = daoMain.getReportParmams(conn, khoa_cdtt);
-            lstCdttParams = daoMain.getReportParmams(conn, khoa_cdtt, UserName, Grade);
 
-            int iRule = daoMain.checkRuleUser_CN08AB(UserName, Grade, khoa_cdtt);
-            setRULEUSER(String.valueOf(iRule));
-            lstCanBo = new clsHuyDongTK().getCanBo(Grade, UserName);
+                lstCdttParams = daoMain.getReportParmams(conn, khoa_cdtt, UserName, Grade);
+
+                int iRule = daoMain.checkRuleUser_CN08AB(UserName, Grade, khoa_cdtt);
+                setRULEUSER(String.valueOf(iRule));
+                lstCanBo = new clsHuyDongTK().getCanBo(Grade, UserName);
+            }
             if (conn != null) {
                 conn.close();
             }
@@ -589,7 +592,9 @@ public class ActionChamdiemcnMain extends ActionSupport {
             addActionError("Bạn không có quyền với chức năng này !");
             return ERROR;
         }
-        return "CDTT_CN01PL".equals(khoa_cdtt) ? "success_1" : SUCCESS;
+
+        return "CDTT_CN01PL".equals(khoa_cdtt)
+                ? "success_1" : "CDTT_CN02PL".equals(khoa_cdtt) ? "success_2" : SUCCESS;
     }
     //</editor-fold>
 

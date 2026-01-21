@@ -7,6 +7,7 @@ package vbsp.ims.chamdiemcn;
 
 import vbsp.ims.chamdiemtt.dao.*;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import vbsp.ims.bcqt.dao.*;
 import java.sql.CallableStatement;
@@ -2497,5 +2498,59 @@ public class DaoChamdiemcnMain {
             }
         }
         return true;
+    }
+
+    public List<QT_DULIEU_NT> getDataPL02_2025(Connection conn, String sKhoa, String sUser, String sPos_Flag, String sNgaybc, String sPosCd) {
+        List<QT_DULIEU_NT> lstBcqt_NT = new ArrayList<QT_DULIEU_NT>();
+        try {
+            CallableStatement calstatement = null;
+            String strStoreproce = "{call VBSP_IMS_CHAMDIEMCN.SP_GET_DATA_PL02_2025(?,?,?,?,?,?,?,?)}";
+            ResultSet reset = null;
+
+            try {
+
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                calstatement.registerOutParameter(6, oracle.jdbc.OracleTypes.NUMBER);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.VARCHAR);
+                calstatement.registerOutParameter(8, oracle.jdbc.OracleTypes.CURSOR);
+                calstatement.setString(1, sKhoa);
+                calstatement.setString(2, sUser);
+                calstatement.setString(3, sPos_Flag);
+                calstatement.setString(4, sNgaybc);
+                calstatement.setString(5, sPosCd);
+                calstatement.execute();
+                int pn_err_cd = calstatement.getInt(6);
+                //thu hien lay mo ta loi
+                String strEdd_txt = calstatement.getString(7);
+                //Lay cursor ra resultset
+                reset = (ResultSet) calstatement.getObject(8);
+                while (reset.next()) {
+                    QT_DULIEU_NT value = QT_DULIEU_NT.newInstance();
+
+                    for (int i = 1; i <= 20; i++) {
+                        String field = "D" + i;
+                        Method m = QT_DULIEU_NT.class.getMethod("set" + field, String.class);
+                        m.invoke(value, reset.getString(field));
+                    }
+
+                    lstBcqt_NT.add(value);
+                }
+
+                if (reset != null) {
+                    reset.close();
+                }
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.print(e.getMessage());
+                CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham getDataKH04 " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " getDataKH04 -> " + e.getMessage());
+        }
+        return lstBcqt_NT;
     }
 }
