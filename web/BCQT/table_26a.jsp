@@ -184,19 +184,19 @@
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Quỹ lương đạt được"
                 $(arrCot[i]).eq(46).val(
-                        parseFloat($(arrCot[i]).eq(50).val())
-                        + parseFloat($(arrCot[i]).eq(47).val())
+                        parseFloat($(arrCot[i]).eq(47).val())
                         + parseFloat($(arrCot[i]).eq(48).val())
                         + parseFloat($(arrCot[i]).eq(49).val())
+                        + parseFloat($(arrCot[i]).eq(50).val())
                         );
             }
 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Quỹ lương đạt được"
                 $(arrCot[i]).eq(43).val(
-                        parseFloat($(arrCot[i]).eq(46).val())
-                        + parseFloat($(arrCot[i]).eq(44).val())
-                        - parseFloat($(arrCot[i]).eq(45).val())
+                        parseFloat($(arrCot[i]).eq(44).val())
+                        + parseFloat($(arrCot[i]).eq(45).val())
+                        - parseFloat($(arrCot[i]).eq(46).val())
                         );
             }
 
