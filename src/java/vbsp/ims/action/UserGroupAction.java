@@ -231,10 +231,10 @@ public class UserGroupAction extends ActionSupport
             }
 
             // Đảm bảo chuỗi quyền có độ dài tối thiểu 500 ký tự
-            int maxMenus = 500;
+            int maxMenus = 1000;
             if (privileageStr.length() < maxMenus) {
                 privileageStr = String.format("%-" + maxMenus + "s", privileageStr).replace(' ', '0');
-                System.out.println("[INFO] Privilege string padded to 500 chars for user: " + userName);
+                System.out.println("[INFO] Privilege string padded to 1000 chars for user: " + userName);
             }
 
             // Gán quyền hiển thị cho từng menu

@@ -79,7 +79,17 @@
         </action>
         <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
             <result name="thanhcong">/Tracuu_info/viewcontent.jsp</result>
-        </action>                
+            <result name="Apithanhcong">/Tracuu_info/viewcontent_api.jsp</result>
+        </action>   
+        <!--        <action name="exportExcel_DTTN" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="exportExcel">
+            <result type="stream">
+                <param name="contentType"> application/vnd.openxmlformats-officedocument.spreadsheetml.sheet </param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">attachment;filename=CustomerBlackList.xlsx </param>
+            </result>
+        </action>-->
+        <action name="exportExcel_DTTN" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="exportExcel"/>
+
     </package>
     
     <!-- Tra cuu thông tin sms -->
@@ -90,12 +100,12 @@
         <action name="load_tracuu_sms" class="vbsp.ims.tracuu_info.ActionTraCuuSmsMain" method="load">
             <result name="success">/Tracuu_info/table_detail.jsp</result>
         </action>
-<!--        <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
+        <!--        <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
             <result name="thanhcong">/Tracuu_info/viewcontent.jsp</result>
         </action>                -->
     </package>
     
-        <!-- Tra cuu thông tin sms -->
+    <!-- Tra cuu thông tin sms -->
     <package name="tracuukyquy" extends="struts-default,json-default">
         <action name="tracuu_kyquy_main" class="vbsp.ims.tracuu_info.ActionTraCuuKyQuyMain">
             <result name="success">/Tracuu_info/kyquy_tracuu_info.jsp</result>

@@ -2177,4 +2177,23 @@ public class DuLieuNTService extends ReportService {
         return response.getStatus();
     }
 
+    public ArrayList<CustomerBlackList> getCustomerBlackList(String searchKey) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+
+        WebTarget target = client.target(getBaseURI()).path("pcrt-black-list-customer-search")
+                .queryParam("searchKey", searchKey);
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+//        System.out.println("json: " + target.getUri().toString());
+
+        if (response.getStatus() == 200) {
+            CustomerBlackList dulieuNTResp = response.readEntity(CustomerBlackList.class);
+            ArrayList<CustomerBlackList> listOfRow = dulieuNTResp.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
 }
