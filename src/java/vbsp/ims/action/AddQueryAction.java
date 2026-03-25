@@ -92,8 +92,7 @@ public class AddQueryAction extends ActionSupport implements ServletRequestAware
         setDefaultGrade(new String[]{"1", "2", "3"});
         return SUCCESS;
     }
-    
-    
+
     public String LoadMainParameter() {
         return SUCCESS;
     }
@@ -184,9 +183,9 @@ public class AddQueryAction extends ActionSupport implements ServletRequestAware
                 return ERROR;
             }
         } catch (Exception e) {
-            
+
             //addActionError(message.replaceAll("\\r\\n|\\r|\\n|\"|\'", " "));
-            setMessage("Lỗi bạn chưa lưu được báo cáo "+e.getMessage().replaceAll("\\r\\n|\\r|\\n|\"|\'", " "));
+            setMessage("Lỗi bạn chưa lưu được báo cáo " + e.getMessage().replaceAll("\\r\\n|\\r|\\n|\"|\'", " "));
             return ERROR;
         }
 
@@ -372,108 +371,219 @@ public class AddQueryAction extends ActionSupport implements ServletRequestAware
         return "success";
     }
 
+//    public String ExportExcelQuery() throws Exception {
+////        System.err.println("vao ham export report ");
+//
+//        if (save_id == null | save_id.isEmpty()) {
+//            setMessage("Bạn chưa chọn mẫu báo cáo nên không thể tạo báo cáo ");
+//            return ERROR;
+//        }
+//
+//        HashMap<String, String> paramHashMap = new HashMap<>();
+//
+//        Map<String, String[]> prameters = request.getParameterMap();
+//        String sPos_cd = "";
+//        String stringParaPos_cd = "";
+//        String sPosFlag = "";
+//        //xy lay lay cac tham so cho vao hashmap
+//        Map mapCollectPara = new HashMap();
+//
+//        for (String parameter : prameters.keySet()) {
+//            String[] values = prameters.get(parameter);
+//            //Do neu parameter kieu date thi he thong se sinh them control dojo.date
+//            //   nen minh can phai loai bo tham so nay di
+//            if (parameter.indexOf("TEXT") > 0 || parameter.indexOf("DATE") > 0
+//                    || parameter.indexOf("LIST") > 0 || parameter.indexOf("NUMB") > 0) {
+//                if (parameter.indexOf("DATE") > 0) {
+//                    Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(values[0]);
+//                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
+//
+//                    mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
+//                            ImsFillParaMeter.newInstance("VARCHAR2", new SimpleDateFormat("dd-MMM-yyyy").format(sdf)));
+//                    //System.err.println( parameter.substring(0, parameter.length() - 5)+" Tham so: "+new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
+//                } else if (parameter.indexOf("NUMB") > 0) {
+//                    if (parameter.indexOf("_NUMB") > 0) {
+//                        paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
+//
+//                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
+//                                ImsFillParaMeter.newInstance("NUMBER", values[0]));
+//                    }
+//                } else {
+//                    if (parameter.indexOf("_MAPGD") > 0) {
+//                        sPos_cd = values[0].trim();
+//                        stringParaPos_cd = parameter.substring(0, parameter.length() - 11);
+//
+//                        mapCollectPara.put(parameter.substring(0, parameter.length() - 11),
+//                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
+//                    } else if (parameter.indexOf("_TONGHOP") > 0) {
+//                        sPosFlag = values[0].trim();
+//                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
+//                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
+//                    } else {
+//                        paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
+//                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
+//                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
+//                    }
+//                    //System.err.println( parameter.substring(0, parameter.length() - 5)+" Tham so: "+values[0]);
+//                }
+//            }
+//        }
+//
+//        //xu ly cho export file ra PDF hoac la Excel
+//        String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
+//        //duong dan chua file tren o dia + Define.M_REPORT_XLS
+//        String strPathSave = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");;
+//        //Ham nay lay ra ten file bao cao can tao, ten file jasper report
+//
+//        String strTimeFile = Long.toString(System.currentTimeMillis());
+//        String strFileSave = save_id + "_"
+//                + "_" + strCurrDate
+//                + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
+//
+//        strPathSave += Define.M_REPORT_XLS;
+//        strFileSave += ".XLSX";
+//        filereport = strFileSave;
+//        File Checkpath = new File(strPathSave);
+//        if (!Checkpath.exists()) {
+//            System.out.println("Da tao thu muc: " + strPathSave);
+//            Checkpath.mkdirs();
+//        }
+//        //Xuat file du lieu o day
+//
+//        DaoRptQuery daoQuery = new DaoRptQuery();
+//
+//        setQuery(daoQuery.getQuery(save_id, new DaoConnect().getConnect()));
+//        ImsPlSqlQuery plsql = new ImsPlSqlQuery();
+////        if (plsql.isOracleStoredProcedure(query)) { //neu la procedure thi chay rieng
+////            daoQuery.exportExcelQueryPlSql(mapCollectPara, save_id, strPathSave + strFileSave);
+////        } else {
+////            //Xuat file du lieu o day
+//////            DaoRptQuery daoQuery = new DaoRptQuery();
+////            if (sPos_cd.isEmpty() || stringParaPos_cd.isEmpty()) {
+////                daoQuery.exportExcelQuery(paramHashMap, save_id, strPathSave + strFileSave);
+////            } else {
+////                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave);
+////            }
+////        }
+//
+//        long startTime = System.currentTimeMillis();
+//
+//        if (plsql.isOracleStoredProcedure(query)) { //neu la procedure thi chay rieng
+//            daoQuery.exportExcelQueryPlSql(mapCollectPara, save_id, strPathSave + strFileSave);
+//        } else {
+//            if (sPos_cd.isEmpty() || stringParaPos_cd.isEmpty()) {
+//                daoQuery.exportExcelQuery(paramHashMap, save_id, strPathSave + strFileSave);
+//            } else {
+//                daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave);
+//            }
+//        }
+//
+//        long endTime = System.currentTimeMillis();
+//
+//        if ((endTime - startTime) > 60000) {
+//            setMessage("Thời gian tạo báo cáo quá lâu, hệ thống đã dừng xử lý. Vui lòng liên hệ TTCNTT để kiểm tra và tối ưu báo cáo.");
+//            return ERROR;
+//        }
+//        //Kiem tra xem file da tao thanh cong chua
+//        File filerpt = new File(strPathSave + strFileSave);
+//        if (!filerpt.exists()) {
+//            setMessage("Lỗi bạn chưa tạo được file báo cáo " + strFileSave);
+//            return ERROR;
+//        }
+//        fileNamelocal = strPathSave + strFileSave;
+//        System.gc();
+//        return SUCCESS;
+//    }
     public String ExportExcelQuery() throws Exception {
-//        System.err.println("vao ham export report ");
 
-        if (save_id == null | save_id.isEmpty()) {
-            setMessage("Bạn chưa chọn mẫu báo cáo nên không thể tạo báo cáo ");
+        if (save_id == null || save_id.isEmpty()) {
+            setMessage("Bạn chưa chọn mẫu báo cáo nên không thể tạo báo cáo");
             return ERROR;
         }
 
         HashMap<String, String> paramHashMap = new HashMap<>();
-
-        Map<String, String[]> prameters = request.getParameterMap();
+        Map<String, Object> mapCollectPara = new HashMap<>();
+        Map<String, String[]> parameters = request.getParameterMap();
         String sPos_cd = "";
         String stringParaPos_cd = "";
         String sPosFlag = "";
-        //xy lay lay cac tham so cho vao hashmap
-        Map mapCollectPara = new HashMap();
-
-        for (String parameter : prameters.keySet()) {
-            String[] values = prameters.get(parameter);
-            //Do neu parameter kieu date thi he thong se sinh them control dojo.date
-            //   nen minh can phai loai bo tham so nay di
-            if (parameter.indexOf("TEXT") > 0 || parameter.indexOf("DATE") > 0
-                    || parameter.indexOf("LIST") > 0 || parameter.indexOf("NUMB") > 0) {
-                if (parameter.indexOf("DATE") > 0) {
-                    Date sdf = new SimpleDateFormat("dd/MM/yyyy").parse(values[0]);
-                    paramHashMap.put(parameter.substring(0, parameter.length() - 5), new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
-
-                    mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
-                            ImsFillParaMeter.newInstance("VARCHAR2", new SimpleDateFormat("dd-MMM-yyyy").format(sdf)));
-                    //System.err.println( parameter.substring(0, parameter.length() - 5)+" Tham so: "+new SimpleDateFormat("dd-MMM-yyyy").format(sdf));
-                } else if (parameter.indexOf("NUMB") > 0) {
-                    if (parameter.indexOf("_NUMB") > 0) {
-                        paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
-
-                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
-                                ImsFillParaMeter.newInstance("NUMBER", values[0]));
+        for (String parameter : parameters.keySet()) {
+            String[] values = parameters.get(parameter);
+            if (values == null || values.length == 0) {
+                continue;
+            }
+            String value = values[0];
+            if (parameter.contains("TEXT") || parameter.contains("DATE")
+                    || parameter.contains("LIST") || parameter.contains("NUMB")) {
+                if (parameter.contains("DATE")) {
+                    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(value);
+                    String formattedDate = new SimpleDateFormat("dd-MMM-yyyy").format(date);
+                    String key = parameter.substring(0, parameter.length() - 5);
+                    paramHashMap.put(key, formattedDate);
+                    mapCollectPara.put(key, ImsFillParaMeter.newInstance("VARCHAR2", formattedDate));
+                } else if (parameter.contains("NUMB")) {
+                    if (parameter.contains("_NUMB")) {
+                        String key = parameter.substring(0, parameter.length() - 5);
+                        paramHashMap.put(key, value);
+                        mapCollectPara.put(key, ImsFillParaMeter.newInstance("NUMBER", value));
                     }
                 } else {
-                    if (parameter.indexOf("_MAPGD") > 0) {
-                        sPos_cd = values[0].trim();
+                    if (parameter.contains("_MAPGD")) {
+                        sPos_cd = value.trim();
                         stringParaPos_cd = parameter.substring(0, parameter.length() - 11);
-
-                        mapCollectPara.put(parameter.substring(0, parameter.length() - 11),
-                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
-                    } else if (parameter.indexOf("_TONGHOP") > 0) {
-                        sPosFlag = values[0].trim();
-                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
-                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
+                        mapCollectPara.put(stringParaPos_cd, ImsFillParaMeter.newInstance("VARCHAR2", value));
+                    } else if (parameter.contains("_TONGHOP")) {
+                        sPosFlag = value.trim();
+                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5), ImsFillParaMeter.newInstance("VARCHAR2", value));
                     } else {
-                        paramHashMap.put(parameter.substring(0, parameter.length() - 5), values[0]);
-                        mapCollectPara.put(parameter.substring(0, parameter.length() - 5),
-                                ImsFillParaMeter.newInstance("VARCHAR2", values[0]));
+                        String key = parameter.substring(0, parameter.length() - 5);
+                        paramHashMap.put(key, value);
+                        mapCollectPara.put(key, ImsFillParaMeter.newInstance("VARCHAR2", value));
                     }
-                    //System.err.println( parameter.substring(0, parameter.length() - 5)+" Tham so: "+values[0]);
                 }
             }
         }
-
-        //xu ly cho export file ra PDF hoac la Excel
+        System.out.println("bat dau = " + save_id);
         String strCurrDate = new SimpleDateFormat("ddMMyyyy").format(new Date());
-        //duong dan chua file tren o dia + Define.M_REPORT_XLS
-        String strPathSave = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");;
-        //Ham nay lay ra ten file bao cao can tao, ten file jasper report
-
         String strTimeFile = Long.toString(System.currentTimeMillis());
-        String strFileSave = save_id + "_"
-                + "_" + strCurrDate
-                + "_" + strTimeFile.substring(strTimeFile.length() - 4, strTimeFile.length());
-
-        strPathSave += Define.M_REPORT_XLS;
-        strFileSave += ".XLSX";
-        filereport = strFileSave;
-        File Checkpath = new File(strPathSave);
-        if (!Checkpath.exists()) {
-            System.out.println("Da tao thu muc: " + strPathSave);
-            Checkpath.mkdirs();
+        String strFileSave = save_id + "_" + strCurrDate + "_" + strTimeFile.substring(strTimeFile.length() - 4);
+        String strPathSave = request.getRealPath("/");
+        if (!strPathSave.endsWith("/")) {
+            strPathSave += "/";
         }
-        //Xuat file du lieu o day
-
+        strPathSave += Define.M_REPORT_XLS;
+        strFileSave += ".xlsx";
+        filereport = strFileSave;
+        File folder = new File(strPathSave);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
         DaoRptQuery daoQuery = new DaoRptQuery();
-
         setQuery(daoQuery.getQuery(save_id, new DaoConnect().getConnect()));
         ImsPlSqlQuery plsql = new ImsPlSqlQuery();
-        if (plsql.isOracleStoredProcedure(query)) { //neu la procedure thi chay rieng
+        long startTime = System.currentTimeMillis();
+        if (plsql.isOracleStoredProcedure(query)) {
             daoQuery.exportExcelQueryPlSql(mapCollectPara, save_id, strPathSave + strFileSave);
         } else {
-            //Xuat file du lieu o day
-//            DaoRptQuery daoQuery = new DaoRptQuery();
             if (sPos_cd.isEmpty() || stringParaPos_cd.isEmpty()) {
                 daoQuery.exportExcelQuery(paramHashMap, save_id, strPathSave + strFileSave);
             } else {
                 daoQuery.getDataExp(save_id, paramHashMap, sPos_cd, stringParaPos_cd, sPosFlag, strPathSave + strFileSave);
             }
         }
-        //Kiem tra xem file da tao thanh cong chua
-        File filerpt = new File(strPathSave + strFileSave);
+        long endTime = System.currentTimeMillis();
+        if ((endTime - startTime) > 600000) {
+            setMessage("Thời gian tạo báo cáo quá lâu, hệ thống đã dừng xử lý. Vui lòng liên hệ TTCNTT để kiểm tra và tối ưu báo cáo.");
+            return ERROR;
+        }        File filerpt = new File(strPathSave + strFileSave);
         if (!filerpt.exists()) {
             setMessage("Lỗi bạn chưa tạo được file báo cáo " + strFileSave);
             return ERROR;
         }
         fileNamelocal = strPathSave + strFileSave;
+
         System.gc();
+        System.out.println("Thoi gian tao: " + (endTime - startTime) + "ms");
         return SUCCESS;
     }
 

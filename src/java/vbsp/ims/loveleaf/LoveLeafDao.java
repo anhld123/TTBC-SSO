@@ -5,18 +5,23 @@
  */
 package vbsp.ims.loveleaf;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import vbsp.ims.dao.DaoConnect;
-import vbsp.ims.define.DefineFun;
 import vbsp.ims.dtw.ExcelToTableDetail;
 import vbsp.ims.export.excel.ExportExcelFile;
 
@@ -427,8 +432,8 @@ public class LoveLeafDao {
             }
         }
     }
-    
-    public void export_qtt_upload_file(String pv_program,String pv_tran_dt, String pv_file_path) {
+
+    public void export_qtt_upload_file(String pv_program, String pv_tran_dt, String pv_file_path) {
         String strStoreproce
                 = "{call app_loveleaf_proj.SP_QTT_EXPORT_UPLOADFILE(?, ?, ? )}";
         try {
@@ -439,7 +444,7 @@ public class LoveLeafDao {
             ResultSet rs;
             try (CallableStatement calstatement = conn.prepareCall(strStoreproce,
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-calstatement.setString(1, pv_program);
+                calstatement.setString(1, pv_program);
                 calstatement.setString(2, pv_tran_dt);
                 calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.CURSOR);
                 calstatement.execute();
@@ -502,12 +507,36 @@ calstatement.setString(1, pv_program);
                             1,
                             pv_file_path,
                             "CLYT_MAU01", 1);
+
+                    File file = new File(pv_file_path);
+                    if (!file.exists()) {
+                        System.out.println("File chưa được tạo!");
+                        return;
+                    }
+
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
                     Date date = formatter.parse(pv_tran_dt);
-                    String timestemp = "Tháng " + String.valueOf(date.getMonth() + 1)
-                            + " năm " + String.valueOf(date.getYear() + 1900);
-                    String subtile = "Hà Nội, ngày ... tháng ... năm " + String.valueOf(date.getYear() + 1900);
-                    export.setExcelSubTitle_0(pv_file_path, timestemp, 5, 0, subtile, 121, 6);
+
+                    try (FileInputStream fis = new FileInputStream(file);
+                            Workbook workbook = WorkbookFactory.create(fis)) {
+
+                        Sheet sheet = workbook.getSheetAt(0);
+
+                        int totalRow = sheet.getPhysicalNumberOfRows();
+                        System.out.println("totalRow = " + totalRow);
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);
+
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+                        int month = cal.get(Calendar.MONTH) + 1;
+                        int year = cal.get(Calendar.YEAR);
+
+                        String timestemp = "Tháng " + month + " năm " + year;
+                        String subtile = "Hà Nội, ngày " + day + " tháng " + month + " năm " + year;
+
+                        export.setExcelSubTitle_0(pv_file_path, timestemp, 5, 0, subtile, totalRow, 6);
+                    }
                 } else {
                     export.export2FileExcel_Rs_1(
                             rs,

@@ -21,6 +21,12 @@ import vbsp.ims.loadparams.Combo;
 import vbsp.ims.loadparams.LoadReportParams;
 import vbsp.ims.loadparams.ReportParam;
 import vbsp.ims.log.CoreLogger;
+import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class LoadReportParamsActionSupport
         extends ActionSupport implements ServletRequestAware {
@@ -325,8 +331,29 @@ public class LoadReportParamsActionSupport
                 System.out.println("Da tao thu muc: " + strPathSave);
                 Checkpath.mkdirs();
             }
-            exportReport.ExportJasperPdf(strSourceJasper, paramHashMap, connect, strPathSave + strFileSave);
+//            exportReport.ExportJasperPdf(strSourceJasper, paramHashMap, connect, strPathSave + strFileSave);
+            final String fStrSourceJasper = strSourceJasper;
+            final HashMap<String, Object> fParamHashMap = paramHashMap;
+            final Connection fConnect = connect;
+            final String fFullPath = strPathSave + strFileSave;
 
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+
+            Future<?> future = executor.submit(() -> {
+                exportReport.ExportJasperPdf(fStrSourceJasper, fParamHashMap, fConnect, fFullPath);
+            });
+
+            try {
+                future.get(300, TimeUnit.SECONDS);
+            } catch (TimeoutException e) {
+                future.cancel(true);
+                fileNamelocal = sMessagepdf + "ERROR_JASPER_REPORT.PDF";
+                filereport = "ERROR_JASPER_REPORT.PDF";
+                setMessage("Thời gian tạo báo cáo quá lâu, hệ thống đã dừng xử lý. Vui lòng liên hệ TTCNTT để kiểm tra và tối ưu báo cáo.");
+                return ERROR;
+            } finally {
+                executor.shutdownNow();
+            }
             //Kiem tra xem file da tao thanh cong chua        
             File filerpt = new File(strPathSave + strFileSave);
             if (!filerpt.exists()) {

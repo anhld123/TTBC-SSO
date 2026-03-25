@@ -480,8 +480,8 @@
                         </td>
                         <td><s:property  value="TEN"/></td>
                         <td><input type="text" value="<s:property  value="D1" />"
-                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP23')|| check_D2.equalsIgnoreCase('1')">readonly="true"</s:if>
-                                   <s:if test="!D35.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
+                                   <s:if test="!check_Username.equalsIgnoreCase('USRGRP24')|| check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
+                                   <s:if test="!D36.equalsIgnoreCase('1')">style="background: blanchedalmond"</s:if>
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D1" class="number"/></td>
                         <td><input type="text" value="<s:property  value="D2" />" 
                                    <s:if test="!check_Username.equalsIgnoreCase('USRGRP24') || check_D3.equalsIgnoreCase('1')">readonly="true"</s:if>
