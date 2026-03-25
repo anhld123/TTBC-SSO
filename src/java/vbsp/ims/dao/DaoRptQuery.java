@@ -854,7 +854,7 @@ public class DaoRptQuery {
             connect = daoConnect.getConnect();
             //connect=daoConnect.getConnect("10.63.8.59", "vbsprepo", 1521, "intellect", "intellect321#");
             //Lay ra title cho bao cao
-            String strTitle = "Danh sách người lao động giải ngân, nhận tiền, chưa nhận tiền";
+            String strTitle = this.getTitleQuery(strSave_id, connect);
             //Lay ra truy van cho bao cao
             String strQuery = getQuery(strSave_id, connect);
 
