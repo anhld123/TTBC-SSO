@@ -8,7 +8,7 @@
 
 <s:head/>
 <sj:head/>
- 
+
 <script>
     function Redirect(url) {
         var ua = navigator.userAgent.toLowerCase(),
@@ -28,7 +28,7 @@
     }
 </script>
 
-<link href="menu/Menustyle.css" rel="stylesheet" type="text/css"/>
+<link href="menu/Menustyle_1.css" rel="stylesheet" type="text/css"/>
 
 <s:bean name="vbsp.ims.bean.MenuBean" var="menu">  
 </s:bean>
