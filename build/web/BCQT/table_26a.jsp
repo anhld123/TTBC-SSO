@@ -58,16 +58,17 @@
     </script>    
 
     <script>
+        <s:if test="Grade.equalsIgnoreCase('1')">
         function autoEvaluate() {
 //                alert('vao doClick');
             var arrCot = [".D10"]; //Luu cac cot cua du lieu can tinh toan
 
             // Tinh cho dong A1
             for (i = 0; i < arrCot.length; i++) {
-                
+
                 let rawValue06 = $(arrCot[i]).eq(6).val();
                 let value06 = rawValue06 === null || rawValue06 === "" ? 0 : parseFloat(rawValue06);
-                
+
                 //Tinh tong cho dong "Các khoan thu noi bang"
                 $(arrCot[i]).eq(1).val(
                         parseFloat($(arrCot[i]).eq(2).val())
@@ -90,32 +91,32 @@
                 //Tinh tong cho dong "Các khoản được cộng"
                 let rawValue11 = $(arrCot[i]).eq(11).val();
                 let value11 = rawValue11 === null || rawValue11 === "" ? 0 : parseFloat(rawValue11);
-                
+
                 let rawValue12 = $(arrCot[i]).eq(12).val();
                 let value12 = rawValue12 === null || rawValue12 === "" ? 0 : parseFloat(rawValue12);
-                
+
                 let rawValue13 = $(arrCot[i]).eq(13).val();
                 let value13 = rawValue13 === null || rawValue13 === "" ? 0 : parseFloat(rawValue13);
-                
+
                 $(arrCot[i]).eq(8).val(parseFloat($(arrCot[i]).eq(9).val())
                         + parseFloat($(arrCot[i]).eq(10).val())
                         + value11
                         + value12
-                        + value13
+//                        + value13
                         );
             }
 
             // Tinh cho dong A2002
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các khoản phải trừ"
-                $(arrCot[i]).eq(14).val(parseFloat($(arrCot[i]).eq(15).val()) + parseFloat($(arrCot[i]).eq(16).val()) +
-                        parseFloat($(arrCot[i]).eq(17).val()));
+                $(arrCot[i]).eq(13).val(parseFloat($(arrCot[i]).eq(14).val()) + parseFloat($(arrCot[i]).eq(15).val()) +
+                        parseFloat($(arrCot[i]).eq(16).val()));
             }
             // Tinh cho dong A2
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các khoản thu ngoại bảng"
                 $(arrCot[i]).eq(7).val(parseFloat($(arrCot[i]).eq(8).val()) -
-                        parseFloat($(arrCot[i]).eq(14).val()));
+                        parseFloat($(arrCot[i]).eq(13).val()));
 //                window.alert("8= "+ parseFloat($(arrCot[i]).eq(8).val()) + " 14 = " +parseFloat($(arrCot[i]).eq(14).val()));
             }
 
@@ -128,30 +129,30 @@
 
             // Tinh cho dong  B1
             for (i = 0; i < arrCot.length; i++) {
-                $(arrCot[i]).eq(19).val(parseFloat($(arrCot[i]).eq(20).val()) +
-                        parseFloat($(arrCot[i]).eq(21).val()) + parseFloat($(arrCot[i]).eq(22).val()) +
-                        parseFloat($(arrCot[i]).eq(23).val()) + parseFloat($(arrCot[i]).eq(24).val()) +
-                        parseFloat($(arrCot[i]).eq(25).val()) + parseFloat($(arrCot[i]).eq(26).val()));
+                $(arrCot[i]).eq(18).val(parseFloat($(arrCot[i]).eq(19).val()) +
+                        parseFloat($(arrCot[i]).eq(20).val()) + parseFloat($(arrCot[i]).eq(21).val()) +
+                        parseFloat($(arrCot[i]).eq(22).val()) + parseFloat($(arrCot[i]).eq(23).val()) +
+                        parseFloat($(arrCot[i]).eq(24).val()) + parseFloat($(arrCot[i]).eq(25).val()));
             }
 
             // Tinh cho dong B2001   
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "2.1 Các khoản cộng thêm"
-                $(arrCot[i]).eq(28).val(parseFloat($(arrCot[i]).eq(29).val()) + parseFloat($(arrCot[i]).eq(30).val())
-                        + parseFloat($(arrCot[i]).eq(31).val()));
+                $(arrCot[i]).eq(27).val(parseFloat($(arrCot[i]).eq(28).val()) + parseFloat($(arrCot[i]).eq(29).val())
+                        + parseFloat($(arrCot[i]).eq(30).val()));
             }
 
             // Tinh cho dong B2002   
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "2.2 Các khoản được loại trừ"
-                $(arrCot[i]).eq(32).val(parseFloat($(arrCot[i]).eq(33).val()) + parseFloat($(arrCot[i]).eq(34).val())
-                        + parseFloat($(arrCot[i]).eq(35).val()) + parseFloat($(arrCot[i]).eq(36).val()));
+                $(arrCot[i]).eq(31).val(parseFloat($(arrCot[i]).eq(32).val()) + parseFloat($(arrCot[i]).eq(33).val())
+                        + parseFloat($(arrCot[i]).eq(34).val()) + parseFloat($(arrCot[i]).eq(35).val()));
             }
 
             // Tinh cho dong B2  
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Các khoản chi ngoại bảng"
-                $(arrCot[i]).eq(27).val(parseFloat($(arrCot[i]).eq(28).val()) - parseFloat($(arrCot[i]).eq(32).val()));
+                $(arrCot[i]).eq(26).val(parseFloat($(arrCot[i]).eq(27).val()) - parseFloat($(arrCot[i]).eq(31).val()));
             }
 
             // Tinh cho dong B  
@@ -163,7 +164,7 @@
             // Tinh cho dong C 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Chênh lệch thu - chi chưa có lương"
-                $(arrCot[i]).eq(37).val(parseFloat($(arrCot[i]).eq(0).val()) - parseFloat($(arrCot[i]).eq(18).val()));
+                $(arrCot[i]).eq(36).val(parseFloat($(arrCot[i]).eq(0).val()) - parseFloat($(arrCot[i]).eq(17).val()));
             }
 
             // Tinh cho dong D  
@@ -175,15 +176,15 @@
             // Tinh cho dong F  
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Quỹ lương đạt được"
-                $(arrCot[i]).eq(40).val(parseFloat($(arrCot[i]).eq(43).val()) + parseFloat($(arrCot[i]).eq(41).val()) + parseFloat($(arrCot[i]).eq(42).val()));
+                $(arrCot[i]).eq(39).val(parseFloat($(arrCot[i]).eq(42).val()) + parseFloat($(arrCot[i]).eq(40).val()) + parseFloat($(arrCot[i]).eq(41).val()));
             }
 
 
             // Tinh cho dong G 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Quỹ lương đạt được"
-                $(arrCot[i]).eq(47).val(
-                        parseFloat($(arrCot[i]).eq(51).val())
+                $(arrCot[i]).eq(46).val(
+                        parseFloat($(arrCot[i]).eq(47).val())
                         + parseFloat($(arrCot[i]).eq(48).val())
                         + parseFloat($(arrCot[i]).eq(49).val())
                         + parseFloat($(arrCot[i]).eq(50).val())
@@ -192,8 +193,8 @@
 
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Quỹ lương đạt được"
-                $(arrCot[i]).eq(44).val(
-                        parseFloat($(arrCot[i]).eq(47).val())
+                $(arrCot[i]).eq(43).val(
+                        parseFloat($(arrCot[i]).eq(44).val())
                         + parseFloat($(arrCot[i]).eq(45).val())
                         - parseFloat($(arrCot[i]).eq(46).val())
                         );
@@ -203,15 +204,15 @@
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Lao động và quỹ lương thực hiện"
                 $(arrCot[i]).eq(7).val(parseFloat($(arrCot[i]).eq(8).val())
-                        - parseFloat($(arrCot[i]).eq(14).val()));
+                        - parseFloat($(arrCot[i]).eq(13).val()));
             }
 
 
             // Tinh cho dong H
             for (i = 0; i < arrCot.length; i++) {
                 //Tinh tong cho dong "Lao động và quỹ lương thực hiện"
-                $(arrCot[i]).eq(52).val(parseFloat($(arrCot[i]).eq(40).val())
-                        - parseFloat($(arrCot[i]).eq(44).val()));
+                $(arrCot[i]).eq(51).val(parseFloat($(arrCot[i]).eq(39).val())
+                        - parseFloat($(arrCot[i]).eq(43).val()));
             }
             // Tinh cho dong G
 //                for (i = 0; i < arrCot.length; i++) { 
@@ -224,6 +225,159 @@
 //                }
 
         }
+        </s:if>
+        <s:else>
+        function autoEvaluate() {
+//                alert('vao doClick');
+            var arrCot = [".D10"]; //Luu cac cot cua du lieu can tinh toan
+
+            // Tinh cho dong A1
+            for (i = 0; i < arrCot.length; i++) {
+
+                let rawValue06 = $(arrCot[i]).eq(6).val();
+                let value06 = rawValue06 === null || rawValue06 === "" ? 0 : parseFloat(rawValue06);
+
+                //Tinh tong cho dong "Các khoan thu noi bang"
+                $(arrCot[i]).eq(1).val(
+                        parseFloat($(arrCot[i]).eq(2).val())
+                        + parseFloat($(arrCot[i]).eq(3).val())
+                        + parseFloat($(arrCot[i]).eq(4).val())
+                        + parseFloat($(arrCot[i]).eq(5).val())
+                        + value06
+                        //+ parseFloat($(arrCot[i]).eq(6).val())
+                        );
+            }
+            //tính cho dòng A20013
+//                for (i = 0; i < arrCot.length; i++) { 
+//                    //Tinh tong cho dong "Các khoản được cộng"
+//                     $(arrCot[i]).eq(12).val(parseFloat($(arrCot[i]).eq(13).val())
+//                             +parseFloat($(arrCot[i]).eq(14).val()));
+//                }
+
+            // Tinh cho dong A2001 2.1. Các khoản được cộng:
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Các khoản được cộng"
+                let rawValue11 = $(arrCot[i]).eq(11).val();
+                let value11 = rawValue11 === null || rawValue11 === "" ? 0 : parseFloat(rawValue11);
+
+                let rawValue12 = $(arrCot[i]).eq(12).val();
+                let value12 = rawValue12 === null || rawValue12 === "" ? 0 : parseFloat(rawValue12);
+
+                let rawValue13 = $(arrCot[i]).eq(13).val();
+                let value13 = rawValue13 === null || rawValue13 === "" ? 0 : parseFloat(rawValue13);
+
+                $(arrCot[i]).eq(8).val(parseFloat($(arrCot[i]).eq(9).val())
+                        + parseFloat($(arrCot[i]).eq(10).val())
+                        + value11
+                        + value12
+//                        + value13
+                        );
+            }
+
+            // Tinh cho dong A2002
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Các khoản phải trừ"
+                $(arrCot[i]).eq(13).val(parseFloat($(arrCot[i]).eq(14).val()) + parseFloat($(arrCot[i]).eq(15).val()) +
+                        parseFloat($(arrCot[i]).eq(16).val()));
+            }
+            // Tinh cho dong A2
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Các khoản thu ngoại bảng"
+                $(arrCot[i]).eq(7).val(parseFloat($(arrCot[i]).eq(8).val()) -
+                        parseFloat($(arrCot[i]).eq(13).val()));
+//                window.alert("8= "+ parseFloat($(arrCot[i]).eq(8).val()) + " 14 = " +parseFloat($(arrCot[i]).eq(14).val()));
+            }
+
+            // Tinh cho dong A
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Tong thu"
+                $(arrCot[i]).eq(0).val(parseFloat($(arrCot[i]).eq(1).val()) +
+                        parseFloat($(arrCot[i]).eq(7).val()));
+            }
+
+            // Tinh cho dong  B1
+            for (i = 0; i < arrCot.length; i++) {
+                $(arrCot[i]).eq(18).val(parseFloat($(arrCot[i]).eq(19).val()) +
+                        parseFloat($(arrCot[i]).eq(20).val()) + parseFloat($(arrCot[i]).eq(21).val()) +
+                        parseFloat($(arrCot[i]).eq(22).val()) + parseFloat($(arrCot[i]).eq(23).val()) +
+                        parseFloat($(arrCot[i]).eq(24).val()) + parseFloat($(arrCot[i]).eq(25).val()));
+            }
+
+            // Tinh cho dong B2001   
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "2.1 Các khoản cộng thêm"
+                $(arrCot[i]).eq(27).val(parseFloat($(arrCot[i]).eq(28).val()) + parseFloat($(arrCot[i]).eq(29).val())
+                        + parseFloat($(arrCot[i]).eq(30).val()));
+            }
+
+            // Tinh cho dong B2002   
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "2.2 Các khoản được loại trừ"
+                $(arrCot[i]).eq(31).val(parseFloat($(arrCot[i]).eq(32).val()) + parseFloat($(arrCot[i]).eq(33).val())
+                        + parseFloat($(arrCot[i]).eq(34).val()) + parseFloat($(arrCot[i]).eq(35).val()));
+            }
+
+            // Tinh cho dong B2  
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Các khoản chi ngoại bảng"
+                $(arrCot[i]).eq(26).val(parseFloat($(arrCot[i]).eq(27).val()) - parseFloat($(arrCot[i]).eq(31).val()));
+            }
+
+            // Tinh cho dong B  
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Tổng chi"
+                $(arrCot[i]).eq(17).val(parseFloat($(arrCot[i]).eq(18).val()) + parseFloat($(arrCot[i]).eq(26).val()));
+            }
+
+            // Tinh cho dong C 
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Chênh lệch thu - chi chưa có lương"
+                $(arrCot[i]).eq(36).val(parseFloat($(arrCot[i]).eq(0).val()) - parseFloat($(arrCot[i]).eq(17).val()));
+            }
+
+            // Tinh cho dong F  
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Quỹ lương đạt được"
+                $(arrCot[i]).eq(39).val(parseFloat($(arrCot[i]).eq(42).val()) + parseFloat($(arrCot[i]).eq(40).val()) + parseFloat($(arrCot[i]).eq(41).val()));
+            }
+
+
+            // Tinh cho dong G 
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Quỹ lương đạt được"
+                $(arrCot[i]).eq(46).val(
+                        parseFloat($(arrCot[i]).eq(50).val())
+                        + parseFloat($(arrCot[i]).eq(47).val())
+                        + parseFloat($(arrCot[i]).eq(48).val())
+                        + parseFloat($(arrCot[i]).eq(49).val())
+                        );
+            }
+
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Quỹ lương đạt được"
+                $(arrCot[i]).eq(43).val(
+                        parseFloat($(arrCot[i]).eq(46).val())
+                        + parseFloat($(arrCot[i]).eq(44).val())
+                        - parseFloat($(arrCot[i]).eq(45).val())
+                        );
+            }
+
+            // Tinh cho dong I
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Lao động và quỹ lương thực hiện"
+                $(arrCot[i]).eq(7).val(parseFloat($(arrCot[i]).eq(8).val())
+                        - parseFloat($(arrCot[i]).eq(13).val()));
+            }
+
+
+            // Tinh cho dong H
+            for (i = 0; i < arrCot.length; i++) {
+                //Tinh tong cho dong "Lao động và quỹ lương thực hiện"
+                $(arrCot[i]).eq(51).val(parseFloat($(arrCot[i]).eq(39).val())
+                        - parseFloat($(arrCot[i]).eq(43).val()));
+            }
+        }
+        </s:else>
     </script>
 </head>
 <body>
@@ -233,7 +387,7 @@
                    name="1_<s:property  value="sKey" />" value="<s:property  value="sDesc"/>"/>
         </s:iterator>
         <div id="divTitle">
-            BÁO CÁO KẾT QUẢ THỰC HIỆN KHOÁN TÀI CHÍNH
+            BÁO CÁO KẾT QUẢ THỰC HIỆN KHOÁN TÀI CHÍNH <s:property  value="Grade"/>
         </div>
         <s:hidden name="khoa_bcqt"/>
         <div id="divDonvitinh">
@@ -348,7 +502,7 @@
                                    name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="D5    <s:property value='FONTFORMAT'/> TEN_KH" onfocus="this.select()"
                                    readonly/>
                         </td>
-                        <s:if test="MA.equalsIgnoreCase('CT9999') && Grade.equalsIgnoreCase('1')">
+                        <s:if test="(MA.equalsIgnoreCase('CT9999')||MA.equalsIgnoreCase('CT9998') )&& Grade.equalsIgnoreCase('1')">
                             <td align = "right" class="TD_GHICHU">
                                 <input type="text" value="<s:property  value="D10" />" 
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="D10 number5 <s:property value='FONTFORMAT'/>  <s:property value='FONTFORMAT'/> TEN_KH" onfocus="this.select()" onblur="autoEvaluate()"                                  

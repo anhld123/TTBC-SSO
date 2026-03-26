@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%--<sj:head jqueryui="true" loadAtOnce="true" jquerytheme="south-street" />--%>
         <sj:head jqueryui="true" jquerytheme="smoothness"/> 
@@ -19,20 +19,20 @@
         <script src="js/Checkdate.js"></script>
         <!--<script src="js/google-chart.js"></script>-->  
         <script>
-            $.subscribe("beforediv_para", function(event, data) {
+            $.subscribe("beforediv_para", function (event, data) {
                 $("#loadingImageDiv_para").show();
             });
-            $.subscribe("completediv_para", function(event, data) {
+            $.subscribe("completediv_para", function (event, data) {
                 $("#loadingImageDiv_para").hide();
             });
 
             function onReloadPara()
             {
-                $('#containBcttv').empty();                
+                $('#containBcttv').empty();
                 $("#loadParameter")[0].click();
             }
-            $.subscribe('beforediv1', function(event, data) {
-                var allDate = $(".hasDatepicker").map(function() {
+            $.subscribe('beforediv1', function (event, data) {
+                var allDate = $(".hasDatepicker").map(function () {
                     return $(this).attr("name");
                 }).get();
 
@@ -118,10 +118,11 @@
                                        headerKey="-1"
                                        headerValue="-- Chọn --" 
                                        cssStyle="font-weight: bold;vertical-align: middle;width: 500px;"
-                                       onBeforeTopics="myBeforeHandler" 
-                                       onCompleteTopics="myCompleteTopics">                    
+                                       onCompleteTopics="myCompleteTopics,highlightKKTS">
                             </sj:select>
+
                         </td>
+
                         <td>
                             <div id="loadingImageDiv_para"  style="display: none;">
                                 <img id="loadingImage" src='img/loading.gif' border='0' >
@@ -138,5 +139,25 @@
         <div id="containBcttv">
         </div>
     </body>
+    <script>
+
+        function highlightKKTS() {
+            var blueKeys = ["KKTS_01", "HTLS_2025"];
+
+            $("#khoa_nhaptaycn option").each(function () {
+                if (blueKeys.includes($(this).val())) {
+                    $(this).css({
+                        "color": "blue",
+                        "font-weight": "bold"
+                    });
+                }
+            });
+        }
+
+        $.subscribe("myCompleteTopics", function () {
+            highlightKKTS();
+        });
+
+    </script>
 </html>
 

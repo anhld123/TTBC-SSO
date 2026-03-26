@@ -168,7 +168,7 @@
                 <table style="border:solid 3px #cccccc;width: 75%; padding: 5px 5px 10px 5px;"
                        CELLSPACING="5px">
                     <tr>
-                        <td>Báo cáo:</td>
+                        <td>Báo cáo: </td>
                         <td>
                             <s:url var="buildComboUrl1" action="buildReportGroupCombo"></s:url>
                             <sj:select href="%{buildComboUrl1}" 
@@ -180,24 +180,28 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       onchange="js_changetopic(); toggleParameters(this.value);"
-                                       headerValue="--- Chọn báo cáo ---" 
-                                       theme="simple"></sj:select>
+                                       onchange="js_changetopic();"
+                                       headerValue="--- Chọn báo cáo ---" theme="simple"
+                                       ></sj:select>   
                             </td>
                         </tr>
-                        <tr class="optional-parameter1">
-                            <td>Ngày báo cáo:</td>
+                        <tr>
+                            <td>
+                                Ngày báo cáo: 
+                            </td>
                             <td>                        
-                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}" onblur="validatedate(this.value)"
+                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}"  onblur="validatedate(this.value)"
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy"
                                            id="selectedrptDate" size="15"/>
                         </td>                    
                     </tr>
-                    <tr class="optional-parameter2">
-                        <td>Kỳ báo cáo:</td>
+                    <tr id="title_1">
+                        <td>
+                            Kỳ báo cáo: 
+                        </td>
                         <td>                        
                             <s:url var="buildComboUrl2" action="buildReportPeriodCombo"></s:url>
-                            <sj:select href="%{buildComboUrl2}" 
+                            <sj:select href="%{buildComboUrl1}" 
                                        name="reportPeriod"
                                        id="reportPeriod"
                                        list="lstRptPeriod"      
@@ -206,12 +210,11 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       headerValue="--- Chọn kỳ báo cáo ---" 
-                                       theme="simple"></sj:select>
+                                       headerValue="--- Chọn kỳ báo cáo ---" theme="simple"
+                                       ></sj:select>
                             </td>                    
                         </tr>
-
-                        <tr class="optional-parameter3">
+                        <tr id="title_2">
                             <td>Tên file:</td>
                             <td>                        
                             <s:url var="buildComboUrl3" action="buildPara"></s:url>
@@ -219,25 +222,17 @@
                                        name="txtGetData"
                                        id="txtGetData"
                                        list="lstPara"
-                                       reloadTopics="reloadModuleList"
+                                       reloadTopics="reloadFile"
                                        listKey="sKey"
                                        listValue="sDesc"
                                        emptyOption="false"
                                        headerKey="NULL"
                                        headerValue="--- Chọn file báo cáo ---"
                                        theme="simple" />
-                            <!--                            <td>                        
-                                                            <select name="txtGetData" id="txtGetData">                                                    
-                                                                <option value="1">KYC_01</option>                                                    
-                                                                <option value="2">KYC_02</option>
-                                                                <option value="3">KYC_03</option>
-                                                            </select> 
-                                                        </td>                    -->
-                    </tr>
-                    <%--</s:else>--%>
-                    <!--                        <tr>
-                                                <td colspan="2"><br/></td>
-                                            </tr>-->
+                        </td>
+                        <!--                        <tr>
+                                                    <td colspan="2"><br/></td>
+                                                </tr>-->
                     <tr>
                         <td></td>
                         <td>
@@ -288,24 +283,19 @@
     </div>    
 </div>
 <script>
-    function toggleParameters(selectedValue) {
-        const optionalRows1 = document.querySelectorAll('.optional-parameter1');
-        const optionalRows2 = document.querySelectorAll('.optional-parameter2');
-        const optionalRows3 = document.querySelectorAll('.optional-parameter3');
-
-        if (selectedValue === 'EX050001') {
-            // Ẩn các tham số
-            optionalRows1.forEach(row => row.style.display = 'none');
-            optionalRows2.forEach(row => row.style.display = 'none');
-            optionalRows3.forEach(row => row.style.display = '');
+    function toggleTitles() {
+        const report = $("#selectedReport").val();
+        if (report === 'EX050001') {
+            $("#title_1").hide();
+            $("#title_2").show();
         } else {
-            // Hiển thị các tham số
-            optionalRows1.forEach(row => row.style.display = '');
-            optionalRows2.forEach(row => row.style.display = '');
-            optionalRows3.forEach(row => row.style.display = 'none');
+            $("#title_2").hide();
+            $("#title_1").show();
         }
     }
-    ;
-    toggleParameters();
-</script>
 
+    $(document).ready(function () {
+        $("#selectedReport").on("change", toggleTitles);
+        toggleTitles(); // chạy lúc load
+    });
+</script>

@@ -46,7 +46,7 @@
                                 onfocus="clickme(this.parentNode.parentNode.rowIndex);" \n\
                                 onblur="outme(this.parentNode.parentNode.rowIndex);" /></td>\n\
                                 <td><input type="text" value="' + rand(12).toUpperCase() + '" id="D2" name="lstDulieuNt[' + rowCount + '].D2" \n\
-                                class="css_text" readonly="readonly" \n\
+                                class="css_text" \n\
                                 onfocus="clickme(this.parentNode.parentNode.rowIndex);" \n\
                                 onblur="outme(this.parentNode.parentNode.rowIndex);" /></td>\n\
                                 <td><input type="text" value="0" id="D5" name="lstDulieuNt[' + rowCount + '].D5" \n\
@@ -146,9 +146,9 @@
                     <th>Chi phí sửa chữa lớn</th>
                     <th>Chi phí sửa chữa thường xuyên</th>   
                     <th>Ghi chú</th>    
-					<% if (session.getAttribute("reportGrade").equals("1")) {%>
+                        <% if (session.getAttribute("reportGrade").equals("1")) {%>
                     <th>Chức năng</th> 
-					<%}%>
+                        <%}%>
                 </tr>
 
                 <tr style="font-style: italic;">     
@@ -159,9 +159,9 @@
                     <th class="css_13" name="head">5</th>
                     <th class="css_13" name="head">6</th>
                     <th class="css_14" name="head">7</th>
-					<% if (session.getAttribute("reportGrade").equals("1")) {%>
+                        <% if (session.getAttribute("reportGrade").equals("1")) {%>
                     <th class="css_14" name="head">8</th>
-					<%}%>
+                        <%}%>
                 </tr>
                 <s:iterator value="#attr.lstDulieuNt" var="modelView" status="rowstatus">
                     <s:if test="NHAPTAY.equalsIgnoreCase('N')">

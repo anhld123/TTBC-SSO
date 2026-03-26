@@ -141,8 +141,7 @@
                                    <s:if test="!MA.equalsIgnoreCase('CDTT01')&&!MA.equalsIgnoreCase('CDTT02')
                                          && !MA.equalsIgnoreCase('CDTT00')&&!MA.equalsIgnoreCase('CDTT02A')
                                          &&!MA.equalsIgnoreCase('CDTT03')
-                                         &&!MA.equalsIgnoreCase('CDTT05')&&!MA.equalsIgnoreCase('CDTT06')
-                                         &&!MA.equalsIgnoreCase('CDTT06A')&&!MA.equalsIgnoreCase('CDTT08')
+                                         &&!MA.equalsIgnoreCase('CDTT08')
                                          &&!MA.equalsIgnoreCase('CDTT09')&&!MA.equalsIgnoreCase('CDTT1301')
                                          &&!MA.equalsIgnoreCase('CDTT1302')&&!MA.equalsIgnoreCase('CDTT1303')
                                          &&!MA.equalsIgnoreCase('CDTT1304')">readonly="readonly"</s:if>
@@ -176,14 +175,14 @@
                                          (!MA.equalsIgnoreCase('CDTT01') && !MA.equalsIgnoreCase('CDTT02') &&
                                          !MA.equalsIgnoreCase('CDTT00') && !MA.equalsIgnoreCase('CDTT02A') &&
                                          !MA.equalsIgnoreCase('CDTT03') && 
-                                         !MA.equalsIgnoreCase('CDTT05') && !MA.equalsIgnoreCase('CDTT06') &&
-                                         !MA.equalsIgnoreCase('CDTT06A') && 
+                                         
                                          !MA.equalsIgnoreCase('CDTT08') && !MA.equalsIgnoreCase('CDTT09') &&
                                          !MA.equalsIgnoreCase('CDTT140102') && !MA.equalsIgnoreCase('CDTT140201') &&
                                          !MA.equalsIgnoreCase('CDTT140202') && !MA.equalsIgnoreCase('CDTT140301') &&
-                                         !MA.equalsIgnoreCase('CDTT140302') && !MA.equalsIgnoreCase('CDTT1301') &&
+                                         !MA.equalsIgnoreCase('CDTT140302') )">
+<!--                                       && !MA.equalsIgnoreCase('CDTT1301') &&
                                          !MA.equalsIgnoreCase('CDTT1302') && !MA.equalsIgnoreCase('CDTT1303') &&
-                                         !MA.equalsIgnoreCase('CDTT1304'))">
+                                         !MA.equalsIgnoreCase('CDTT1304')-->
                                        readonly="readonly"
                                    </s:if>
                                    />
@@ -270,7 +269,7 @@
 
                 setValue("D10_CDTT11", ["D10_CDTT1101", "D10_CDTT1102"]);
                 // chỉ tiêu CDTT13     
-                setValue("D10_CDTT13", ["D10_CDTT1301", "D10_CDTT1302", "D10_CDTT1303", "D10_CDTT1304"]);
+//                setValue("D10_CDTT13", ["D10_CDTT1301", "D10_CDTT1302", "D10_CDTT1303", "D10_CDTT1304"]);
 
                 // chỉ tiêu CDTT14
 //                setDifference("D10_CDTT140101", ["D1_CDTT140101"], ["D5_CDTT140101"]);
@@ -294,7 +293,7 @@
                 setValue("D5_CDTT110203", ["D5_CDTT11020301", "D5_CDTT11020302", "D5_CDTT11020303", "D5_CDTT11020304"]);
                 setValue("D5_CDTT110204", ["D5_CDTT11020401", "D5_CDTT11020402"]);
 
-                setValue("D5_CDTT13", ["D5_CDTT1301", "D5_CDTT1302", "D5_CDTT1303", "D5_CDTT1304"]);
+//                setValue("D5_CDTT13", ["D5_CDTT1301", "D5_CDTT1302", "D5_CDTT1303", "D5_CDTT1304"]);
                 setValue("D5_CDTT14", ["D5_CDTT1401", "D5_CDTT1402", "D5_CDTT1403"]);
                 setValue("D5_CDTT1401", ["D5_CDTT140101", "D5_CDTT140102"]);
                 setValue("D5_CDTT1402", ["D5_CDTT140201", "D5_CDTT140202"]);
