@@ -270,11 +270,24 @@
 
             const sum = ids => ids.reduce((acc, id) => acc + getValue(id), 0);
 
-            const setValue = (id, idsToSum) => {
-                const el = document.getElementById(id);
-                if (el)
-                    el.value = sum(idsToSum).toFixed(2);
-            };
+            const setValue = (id, idsToSum, divideBy, maxVal) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        let value = sum(idsToSum);
+
+                        // nếu có chia
+                        if (divideBy) {
+                            value = value / divideBy;
+                        }
+
+                        // nếu có max
+                        if (maxVal !== undefined) {
+                            value = Math.min(value, maxVal);
+                        }
+
+                        el.value = value.toFixed(2);
+                    }
+                };
 
             const setDifference = (id, groupA, groupB) => {
                 const el = document.getElementById(id);
@@ -320,7 +333,11 @@
                 setValue("D11_CDTT110204_" + mapgd, ["D11_CDTT11020401_" + mapgd, "D11_CDTT11020402_" + mapgd]);
                 setValue("D11_CDTT11_" + mapgd, ["D11_CDTT1101_" + mapgd, "D11_CDTT1102_" + mapgd]);
                 setValue("D11_CDTT110202_" + mapgd, ["D11_CDTT11020201_" + mapgd, "D11_CDTT11020202_" + mapgd]);
-                setValue("D11_CDTT13_" + mapgd, ["D11_CDTT1301_" + mapgd, "D11_CDTT1302_" + mapgd, "D11_CDTT1303_" + mapgd, "D11_CDTT1304_" + mapgd]);
+                setValue("D11_CDTT1301_" + mapgd, ["D11_CDTT1301_" + mapgd],1,100);
+                setValue("D11_CDTT1302_" + mapgd, ["D11_CDTT1302_" + mapgd],1,100);
+                setValue("D11_CDTT1303_" + mapgd, ["D11_CDTT1303_" + mapgd],1,100);
+                setValue("D11_CDTT1304_" + mapgd, ["D11_CDTT1304_" + mapgd],1,100);
+                setValue("D11_CDTT13_" + mapgd, ["D11_CDTT1301_" + mapgd, "D11_CDTT1302_" + mapgd, "D11_CDTT1303_" + mapgd, "D11_CDTT1304_" + mapgd],4,100);
                 setValue("D11_CDTT14_" + mapgd, ["D11_CDTT1401_" + mapgd, "D11_CDTT1402_" + mapgd, "D11_CDTT1403_" + mapgd]);
                 setValue("D11_CDTT1401_" + mapgd, ["D11_CDTT140101_" + mapgd, "D11_CDTT140102_" + mapgd]);
                 setValue("D11_CDTT1402_" + mapgd, ["D11_CDTT140201_" + mapgd, "D11_CDTT140202_" + mapgd]);
