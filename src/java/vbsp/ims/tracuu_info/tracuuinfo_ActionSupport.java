@@ -6,25 +6,24 @@
 package vbsp.ims.tracuu_info;
 
 import com.opensymphony.xwork2.ActionSupport;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
+import vbsp.ims.dao.DaoConnect;
 import vbsp.ims.restapi.CustomerBlackList;
 import vbsp.ims.restapi.DuLieuNTService;
 
@@ -44,6 +43,24 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
     private List<CustomerBlackList> lstCustomerBlackList;
     DuLieuNTService _serverAPI = new DuLieuNTService();
     private InputStream excelStream;
+    private String maBc;
+    private String tenBc;
+
+    public String getMaBc() {
+        return maBc;
+    }
+
+    public void setMaBc(String maBc) {
+        this.maBc = maBc;
+    }
+
+    public String getTenBc() {
+        return tenBc;
+    }
+
+    public void setTenBc(String tenBc) {
+        this.tenBc = tenBc;
+    }
 
     public InputStream getExcelStream() {
         return excelStream;
@@ -66,6 +83,8 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
 
     public String ShowList() throws SQLException {
         //Thực hiện lấy toàn bộ các trường ra List
+        Connection conn = null;
+        conn = new DaoConnect().getConnect();
         Integer maxitem = ListDK.size();
         String dieukien = "";
 
@@ -111,7 +130,23 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
             }
             listgt = null;
             listgt = new tracuuinfo_model().get_query_info(dieukien, loaitc, chkexcel.toUpperCase());
-            return "thanhcong";
+            maBc = null;
+            tenBc = null;
+
+            String sql = "SELECT MADM, TENDM FROM IMS_DMINFO WHERE MADM = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, loaitc);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                maBc = rs.getString("MADM");
+                tenBc = rs.getString("TENDM");
+            }
+            rs.close();
+            ps.close();
+            return loaitc.equals("KHVV") ? "thanhcong2026" : "thanhcong";
         }
     }
 
@@ -241,7 +276,7 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
 
         return null;
     }
-
+    
     private void setBorder(CellStyle style) {
         style.setBorderTop(CellStyle.BORDER_THIN);
         style.setBorderBottom(CellStyle.BORDER_THIN);

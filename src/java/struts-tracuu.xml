@@ -80,6 +80,7 @@
         <action name="ShowList" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="ShowList">
             <result name="thanhcong">/Tracuu_info/viewcontent.jsp</result>
             <result name="Apithanhcong">/Tracuu_info/viewcontent_api.jsp</result>
+             <result name="thanhcong2026">/Tracuu_info/viewcontent_2026.jsp</result>
         </action>   
         <!--        <action name="exportExcel_DTTN" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="exportExcel">
             <result type="stream">
@@ -89,7 +90,7 @@
             </result>
         </action>-->
         <action name="exportExcel_DTTN" class="vbsp.ims.tracuu_info.tracuuinfo_ActionSupport" method="exportExcel"/>
-
+        
     </package>
     
     <!-- Tra cuu thông tin sms -->
