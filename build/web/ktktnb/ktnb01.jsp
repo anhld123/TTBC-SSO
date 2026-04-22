@@ -326,7 +326,7 @@
                                 <th>STT</th>
                                 <th>Các đoàn kiểm tra</th>
                                 <th>Số lượt tỉnh</th>
-                                <th>Số lượt huyện</th>
+                                <th>Số lượt xã</th>
                                 <th>Số lượt điểm giao dịch</th>
                                 <th>Số lượt tổ TK&VV</th>
                                 
