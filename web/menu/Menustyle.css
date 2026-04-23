@@ -107,7 +107,7 @@
 
 /* Arrow */
 #cssmenu li:has(ul) > a::after {
-    content: '▾';
+    content: "\032C";
     font-size: 10px;
     margin-left: 6px;
     color: #9ca3af;

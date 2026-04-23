@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>  
-<%@taglib prefix="sx" uri="/struts-dojo-tags" %>
+<%--<%@taglib prefix="sx" uri="/struts-dojo-tags" %>--%>
 <%@taglib prefix="sj" uri="/struts-jquery-tags" %>
 
 <html>
@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="${param.css}" type="text/css" rel="stylesheet" />
     <title>${param.title}</title>
-    <sx:head/>
+    <%--<sx:head/>--%>
     <sj:head/>
 
     <script type="text/javascript">
