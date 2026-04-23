@@ -7,15 +7,16 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/Logo_VBSP.ico"/>
         <title>Ngân hàng Chính sách Xã hội VN</title>
         <script type="text/javascript" src="js/jquery-1.4.3.js"></script>
+        <script type="text/javascript" src="js/jquery-2.0.26.js"></script>
     </head>
     <body>
 
         <div class="container">
 
             <div class="left">
-                
+
                 <s:form action="User_login" theme="simple" id="loginform">
-                    
+
                     <div class="login-box">
                         <img src="img/zzz1.png" class="right-logo" style="width: 30%; height: auto; display: block; margin: 0 auto;">
                         <h2 class="title-main"> 
@@ -89,17 +90,4 @@
         </div>
 
     </body>
-    <script>
-        document.addEventListener("keydown", function (e) {
-            if (e.key === "F12" ||
-                    (e.ctrlKey && e.key === "u") ||
-                    (e.ctrlKey && e.shiftKey && e.key === "I")) {
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener("contextmenu", function (e) {
-            e.preventDefault();
-        });
-    </script>
 </html>
