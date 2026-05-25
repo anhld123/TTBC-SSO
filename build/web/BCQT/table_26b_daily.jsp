@@ -142,7 +142,9 @@
                 for (i = 0; i < arrCot.length; i++) { 
                     $(arrCot[i]).eq(46).val( parseFloat($(arrCot[i]).eq(47).val())
                             + parseFloat($(arrCot[i]).eq(48).val())
-                            + parseFloat($(arrCot[i]).eq(49).val()));
+                            + parseFloat($(arrCot[i]).eq(49).val()) //20260525: Linh sửa
+                            + parseFloat($(arrCot[i]).eq(50).val()) //20260525: Linh sửa
+                            + parseFloat($(arrCot[i]).eq(51).val()));
                 }
                 
                 // Tinh cho dong B V 
@@ -160,17 +162,17 @@
                 
                 // Tinh cho dong B VI
                 for (i = 0; i < arrCot.length; i++) { 
-                    $(arrCot[i]).eq(50).val( parseFloat($(arrCot[i]).eq(51).val()) 
-                            + parseFloat($(arrCot[i]).eq(52).val())
-                            + parseFloat($(arrCot[i]).eq(53).val())
+                    $(arrCot[i]).eq(52).val( parseFloat($(arrCot[i]).eq(53).val()) 
                             + parseFloat($(arrCot[i]).eq(54).val())
-                            + parseFloat($(arrCot[i]).eq(55).val()));
+                            + parseFloat($(arrCot[i]).eq(55).val())
+                            + parseFloat($(arrCot[i]).eq(56).val())
+                            + parseFloat($(arrCot[i]).eq(57).val()));
                 }
                 // Tinh cho dong B VII 
                 for (i = 0; i < arrCot.length; i++) { 
-                    $(arrCot[i]).eq(56).val( parseFloat($(arrCot[i]).eq(57).val()) 
-                            + parseFloat($(arrCot[i]).eq(58).val())
-                            + parseFloat($(arrCot[i]).eq(59).val()));
+                    $(arrCot[i]).eq(58).val( parseFloat($(arrCot[i]).eq(58).val()) 
+                            + parseFloat($(arrCot[i]).eq(60).val())
+                            + parseFloat($(arrCot[i]).eq(61).val()));
                 }
                 
                  // Tinh cho dong B 
@@ -180,8 +182,8 @@
                             + parseFloat($(arrCot[i]).eq(19).val())
                             + parseFloat($(arrCot[i]).eq(23).val())
                             + parseFloat($(arrCot[i]).eq(35).val())
-                            + parseFloat($(arrCot[i]).eq(50).val())
-                            + parseFloat($(arrCot[i]).eq(56).val()));
+                            + parseFloat($(arrCot[i]).eq(52).val())
+                            + parseFloat($(arrCot[i]).eq(58).val()));
                 }
                 
                 // Tinh cot ty le hoan thanh              
