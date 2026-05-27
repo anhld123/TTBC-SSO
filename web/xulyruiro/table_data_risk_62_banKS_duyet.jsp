@@ -260,6 +260,23 @@
                 }
             }
         }
+        
+        function diennoidung_tuchoi_62_bks(soku)
+        {
+            var ht1 = screen.availHeight - 100;
+            var wt1 = 600;
+            var left1 = (screen.width / 2) - (wt1 / 2);
+            var top1 = 10;
+
+            var nam_xlrr = $("#nam_xlrr").val();
+            var dot_xlrr = $("#dot_xlrr").val();
+            var vb_xlrr = $("#vb_xlrr").val();
+
+            var url = "getDetialCustomerReject62_bks.action?soku=" + soku + "&nam_xlrr=" + nam_xlrr + "&dot_xlrr=" + dot_xlrr + "&vb_xlrr=" + vb_xlrr;
+            //cong them chuoi doan "&namBc="+namBc de lay nam bao cao
+            var resize = window.open(url, "IMS_REPORTS", "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1 + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+
+        }
     </script>
     <script type="text/javascript" src="js/pagination.js">
     </script>
@@ -530,12 +547,15 @@
                         <!--thay doi ve gia tri khong co de ngay vao else-->
                         <s:if test="reportGrade<'4'">
                             <td align = "center">
-                                <input type="text" value="<s:property  value="sNguyennhan" />" 
-                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" readonly="true" size="2" maxlength="2"/>
+<!--                                <input type="text" value="<s:property  value="sNguyennhan" />" 
+                                       name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" readonly="true" size="2" maxlength="2"/>-->
+                                <a href="javascript:diennoidung_tuchoi_62_bks('<s:property value="sSoku"/>')" class="SOKU linkKh">
+                                    <s:property value='sNguyennhan'/>
+                                </a>
                             </td>
                         </s:if>
                         <s:else>
-                            <td align = "center">
+                            <td align = "center"> 
                                 <input type="text" value="<s:property  value="sNguyennhan" />" 
                                        name="lstRisk[<s:property  value="%{#rowstatus.index}" />].sNguyennhan" class="NGUYEN_NHAN" onfocus="this.select()" size="2" maxlength="2"/>
                             </td>

@@ -300,10 +300,16 @@
         </action>  
         
         <action  name="getDetialCustomerReject62" class="vbsp.ims.action.RiskAction" method="getDetialCustomerReject62">
-            
             <result name="success"> 
-                <!--xulyruiro/reject_detail_customer_62.jsp-->
                 xulyruiro/reject_detail_customer_search_62_1.jsp
+            </result>  
+            <result name="error">  
+                /error.jsp
+            </result>  
+        </action>    
+         <action  name="getDetialCustomerReject62_bks" class="vbsp.ims.action.RiskAction" method="getDetialCustomerRejectSearch62">
+            <result name="success"> 
+                xulyruiro/reject_detail_customer_search_62_2.jsp
             </result>  
             <result name="error">  
                 /error.jsp
