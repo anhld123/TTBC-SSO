@@ -208,7 +208,7 @@
                     <span id="idTitle">Thông tin chi tiết khách hàng xử lý rủi ro</span>
                     <hr/>
                     <%--<s:property value="reportGrade"/>--%>
-
+<!--màn hình ban rủi ro-->
                     <s:iterator value="lstTableRiskObj">
                         <table>
 

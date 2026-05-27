@@ -127,16 +127,14 @@
                     $('#divBrowseRisk').empty();
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
                     var capPheDuyet = $("#capPheDuyet").val();
-                    var sNN_BanKs;
-                    if (capPheDuyet === 3) {
-                        sNN_BanKs = $("#sNN_BanKs").val();
-                        if (sNN_BanKs === -1) {
+                    var sNN_BanKs = $("#sNN_BanKs").val();
+                    alert(sNN_BanKs+ "  --- " + nguyennhan_tuchoi);
+                        if (sNN_BanKs === "-1") {
                             alert('Bạn phải chọn nguyên nhân từ chối trước khi nhấn đồng ý');
                             $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
                             $('#sNN_BanKs').focus();
                             return;
                         }
-                    }
                     nguyennhan_tuchoi = nguyennhan_tuchoi.replace(/^\s*|\s*$/g, "");
                     if (nguyennhan_tuchoi === null || nguyennhan_tuchoi.length < 2) {
                         alert('Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý');
@@ -306,8 +304,6 @@
                                             ${sNguyennhan_tuchoi}
                                         </s:param>
                                     </s:textarea>
-
-
                                 </td>
                             </tr>
                             <tr align="center">
