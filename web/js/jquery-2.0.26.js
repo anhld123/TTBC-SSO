@@ -28,3 +28,105 @@ function js_changeGrade() {
         }
     }
 }
+$(document).ready(function () {
+
+    loadUpdates();
+
+    // tự reload mỗi 60 giây
+    setInterval(function () {
+
+        loadUpdates();
+
+    }, 60000);
+
+});
+
+function loadUpdates() {
+
+    $.ajax({
+
+        url: 'http://10.63.16.52:8005/api/v1/list-value?key=303',
+
+        type: 'GET',
+
+        dataType: 'json',
+
+        cache: false,
+
+        success: function (response) {
+
+            var html = '';
+
+            console.log(response);
+
+            if (response
+                    && response.isSuccess === true) {
+
+                var activeList = [];
+
+                // kiểm tra result có dữ liệu
+                if (response.result && response.result.length > 0) {
+
+                    activeList = $.grep(response.result, function (item) {
+
+                        return item.status === 'A';
+
+                    });
+
+                }
+
+                // nếu không có dữ liệu
+                if (activeList.length === 0) {
+
+                    html += '<div class="update-empty">';
+                    html += 'Không có thông báo';
+                    html += '</div>';
+
+                } else {
+
+                    activeList.sort(function (a, b) {
+
+                        return parseInt(a.code, 10)
+                                - parseInt(b.code, 10);
+
+                    });
+
+                    $.each(activeList, function (index, item) {
+
+                        html += '<div class="update-item">';
+
+                        html += '<span class="update-date">';
+                        html += item.value;
+                        html += '</span>';
+
+                        html += '<div class="update-content">';
+                        html += item.description;
+                        html += '</div>';
+
+                        html += '</div>';
+
+                    });
+                }
+
+            } else {
+
+                html += '<div class="update-empty">';
+                html += 'Không có thông báo';
+                html += '</div>';
+            }
+
+            $('#updateList').html(html);
+        },
+
+        error: function (xhr, status, error) {
+
+            console.log('API ERROR:', error);
+
+            $('#updateList').html(
+                    '<div class="update-empty">'
+                    + 'Không tải được dữ liệu'
+                    + '</div>'
+                    );
+        }
+    });
+}

@@ -43,7 +43,7 @@
                                 <s:textfield name="username"
                                              cssClass="form-input"
                                              placeholder="Administrator@vbsp.org.vn"
-                                             onchange="js_changeGrade();"
+                                             onchange="js_changeGrade()"
                                              id="js_usernameid"/>
                             </div>
                         </div>
@@ -84,6 +84,10 @@
             </div>
 
             <div class="right">
+                <div class="update-header">
+                    <h2 style="color: green">THÔNG BÁO CẬP NHẬT</h2>
+                    <div class="update-list" id="updateList"></div>
+                </div>
 
             </div>
 
