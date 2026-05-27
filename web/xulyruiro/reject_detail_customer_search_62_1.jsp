@@ -128,7 +128,7 @@
                     var nguyennhan_tuchoi = $("#idnguyennhan_tuchoi").val();
                     var capPheDuyet = $("#capPheDuyet").val();
                     var sNN_BanKs = $("#sNN_BanKs").val();
-                    alert(sNN_BanKs+ "  --- " + nguyennhan_tuchoi);
+//                    alert(sNN_BanKs+ "  --- " + nguyennhan_tuchoi);
                         if (sNN_BanKs === "-1") {
                             alert('Bạn phải chọn nguyên nhân từ chối trước khi nhấn đồng ý');
                             $('#divBrowseRisk').html("<h2 style='color: red'>Bạn phải nhập nguyên nhân từ chối trước khi nhấn đồng ý ! </h2>");
