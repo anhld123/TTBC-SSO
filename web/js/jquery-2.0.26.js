@@ -45,7 +45,7 @@ function loadUpdates() {
 
     $.ajax({
 
-        url: 'http://10.63.16.52:8005/api/v1/list-value?key=303',
+        url: 'http://10.63.52.52:8005/api/v1/list-value?key=303',
 
         type: 'GET',
 

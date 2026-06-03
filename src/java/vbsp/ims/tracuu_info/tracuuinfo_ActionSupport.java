@@ -146,7 +146,7 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
             }
             rs.close();
             ps.close();
-            return loaitc.equals("KHVV") ? "thanhcong2026" : "thanhcong";
+            return loaitc.equals("KHVV") || loaitc.equals("KHUQ") ? "thanhcong2026" : "thanhcong";
         }
     }
 
@@ -276,7 +276,7 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
 
         return null;
     }
-    
+
     private void setBorder(CellStyle style) {
         style.setBorderTop(CellStyle.BORDER_THIN);
         style.setBorderBottom(CellStyle.BORDER_THIN);
