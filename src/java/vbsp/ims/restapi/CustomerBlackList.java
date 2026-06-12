@@ -18,194 +18,293 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 public class CustomerBlackList {
 
-    public int order;
-    public String fullName;
-    public int birthDate;
-    public int birthMonth;
-    public int birthYear;
-    public String permanentAddress;
-    public String currentAddress;
-    public String idNumber;
-    public Date issueDate;
-    public String issuePlace;
-    public String passportId;
-    public Date passportIssueDate;
-    public String passportIssuePlace;
-    public String criminalOffense;
-    public String fatherName;
-    public String motherName;
-    public String decisionNo;
-    public String decisionDate;
-    public String decisionPlace;
-    public String offenseType;
-    public String fullNameNoAccent;
+    public String hoVaTen;
+    public String ngaySinhh;
+    public String cccdHoChieu;
+    public String noiDkyHktt;
+    public String noiO;
+    public Date cmtNgayCap;
+    public String cmtNoiCap;
+    public Date hcNgayCap;
+    public String hcNoiCap;
+    public String toiDanh;
+    public String hoTenBo;
+    public String hoTenMe;
+    public String soQdtn;
+    public String ngayRaQdtn;
+    public String dviCap2RaQdtn;
+    public String loaiTn;
+    public String hoTenNoAccent;
+    public String biDanh;
+    public String gioiTinh;
+    public String danToc;
+    public String tonGiao;
+    public String quocTich;
+    public String noiSinh;
+    public String queQuan;
+    public String chucVu;
+    public String thongTinKhac;
+    public String toChucKhungBo;
+    public String chucVu2;
+    public String chucVu3;
+    public String pobBlock;
+    public String thongTinNhap;
+    public String nguon;
 
-    public int getOrder() {
-        return order;
+    public String getHoVaTen() {
+        return hoVaTen;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setHoVaTen(String hoVaTen) {
+        this.hoVaTen = hoVaTen;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getNgaySinhh() {
+        return ngaySinhh;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setNgaySinhh(String ngaySinhh) {
+        this.ngaySinhh = ngaySinhh;
     }
 
-    public int getBirthDate() {
-        return birthDate;
+    public String getCccdHoChieu() {
+        return cccdHoChieu;
     }
 
-    public void setBirthDate(int birthDate) {
-        this.birthDate = birthDate;
+    public void setCccdHoChieu(String cccdHoChieu) {
+        this.cccdHoChieu = cccdHoChieu;
     }
 
-    public int getBirthMonth() {
-        return birthMonth;
+    public String getNoiDkyHktt() {
+        return noiDkyHktt;
     }
 
-    public void setBirthMonth(int birthMonth) {
-        this.birthMonth = birthMonth;
+    public void setNoiDkyHktt(String noiDkyHktt) {
+        this.noiDkyHktt = noiDkyHktt;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    public String getNoiO() {
+        return noiO;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setNoiO(String noiO) {
+        this.noiO = noiO;
     }
 
-    public String getPermanentAddress() {
-        return permanentAddress;
+    public Date getCmtNgayCap() {
+        return cmtNgayCap;
     }
 
-    public void setPermanentAddress(String permanentAddress) {
-        this.permanentAddress = permanentAddress;
+    public void setCmtNgayCap(Date cmtNgayCap) {
+        this.cmtNgayCap = cmtNgayCap;
     }
 
-    public String getCurrentAddress() {
-        return currentAddress;
+    public String getCmtNoiCap() {
+        return cmtNoiCap;
     }
 
-    public void setCurrentAddress(String currentAddress) {
-        this.currentAddress = currentAddress;
+    public void setCmtNoiCap(String cmtNoiCap) {
+        this.cmtNoiCap = cmtNoiCap;
     }
 
-    public String getIdNumber() {
-        return idNumber;
+    public Date getHcNgayCap() {
+        return hcNgayCap;
     }
 
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public void setHcNgayCap(Date hcNgayCap) {
+        this.hcNgayCap = hcNgayCap;
     }
 
-    public Date getIssueDate() {
-        return issueDate;
+    public String getHcNoiCap() {
+        return hcNoiCap;
     }
 
-    public void setIssueDate(Date issueDate) {
-        this.issueDate = issueDate;
+    public void setHcNoiCap(String hcNoiCap) {
+        this.hcNoiCap = hcNoiCap;
     }
 
-    public String getIssuePlace() {
-        return issuePlace;
+    public String getToiDanh() {
+        return toiDanh;
     }
 
-    public void setIssuePlace(String issuePlace) {
-        this.issuePlace = issuePlace;
+    public void setToiDanh(String toiDanh) {
+        this.toiDanh = toiDanh;
     }
 
-    public String getPassportId() {
-        return passportId;
+    public String getHoTenBo() {
+        return hoTenBo;
     }
 
-    public void setPassportId(String passportId) {
-        this.passportId = passportId;
+    public void setHoTenBo(String hoTenBo) {
+        this.hoTenBo = hoTenBo;
     }
 
-    public Date getPassportIssueDate() {
-        return passportIssueDate;
+    public String getHoTenMe() {
+        return hoTenMe;
     }
 
-    public void setPassportIssueDate(Date passportIssueDate) {
-        this.passportIssueDate = passportIssueDate;
+    public void setHoTenMe(String hoTenMe) {
+        this.hoTenMe = hoTenMe;
     }
 
-    public String getPassportIssuePlace() {
-        return passportIssuePlace;
+    public String getSoQdtn() {
+        return soQdtn;
     }
 
-    public void setPassportIssuePlace(String passportIssuePlace) {
-        this.passportIssuePlace = passportIssuePlace;
+    public void setSoQdtn(String soQdtn) {
+        this.soQdtn = soQdtn;
     }
 
-    public String getCriminalOffense() {
-        return criminalOffense;
+    public String getNgayRaQdtn() {
+        return ngayRaQdtn;
     }
 
-    public void setCriminalOffense(String criminalOffense) {
-        this.criminalOffense = criminalOffense;
+    public void setNgayRaQdtn(String ngayRaQdtn) {
+        this.ngayRaQdtn = ngayRaQdtn;
     }
 
-    public String getFatherName() {
-        return fatherName;
+    public String getDviCap2RaQdtn() {
+        return dviCap2RaQdtn;
     }
 
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
+    public void setDviCap2RaQdtn(String dviCap2RaQdtn) {
+        this.dviCap2RaQdtn = dviCap2RaQdtn;
     }
 
-    public String getMotherName() {
-        return motherName;
+    public String getLoaiTn() {
+        return loaiTn;
     }
 
-    public void setMotherName(String motherName) {
-        this.motherName = motherName;
+    public void setLoaiTn(String loaiTn) {
+        this.loaiTn = loaiTn;
     }
 
-    public String getDecisionNo() {
-        return decisionNo;
+    public String getHoTenNoAccent() {
+        return hoTenNoAccent;
     }
 
-    public void setDecisionNo(String decisionNo) {
-        this.decisionNo = decisionNo;
+    public void setHoTenNoAccent(String hoTenNoAccent) {
+        this.hoTenNoAccent = hoTenNoAccent;
     }
 
-    public String getDecisionDate() {
-        return decisionDate;
+    public String getBiDanh() {
+        return biDanh;
     }
 
-    public void setDecisionDate(String decisionDate) {
-        this.decisionDate = decisionDate;
+    public void setBiDanh(String biDanh) {
+        this.biDanh = biDanh;
     }
 
-    public String getDecisionPlace() {
-        return decisionPlace;
+    public String getGioiTinh() {
+        return gioiTinh;
     }
 
-    public void setDecisionPlace(String decisionPlace) {
-        this.decisionPlace = decisionPlace;
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
-    public String getOffenseType() {
-        return offenseType;
+    public String getDanToc() {
+        return danToc;
     }
 
-    public void setOffenseType(String offenseType) {
-        this.offenseType = offenseType;
+    public void setDanToc(String danToc) {
+        this.danToc = danToc;
     }
 
-    public String getFullNameNoAccent() {
-        return fullNameNoAccent;
+    public String getTonGiao() {
+        return tonGiao;
     }
 
-    public void setFullNameNoAccent(String fullNameNoAccent) {
-        this.fullNameNoAccent = fullNameNoAccent;
+    public void setTonGiao(String tonGiao) {
+        this.tonGiao = tonGiao;
+    }
+
+    public String getQuocTich() {
+        return quocTich;
+    }
+
+    public void setQuocTich(String quocTich) {
+        this.quocTich = quocTich;
+    }
+
+    public String getNoiSinh() {
+        return noiSinh;
+    }
+
+    public void setNoiSinh(String noiSinh) {
+        this.noiSinh = noiSinh;
+    }
+
+    public String getQueQuan() {
+        return queQuan;
+    }
+
+    public void setQueQuan(String queQuan) {
+        this.queQuan = queQuan;
+    }
+
+    public String getChucVu() {
+        return chucVu;
+    }
+
+    public void setChucVu(String chucVu) {
+        this.chucVu = chucVu;
+    }
+
+    public String getThongTinKhac() {
+        return thongTinKhac;
+    }
+
+    public void setThongTinKhac(String thongTinKhac) {
+        this.thongTinKhac = thongTinKhac;
+    }
+
+    public String getToChucKhungBo() {
+        return toChucKhungBo;
+    }
+
+    public void setToChucKhungBo(String toChucKhungBo) {
+        this.toChucKhungBo = toChucKhungBo;
+    }
+
+    public String getChucVu2() {
+        return chucVu2;
+    }
+
+    public void setChucVu2(String chucVu2) {
+        this.chucVu2 = chucVu2;
+    }
+
+    public String getChucVu3() {
+        return chucVu3;
+    }
+
+    public void setChucVu3(String chucVu3) {
+        this.chucVu3 = chucVu3;
+    }
+
+    public String getPobBlock() {
+        return pobBlock;
+    }
+
+    public void setPobBlock(String pobBlock) {
+        this.pobBlock = pobBlock;
+    }
+
+    public String getThongTinNhap() {
+        return thongTinNhap;
+    }
+
+    public void setThongTinNhap(String thongTinNhap) {
+        this.thongTinNhap = thongTinNhap;
+    }
+
+    public String getNguon() {
+        return nguon;
+    }
+
+    public void setNguon(String nguon) {
+        this.nguon = nguon;
     }
 
     private boolean isSuccess;

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -157,27 +158,38 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
             return row;
         }
         try {
-            row.setOrder(item.getOrder());
-            row.setFullName(item.getFullName());
-            row.setBirthDate(item.getBirthDate());
-            row.setBirthMonth(item.getBirthMonth());
-            row.setBirthYear(item.getBirthYear());
-            row.setPermanentAddress(item.getPermanentAddress());
-            row.setCurrentAddress(item.getCurrentAddress());
-            row.setIdNumber(item.getIdNumber());
-            row.setIssueDate(item.getIssueDate());
-            row.setIssuePlace(item.getIssuePlace());
-            row.setPassportId(item.getPassportId());
-            row.setPassportIssueDate(item.getPassportIssueDate());
-            row.setPassportIssuePlace(item.getPassportIssuePlace());
-            row.setCriminalOffense(item.getCriminalOffense());
-            row.setFatherName(item.getFatherName());
-            row.setMotherName(item.getMotherName());
-            row.setDecisionNo(item.getDecisionNo());
-            row.setDecisionDate(item.getDecisionDate());
-            row.setDecisionPlace(item.getDecisionPlace());
-            row.setOffenseType(item.getOffenseType());
-            row.setFullNameNoAccent(item.getFullNameNoAccent());
+            row.setHoVaTen(item.getHoVaTen());
+            row.setNgaySinhh(item.getNgaySinhh());
+            row.setCccdHoChieu(item.getCccdHoChieu());
+            row.setNoiDkyHktt(item.getNoiDkyHktt());
+            row.setNoiO(item.getNoiO());
+            row.setCmtNgayCap(item.getCmtNgayCap());
+            row.setCmtNoiCap(item.getCmtNoiCap());
+            row.setHcNgayCap(item.getHcNgayCap());
+            row.setHcNoiCap(item.getHcNoiCap());
+            row.setToiDanh(item.getToiDanh());
+            row.setHoTenBo(item.getHoTenBo());
+            row.setHoTenMe(item.getHoTenMe());
+            row.setSoQdtn(item.getSoQdtn());
+            row.setNgayRaQdtn(item.getNgayRaQdtn());
+            row.setDviCap2RaQdtn(item.getDviCap2RaQdtn());
+            row.setLoaiTn(item.getLoaiTn());
+            row.setHoTenNoAccent(item.getHoTenNoAccent());
+            row.setBiDanh(item.getBiDanh());
+            row.setGioiTinh(item.getGioiTinh());
+            row.setDanToc(item.getDanToc());
+            row.setTonGiao(item.getTonGiao());
+            row.setQuocTich(item.getQuocTich());
+            row.setNoiSinh(item.getNoiSinh());
+            row.setQueQuan(item.getQueQuan());
+            row.setChucVu(item.getChucVu());
+            row.setThongTinKhac(item.getThongTinKhac());
+            row.setToChucKhungBo(item.getToChucKhungBo());
+            row.setChucVu2(item.getChucVu2());
+            row.setChucVu3(item.getChucVu3());
+            row.setPobBlock(item.getPobBlock());
+            row.setThongTinNhap(item.getThongTinNhap());
+            row.setNguon(item.getNguon());
 
         } catch (Exception e) {
         }
@@ -210,11 +222,7 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
         setBorder(dataStyle);
         dataStyle.setDataFormat(wb.createDataFormat().getFormat("@")); // ép text
 
-        String[] headers = {
-            "HỌ TÊN", "NGÀY SINH", "NƠI ĐK HKTT", "CCCD",
-            "HỘ CHIẾU", "TỘI DANH", "TÊN BỐ", "TÊN MẸ",
-            "SỐ QĐ", "NGÀY QĐ", "ĐƠN VỊ", "LOẠI TN", "TÊN KO DẤU"
-        };
+        String[] headers = {"HỌ TÊN", "NGÀY SINH", "NƠI ĐK HKTT", "CCCD", "HỘ CHIẾU", "TỘI DANH", "TÊN BỐ", "TÊN MẸ", "SỐ QĐ", "NGÀY QĐ", "ĐƠN VỊ", "LOẠI TN", "TÊN KO DẤU", "BÍ DANH", "GIỚI TÍNH", "DÂN TỘC", "TÔN GIÁO", "QUỐC TỊCH", "NƠI SINH", "QUÊ QUÁN", "CHỨC VỤ", "THÔNG TIN KHÁC", "TỔ CHỨC KHỦNG BỐ", "CHỨC VỤ 2", "CHỨC VỤ 3", "POB BLOCK", "THÔNG TIN NHẬP", "NGUỒN", "CMT NGÀY CẤP", "CMT NƠI CẤP", "HC NGÀY CẤP", "HC NƠI CẤP"};
 
         Row headerRow = sheet.createRow(0);
         for (int i = 0; i < headers.length; i++) {
@@ -227,20 +235,40 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
         for (CustomerBlackList c : lstCustomerBlackList) {
             Row row = sheet.createRow(rowIdx++);
             row.setHeight((short) -1); // auto height
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            createCell(row, 0, c.getHoVaTen(), dataStyle);
+            createCell(row, 1, c.getNgaySinhh(), dataStyle);
+            createCell(row, 2, c.getCccdHoChieu(), dataStyle);
+            createCell(row, 3, c.getNoiDkyHktt(), dataStyle);
+            createCell(row, 4, c.getNoiO(), dataStyle);
 
-            createCell(row, 0, c.getFullName(), dataStyle);
-            createCell(row, 1, c.getBirthDate() + "/" + c.getBirthMonth() + "/" + c.getBirthYear(), dataStyle);
-            createCell(row, 2, c.getPermanentAddress(), dataStyle);
-            createCell(row, 3, c.getIdNumber(), dataStyle);
-            createCell(row, 4, c.getPassportId(), dataStyle);
-            createCell(row, 5, c.getCriminalOffense(), dataStyle);
-            createCell(row, 6, c.getFatherName(), dataStyle);
-            createCell(row, 7, c.getMotherName(), dataStyle);
-            createCell(row, 8, c.getDecisionNo(), dataStyle);
-            createCell(row, 9, c.getDecisionDate(), dataStyle);
-            createCell(row, 10, c.getDecisionPlace(), dataStyle);
-            createCell(row, 11, c.getOffenseType(), dataStyle);
-            createCell(row, 12, c.getFullNameNoAccent(), dataStyle);
+            createCell(row, 5, c.getCmtNgayCap() != null ? sdf.format(c.getCmtNgayCap()) : "", dataStyle);
+            createCell(row, 6, c.getCmtNoiCap(), dataStyle);
+            createCell(row, 7, c.getHcNgayCap() != null ? sdf.format(c.getHcNgayCap()) : "", dataStyle);
+            createCell(row, 8, c.getHcNoiCap(), dataStyle);
+            createCell(row, 9, c.getToiDanh(), dataStyle);
+            createCell(row, 10, c.getHoTenBo(), dataStyle);
+            createCell(row, 11, c.getHoTenMe(), dataStyle);
+            createCell(row, 12, c.getSoQdtn(), dataStyle);
+            createCell(row, 13, c.getNgayRaQdtn(), dataStyle);
+            createCell(row, 14, c.getDviCap2RaQdtn(), dataStyle);
+            createCell(row, 15, c.getLoaiTn(), dataStyle);
+            createCell(row, 16, c.getHoTenNoAccent(), dataStyle);
+            createCell(row, 17, c.getBiDanh(), dataStyle);
+            createCell(row, 18, c.getGioiTinh(), dataStyle);
+            createCell(row, 19, c.getDanToc(), dataStyle);
+            createCell(row, 20, c.getTonGiao(), dataStyle);
+            createCell(row, 21, c.getQuocTich(), dataStyle);
+            createCell(row, 22, c.getNoiSinh(), dataStyle);
+            createCell(row, 23, c.getQueQuan(), dataStyle);
+            createCell(row, 24, c.getChucVu(), dataStyle);
+            createCell(row, 25, c.getThongTinKhac(), dataStyle);
+            createCell(row, 26, c.getToChucKhungBo(), dataStyle);
+            createCell(row, 27, c.getChucVu2(), dataStyle);
+            createCell(row, 28, c.getChucVu3(), dataStyle);
+            createCell(row, 29, c.getPobBlock(), dataStyle);
+            createCell(row, 30, c.getThongTinNhap(), dataStyle);
+            createCell(row, 31, c.getNguon(), dataStyle);
         }
         int MAX_WIDTH = 50 * 256; // 50 ký tự
 
