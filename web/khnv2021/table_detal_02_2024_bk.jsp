@@ -178,7 +178,7 @@
                             <tr>
                                 <th rowspan="3" class="TD_STT D0">STT</th>
                                 <th rowspan="3" class="TD_CHITIEU D0">CHỈ TIÊU</th>
-                                <th rowspan="3" class="TD_GIATRI D0">Thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
+                                <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
                                 <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                                 <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                                 <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_1"/></th>

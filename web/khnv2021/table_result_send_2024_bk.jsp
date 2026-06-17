@@ -10,22 +10,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .redRow td {
-                color: red;
-                font-weight: bold;
-            }
-
-            .greenRow td {
-                color: #3dc21b;
-                font-weight: bold;
-            }
-
-            .blueRow td {
-                color: #0099ff;
-                font-weight: bold;
-            }
-        </style>
         <script>
             $(document).ready(function () {
                 $("#allCheck").change(function () {
@@ -82,41 +66,41 @@
                 DANH SÁCH CHI NHÁNH GỬI DỮ LIỆU VÀ TRẠNG THÁI KHÓA
             </div>
             <p></p>
-            <table border="1" class="editDelete" id="tablepl01" align="center" style="width: 80%">
+            <table border="1" class="editDelete" id="tablepl01" align="center" style="width: 50%">
                 <tr>
+                    <!--                            <th align = "center"  style="width: 30px;">
+                    <s:checkbox id ="allCheck" name="allCheck"/></th>-->
                     <th align = "center"  style="width: 40px;">Mã Chi nhánh</th>
                     <th style="width: 80px;">Tên CN</th>
-                    <th style="width: 60px;">Người gửi</th>
                     <th style="width: 60px;">Ngày gửi</th>
-                    <th style="width: 60px;">Người duyệt</th>
-                    <th style="width: 60px;">Ngày duyệt</th>
                     <th style="width: 90px;">Trạng thái xử lý</th>
                     <th style="width: 90px;">Trạng thái dữ liệu</th>
                 </tr>
 
                 <s:iterator value="#attr.lstData" var="modelView" status="rowstatus">
 
-                    <s:if test="D13.equalsIgnoreCase('2') && D14.equalsIgnoreCase('1')">
-                        <tr class="blueRow">
+                    <tr>
+                        <s:if test="D12.equalsIgnoreCase('1')">
+                            <td style="width: 60px; color: red;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left; color: red;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; color: red;font-weight: bold;text-align: left"><s:property  value="TEN" /></td>
                         </s:if>
-                        <s:elseif test="D13.equalsIgnoreCase('1') && D14.equalsIgnoreCase('1')">
-                        <tr class="greenRow">
-                        </s:elseif>
-                        <s:elseif test="D14.equalsIgnoreCase('0')">
-                        <tr class="redRow">
+                        <s:elseif test="D12.equalsIgnoreCase('2')">
+                            <td style="width: 60px; color: #3dc21b;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left; color: #3dc21b;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; color: #3dc21b;font-weight: bold;text-align: left"><s:property  value="TEN" /></td>
                         </s:elseif>
                         <s:else>
-                        <tr>
+                            <td style="width: 60px;font-weight: bold"><s:property  value="D1" /></td>
+                            <td style="width: 40px; text-align: left;font-weight: bold"><s:property  value="D2" /></td>
+                            <td style="width: 90px; font-weight: bold"><s:property  value="D4" /></td>
+                            <td style="width: 90px;font-weight: bold"><s:property  value="D3" /></td>
+                            <td style="width: 90px; font-weight: bold;text-align: left"><s:property  value="TEN" /></td>   
                         </s:else>
-                        <td style="width: 60px;"><s:property value="D3" /></td>
-                        <td style="width: 40px; text-align:left;"><s:property value="D4" /></td>
-                        <td style="width: 90px;"><s:property value="D7" /></td>
-                        <td style="width: 90px;"><s:property value="D8" /></td>
-                        <td style="width: 90px;"><s:property value="D9" /></td>
-                        <td style="width: 90px;"><s:property value="D10" /></td>
-                        <td style="width: 90px;"><s:property value="D11" /></td>
-                        <td style="width: 90px;"><s:property value="D12" /></td>
-
                     </tr>
 
                 </s:iterator>

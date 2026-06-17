@@ -341,11 +341,11 @@ public class DaoMau01A {
         }
     }
 
-    public GenericResult<String> lock_TDKT_2024(String skhoa, String smacn, String spos_flag, String sngaybc) throws SQLException {
+    public GenericResult<String> lock_all_pos (String skhoa, String smacn, String spos_flag, String sngaybc) throws SQLException {
         Connection connection = new DaoConnect().getConnect();
         CallableStatement cs = null;
         try {
-            cs = connection.prepareCall("{call VBSP_IMS_NGHIQUYET11CP.SP_LOCK_TDKT_2024(?, ?, ?, ? ,?, ?)}");
+            cs = connection.prepareCall("{call VBSP_IMS_KHNV.SP_LOCK(?, ?, ?, ? ,?, ?)}");
             cs.setString(1, skhoa);
             cs.setString(2, smacn);
             cs.setString(3, spos_flag);
@@ -388,7 +388,7 @@ public class DaoMau01A {
         ResultSet reset = null;
 //        try {
         //Khoi tao procedure cung voi tham so truyen vao la dau ?
-        String strStoreproce = "{call VBSP_IMS_KHNV2021.SP_GET_DATA_KHNV_SYNC(?,?,?,?,?,?,?)}";
+        String strStoreproce = "{call VBSP_IMS_KHNV.SP_GET_DATA_KHNV_SYNC(?,?,?,?,?,?,?)}";
         try {
             //Khoi tao goi store
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);

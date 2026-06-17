@@ -46,31 +46,26 @@ public class AuthorModel {
 
     //Hàm lấy tải dữ liệu
     public List<DULIEU_NT> getData(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
+
         List<DULIEU_NT> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
-        Connection con = db.getConnect();
-        try {
-            //Thực hiện lấy các biến cần truy cập
-            if (!cboDot.equals("5")) {
-                CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_GETDATA_PGD(?,?,?,?,?,?,?,?,?,?)}");
-                st.setString(1, CapBC);
-                st.setString(2, TenDN);
-                st.setString(3, cboDonvi);
-                st.setString(4, cboNam);
-                st.setString(5, cboDot);
-                st.setString(6, cboTonghop);
-                st.setString(7, strNguyennhan);
-                st.registerOutParameter(8, OracleTypes.NUMBER);
-                st.registerOutParameter(9, OracleTypes.VARCHAR);
-                st.registerOutParameter(10, OracleTypes.CURSOR);
-                st.execute();
-                ResultSet rs = (ResultSet) st.getObject(10);
-                while (rs.next()) {
-                    DULIEU_NT obj = new DULIEU_NT();
-                    lst.add(new getDULIEU_NT().getData(obj, rs));
-                }
+
+        try (Connection con = db.getConnect()) {
+            if (con == null) {
+                return lst;
+            }
+
+            String procedure;
+            if (!"1".equals(cboDot) && !"5".equals(cboDot)) {
+                procedure = "VBSP_IMS_KHNV2021.KHNV2021_GETDATA_PGD";
             } else {
-                CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2024_GETDATA_PGD(?,?,?,?,?,?,?,?,?,?)}");
+                procedure = "1".equals(cboDot) ? "VBSP_IMS_KHNV.KHNV_GETDATA_PGD" : "VBSP_IMS_KHNV2021.KHNV2024_GETDATA_PGD";
+            }
+
+            String sql = "{call " + procedure + "(?,?,?,?,?,?,?,?,?,?)}";
+
+            try (CallableStatement st = con.prepareCall(sql)) {
+                // Gán các tham số chung
                 st.setString(1, CapBC);
                 st.setString(2, TenDN);
                 st.setString(3, cboDonvi);
@@ -81,45 +76,83 @@ public class AuthorModel {
                 st.registerOutParameter(8, OracleTypes.NUMBER);
                 st.registerOutParameter(9, OracleTypes.VARCHAR);
                 st.registerOutParameter(10, OracleTypes.CURSOR);
+
                 st.execute();
-                ResultSet rs = (ResultSet) st.getObject(10);
-                while (rs.next()) {
-                    DULIEU_NT item = DULIEU_NT.newInstance();
-                    item.setKIEUIN(rs.getInt("KIEUIN"));
-                    item.setMA(rs.getString("MA"));
-                    item.setTT_HIENTHI(rs.getString("TT_HIENTHI"));
-                    item.setTEN(rs.getString("TEN"));
-                    item.setD1(rs.getString("D1"));
-                    item.setD2(rs.getString("D2"));
-                    item.setD3(rs.getString("D3"));
-                    item.setD4(rs.getString("D4"));
-                    item.setD5(rs.getString("D5"));
-                    item.setD6(rs.getString("D6"));
-                    item.setD7(rs.getString("D7"));
-                    item.setD8(rs.getString("D8"));
-                    item.setD9(rs.getString("D9"));
-                    item.setD10(rs.getString("D10"));
-                    item.setD11(rs.getString("D11"));
-                    item.setD12(rs.getString("D12"));
-                    item.setD13(rs.getString("D13"));
-                    item.setD14(rs.getString("D14"));
-                    item.setD15(rs.getString("D15"));
-                    item.setD16(rs.getString("D16"));
-                    item.setD17(rs.getString("D17"));
-                    item.setD18(rs.getString("D18"));
-                    item.setD19(rs.getString("D19"));
-                    item.setD20(rs.getString("THUTU"));
-                    lst.add(item);
+
+                // 2. Đọc dữ liệu từ ResultSet
+                try (ResultSet rs = (ResultSet) st.getObject(10)) {
+                    boolean isSpecialCase = !"1".equals(cboDot) && !"5".equals(cboDot);
+                    boolean isTongHopAndCap2 = "Y".equals(cboTonghop) && "2".equals(CapBC);
+
+                    while (rs.next()) {
+                        DULIEU_NT item;
+
+                        if (isSpecialCase) {
+                            DULIEU_NT obj = new DULIEU_NT();
+                            item = new getDULIEU_NT().getData(obj, rs);
+                        } else {
+                            // Trường hợp cboDot bằng 1 hoặc 5
+                            item = DULIEU_NT.newInstance();
+
+                            if (isTongHopAndCap2) {
+                                mapFullFields(item, rs);
+                            } else {
+                                mapShortFields(item, rs);
+                            }
+                        }
+                        lst.add(item);
+                    }
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(AuthorModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return lst;
     }
 
+    private void mapFullFields(DULIEU_NT item, ResultSet rs) throws SQLException {
+        item.setKHOA(rs.getString("KHOA"));
+        item.setTHUTU(rs.getInt("THUTU"));
+        item.setTT_HIENTHI(rs.getString("TT_HIENTHI"));
+        item.setMA(rs.getString("MA"));
+        item.setTEN(rs.getString("TEN"));
+        item.setNGAYBC(rs.getDate("NGAYBC"));
+        item.setNAMBC(rs.getInt("NAMBC"));
+        item.setMAPGD(rs.getString("MAPGD"));
+        item.setCO_TONGHOP(rs.getString("CO_TONGHOP"));
+        item.setMACN(rs.getString("MACN"));
+        item.setNGUOI_NHAP(rs.getString("NGUOI_NHAP"));
+        item.setNGAY_NHAP(rs.getDate("NGAY_NHAP"));
+        item.setNGUOI_DUYET(rs.getString("NGUOI_DUYET"));
+        item.setNGAY_DUYET(rs.getDate("NGAY_DUYET"));
+
+        for (int i = 1; i <= 30; i++) {
+            try {
+                item.getClass().getMethod("setD" + i, String.class).invoke(item, rs.getString("D" + i));
+            } catch (Exception e) {
+            }
+        }
+    }
+
+// Hàm phụ gán dữ liệu cho các trường hợp còn lại
+    private void mapShortFields(DULIEU_NT item, ResultSet rs) throws SQLException {
+        item.setKIEUIN(rs.getInt("KIEUIN"));
+        item.setMA(rs.getString("MA"));
+        item.setTT_HIENTHI(rs.getString("TT_HIENTHI"));
+        item.setTEN(rs.getString("TEN"));
+
+        for (int i = 1; i <= 19; i++) {
+            try {
+                item.getClass().getMethod("setD" + i, String.class).invoke(item, rs.getString("D" + i));
+            } catch (Exception e) {
+            }
+        }
+        item.setD20(rs.getString("THUTU"));
+    }
     //Hàm gửi dữ liệu
     // 10: Gửi dữ liệu thành công; 11: Gửi không thành công
+
     public String sendData(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
         List<DULIEU_NT> lst = new ArrayList<>();
         DaoConnect db = new DaoConnect();
@@ -154,11 +187,22 @@ public class AuthorModel {
         try {
             //Thực hiện lấy các biến cần truy cập
             CallableStatement st;
-            if (!cboDot.equals("5")) {
-                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
-            } else {
-                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2024_ROLLBACKDATA(?,?,?,?,?,?,?,?)}");
+            String procedure;
+
+            switch (cboDot) {
+                case "1":
+                    procedure = "VBSP_IMS_KHNV.KHNV_ROLLBACKDATA";
+                    break;
+                case "5":
+                    procedure = "VBSP_IMS_KHNV2021.KHNV2024_ROLLBACKDATA";
+                    break;
+                default:
+                    // Các đợt khác 1 và 5
+                    procedure = "VBSP_IMS_KHNV2021.KHNV2021_ROLLBACKDATA";
+                    break;
             }
+
+            st = con.prepareCall("{call " + procedure + "(?,?,?,?,?,?,?,?)}");
             st.setString(1, CapBC);
             st.setString(2, TenDN);
             st.setString(3, cboDonvi);
@@ -190,10 +234,16 @@ public class AuthorModel {
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
             CallableStatement st;
-            if (cboDot.equals("5")) {
-                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2024_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
-            } else {
-                st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
+            switch (cboDot) {
+                case "5":
+                    st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2024_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
+                    break;
+                case "1":
+                    st = con.prepareCall("{call VBSP_IMS_KHNV.KHNV_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
+                    break;
+                default:
+                    st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SAVEDATAPROVINCE(?,?,?,?,?,?,?,?,?)}");
+                    break;
             }
             st.setString(1, CapBC);
             st.setString(2, TenDN);
@@ -220,7 +270,7 @@ public class AuthorModel {
         String Message = "";
         try {
             //Lưu dữ liệu vào CSDL và trả về kết quả
-            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_SHOWMESSAGE(?,?,?,?,?,?,?,?)}");
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV.KHNV_SHOWMESSAGE(?,?,?,?,?,?,?,?)}");
             st.setString(1, CapBC);
             st.setString(2, TenDN);
             st.setString(3, cboDonvi);

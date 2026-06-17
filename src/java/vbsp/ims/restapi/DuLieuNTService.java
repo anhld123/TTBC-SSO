@@ -1549,7 +1549,7 @@ public class DuLieuNTService extends ReportService {
         mapper.setSerializationInclusion(Include.NON_NULL);
         try {
             json = mapper.writeValueAsString(data);
-            System.out.println("ResultingJSONstring = " + json);
+//            System.out.println("ResultingJSONstring = " + json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

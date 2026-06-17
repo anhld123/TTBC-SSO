@@ -73,6 +73,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
+import java.sql.Array;
+import java.sql.Struct;
+import oracle.jdbc.OracleConnection;
 
 /**
  *
@@ -101,6 +104,15 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private static StructDescriptor structDesc;
     private static ArrayDescriptor arrayDesc;
     private static boolean warmedUp = false;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public static boolean isWarmedUp() {
         return warmedUp;
@@ -1559,8 +1571,10 @@ public class ActionChtrinhcnMain extends ActionSupport {
 //<editor-fold defaultstate="collapsed" desc="phan cua up excel">
     public String openExcelUploadQtKh() {
         try (Connection conn = new DaoConnect().getConnect()) {
+            String maLoai = ServletActionContext.getRequest().getParameter("type");
             DuLieuNTService _serverAPI = new DuLieuNTService();
             lstDmKhac = _serverAPI.getListOfValue("92", "");
+            type = type;
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -1568,7 +1582,107 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
     }
 
+//    public String dtwUploadExcel() throws SQLException {
+//        
+//        if (fileUpload == null) {
+//            addActionError("Chưa chọn file Excel!");
+//            return ERROR;
+//        }
+//
+//        if (fileUploadFileName == null || !fileUploadFileName.contains("_")) {
+//            addActionError("Tên file không đúng định dạng");
+//            return ERROR;
+//        }
+//
+//        String[] values = fileUploadFileName.split("\\_");
+//        String Key = values[0];
+//        String file = values[1];
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String ngaybc = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String fileName = Key + "_" + timeStamp + file;
+//
+//        Connection conn = null;
+//        int uploadedRows = 0;
+//
+//        Map session = ActionContext.getContext().getSession();
+//        String sUserName = session.get("username").toString();
+//
+//        DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
+//        String start_end = dao.getStartEndCel(Key);
+//        int startrow = 0, startcell = 0, endcell = 0;
+//        if (!start_end.equals("AAA")) {
+//            startrow = Integer.parseInt(start_end.split("-")[0]);
+//            startcell = Integer.parseInt(start_end.split("-")[1]);
+//            endcell = Integer.parseInt(start_end.split("-")[2]);
+//        }
+//        
+//        try (FileInputStream fis = new FileInputStream(fileUpload);
+//                Workbook workbook = new XSSFWorkbook(fis)) {
+//
+//            Sheet sheet = workbook.getSheetAt(0);
+//            conn = new DaoConnect().getConnect();
+//
+//            // ===== Đọc dữ liệu từ Excel đưa vào List<String[]> =====
+//            List<String[]> excelData = new ArrayList<>();
+//            for (int i = startrow; i <= sheet.getLastRowNum(); i++) {
+//                Row row = sheet.getRow(i);
+//                if (row == null) {
+//                    continue;
+//                }
+//
+//                boolean hasData = false;
+//                String[] rowValues = new String[endcell - startcell];
+//                for (int c = startcell; c < endcell; c++) {
+//                    String cellValue = getCellValueAsString(row.getCell(c));
+//                    if (cellValue != null && !cellValue.trim().isEmpty()) {
+//                        hasData = true;
+//                    }
+//                    rowValues[c - startcell] = cellValue;
+//                }
+//                if (hasData) {
+//                    excelData.add(rowValues);
+//                }
+//            }
+//            uploadedRows = excelData.size();
+//
+//            // Gọi thủ tục INSERT_REPORT_DATA
+//            callInsertReportData(conn, excelData, fileName, Key, sUserName, ngaybc, startrow, startcell, endcell);
+//
+//            //Gọi EVEN_EXCEL
+//            callEvenExcel(conn, Key, fileName, ngaybc);
+//
+//            //Lưu file
+//            saveUploadedFile(fileUpload, fileName);
+//
+//            addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
+//            return SUCCESS;
+//
+//        } catch (SQLException e) {
+//            String err = e.getMessage();
+//            if (err != null && err.contains("ORA-00600")) {
+//                // Lỗi nội bộ Oracle → cảnh báo nhẹ nhàng
+//                addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
+//            } else {
+//                // Các lỗi SQL khác thì vẫn hiện bình thường
+//                addActionError("Lỗi khi xử lý file: " + err);
+//            }
+//            return ERROR;
+//        } catch (Exception e) {
+//            addActionError("Có lỗi không xác định: " + e.getMessage());
+//            return ERROR;
+//        } finally {
+//            if (conn != null) {
+//                try {
+//                    conn.close();
+//                } catch (Exception ignored) {
+//                }
+//            }
+//        }
+//    }
     public String dtwUploadExcel() throws SQLException {
+
+//        long totalStart = System.currentTimeMillis();
+//        System.out.println("===== START UPLOAD =====");
         if (fileUpload == null) {
             addActionError("Chưa chọn file Excel!");
             return ERROR;
@@ -1584,8 +1698,12 @@ public class ActionChtrinhcnMain extends ActionSupport {
         String file = values[1];
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String ngaybc = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String fileName = Key + "_" + timeStamp + file;
-
+        String fileName;
+        if (Key.equals("RRBANKS")) {
+            fileName = Key + "_" + timeStamp + file;
+        } else {
+            fileName = fileUploadFileName;
+        }
         Connection conn = null;
         int uploadedRows = 0;
 
@@ -1593,69 +1711,111 @@ public class ActionChtrinhcnMain extends ActionSupport {
         String sUserName = session.get("username").toString();
 
         DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
+
+//        long tCfg = System.currentTimeMillis();
         String start_end = dao.getStartEndCel(Key);
+//        System.out.println("getStartEndCel = "
+//                + (System.currentTimeMillis() - tCfg) + " ms");
+
         int startrow = 0, startcell = 0, endcell = 0;
+
         if (!start_end.equals("AAA")) {
             startrow = Integer.parseInt(start_end.split("-")[0]);
             startcell = Integer.parseInt(start_end.split("-")[1]);
             endcell = Integer.parseInt(start_end.split("-")[2]);
         }
+        try {
 
-        try (FileInputStream fis = new FileInputStream(fileUpload);
-                Workbook workbook = new XSSFWorkbook(fis)) {
+//            long tOpenExcel = System.currentTimeMillis();
+            FileInputStream fis = new FileInputStream(fileUpload);
+            Workbook workbook = new XSSFWorkbook(fis);
 
+//            System.out.println("Open XSSFWorkbook = "
+//                    + (System.currentTimeMillis() - tOpenExcel) + " ms");
             Sheet sheet = workbook.getSheetAt(0);
+
+//            long tConn = System.currentTimeMillis();
             conn = new DaoConnect().getConnect();
 
-            // ===== Đọc dữ liệu từ Excel đưa vào List<String[]> =====
+//            System.out.println("Get Connection = "
+//                    + (System.currentTimeMillis() - tConn) + " ms");
+            // ===== READ EXCEL =====
+//            long tReadExcel = System.currentTimeMillis();
             List<String[]> excelData = new ArrayList<>();
+
             for (int i = startrow; i <= sheet.getLastRowNum(); i++) {
+
                 Row row = sheet.getRow(i);
+
                 if (row == null) {
                     continue;
                 }
 
                 boolean hasData = false;
+
                 String[] rowValues = new String[endcell - startcell];
+
                 for (int c = startcell; c < endcell; c++) {
+
                     String cellValue = getCellValueAsString(row.getCell(c));
+
                     if (cellValue != null && !cellValue.trim().isEmpty()) {
                         hasData = true;
                     }
+
                     rowValues[c - startcell] = cellValue;
                 }
+
                 if (hasData) {
                     excelData.add(rowValues);
                 }
             }
+
             uploadedRows = excelData.size();
 
-            // Gọi thủ tục INSERT_REPORT_DATA
+//            System.out.println("Read Excel Data = " + (System.currentTimeMillis() - tReadExcel) + " ms");
+//            System.out.println("Total rows = " + uploadedRows);
+            // ===== INSERT_REPORT_DATA =====
+//            long tInsert = System.currentTimeMillis();
             callInsertReportData(conn, excelData, fileName, Key, sUserName, ngaybc, startrow, startcell, endcell);
 
-            //Gọi EVEN_EXCEL
+//            System.out.println("INSERT_REPORT_DATA = " + (System.currentTimeMillis() - tInsert) + " ms");
+//            long tEven = System.currentTimeMillis();
             callEvenExcel(conn, Key, fileName, ngaybc);
 
-            //Lưu file
+//            System.out.println("EVEN_EXCEL = " + (System.currentTimeMillis() - tEven) + " ms");
+//            long tSave = System.currentTimeMillis();
             saveUploadedFile(fileUpload, fileName);
 
+//            System.out.println("SAVE_FILE = " + (System.currentTimeMillis() - tSave) + " ms");
+            workbook.close();
+            fis.close();
+//            System.out.println("TOTAL UPLOAD = " + (System.currentTimeMillis() - totalStart) + " ms");
             addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
             return SUCCESS;
 
         } catch (SQLException e) {
+
             String err = e.getMessage();
+
             if (err != null && err.contains("ORA-00600")) {
-                // Lỗi nội bộ Oracle → cảnh báo nhẹ nhàng
                 addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
             } else {
-                // Các lỗi SQL khác thì vẫn hiện bình thường
                 addActionError("Lỗi khi xử lý file: " + err);
             }
+
             return ERROR;
+
         } catch (Exception e) {
+
+            e.printStackTrace();
+
             addActionError("Có lỗi không xác định: " + e.getMessage());
+
             return ERROR;
+
         } finally {
+
             if (conn != null) {
                 try {
                     conn.close();
@@ -1665,7 +1825,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
     }
 
-    public void callInsertReportData(Connection conn,
+    public void callInsertReportData(
+            Connection conn,
             List<String[]> excelData,
             String fileName,
             String key,
@@ -1674,40 +1835,93 @@ public class ActionChtrinhcnMain extends ActionSupport {
             int startrow,
             int startcell,
             int endcell) throws Exception {
-        StructDescriptor structDesc = ActionChtrinhcnMain.getStructDesc();
-        ArrayDescriptor arrayDesc = ActionChtrinhcnMain.getArrayDesc();
+
+        OracleConnection oraConn
+                = conn.unwrap(OracleConnection.class);
 
         int colCount = endcell - startcell;
-        STRUCT[] structArray = new STRUCT[excelData.size()];
 
-        // 2. Convert List<String[]> thành mảng STRUCT
+        Struct[] structArray = new Struct[excelData.size()];
+
         for (int i = 0; i < excelData.size(); i++) {
+
             String[] row = excelData.get(i);
-            Object[] attributes = new Object[colCount];
+
+            Object[] attrs = new Object[colCount];
 
             for (int c = 0; c < colCount; c++) {
-                int excelIndex = startcell + c;
-                attributes[c] = (excelIndex < row.length) ? row[excelIndex] : null;
+                attrs[c] = (c < row.length) ? row[c] : null;
             }
 
-            structArray[i] = new STRUCT(structDesc, conn, attributes);
+            structArray[i]
+                    = oraConn.createStruct(
+                            "TYPE_UPLOAD_EXCEL",
+                            attrs);
         }
 
-        // 3. Tạo ARRAY để truyền vào thủ tục
-        ARRAY oracleArray = new ARRAY(arrayDesc, conn, structArray);
+        Array oracleArray
+                = oraConn.createOracleArray(
+                        "TAB_UPLOAD_EXCEL",
+                        structArray);
 
-        // 4. Gọi stored procedure
-        try (CallableStatement cs = conn.prepareCall(
-                "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
+        try (CallableStatement cs
+                = conn.prepareCall(
+                        "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
+
             cs.setArray(1, oracleArray);
             cs.setString(2, fileName);
             cs.setString(3, key);
             cs.setString(4, user);
             cs.setString(5, ngaybc);
+
             cs.execute();
+
             System.out.println("INSERT_REPORT_DATA executed OK!");
         }
     }
+//    public void callInsertReportData(Connection conn,
+//            List<String[]> excelData,
+//            String fileName,
+//            String key,
+//            String user,
+//            String ngaybc,
+//            int startrow,
+//            int startcell,
+//            int endcell) throws Exception {
+//        StructDescriptor structDesc = ActionChtrinhcnMain.getStructDesc();
+//        ArrayDescriptor arrayDesc = ActionChtrinhcnMain.getArrayDesc();
+//
+//        int colCount = endcell - startcell;
+//        STRUCT[] structArray = new STRUCT[excelData.size()];
+//
+//        // 2. Convert List<String[]> thành mảng STRUCT
+//        for (int i = 0; i < excelData.size(); i++) {
+//            String[] row = excelData.get(i);
+//            Object[] attributes = new Object[colCount];
+//
+//            for (int c = 0; c < colCount; c++) {
+//                int excelIndex = startcell + c;
+//                attributes[c] = row[c];
+//            }
+//
+//            structArray[i] = new STRUCT(structDesc, conn, attributes);
+//        }
+//
+//        // 3. Tạo ARRAY để truyền vào thủ tục
+//        ARRAY oracleArray = new ARRAY(arrayDesc, conn, structArray);
+//
+//        // 4. Gọi stored procedure
+//        try (CallableStatement cs = conn.prepareCall(
+//                "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
+//            cs.setArray(1, oracleArray);
+//            cs.setString(2, fileName);
+//            cs.setString(3, key);
+//            cs.setString(4, user);
+//            cs.setString(5, ngaybc);
+//            cs.execute();
+//            System.out.println("INSERT_REPORT_DATA executed OK!");
+//        }
+//    }
 
     public void callEvenExcel(Connection conn, String key, String fileName, String ngaybc) {
         try (CallableStatement csEven = conn.prepareCall(
@@ -1736,12 +1950,14 @@ public class ActionChtrinhcnMain extends ActionSupport {
             if (!exportDir.exists()) {
                 exportDir.mkdirs();
             }
+            if (!fileName.toLowerCase().endsWith(".xlsx")) {
+                fileName += ".xlsx";
+            }
 
-            // Lưu file với đuôi .xlsx
             File destFile = new File(exportDir, fileName);
             Files.copy(sourceFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            System.out.println("File đã lưu vào: " + destFile.getAbsolutePath());
+//            System.out.println("File đã lưu vào: " + destFile.getAbsolutePath());
         } catch (IOException ioe) {
             ioe.printStackTrace();
             addActionMessage("Upload thành công, nhưng lưu file bị lỗi: " + ioe.getMessage());
@@ -1831,14 +2047,9 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
     }
 
-    static {
-        try (Connection conn = new DaoConnect().getConnect()) {
-            structDesc = StructDescriptor.createDescriptor("TYPE_UPLOAD_EXCEL", conn);
-            arrayDesc = ArrayDescriptor.createDescriptor("TAB_UPLOAD_EXCEL", conn);
-            System.out.println("Oracle type descriptors preloaded at class load!");
-        } catch (SQLException e) {
-            throw new ExceptionInInitializerError("Failed to init Oracle type descriptors: " + e.getMessage());
-        }
+    public static void init(Connection conn) throws SQLException {
+        structDesc = StructDescriptor.createDescriptor("TYPE_UPLOAD_EXCEL", conn);
+        arrayDesc = ArrayDescriptor.createDescriptor("TAB_UPLOAD_EXCEL", conn);
     }
 //</editor-fold>
 //<editor-fold defaultstate="collapsed" desc="Khai bao phuong thuc get/set cho bien">

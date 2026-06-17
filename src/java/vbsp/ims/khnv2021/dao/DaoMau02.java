@@ -22,10 +22,10 @@ import vbsp.ims.log.CoreLogger;
  * @author HP
  */
 public class DaoMau02 {
-    
+
     public List<Mau02Model> getExportData(String posCode, String posFlag, String districtCode, String reportDate) {
         List<Mau02Model> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -34,7 +34,7 @@ public class DaoMau02 {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call PK_KHNV_DATA_EXPORT.Export_02(?, ?, ?, ?, ?)}";
             ResultSet cursor = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -48,7 +48,7 @@ public class DaoMau02 {
                 calstatement.execute();
                 //Lay cursor ra resultset
                 cursor = (ResultSet) calstatement.getObject(5);
-                
+
                 while (cursor.next()) {
                     Mau02Model item = new Mau02Model();
                     //item.reportDate = cursor.getString("TEN_THON");
@@ -69,14 +69,14 @@ public class DaoMau02 {
                     item.d4 = Double.parseDouble(getNumberValueString(cursor.getString("D4")));
                     item.d5 = Double.parseDouble(getNumberValueString(cursor.getString("D5")));
                     item.d6 = Double.parseDouble(getNumberValueString(cursor.getString("D6")));
-                    
+
                     lstData.add(item);
                 }
-                
+
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -93,10 +93,10 @@ public class DaoMau02 {
         }
         return lstData;
     }
-    
+
     public List<DistrictInfo> getDistrictByPos(String posCode) {
         List<DistrictInfo> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -105,7 +105,7 @@ public class DaoMau02 {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call PK_KHNV_DATA_EXPORT.GET_DISTRICT_BY_POS(?, ?)}";
             ResultSet cursor = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -115,7 +115,7 @@ public class DaoMau02 {
                 calstatement.execute();
                 //Lay cursor ra resultset
                 cursor = (ResultSet) calstatement.getObject(2);
-                
+
                 while (cursor.next()) {
                     DistrictInfo item = new DistrictInfo();
                     item.posCode = cursor.getString("MA_PGD");
@@ -123,11 +123,11 @@ public class DaoMau02 {
                     item.districtName = cursor.getString("TEN");
                     lstData.add(item);
                 }
-                
+
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -144,10 +144,10 @@ public class DaoMau02 {
         }
         return lstData;
     }
-    
+
     public List<DULIEU_NT_100> getExportData_02_2024(String posCode, String posFlag, String districtCode, String reportDate) {
         List<DULIEU_NT_100> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -156,7 +156,7 @@ public class DaoMau02 {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call PK_KHNV_DATA_EXPORT.Export_02_2024(?, ?, ?, ?, ?)}";
             ResultSet cursor = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -170,7 +170,7 @@ public class DaoMau02 {
                 calstatement.execute();
                 //Lay cursor ra resultset
                 cursor = (ResultSet) calstatement.getObject(5);
-                
+
                 while (cursor.next()) {
                     DULIEU_NT_100 item = new DULIEU_NT_100();
                     item.setKIEUIN(cursor.getInt("KIEUIN"));
@@ -199,11 +199,11 @@ public class DaoMau02 {
                     item.setD100(cursor.getString("THUTU"));
                     lstData.add(item);
                 }
-                
+
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -220,10 +220,10 @@ public class DaoMau02 {
         }
         return lstData;
     }
-    
+
     public List<DULIEU_NT_100> getExportData_2024(String commune, String subcommune, String districtCode, String reportDate) {
         List<DULIEU_NT_100> lstData = new ArrayList<>();
-        
+
         try {
             DaoConnect daoconnect = new DaoConnect();
             Connection conn = null;
@@ -232,7 +232,7 @@ public class DaoMau02 {
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
             String strStoreproce = "{call PK_KHNV_DATA_EXPORT.Export_01_2024(?, ?, ?, ?, ?)}";
             ResultSet cursor = null;
-            
+
             try {
                 //Khoi tao goi store
                 calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -246,7 +246,7 @@ public class DaoMau02 {
                 calstatement.execute();
                 //Lay cursor ra resultset
                 cursor = (ResultSet) calstatement.getObject(5);
-                
+
                 while (cursor.next()) {
                     DULIEU_NT_100 item = new DULIEU_NT_100();
                     item.setKIEUIN(cursor.getInt("KIEUIN"));
@@ -320,11 +320,11 @@ public class DaoMau02 {
                     item.setD63(cursor.getString("D63"));
                     lstData.add(item);
                 }
-                
+
                 if (cursor != null) {
                     cursor.close();
                 }
-                
+
                 if (calstatement != null) {
                     calstatement.close();
                 }
@@ -341,12 +341,247 @@ public class DaoMau02 {
         }
         return lstData;
     }
-    
+
+    public List<DULIEU_NT_100> getExportData_2026(String commune, String subcommune, String districtCode, String reportDate) {
+        List<DULIEU_NT_100> lstData = new ArrayList<>();
+
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV.Export_01_2026(?, ?, ?, ?, ?)}";
+            ResultSet cursor = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                //Truyen vao username
+                calstatement.setString(1, commune);
+                calstatement.setString(2, subcommune);
+                calstatement.setString(3, districtCode);
+                calstatement.setString(4, reportDate);
+                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                cursor = (ResultSet) calstatement.getObject(5);
+
+                while (cursor.next()) {
+                    DULIEU_NT_100 item = new DULIEU_NT_100();
+                    item.setKIEUIN(cursor.getInt("KIEUIN"));
+//                    item.setD98(cursor.getString("D98"));
+                    item.setD100(cursor.getString("NAMBC"));
+                    item.setTT_HIENTHI(cursor.getString("THUTU"));
+                    item.setMA(cursor.getString("MA"));
+                    item.setTEN(cursor.getString("TEN"));
+                    item.setD1(cursor.getString("D1"));
+                    item.setD2(cursor.getString("D2"));
+                    item.setD3(cursor.getString("D3"));
+                    item.setD4(cursor.getString("D4"));
+                    item.setD5(cursor.getString("D5"));
+                    item.setD6(cursor.getString("D6"));
+                    item.setD7(cursor.getString("D7"));
+                    item.setD8(cursor.getString("D8"));
+                    item.setD9(cursor.getString("D9"));
+                    item.setD10(cursor.getString("D10"));
+                    item.setD11(cursor.getString("D11"));
+                    item.setD12(cursor.getString("D12"));
+                    item.setD13(cursor.getString("D13"));
+                    item.setD14(cursor.getString("D14"));
+                    item.setD15(cursor.getString("D15"));
+                    item.setD16(cursor.getString("D16"));
+                    item.setD17(cursor.getString("D17"));
+                    item.setD18(cursor.getString("D18"));
+                    item.setD19(cursor.getString("D19"));
+                    lstData.add(item);
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau01_2024.getExportData " + e.getMessage());
+                CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau01_2024.getExportData " + e.getMessage());
+            CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+        }
+        return lstData;
+    }
+
     private String getNumberValueString(String value) {
         if (value == null || value.isEmpty()) {
             return "0";
         } else {
             return value;
         }
+    }
+
+    public List<DULIEU_NT_100> getExportData2_2026(String poscd, String posflag, String districtCode, String reportDate, String commune, String subcommune) {
+        List<DULIEU_NT_100> lstData = new ArrayList<>();
+
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV.Export_02_2026(?, ?, ?, ?, ?,?,?)}";
+            ResultSet cursor = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                //Truyen vao username
+                calstatement.setString(1, poscd);
+                calstatement.setString(2, posflag);
+                calstatement.setString(3, districtCode);
+                calstatement.setString(4, reportDate);
+                calstatement.setString(5, commune);
+                calstatement.setString(6, subcommune);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                cursor = (ResultSet) calstatement.getObject(7);
+
+                while (cursor.next()) {
+                    DULIEU_NT_100 item = new DULIEU_NT_100();
+                    item.setKIEUIN(cursor.getInt("KIEUIN"));
+//                    item.setD98(cursor.getString("D98"));
+                    item.setD100(cursor.getString("NAMBC"));
+                    item.setTT_HIENTHI(cursor.getString("THUTU"));
+                    item.setMA(cursor.getString("MA"));
+                    item.setTEN(cursor.getString("TEN"));
+                    item.setD1(cursor.getString("D1"));
+                    item.setD2(cursor.getString("D2"));
+                    item.setD3(cursor.getString("D3"));
+                    item.setD4(cursor.getString("D4"));
+                    item.setD5(cursor.getString("D5"));
+                    item.setD6(cursor.getString("D6"));
+                    item.setD7(cursor.getString("D7"));
+                    item.setD8(cursor.getString("D8"));
+                    item.setD9(cursor.getString("D9"));
+                    item.setD10(cursor.getString("D10"));
+                    item.setD11(cursor.getString("D11"));
+                    item.setD12(cursor.getString("D12"));
+                    item.setD13(cursor.getString("D13"));
+                    item.setD14(cursor.getString("D14"));
+                    item.setD15(cursor.getString("D15"));
+                    item.setD16(cursor.getString("D16"));
+                    item.setD17(cursor.getString("D17"));
+                    item.setD18(cursor.getString("D18"));
+                    item.setD19(cursor.getString("D19"));
+                    lstData.add(item);
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau02_2024.getExportData " + e.getMessage());
+                CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau02_2024.getExportData " + e.getMessage());
+            CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+        }
+        return lstData;
+    }
+    
+    public List<DULIEU_NT_100> getExportData3_2026(String poscd, String posflag, String districtCode, String reportDate, String commune, String subcommune) {
+        List<DULIEU_NT_100> lstData = new ArrayList<>();
+
+        try {
+            DaoConnect daoconnect = new DaoConnect();
+            Connection conn = null;
+            conn = daoconnect.getConnect();
+            CallableStatement calstatement = null;
+            //Khoi tao procedure cung voi tham so truyen vao la dau ?
+            String strStoreproce = "{call VBSP_IMS_KHNV.Export_03_2026(?, ?, ?, ?, ?,?,?)}";
+            ResultSet cursor = null;
+
+            try {
+                //Khoi tao goi store
+                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                //Truyen vao username
+                calstatement.setString(1, poscd);
+                calstatement.setString(2, posflag);
+                calstatement.setString(3, districtCode);
+                calstatement.setString(4, reportDate);
+                calstatement.setString(5, commune);
+                calstatement.setString(6, subcommune);
+                calstatement.registerOutParameter(7, oracle.jdbc.OracleTypes.CURSOR);
+                //Thuc hien execute lay du lieu
+                calstatement.execute();
+                //Lay cursor ra resultset
+                cursor = (ResultSet) calstatement.getObject(7);
+
+                while (cursor.next()) {
+                    DULIEU_NT_100 item = new DULIEU_NT_100();
+                    item.setKIEUIN(cursor.getInt("KIEUIN"));
+//                    item.setD98(cursor.getString("D98"));
+                    item.setD100(cursor.getString("NAMBC"));
+                    item.setTT_HIENTHI(cursor.getString("THUTU"));
+                    item.setMA(cursor.getString("MA"));
+                    item.setTEN(cursor.getString("TEN"));
+                    item.setD1(cursor.getString("D1"));
+                    item.setD2(cursor.getString("D2"));
+                    item.setD3(cursor.getString("D3"));
+                    item.setD4(cursor.getString("D4"));
+                    item.setD5(cursor.getString("D5"));
+                    item.setD6(cursor.getString("D6"));
+                    item.setD7(cursor.getString("D7"));
+                    item.setD8(cursor.getString("D8"));
+                    item.setD9(cursor.getString("D9"));
+                    item.setD10(cursor.getString("D10"));
+                    item.setD11(cursor.getString("D11"));
+                    item.setD12(cursor.getString("D12"));
+                    item.setD13(cursor.getString("D13"));
+                    item.setD14(cursor.getString("D14"));
+                    item.setD15(cursor.getString("D15"));
+                    item.setD16(cursor.getString("D16"));
+                    item.setD17(cursor.getString("D17"));
+                    item.setD18(cursor.getString("D18"));
+                    item.setD19(cursor.getString("D19"));
+                    lstData.add(item);
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+
+                if (calstatement != null) {
+                    calstatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Loi trong ham DaoMau02_2024.getExportData " + e.getMessage());
+                CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Loi trong ham DaoMau02_2024.getExportData " + e.getMessage());
+            CoreLogger.error(DaoMau02.class.getCanonicalName() + " getExportData  -> " + e.getMessage());
+        }
+        return lstData;
     }
 }

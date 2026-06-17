@@ -53,7 +53,10 @@
             <result name="loadAllSubCommune">/khnv2021/table_all_subcommune_bycommune.jsp</result>            
             <result name="loadOneSubCommune">/khnv2021/table_detal_by_subcommune.jsp</result>     
             <result name="load02Pos">/khnv2021/table_detal_by_pos_mau02.jsp</result>   
-            <result name="load02_2024">/khnv2021/table_detal_02_2024.jsp</result>      
+            <result name="load02_2024">/khnv2021/table_detal_02_2024.jsp</result>    
+            <result name="load_thon">/khnv2021/table_detal_thon.jsp</result>    
+            <result name="load_xa">/khnv2021/table_detal_xa.jsp</result>    
+            <result name="load_pgd">/khnv2021/table_detal_pgd.jsp</result>      
                    
         </action>
         
@@ -65,9 +68,6 @@
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
             <result name="error">/khnv2021/success.jsp</result> 
         </action>
-        
-        
-        
         
         <action name="getDetailKhnvByAllSubCommune" class="vbsp.ims.khnv2021.XayDungKeHoach2021" method="getDataXayCommuneDetai">
             <result name="loadAllSubCommune">khnv2021/table_all_subcommune_bycommune.jsp</result>  
@@ -221,8 +221,22 @@
         </action>
         <action name="lock_khnv_02c" class="vbsp.ims.khnv2021.AuthorAction" method="lock">
             <result name="success" type="json"></result>
-        </action>             
-    </package>
+        </action>  
         
-    
+        <!--moi 2026-->        
+        <action name="khnv/dk/ExpExcelKhnv01_2026" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="xuatExcel_KHNV01_2026">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action>
+        
+        <action name="khnv/dk/ExpExcelKhnv02_2026" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="xuatExcel_KHNV02_2026">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action> 
+        
+        <action name="khnv/dk/ExpExcelKhnv03_2026" class="vbsp.ims.khnv2021.XayDungKeHoach2021"  method="xuatExcel_KHNV03_2026">
+            <result name="success">/khnv2021/downfile_excel.jsp</result>  
+            <result name="error">/khnv2021/error.jsp</result>        
+        </action>
+    </package>
 </struts>

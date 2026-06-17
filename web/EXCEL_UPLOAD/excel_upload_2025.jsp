@@ -151,20 +151,23 @@
                             </label>
                         </td>
                     </tr>
+                    <s:if test ="!type.equalsIgnoreCase('1')">
+                        <tr>
+                            <td class="label">Lấy file mẫu:</td>
+                            <td><s:select 
+                                    name="mauBc" 
+                                    list="lstDmKhac" 
+                                    listKey="code" 
+                                    listValue="%{code + ' - ' + description}" 
+                                    headerKey="" 
+                                    headerValue="-- Chọn --" 
+                                    cssStyle="width: 70%; padding:5px; background: transparent; border: 1px solid #ccc; color:#2c3e50;"/>
+                                <button type="button" class="btn-style" onclick="downloadTemplate()" id="dowLoadFile">Tải file mẫu</button>
+                            </td>
+                        </tr> 
+                    </s:if>
                     <tr>
-                        <td class="label">Lấy file mẫu:</td>
-                        <td><s:select 
-                                name="mauBc" 
-                                list="lstDmKhac" 
-                                listKey="code" 
-                                listValue="%{code + ' - ' + description}" 
-                                headerKey="" 
-                                headerValue="-- Chọn --" 
-                                cssStyle="width: 70%; padding:5px; background: transparent; border: 1px solid #ccc; color:#2c3e50;"/>
-                            <button type="button" class="btn-style" onclick="downloadTemplate()" id="dowLoadFile">Tải file mẫu</button>
-                        </td>
-                    </tr> 
-                    <tr>
+
                         <td colspan="4" style="text-align: center;">
                             <sj:submit value="Upload"
                                        id="btnUpload"

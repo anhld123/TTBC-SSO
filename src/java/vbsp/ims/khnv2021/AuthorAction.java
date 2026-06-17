@@ -5,17 +5,15 @@
  */
 package vbsp.ims.khnv2021;
 
-import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +22,17 @@ import org.apache.struts2.ServletActionContext;
 import vbsp.ims.action.Utilities;
 import vbsp.ims.bcqt.model.DULIEU_NT;
 import vbsp.ims.bcqt.model.ModelViewSend;
+import vbsp.ims.bcqt.model.QT_DULIEU_NT;
 import vbsp.ims.dao.khnv.DaoListPosFromUser;
 import vbsp.ims.define.Define;
 import vbsp.ims.define.GenericResult;
 import vbsp.ims.khnv2021.dao.DaoMau01A;
+import vbsp.ims.khnv2021.dao.XDKHDao2021;
 import vbsp.ims.ktgs.dao.DaoKtgsMain;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ktnb.PosMainModel;
+import vbsp.ims.restapi.DuLieuNTRow;
+import vbsp.ims.restapi.DuLieuNTRowX;
 import vbsp.ims.restapi.DuLieuNTService;
 import vbsp.ims.restapi.LockSendModel;
 import vbsp.ims.syn.ProcessReportSyn;
@@ -49,18 +51,65 @@ public class AuthorAction extends ActionSupport {
     private String ShowMessage;
     private String namBc_2pre;
     private String namBc_pre;
-    private String namBc;
-    private String namBc_1;
-    private String namBc_2;
-    private String namBc_3;
-    private String namBc_4;
+    private String namBc, namBc_1, namBc_2, namBc_3, namBc_4;
     private String chotsl;
     private String message;
     DuLieuNTService _service_listts = new DuLieuNTService();
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
     protected String main_pos_username;
+    private List<DuLieuNTRow> lstData_Api;
+    DuLieuNTService _serverAPI = new DuLieuNTService();
+    protected List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public DuLieuNTService getServerAPI() {
+        return _serverAPI;
+    }
+
+    public void setServerAPI(DuLieuNTService _serverAPI) {
+        this._serverAPI = _serverAPI;
+    }
+
+    public List<QT_DULIEU_NT> getLstDulieuNt() {
+        return lstDulieuNt;
+    }
+
+    public void setLstDulieuNt(List<QT_DULIEU_NT> lstDulieuNt) {
+        this.lstDulieuNt = lstDulieuNt;
+    }
+
+    public DuLieuNTService getService_listts() {
+        return _service_listts;
+    }
+
+    public void setService_listts(DuLieuNTService _service_listts) {
+        this._service_listts = _service_listts;
+    }
+
+    public DaoListPosFromUser getListKTNBDA() {
+        return listKTNBDA;
+    }
+
+    public void setListKTNBDA(DaoListPosFromUser listKTNBDA) {
+        this.listKTNBDA = listKTNBDA;
+    }
+
+    public PosMainModel getPosMainModel() {
+        return posMainModel;
+    }
+
+    public void setPosMainModel(PosMainModel posMainModel) {
+        this.posMainModel = posMainModel;
+    }
+
+    public List<DuLieuNTRow> getLstData_Api() {
+        return lstData_Api;
+    }
+
+    public void setLstData_Api(List<DuLieuNTRow> lstData_Api) {
+        this.lstData_Api = lstData_Api;
+    }
 
     public String getMessage() {
         return message;
@@ -185,20 +234,26 @@ public class AuthorAction extends ActionSupport {
 //                    System.err.println(CapBC +" 11: "+ TenDN +" 2: "+ cboDonvi +" 3: "+ cboNam+" 4: "+cboDot +" 5: "+ cboTonghop+" 6: "+ strNguyennhan);
                     if (cboTonghop.equals("S") && (CapBC.equals("3") || CapBC.equals("2")) && (lstData != null && !lstData.isEmpty())) //quyennv - tong hop gui nhan
                     {
-                        if (!cboDot.equals("5")) {
-                            chkSuccess = "resultSend";
-                            pageResult = new StringBufferInputStream("00");
+//                        if (!cboDot.equals("1")) {
+//                            chkSuccess = "resultSend";
+//                            pageResult = new StringBufferInputStream("00");
+//                        } else {
+//                            if (CapBC.equals("3")) {
+//                                chkSuccess = "resultSend";
+//                                pageResult = new StringBufferInputStream("00");
+//                            } else {
+//                                chkSuccess = "resultSend_2024";
+//                                pageResult = new StringBufferInputStream("00");
+//                            }
+//                        }
+                        if (cboDot.equals("1")) {
+                            chkSuccess = "resultSend_2024";
                         } else {
-                            if (CapBC.equals("3")) {
-                                chkSuccess = "resultSend";
-                                pageResult = new StringBufferInputStream("00");
-                            } else {
-                                chkSuccess = "resultSend_2024";
-                                pageResult = new StringBufferInputStream("00");
-                            }
+                            chkSuccess = "resultSend";
                         }
+                        pageResult = new StringBufferInputStream("00");
                     } else if (lstData != null && !lstData.isEmpty()) {
-                        if (!cboDot.equals("5")) {
+                        if (!cboDot.equals("1")) {
                             chkSuccess = "SuccessLoad";
                         } else {
                             chkSuccess = "SuccessLoad2024";
@@ -214,15 +269,15 @@ public class AuthorAction extends ActionSupport {
                     main_pos_username = posMainModel.getMainPosCd();
                     String dateStr = new Utilities().fnc_getDateBC(cboNam, cboDot);
                     final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(dateStr));
-                    ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KHNV_02C", main_pos_username, "M", _reportDate);
+                    ArrayList<LockSendModel> lstData_tmp = _service_listts.getDataLockManual("KHNV_03_PGD", main_pos_username, "M", _reportDate);
                     try {
                         setChotsl(lstData_tmp.get(0).getStatus());
                     } catch (Exception e) {
                         setChotsl("0");
                     }
-                    if (cboDot.equals("5")) {
-                        if (chotsl.equals("0")) {
-                            sendTwKhnv_2024(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
+                    if (cboDot.equals("1")) {
+                        if (!chotsl.equals("2")) {
+                            sendTw(CapBC, TenDN, cboDonvi, cboNam, cboDot, cboTonghop, strNguyennhan);
                             chkSuccess = "SuccessMessage";
                             pageResult = new StringBufferInputStream("10");
                         } else {
@@ -275,6 +330,7 @@ public class AuthorAction extends ActionSupport {
         lstData = new AuthorModel().getData(CapBC, TenDN, macn_detail, cboNam, cboDot, "N", "");
         return SUCCESS;
     }
+//<editor-fold defaultstate="collapsed" desc="sendtw 2021 xml">
 
     public void sendTwKhnv() {
         String chk = "";
@@ -296,20 +352,20 @@ public class AuthorAction extends ActionSupport {
                 String strPathSave = !context.getRealPath("/").endsWith("/")
                         ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
                         : context.getRealPath("/") + Define.M_REPORT_XML;
-                strPathSave += "KHNV02_" + mapgd
+                strPathSave += "KHNV_03_PGD_" + mapgd
                         + "_" + TenDN + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
 
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
                 String ngayBc = new DaoMau01A().getNgaybc(cboNam, cboDot);
-                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02", mapgd, ngayBc);
+                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_03_PGD", mapgd, ngayBc);
                 if (lstData == null || lstData.size() == 0) {
                     mapStatusSend.put(mapgd, 6);
                     continue;
                 }
                 bStatus_file = new XmlKhnv2021Sync().createXmlFileKhnv2021(Define.PARA_SYN_REPORT_KHNV2021, "NT",
-                        "KHNV_02", ngayBc, TenDN, CapBC,
+                        "KHNV_03_PGD", ngayBc, TenDN, CapBC,
                         mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
 
                 if (!bStatus_file) {
@@ -353,6 +409,114 @@ public class AuthorAction extends ActionSupport {
             addActionError("Bạn chưa gửi được dữ liệu xin liên hệ với quản trị để được khắc phục");
         }
     }
+//</editor-fold>
+
+    public void sendTw(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
+        try {
+            session = ActionContext.getContext().getSession();
+            AuthorModel daoMain = new AuthorModel();
+            XDKHDao2021 daoXdkh = new XDKHDao2021();
+            int nambc = Integer.parseInt(cboNam) - 1;
+
+            final String _reportDate = String.valueOf(nambc) + "0630";
+            final String _reportDate1 = new SimpleDateFormat("yyyy-MM-dd'T'00:00:00.000").format(new SimpleDateFormat("yyyyMMdd").parse(_reportDate));
+
+            Map<String, Integer> mapStatusSend = new HashMap<>();
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            String dateFormat = formatter.format(new Date());
+
+            List<String> lstPos = new ArrayList<>();
+            lstPos.add(main_pos_username);
+
+            ArrayList<LockSendModel> lstData_tmp = _serverAPI.getDataLockManual("KHNV_03_PGD", main_pos_username, "M", _reportDate);
+
+            String chotsl;
+            try {
+                chotsl = lstData_tmp.get(0).getStatus();
+            } catch (Exception e) {
+                chotsl = "0";
+            }
+            if ("1".equals(chotsl)) {
+                mapStatusSend.put(main_pos_username, 5);
+                setLstViewSend(getViewStatus(lstPos, mapStatusSend));
+                return;
+            }
+            lstData = daoMain.getData("2", TenDN, main_pos_username, cboNam, cboDot, "Y", strNguyennhan);
+            if (lstData == null || lstData.isEmpty()) {
+                mapStatusSend.put(main_pos_username, 6);
+                setLstViewSend(getViewStatus(lstPos, mapStatusSend));
+                return;
+            }
+            ArrayList<DuLieuNTRowX> lstUpdateDate = new ArrayList<>();
+
+            for (DULIEU_NT data : lstData) {
+                DuLieuNTRowX tempadd = new DuLieuNTRowX();
+                tempadd.setKey("KHNV_03_PGD");
+                tempadd.setOrderValue(data.getTHUTU());
+                tempadd.setOrderDescription(data.getTT_HIENTHI());
+                tempadd.setName(data.getTEN());
+                tempadd.setCode(data.getMA());
+                tempadd.setMakerId(data.getNGUOI_NHAP());
+                tempadd.setMakerDate(dateFormat);
+                tempadd.setAuthoriseId(data.getNGUOI_DUYET());
+                tempadd.setAuthoriseDate(dateFormat);
+                tempadd.setReportDate(_reportDate1);
+                tempadd.setReportYear(data.getNAMBC());
+                tempadd.setPosCode(data.getMAPGD());
+                tempadd.setPosFlag(data.getCO_TONGHOP());
+                tempadd.setBranchCode(data.getMACN());
+                tempadd.setD1(data.getD1());
+                tempadd.setD2(data.getD2());
+                tempadd.setD3(data.getD3());
+                tempadd.setD4(data.getD4());
+                tempadd.setD5(data.getD5());
+                tempadd.setD6(data.getD6());
+                tempadd.setD7(data.getD7());
+                tempadd.setD8(data.getD8());
+                tempadd.setD9(data.getD9());
+                tempadd.setD10(data.getD10());
+                tempadd.setD11(data.getD11());
+                tempadd.setD12(data.getD12());
+                tempadd.setD13(data.getD13());
+                tempadd.setD14(data.getD14());
+                tempadd.setD15(data.getD15());
+                tempadd.setD16(data.getD16());
+                tempadd.setD17(data.getD17());
+                tempadd.setD18(data.getD18());
+                tempadd.setD19(data.getD19());
+                tempadd.setD20(data.getD20());
+
+                tempadd.setD30("Gửi file excel");
+
+                lstUpdateDate.add(tempadd);
+            }
+
+            _serverAPI = new DuLieuNTService();
+            int status = _serverAPI.getGQVL2023("KHNV_03_PGD", main_pos_username, "M", _reportDate, "", TenDN, lstUpdateDate);
+            if (status == 200) {
+                int skhoa = _serverAPI.updateChotSL("KHNV_03_PGD", main_pos_username, "M", _reportDate, "1", TenDN, null);
+                if (skhoa == 200) {
+                    String message = daoXdkh.getCheck_2026("CHECK_SEND_TW", cboNam, cboDot, main_pos_username, "2", TenDN, "", "CHECK_SEND_TW");
+                    if (message.endsWith("AAA")) {
+                        mapStatusSend.put(main_pos_username, 4);
+                    } else {
+                        mapStatusSend.put(main_pos_username, 2);
+                    }
+                } else {
+                    mapStatusSend.put(main_pos_username, 3);
+                }
+            } else {
+                mapStatusSend.put(main_pos_username, 1);
+            }
+            setLstViewSend(getViewStatus(lstPos, mapStatusSend));
+
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> KHNV", e);
+            throw new RuntimeException(e);
+        }
+    }
+    //<editor-fold defaultstate="collapsed" desc="sendtw 2024 xml"> 
 
     public void sendTwKhnv_2024(String CapBC, String TenDN, String cboDonvi, String cboNam, String cboDot, String cboTonghop, String strNguyennhan) {
         try {
@@ -373,20 +537,20 @@ public class AuthorAction extends ActionSupport {
                 String strPathSave = !context.getRealPath("/").endsWith("/")
                         ? context.getRealPath("/") + "/" + Define.M_REPORT_XML
                         : context.getRealPath("/") + Define.M_REPORT_XML;
-                strPathSave += "KHNV02C_" + mapgd
+                strPathSave += "KHNV_03_PGD" + mapgd
                         + "_" + TenDN + "_"
                         + Long.toString(System.currentTimeMillis()).substring(Long.toString(System.currentTimeMillis()).length() - 6) + ".xml";
 
                 List<String> lstData = new ArrayList<>();
                 boolean bStatus_file = false;
                 String ngayBc = new DaoMau01A().getNgaybc(cboNam, cboDot);
-                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_02C", mapgd, ngayBc);
+                lstData = new DaoMau01A().getDataSendKhnv("NT", "KHNV_03_PGD", mapgd, ngayBc);
                 if (lstData == null || lstData.size() == 0) {
                     mapStatusSend.put(mapgd, 6);
                     continue;
                 }
                 bStatus_file = new XmlKhnv2021Sync().createXmlFileKhnv2021(Define.PARA_SYN_REPORT_KHNV2021, "NT",
-                        "KHNV_02C", ngayBc, TenDN, CapBC,
+                        "KHNV_03_PGD", ngayBc, TenDN, CapBC,
                         mapgd, lstData, Define.WEB_SERVICES_STATUS_SEND, strPathSave);
 
                 if (!bStatus_file) {
@@ -480,15 +644,66 @@ public class AuthorAction extends ActionSupport {
         }
         return lstStatus;
     }
+//</editor-fold>
+
+    private List<ModelViewSend> getViewStatus(List<String> lstPos, Map<String, Integer> mapStatus) {
+        addActionMessage("Danh sách các PGD gửi dữ liệu và tình trạng dữ liệu");
+        List<ModelViewSend> lstStatus = new ArrayList();
+        try {
+            Map<String, String> mapPosByName = DaoKtgsMain.newInstance().getPosByName(lstPos);
+
+            for (String key : mapStatus.keySet()) {
+
+                if (mapPosByName.get(key) == null) {
+                    continue;
+                };
+                Integer value = mapStatus.get(key);
+                ModelViewSend modelview = ModelViewSend.newInstance();
+                modelview.setMapgd(key);
+                modelview.setKey(value);
+                modelview.setTenpgd(mapPosByName.get(key));
+
+                switch (value) {
+                    case 1:
+                        modelview.setMota_loi("Lỗi kết nối đến TW");
+                        break;
+                    case 2:
+                        modelview.setMota_loi("Lỗi kết nối từ CN");
+                        break;
+                    case 3:
+                        modelview.setMota_loi("Gửi dữ liệu bị lỗi");
+                        break;
+                    case 4:
+                        modelview.setMota_loi("Thành công");
+                        break;
+                    case 5:
+                        modelview.setMota_loi("Phòng giao dịch này bị khóa");
+                        break;
+                    case 6:
+                        modelview.setMota_loi("CN chưa lưu dữ liệu tổng hợp");
+                        break;
+                    default:
+                        modelview.setMota_loi("Lỗi không xác định");
+                        break;
+                }
+                lstStatus.add(modelview);
+            }
+        } catch (Exception e) {
+            CoreLogger.error(this.getClass().getName() + " Exception -> getViewStatusSend: " + e.getMessage());
+            System.err.println(this.getClass().getName() + " Exception -> getViewStatusSend: " + e.getMessage());
+        }
+        return lstStatus;
+    }
 
     public String lock() {
         try {
-            String D1 = ServletActionContext.getRequest().getParameter("cboDot");
+            session = ActionContext.getContext().getSession();
+            String D1 = (String) session.get("username");
             String D2 = ServletActionContext.getRequest().getParameter("cboNam");
-            System.out.println(D1 +" "+ D2);
-            String ngayBc = new DaoMau01A().getNgaybc(D2, D1);
+            System.out.println(D1 + " " + D2);
+//            String ngayBc = new DaoMau01A().getNgaybc(D2, D1);
             DaoMau01A daoMain = new DaoMau01A();
-            GenericResult<String> _result = daoMain.lock_TDKT_2024("KHNV_02C", "000100", "M", ngayBc);
+            GenericResult<String> _result = daoMain.lock_all_pos("KHNV_03_PGD", "000100", D1, D2);
 
             if (_result.isIsSuccess()) {
                 status = "1";
