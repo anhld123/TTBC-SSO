@@ -144,24 +144,24 @@ public class ExcelUploadAction extends ActionSupport
                     ResultModel status = excelUploader.import_file(new_file.getAbsolutePath(), font_type);
                     boolean status_up = status.status;
                     DtwUploadDao uploadDao = new DtwUploadDao();
-                    String file_path = FilenameUtils.removeExtension(new_file.getAbsolutePath());
+//                    String filePath = FilenameUtils.removeExtension(new_file.getAbsolutePath());
 
                     logPath = file_name;
                     logPathType = ReportTemplate.FILE;
                     logObj = uploadDao.get_uploaded_log(file_name, ReportTemplate.FILE);
-                    System.out.println("file_name== " + file_name + " == " + status_up);
+                    //System.out.println("file_name== " + file_name + " == " + status_up);
 //                    if (status_up = false) {
 //                        if (file_name.startsWith(Define.NV_QT)) {
-                    if (!status_up) {
+                    if (status_up) {
                         if (file_name.contains(Define.NV_QT)) {
-                            List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<>();
+                            List<QT_DULIEU_NT> lstDulieuNt = new ArrayList<QT_DULIEU_NT>();
                             lstDulieuNt = new XDKHDao2021().getDataQtKehoachByFile(Define.NV_QT, file_name);
-                            System.out.println("du lieu cn == " + lstDulieuNt.size());
+                           // System.out.println("du lieu cn == " + lstDulieuNt.size());
                             String sReturn = sendDataNV_QTByApi(lstDulieuNt, file_name);
                             if (sReturn.equals(SUCCESS)) {
-                                message = "(*) Xử lý file thành công: [" + file_name + "].";
+                                message = "(*) Xử lý api thành công: [" + file_name + "].";                                
                             } else {
-                                message = "(*) Xử lý api thành công: [" + file_name + "].";
+                                message = "(*) Xử lý file thành công: [" + file_name + "] nhưng chưa Upload được API";
                             }
                         } else {
                             message = "(*) Xử lý file thành công: [" + file_name + "].";
