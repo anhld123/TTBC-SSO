@@ -380,5 +380,6 @@
             }
 
         </script>
+        <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
     </body>
 </html>

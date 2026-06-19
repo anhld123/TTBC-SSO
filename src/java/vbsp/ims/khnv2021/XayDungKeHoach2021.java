@@ -128,7 +128,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             HashMap hmParameter = getParameter();
             setCommune_cd(hmParameter.get("commune_cd").toString());
-            setSubcommune_cd(hmParameter.get("subcommune_cd").toString());
+            setSubcommune_cd("000000".equals(commune_cd) ? "000000" : hmParameter.get("subcommune_cd").toString());
             int yearPre = Integer.parseInt(namBc) - 1;
             int year2Pre = Integer.parseInt(namBc) - 2;
             namBc_pre = String.valueOf(yearPre);
@@ -143,7 +143,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 //            2026
 
             if (maBc.equals("KHNV_01_THON")) {
-                if (commune_cd.equals("000000")) {
+                if (commune_cd == null || "000000".equals(commune_cd.trim())) {
                     showError("Bạn chưa chọn xã/phường/đặc khu");
                     return null;
                 }
@@ -158,7 +158,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 }
             }
             if (maBc.equals("KHNV_02_XA")) {
-                if (commune_cd.equals("000000")) {
+                if (commune_cd == null || "000000".equals(commune_cd.trim())) {
                     showError("Bạn chưa chọn xã/phường/đặc khu");
                     return null;
                 }
@@ -225,7 +225,6 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
 
         return SUCCESS;
     }
-
 
     public String guiChinhanh() {
         try {
@@ -541,8 +540,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             ExcelExport excelExport = new ExcelExport();
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
             String maxa = hmParameter.get("commune_cd").toString();
-            String mathon = hmParameter.get("subcommune_cd").toString();
-
+            String mathon = "000000".equals(maxa) ? "000000" : hmParameter.get("subcommune_cd").toString();
             if (maxa.equals("000000") || maxa.equals(NONE)) {
                 addActionError("Bạn chưa chọn mã xã!");
                 return ERROR;
@@ -571,7 +569,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             getInfo();
             HashMap hmParameter = getParameter();
             setCommune_cd(hmParameter.get("commune_cd").toString());
-            setSubcommune_cd(hmParameter.get("subcommune_cd").toString());
+            setSubcommune_cd("000000".equals(commune_cd) ? "000000" : hmParameter.get("subcommune_cd").toString());
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
@@ -609,7 +607,7 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             getInfo();
             HashMap hmParameter = getParameter();
             setCommune_cd(hmParameter.get("commune_cd").toString());
-            setSubcommune_cd(hmParameter.get("subcommune_cd").toString());
+            setSubcommune_cd("000000".equals(commune_cd) ? "000000" : hmParameter.get("subcommune_cd").toString());
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();

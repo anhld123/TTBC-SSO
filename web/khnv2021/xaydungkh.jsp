@@ -73,6 +73,7 @@
             border:none
         }
     </style>
+    <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
     <SCRIPT language="javascript">
         $.subscribe("beforediv_send", function (event, data) {
             $('#loadingImage_next').slideDown("slow");
