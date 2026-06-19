@@ -109,6 +109,8 @@
                 background-color: lightgoldenrodyellow;
             }
         </style>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.number.js"></script>
         <link href="css/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -139,8 +141,8 @@
                     <span class="clss-lable">Đợt thực hiện:</span>
                     <select  id="cboDot" name="cboDot" onchange="toggleButton()">
                         <option value="1">Năm</option>
-                        <option value="2">3 Năm</option>
-                        <option value="5">5 Năm</option>
+                        <!--                        <option value="2">3 Năm</option>
+                                                <option value="5">5 Năm</option>-->
                     </select>
                     &nbsp;
                     <span class="clss-lable">Tổng hợp</span>
@@ -149,7 +151,7 @@
                         <option value="N">Duyệt từng đơn vị</option>
                         <option value="W">Phản hồi từ cấp trên</option>
                         <option value="S">Kiểm soát gửi/nhận</option>
-                        <option value="R">Tổng hợp lại số liệu từ các đơn vị trực thuộc</option>
+                        <!--<option value="R">Tổng hợp lại số liệu từ các đơn vị trực thuộc</option>-->
                     </select>
                     &nbsp;                                  
                     <input type="button" value="Tải dữ liệu" id="cmdTaiDL" name="nameTaiDL" class="cmd"/>
@@ -180,205 +182,204 @@
                 <div id="idViewData"></div>
             </div>
         </form> 
-        <script src="js/jquery.min.js" type="text/javascript"></script>
-        <script src="js/jquery.number.js"></script>
         <script>
-                                   $(document).ready(function () {
-                                       if (('<s:property value="CapBC"/>') == '3') {
-                                           $('#cboTonghop option[value="W"]').remove();
-                                           $('#cmdGuiDL').remove();
-                                       }
-                                       $('#cmdTraLaiDL').hide();
-                                       $('#idNguyenNhan').hide();
-                                       $('#idButton').hide();
-                                       $("#cboNam").val(new Date().getFullYear() + 1).change();
+            $(function () {
+                const capBC = '<s:property value="CapBC"/>';
+                const $tongHop = $("#cboTonghop");
+                const $donVi = $("#cboDonvi");
+                const $btnGui = $("#cmdGuiDL");
+                const $btnTraLai = $("#cmdTraLaiDL");
+                const $btnLuu = $("#idLuuDL");
+                const $btnAuthor = $("#cmdAuthor");
+                const $nguyenNhan = $("#idNguyenNhan");
+                const $buttonArea = $("#idButton");
+                const $viewData = $("#idViewData");
+// Khởi tạo
+                initPage();
+// Binding sự kiện
+                $("#cmdTaiDL").on("click", {status: "0"}, sendData);
+                $btnGui.on("click", {status: "1"}, sendData);
+                $btnTraLai.on("click", {status: "2"}, sendData);
+                $btnLuu.on("click", {status: "3"}, sendData);
+                $donVi.on("change", handleDonViChange);
+                $tongHop.on("change", handleTongHopChange);
 
-                                       //Tải dữ liệu
-                                       $("#cmdTaiDL").click({status: "0"}, SendData);
-                                       //Gửi dữ liệu
-                                       $("#cmdGuiDL").click({status: "1"}, SendData);
-                                       //Trả lại đơn vị
-                                       $("#cmdTraLaiDL").click({status: "2"}, SendData);
-                                       //Tải Lưu dữ liệu cấp CN
-                                       $("#idLuuDL").click({status: "3"}, SendData);
-                                       //Xử lý trạng thái các Element
-                                       $("#cboDonvi").change(function () {
-                                           if ($("#cboDonvi").val().trim() == "all") {
-                                               $('#idLuuDL').show();
-                                               $('#cmdGuiDL').show();
-                                               $('#cmdAuthor').hide();
-                                               $('#cmdTraLaiDL').hide();
-                                               $('#idNguyenNhan').hide();
-                                               $('#idViewData').hide();
-                                               $('#cboTonghop option')[0].selected = true;
-                                               $('.cls-over').height("86vh")
-                                           } else {
-                                               $('#idLuuDL').hide();
-                                               $('#cmdGuiDL').hide();
-                                               $('#cmdAuthor').show();
-                                               $('#cmdTraLaiDL').show();
-                                               $('#idNguyenNhan').show();
-                                               $('#idViewData').hide();
-                                               $('#cboTonghop option')[1].selected = true;
-                                           }
-                                       });
-                                       $("#cboTonghop").change(function () {
-                                           if ($("#cboTonghop").val().trim() == "Y") {
-                                               $('#idLuuDL').show();
-                                               $('#cmdGuiDL').show();
-                                               $('#cmdAuthor').hide();
-                                               $('#cmdTraLaiDL').hide();
-                                               $('#idNguyenNhan').hide();
-                                               $('#idViewData').hide();
-                                               $('#cboDonvi option')[0].selected = true;
-                                               $('.cls-over').height("86vh")
-                                           }
-                                           if ($("#cboTonghop").val().trim() == "N") {
-                                               $('#idLuuDL').hide();
-                                               $('#cmdGuiDL').hide();
-                                               $('#cmdAuthor').show();
-                                               $('#cmdTraLaiDL').show();
-                                               $('#idNguyenNhan').show();
-                                               $('#idViewData').hide();
-                                               $('#cboDonvi option')[1].selected = true;
-                                               $('.cls-over').height("65vh")
-                                           }
-                                           if ($("#cboTonghop").val().trim() == "W") {
-                                               $('#idLuuDL').hide();
-                                               $('#cmdGuiDL').hide();
-                                               $('#cmdAuthor').hide();
-                                               $('#cmdTraLaiDL').hide();
-                                               $('#idNguyenNhan').hide();
-                                               $('#idViewData').hide();
-                                               $('.cls-over').height("86vh")
-                                               $('#cboDonvi option')[0].selected = true;
-                                           }
-                                       });
-                                   });
-                                   function SendData(event) {
-                                       var surl, sdata, idView, idMess, idForm, method, strMess;
-                                       if ($("#cboTonghop").val().trim() === "N")
-                                           $('.cls-over').height("65vh");
-                                       else {
-                                           $('.cls-over').height("85vh");
-                                       }
-                                       surl = "SendAction.action?status=" + event.data.status;
-                                       idView = "#idViewData";
-                                       idMess = "#idViewMess";
-                                       idForm = "#idKhnv2021";
-                                       method = "POST";
-                                       sdata = jQuery(idForm).serialize();
-                                       $.ajax({
-                                           url: surl,
-                                           data: sdata,
-                                           type: method,
-                                           async: true,
-                                           beforeSend: function () {
-                                               $(idMess).html('<img src="imgs/newloading.gif"/>');
-                                           },
-                                           success: function (result) {
-                                               if (["10", "11", "20", "21", "01", "30", "31", "404"].includes(result)) {
-                                                   switch (result) {
-                                                       case "01":
-                                                           strMess = 'Lỗi: Không có dữ liệu.';
-                                                           $(idView).html('');
-                                                           break;
-                                                       case "10":
-                                                           strMess = '';
-                                                           break;
-                                                       case "11":
-                                                           strMess = 'Lỗi: khi gửi dữ liệu lên cấp trên.';
-                                                           $(idView).html('');
-                                                           break;
-                                                       case "20":
-                                                           strMess = '<span style="color:green">Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>';
-                                                           break;
-                                                       case "21":
-                                                           strMess = 'Lỗi: hoàn trả dữ liệu cho đơn vị.';
-                                                           $(idView).html('');
-                                                           break;
-                                                       case "30":
-                                                           strMess = '<span style="color:green">Thành công: Lưu dữ liệu.</span>';
-                                                           break;
-                                                       case "31":
-                                                           strMess = 'Lỗi: Lưu dữ liệu.';
-                                                           $(idView).html('');
-                                                           break;
-                                                       case "404":
-                                                           strMess = 'Lỗi: Đơn vị trực thuộc chưa thực hiện xác nhận và gửi số liệu.';
-                                                           $(idView).html('');
-                                                           break;
-                                                   }
-                                                   $(idMess).html(strMess);
-                                               } else {
-                                                   if ($("#cboTonghop").val().trim() == "W") {
-                                                       $(idView).html(result);
-                                                       $(idView).show();
-                                                       $('#idButton').hide();
-                                                   } else {
-                                                       $('#idButton').show();
-                                                       $(idView).show();
-                                                       $(idView).html(result);
-                                                       $(idMess).html('');
-                                                   }
-                                               }
-                                           },
-                                           error: function (result) {
-                                               alert('Lỗi khi thực hiện.');
-                                           }
-                                       });
-                                   }
-//                            function toggleNguyenNhan() {
-//                                var cboDotValue = document.getElementById("cboDot").value;
-//                                var nguyenNhanDiv = document.getElementById("idNguyenNhan");
-//
-//                                if (cboDotValue == "5") {
-//                                    nguyenNhanDiv.style.display = "none";
-//                                } else {
-//                                    nguyenNhanDiv.style.display = "block";
-//                                }
-//                            }
-                                   function toggleButton() {
-                                       var selectedValue = document.getElementById("cboDot").value;
-                                       var button = document.getElementById("cmdKhoa");
+                function initPage() {
+//                    if (capBC === "3") {
+//                        $('#cboTonghop option[value="W"]').remove();
+//                        $btnGui.remove();
+//                        $("#cmdKhoa").hide();
+//                    }
 
-                                       if (selectedValue === "5") {
-                                           button.style.display = "inline";
-                                       } else {
-                                           button.style.display = "none";
-                                       }
-                                   }
-                                   function initTable() {
-                                       if (('<s:property value="CapBC"/>') === '3')
-                                       {
-                                           document.getElementById("cmdKhoa").style.display = "none";
-                                       }
-                                   }
+                    $btnTraLai.hide();
+                    $nguyenNhan.hide();
+                    $buttonArea.hide();
 
-                                   initTable();
+                    $("#cboNam")
+                            .val(new Date().getFullYear() + 1)
+                            .change();
+                }
 
-                                   function cancelAssign() {
-                                       var cboDot = document.getElementById("cboDot").value;
-                                       var cboNam = document.getElementById("cboNam").value;
+                function setTongHopMode() {
+                    $btnLuu.show();
+                    $btnGui.show();
 
-                                       $.ajax({
-                                           type: "GET",
-                                           url: "lock_khnv_02c.action?cboDot=" + cboDot + "&cboNam=" + cboNam,
-                                           success: function (res) {
-                                               var status = parseInt(res.status);
-                                               if (status === 1) {
-                                                   alert('Khóa gửi dữ liệu toàn quốc thành công!');
-                                                   cmdTaiDL();
-                                               } else {
-                                                   alert('Lỗi! Khóa gửi dữ liệu toàn quốc: ' + res.message);
-                                               }
-                                           },
-                                           error: function (res) {
-                                               alert("Khóa gửi dữ liệu toàn quốc lỗi. Vui lòng liên hệ quản trị viên để được hỗ trợ!");
-                                           }
-                                       });
-                                   }
+                    $btnAuthor.hide();
+                    $btnTraLai.hide();
+                    $nguyenNhan.hide();
+                    $viewData.hide();
+
+                    $('.cls-over').height("86vh");
+                }
+
+                function setChiTietMode() {
+                    $btnLuu.hide();
+                    $btnGui.hide();
+
+                    $btnAuthor.show();
+                    $btnTraLai.show();
+                    $nguyenNhan.show();
+                    $viewData.hide();
+
+                    $('.cls-over').height("65vh");
+                }
+
+                function setViewMode() {
+                    $btnLuu.hide();
+                    $btnGui.hide();
+                    $btnAuthor.hide();
+                    $btnTraLai.hide();
+                    $nguyenNhan.hide();
+                    $viewData.hide();
+
+                    $('.cls-over').height("86vh");
+                }
+
+                function handleDonViChange() {
+                    if ($donVi.val() === "all") {
+                        setTongHopMode();
+                        $('#cboTonghop option')[0].selected = true;
+                    } else {
+                        setChiTietMode();
+                        $('#cboTonghop option')[1].selected = true;
+                    }
+                }
+
+                function handleTongHopChange() {
+
+                    switch ($tongHop.val()) {
+
+                        case "Y":
+                            setTongHopMode();
+                            $('#cboDonvi option')[0].selected = true;
+                            break;
+
+                        case "N":
+                            setChiTietMode();
+                            $('#cboDonvi option')[1].selected = true;
+                            break;
+
+                        case "W":
+                            setViewMode();
+                            $('#cboDonvi option')[0].selected = true;
+                            break;
+                    }
+                }
+
+                function sendData(event) {
+
+                    const status = event.data.status;
+
+                    $('.cls-over').height(
+                            $tongHop.val() === "N" ? "65vh" : "85vh"
+                            );
+
+                    $.ajax({
+                        url: "SendAction.action",
+                        type: "POST",
+                        data: $("#idKhnv2021").serialize() + "&status=" + status,
+
+                        beforeSend: function () {
+                            $("#idViewMess").html(
+                                    '<img src="imgs/newloading.gif"/>'
+                                    );
+                        },
+
+                        success: function (result) {
+
+                            const messages = {
+                                "01": "Lỗi: Không có dữ liệu.",
+                                "11": "Lỗi: khi gửi dữ liệu lên cấp trên.",
+                                "20": "<span style='color:green'>Thành công: Hoàn trả dữ liệu cho đơn vị thành công.</span>",
+                                "21": "Lỗi: hoàn trả dữ liệu cho đơn vị.",
+                                "30": "<span style='color:green'>Thành công: Lưu dữ liệu.</span>",
+                                "31": "Lỗi: Lưu dữ liệu.",
+                                "404": "Lỗi: Đơn vị trực thuộc chưa thực hiện xác nhận và gửi số liệu."
+                            };
+
+                            if (messages[result] || result === "10") {
+
+                                if (result !== "10") {
+                                    $("#idViewMess").html(messages[result]);
+                                } else {
+                                    $("#idViewMess").html("");
+                                }
+
+                                if (["01", "11", "21", "31", "404"].includes(result)) {
+                                    $("#idViewData").html("");
+                                }
+
+                                return;
+                            }
+
+                            $("#idViewData").html(result).show();
+
+                            if ($tongHop.val() === "W") {
+                                $buttonArea.hide();
+                            } else {
+                                $buttonArea.show();
+                                $("#idViewMess").html("");
+                            }
+                        },
+
+                        error: function () {
+                            alert("Lỗi khi thực hiện.");
+                        }
+                    });
+                }
+
+            });
+
+            function toggleButton() {
+                $("#cmdKhoa").toggle(
+                        $("#cboDot").val() === "1"
+                        );
+            }
+
+            function cancelAssign() {
+                if (confirm("Bạn có chắc chắn muốn khóa gửi dữ liệu toàn quốc không?")) {
+                    $.ajax({
+                        type: "GET",
+                        url: "lock_khnv_02c.action",
+                        data: {
+                            cboDot: $("#cboDot").val(),
+                            cboNam: $("#cboNam").val()
+                        },
+                        success: function (res) {
+                            if (parseInt(res.status, 10) === 1) {
+                                alert("Khóa gửi dữ liệu toàn quốc thành công!");
+                            } else {
+                                alert("Lỗi! " + res.message);
+                            }
+                        },
+                        error: function () {
+                            alert("Khóa gửi dữ liệu toàn quốc lỗi. Vui lòng liên hệ quản trị viên!");
+                        }
+                    });
+                }
+            }
 
         </script>
+        <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
     </body>
 </html>

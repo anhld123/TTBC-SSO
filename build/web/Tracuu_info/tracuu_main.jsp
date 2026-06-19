@@ -134,7 +134,7 @@
                 text-decoration: underline;
                 cursor: pointer;
             }
-                        
+
         </style>
     </head>
     <body style="font-family: tahoma; font-size: 13px;">
@@ -142,7 +142,7 @@
             <TABLE border="1"  width="100%">
                 <tr style="background-color: #F4F3F2;">
                     <td colspan="2">
-                        
+
                         <span class="head"> TRA CỨU THÔNG TIN:</span>
                         <select name="loaitc" onchange="fn_get_dk_info(this);">
                             <option value="all">00.Chọn thông tin cần tra cứu</option>
@@ -170,11 +170,11 @@
                 </tr>
             </table>
         </form>
-        
+
         <SCRIPT language="javascript">
             $("#dieukien").hide();
             $("#viewdata").hide();
-            
+
             function fn_get_dk_info(val) {
                 var btnarr = ["btnhide", "btnthuchien"];
                 if (val.value === "all") {
@@ -197,34 +197,68 @@
                         $("#viewdk").html(data);
                     });
                 }
-                if (val.value === "KH"){
+                if (val.value === "KH") {
                     $("#chkKH").show();
-                }else{
+                } else {
                     $("#chkKH").hide();
                 }
             }
             function funcandk() {
                 $("#dieukien").toggle();
             }
+//            function funsubmitdata() {
+//                var url, sdata,flat;
+//                //Kiem tra du lieu truoc khi Submit
+//                var x = document.getElementById("frmmain").elements.length;
+//                for(i=0;i<x;i++){
+//                    flat = document.getElementById("frmmain").elements[i].required;
+//                    if(flat===true){
+//                        var getVL = document.getElementById("frmmain").elements[i].value;
+//                        if(getVL === ""){
+//                            alert("Bạn cần nhập đẩy đủ những trường bắt buộc (*).");
+//                            return null;
+//                        }
+//                    }
+//                }
+//                url = "ShowList.action";
+//                sdata = jQuery("#frmmain").serialize();
+//                $("#viewcontent").html("<img src='imgs/Preloader_3.gif' border='0'><strong> Đang tải dữ liệu...</strong>");
+//                $.post(url, sdata, function (data) {
+//                    $("#viewcontent").html(data);
+//                });
+//            }
+
             function funsubmitdata() {
-                var url, sdata,flat;
-                //Kiem tra du lieu truoc khi Submit
+
                 var x = document.getElementById("frmmain").elements.length;
-                for(i=0;i<x;i++){
-                    flat = document.getElementById("frmmain").elements[i].required;
-                    if(flat===true){
-                        var getVL = document.getElementById("frmmain").elements[i].value;
-                        if(getVL === ""){
-                            alert("Bạn cần nhập đẩy đủ những trường bắt buộc (*).");
-                            return null;
-                        }
+
+                for (var i = 0; i < x; i++) {
+                    if (document.getElementById("frmmain").elements[i].required &&
+                            document.getElementById("frmmain").elements[i].value === "") {
+
+                        alert("Bạn cần nhập đầy đủ những trường bắt buộc (*).");
+                        return;
                     }
                 }
-                url = "ShowList.action";
-                sdata = jQuery("#frmmain").serialize();
-                $("#viewcontent").html("<img src='imgs/Preloader_3.gif' border='0'><strong> Đang tải dữ liệu...</strong>");
-                $.post(url, sdata, function (data) {
-                    $("#viewcontent").html(data);
+
+                $("#viewcontent").html("<img src='imgs/Preloader_3.gif'><strong> Đang tải dữ liệu...</strong>");
+
+                $.ajax({
+                    url: "ShowList.action",
+                    type: "POST",
+                    data: $("#frmmain").serialize(),
+                    success: function (data) {
+                        $("#viewcontent").html(data);
+                    },
+                    error: function (xhr, error) {
+
+                        alert("Có lỗi xảy ra trong quá trình xử lý dữ liệu!");
+
+                        $("#viewcontent").html(
+                                "<div style='color:red'>Lỗi xử lý dữ liệu (" +
+                                xhr.status + " - " + error + ")</div>"
+                                );
+                    }
                 });
             }
         </SCRIPT>
