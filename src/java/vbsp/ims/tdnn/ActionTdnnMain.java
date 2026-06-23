@@ -64,10 +64,19 @@ public class ActionTdnnMain extends ActionSupport {
     private List<ListTransactionPoint> lstPoint_API;
     private String pos_cd;
     private String main_pos;
+    private String posCode;
     protected DaoListPosFromUser listKTNBDA = new DaoListPosFromUser();
     protected PosMainModel posMainModel;
     List<clsCanBo> lstCanBo = new ArrayList<>();
     //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public String getPosCode() {
+        return posCode;
+    }
+
+    public void setPosCode(String posCode) {
+        this.posCode = posCode;
+    }
 
     public List<ListTransactionPoint> getLstPoint_API() {
         return lstPoint_API;
@@ -473,25 +482,27 @@ public class ActionTdnnMain extends ActionSupport {
                 pos_cd = posMainModel.getPosCd();
                 main_pos = posMainModel.getMainPosCd();
                 _server_tmp = new LeaveHomeService();
-
-                if (PosFlag == "S") {
-                    lstPGD_API = _server_tmp.getListPgd(main_pos, pos_cd);
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4), pos_cd.substring(2, 6), "", pos_cd);
-                    lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "TXN");
-                } else if (PosFlag == "M") {
-                    lstPGD_API = _server_tmp.getListPgd(main_pos, "");
-                    lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
-                    lstXa_API = _server_tmp.getListXa(main_pos.substring(2, 4), "", "", "");
-                    lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "TXN");
+                if ("H".equals(PosFlag)) {
+                    lstPoint_API = new ArrayList<>();
                 } else {
-                    lstCN_API = _server_tmp.getListCn("");
-                    lstPGD_API = _server_tmp.getListPgd("", "");
-                    lstXa_API = _server_tmp.getListXa("", "", "", "");
-                    lstPoint_API = _server_tmp.getListPoint("", "", "TXN");
+                    lstPoint_API = _server_tmp.getListPoint(pos_cd, PosFlag, "");
+                }
+                switch (PosFlag) {
+                    case "S":
+                        lstPGD_API = _server_tmp.getListPgd(main_pos, pos_cd);
+                        lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                        break;
+                    case "M":
+                        lstPGD_API = _server_tmp.getListPgd(main_pos, "");
+                        lstCN_API = _server_tmp.getListCn(main_pos.substring(2, 4));
+                        break;
+                    default:
+                        lstCN_API = _server_tmp.getListCn("");
+                        lstPGD_API = _server_tmp.getListPgd("", "");
+                        break;
                 }
 
-                System.err.println(pos_cd + " " + main_pos + " " + PosFlag + " " + Grade);
+//                System.err.println(pos_cd + " " + main_pos + " " + PosFlag + " " + Grade);
                 return "TDNN_2024";
             }
             if (conn != null) {
@@ -501,6 +512,28 @@ public class ActionTdnnMain extends ActionSupport {
             CoreLogger.error(this.getClass().getName() + " Exception -> loadPataTdnn: " + e.getMessage());
             System.err.println(this.getClass().getName() + " Exception -> loadPataTdnn: " + e.getMessage());
         }
+        return SUCCESS;
+    }
+
+    public String loadPointByPos() throws Exception {
+        HashMap<String, Object> hmParameter = getParameter();
+        if (hmParameter == null) {
+            return ERROR;
+        }
+        // Lấy trực tiếp mapgd từ request
+        Object mapgdObj = hmParameter.get("posCode");
+        if (mapgdObj == null) {
+            return ERROR;
+        }
+
+        String mapgd = mapgdObj.toString().trim();
+        if (mapgd.isEmpty()) {
+            return ERROR;
+        }
+        LeaveHomeService service = new LeaveHomeService();
+
+        lstPoint_API = service.getListPoint(mapgd, "S", "");
+
         return SUCCESS;
     }
     //</editor-fold>

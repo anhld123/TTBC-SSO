@@ -188,6 +188,7 @@
                 display: block; 
             }
         </style>
+        <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
         <script>
             var bsubmit = false;
             $(document).ready(function () {
@@ -679,7 +680,7 @@
 
             $('#lstXa').on('change', function () {
                 userSelectedXa = true;
-                
+
                 let selectedText = $('#lstXa option:selected').text();
                 if (selectedText.includes(' - ')) {
                     let point = selectedText.split(' - ')[0]; // TX01
@@ -734,38 +735,87 @@
                     $('#transactionPoint').val(point);
                     $('#lstXa').val(firstXa.val());
                 }
+                onSelectChangeXa();
             }
 
 
+//            function onSelectChangeXa() {
+//                
+//                let selectedValue = $('#lstPGD').find(":selected").val();
+//                let province = selectedValue;//.substring(2, 6);
+//                $('#lstXa' + ' option').each(function () {
+//                    $(this).remove();
+//                });
+//                $('#lstXa_Temp option').each(function () {
+//                    if ($(this).val().startsWith(province)) {
+//                        $('#lstXa').append($('<option>',
+//                                {
+//                                    value: subString($(this).val()),
+//                                    text: $(this).text()
+//                                }));
+//                    }
+//                });
+//                var selectElement = document.getElementById("lstXa");
+//                selectElement.setAttribute("onmousedown", "return true;");
+//                document.getElementById("lstXa").style.backgroundColor = "#ffffff";
+//                document.getElementById("lstXa").disabled = false;
+//
+//                userSelectedXa = false;
+//                let firstXa = $('#lstXa option:eq(1)'); // phần tử thứ 2, sau option mặc định
+//                if (firstXa.length > 0 && !userSelectedXa) {
+//                    let firstText = firstXa.text(); // "TX01 - Xã ABC"
+//                    let point = firstText.split(' - ')[0];
+//                    $('#transactionPoint').val(point);
+//                    $('#lstXa').val(firstXa.val());
+//                }
+//            }
             function onSelectChangeXa() {
-                let selectedValue = $('#lstPGD').find(":selected").val();
-                let province = selectedValue;//.substring(2, 6);
-                $('#lstXa' + ' option').each(function () {
-                    $(this).remove();
-                });
-                $('#lstXa_Temp option').each(function () {
-                    if ($(this).val().startsWith(province)) {
-                        $('#lstXa').append($('<option>',
-                                {
-                                    value: subString($(this).val()),
-                                    text: $(this).text()
-                                }));
+
+                $.ajax({
+                    url: 'reloadTransactionPoint.action',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        posCode: $('#lstPGD').val()
+                    },
+                    success: function (data) {
+
+                        $('#lstXa').empty();
+
+                        $('#lstXa').append(
+                                '<option value="000000">----Chọn điểm giao dịch xã----</option>'
+                                );
+
+                        $.each(data.lstPoint_API, function (i, item) {
+
+                            $('#lstXa').append(
+                                    '<option value="' + item.communeId + '">' +
+                                    item.transactionPoint + ' - ' +
+                                    item.communeName +
+                                    '</option>'
+                                    );
+
+                        });
+
+                        // Mở khóa giống code cũ
+                        var selectElement = document.getElementById("lstXa");
+                        selectElement.setAttribute("onmousedown", "return true;");
+                        selectElement.disabled = false;
+                        selectElement.style.backgroundColor = "#ffffff";
+
+                        // Tự chọn xã đầu tiên giống code cũ
+                        let firstXa = $('#lstXa option:eq(1)');
+                        if (firstXa.length > 0) {
+
+                            $('#lstXa').val(firstXa.val());
+
+                            let point = firstXa.text().split(' - ')[0];
+                            $('#transactionPoint').val(point);
+                        }
                     }
                 });
-                var selectElement = document.getElementById("lstXa");
-                selectElement.setAttribute("onmousedown", "return true;");
-                document.getElementById("lstXa").style.backgroundColor = "#ffffff";
-                document.getElementById("lstXa").disabled = false;
-
-                userSelectedXa = false;
-                let firstXa = $('#lstXa option:eq(1)'); // phần tử thứ 2, sau option mặc định
-                if (firstXa.length > 0 && !userSelectedXa) {
-                    let firstText = firstXa.text(); // "TX01 - Xã ABC"
-                    let point = firstText.split(' - ')[0];
-                    $('#transactionPoint').val(point);
-                    $('#lstXa').val(firstXa.val());
-                }
             }
+
             function initTable() {
                 var Grade = document.getElementById("Grade").value;
                 if (Grade !== "1") {
@@ -796,24 +846,34 @@
                                 <option value="<s:property value="MainPos"/>_<s:property value="PosCode"/>"><s:property value="PosCode"/> - <s:property value="PosName"/></option>                                    
                             </s:iterator>
                         </select>
-                        <s:if test="!Grade.equalsIgnoreCase('3')">
-                            <select id="lstXa_Temp">
-                                <option value="000000">----Chọn điểm giao dịch xã----</option>
-                                <s:iterator value="lstPoint_API" status="ideRows" var="language">   
-                                    <s:if test="!status.equalsIgnoreCase('C')">
-                                        <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
-                                    </s:if>
-                                </s:iterator>
-                            </select>
-                        </s:if>
-                        <s:else>
-                            <select id="lstXa_Temp">
-                                <option value="000000">----Chọn điểm giao dịch xã----</option>
-                                <s:iterator value="lstXa_API" status="ideRows" var="language">                                    
-                                    <option value="<s:property value="PosCode"/>_<s:property value="communeCode"/>">TXN<s:property value="communeCode"/> - <s:property value="communeName"/></option>                                    
-                                </s:iterator>
-                            </select> 
-                        </s:else>
+                        <select id="lstXa_Temp">
+                            <option value="000000">----Chọn điểm giao dịch xã----</option>
+                            <s:iterator value="lstPoint_API" status="ideRows" var="language">   
+                                <s:if test="!status.equalsIgnoreCase('C')">
+                                    <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                </s:if>
+                            </s:iterator>
+                        </select>
+                        <%--  <s:if test="!Grade.equalsIgnoreCase('3')">
+                             <select id="lstXa_Temp">
+                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
+                                 <s:iterator value="lstPoint_API" status="ideRows" var="language">   
+                                     <s:if test="!status.equalsIgnoreCase('C')">
+                                         <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                     </s:if>
+                                 </s:iterator>
+                             </select>
+                         </s:if>
+                         <s:else>
+                             <select id="lstXa_Temp">
+                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
+                                 <s:iterator value="lstPoint_API" status="ideRows" var="language">   
+                                     <s:if test="!status.equalsIgnoreCase('C')">
+                                         <option value="<s:property value="PosCode"/>_<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option>                                    
+                                     </s:if>
+                                 </s:iterator>
+                             </select>
+                        </s:else>--%>
                     </div>
                     <tr>
                         <td>
@@ -843,11 +903,19 @@
                             &nbsp;&nbsp;<label>Điểm giao dịch xã: </label>
                             <select id="lstXa" name="lstXa">
                                 <option value="000000">----Chọn điểm giao dịch xã----</option>
-                                <s:iterator value="lstPoint_API">                                    
-                                    <option value="<s:property value="communeId"/>"><s:property value="transactionPoint"/> - <s:property value="communeName"/></option> 
-                                </s:iterator>   
-                                <input type="hidden" id="transactionPoint" name="transactionPoint" value="" />
+
+                                <s:iterator value="lstPoint_API">
+                                    <option value="<s:property value='communeId'/>">
+                                        <s:property value="transactionPoint"/> -
+                                        <s:property value="communeName"/>
+                                    </option>
+                                </s:iterator>
                             </select>
+
+                            <input type="hidden"
+                                   id="transactionPoint"
+                                   name="transactionPoint"
+                                   value="" />
                         </td>
                     </tr>
                     <tr>

@@ -13,6 +13,8 @@ import vbsp.ims.khnv2021.PosClass;
 import java.util.List;
 import vbsp.ims.log.CoreLogger;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import vbsp.ims.dao.*;
 
@@ -495,12 +497,31 @@ public class LeaveHomeService {
     }
 
     public List<ListTransactionPoint> getListPoint(String posCode, String posFlag, String keyword) {
-        List<ListTransactionPoint> _lstData4 = new ArrayList();
+        List<ListTransactionPoint> lstData4 = new ArrayList<>();
+
         try {
-            _lstData4 = _service.getListPoint(posCode, posFlag, keyword);
+            List<ListTranData> lstData5 = _service.getListTranDatas(posCode, "", posFlag);
+
+            for (ListTranData tranData : lstData5) {
+                ListTransactionPoint item = new ListTransactionPoint();
+
+                item.setCommuneId(tranData.getCommuneCode());
+                item.setCommuneName(tranData.getTransactionPointName());
+                item.setTransDate(tranData.getTransactionDate());
+                item.setInBranch(tranData.getBranchCode());
+                item.setStatus(tranData.getStatus());
+                item.setTransactionPoint(tranData.getTransactionPointCode());
+                item.setPosCode(tranData.getPosCode());
+
+                // Không set các field khác => null
+                lstData4.add(item);
+            }
+
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        return _lstData4;
+
+        return lstData4;
     }
 
     public List<ListCommune> getListXa(String provinceCode, String districtCode, String communeCode, String posCode) {

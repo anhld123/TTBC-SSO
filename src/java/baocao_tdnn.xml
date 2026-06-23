@@ -216,7 +216,9 @@
             <result name="success">/TDNN/table_unlock.jsp</result>
             <result name="error">/BCQT/success.jsp</result>        
         </action> 
-        
+        <action name="reloadTransactionPoint" class="vbsp.ims.tdnn.ActionTdnnMain" method="loadPointByPos">
+            <result name="success" type="json"></result>
+        </action>
         <action name="OPEN_PGD_TDNN" class="vbsp.ims.tdnn.ActionTdnnMain"  method="OpenPgd">
             <result name="success" type="redirectAction">
                 <param name="actionName">UNLOCK_TDNN</param>

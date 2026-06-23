@@ -2197,13 +2197,13 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
-    public ArrayList<ListTranData> GetListTranDatas(String posCd, String txnId, String posFlag) {
+    public ArrayList<ListTranData> getListTranDatas(String posCd, String txnId, String posFlag) {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("list-tran-data")
                 .queryParam("posCd", posCd)
                 .queryParam("txnId", txnId == null ? "" : txnId)
-                .queryParam("posFlag", posFlag == null ? "" : posFlag);
+                .queryParam("posFlag", posFlag == null ? "S" : posFlag);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
         if (response.getStatus() == 200) {
