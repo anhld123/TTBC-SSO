@@ -337,7 +337,7 @@ public class XDKHDao2021 {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_IMS_KHNV2021.P_GET_NAME_SUBCOMMUNE( ?, ?, ?, ?, ?)}";
+            String strStoreproce = "{call VBSP_IMS_KHNV.P_GET_NAME_SUBCOMMUNE( ?, ?, ?, ?, ?)}";
             ResultSet rsPosList = null;
 
             try {

@@ -333,8 +333,8 @@ public class AuthorAction extends ActionSupport {
 //<editor-fold defaultstate="collapsed" desc="sendtw 2021 xml">
 
     public void sendTwKhnv() {
-        String chk = "";
-        System.err.println("Vao ham sendKTGS");
+//        String chk = "";
+//        System.err.println("Vao ham sendKTGS");
         try {
             session = ActionContext.getContext().getSession();
             CapBC = (String) session.get("reportGrade");
@@ -700,7 +700,7 @@ public class AuthorAction extends ActionSupport {
             session = ActionContext.getContext().getSession();
             String D1 = (String) session.get("username");
             String D2 = ServletActionContext.getRequest().getParameter("cboNam");
-            System.out.println(D1 + " " + D2);
+//            System.out.println(D1 + " " + D2);
 //            String ngayBc = new DaoMau01A().getNgaybc(D2, D1);
             DaoMau01A daoMain = new DaoMau01A();
             GenericResult<String> _result = daoMain.lock_all_pos("KHNV_03_PGD", "000100", D1, D2);

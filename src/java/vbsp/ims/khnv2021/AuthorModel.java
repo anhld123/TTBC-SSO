@@ -28,7 +28,7 @@ public class AuthorModel {
         Connection con = db.getConnect();
         try {
             //Thực hiện lấy các biến cần truy cập
-            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV2021.KHNV2021_GETPOS(?,?,?)}");
+            CallableStatement st = con.prepareCall("{call VBSP_IMS_KHNV.KHNV_GETPOS(?,?,?)}");
             st.setString(1, CapBC);
             st.setString(2, TenDN);
             st.registerOutParameter(3, OracleTypes.CURSOR);

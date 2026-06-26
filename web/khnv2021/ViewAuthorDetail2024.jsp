@@ -146,55 +146,47 @@
             <th rowspan="3" class="TD_STT D0">STT</th>
             <th rowspan="3" class="TD_CHITIEU D0">CHỈ TIÊU</th>
             <th rowspan="3" class="TD_GIATRI D0">Thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
-            <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+            <th colspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
             <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc"/></th>
-            <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_1"/></th>
             <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_2"/></th>
-            <th colspan="5" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_3"/></th>
+            <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_3"/></th>
+            <th colspan="5" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_4"/></th>
         </tr>
         <tr>
-            <th rowspan="2" class="TD_GIATRI D0">Tổng số</th>
-            <th colspan="2" class="TD_GIATRI D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
-            <th rowspan="2" class="TD_GIATRI D0">Tổng số</th>
-            <th colspan="2" class="TD_GIATRI D0">Tăng, giảm so với 31/12/<s:property value="namBc"/></th>
-            <th rowspan="2" class="TD_GIATRI D0">Tổng số</th>
-            <th colspan="2" class="TD_GIATRI D0">Tăng, giảm so với 31/12/<s:property value="namBc_1"/></th>
-            <th rowspan="2" class="TD_GIATRI D0">Tổng số</th>
-            <th colspan="2" class="TD_GIATRI D0">Tăng, giảm so với 31/12/<s:property value="namBc_2"/></th>
-            <th colspan="2" class="TD_GIATRI D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
+            <th rowspan="2" class="D0">Tổng số</th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2pre"/></th>
+            <th rowspan="2" class="D0">Tổng số</th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
+            <th rowspan="2" class="D0">Tổng số</th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc"/></th>
+            <th rowspan="2" class="D0">Tổng số</th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2"/></th>
+            <th rowspan="2" class="D0">Tổng số</th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_3"/></th>
+            <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
 
         </tr>
         <tr>
-            <th class="D0 TD_GIATRI">Số tuyệt đối (+/-)</th>
-            <th class="D0 TD_GIATRI">Số tương đối (%)</th>
-            <th class="D0 TD_GIATRI">Số tuyệt đối (+/-)</th>
-            <th class="D0 TD_GIATRI">Số tương đối (%)</th>
-            <th class="D0 TD_GIATRI">Số tuyệt đối (+/-)</th>
-            <th class="D0 TD_GIATRI">Số tương đối (%)</th>
-            <th class="D0 TD_GIATRI">Số tuyệt đối (+/-)</th>
-            <th class="D0 TD_GIATRI">Số tương đối (%)</th>
-            <th class="D0 TD_GIATRI">Số tuyệt đối (+/-)</th>
-            <th class="D0 TD_GIATRI">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
+            <th class="D0">Số tuyệt đối (+/-)</th>
+            <th class="D0">Số tương đối (%)</th>
         </tr>
-        <tr class="sttCol">
-            <th style="font-style: italic; font-size: xx-small;">(1)</th>
-            <th style="font-style: italic; font-size: xx-small;">(2)</th>
-            <th style="font-style: italic; font-size: xx-small;">(3)</th>
-            <th style="font-style: italic; font-size: xx-small;">(4)</th>
-            <th style="font-style: italic; font-size: xx-small;">(5)</th>
-            <th style="font-style: italic; font-size: xx-small;">(6)</th>
-            <th style="font-style: italic; font-size: xx-small;">(7)</th>
-            <th style="font-style: italic; font-size: xx-small;">(8)</th>
-            <th style="font-style: italic; font-size: xx-small;">(9)</th>
-            <th style="font-style: italic; font-size: xx-small;">(10)</th>
-            <th style="font-style: italic; font-size: xx-small;">(11)</th>
-            <th style="font-style: italic; font-size: xx-small;">(12)</th>
-            <th style="font-style: italic; font-size: xx-small;">(13)</th>
-            <th style="font-style: italic; font-size: xx-small;">(14)</th>
-            <th style="font-style: italic; font-size: xx-small;">(15)</th>
-            <th style="font-style: italic; font-size: xx-small;">(16)</th>
-            <th style="font-style: italic; font-size: xx-small;">(17)</th>
-            <th style="font-style: italic; font-size: xx-small;">(18)</th>
+
+        <tr>
+            <s:iterator begin="1" end="20" status="st">
+                <th style="color:#000;font-style:italic;font-size:xx-small;padding:2px 0;line-height:12px;">
+                    (<s:property value="#st.count"/>)
+                </th>
+            </s:iterator>
         </tr>
     </thead>                                  
     <s:iterator value="#attr.lstData" var="modelView" status="rowstatus">                                                    
@@ -206,7 +198,7 @@
                 <input type="hidden" value="<s:property value='TT_HIENTHI' />" name="lstData[<s:property value='%{#rowstatus.index}' />].TT_HIENTHI"/>
                 <input type="hidden" value="<s:property value='TEN' />" name="lstData[<s:property value='%{#rowstatus.index}' />].TEN"/>
                 <input type="hidden" value="<s:property value='MA' />" name="lstData[<s:property value='%{#rowstatus.index}' />].MA"/>
-                
+
                 <input type="hidden" value="<s:property value='D1' />" name="lstData[<s:property value='%{#rowstatus.index}' />].D1"/>
                 <input type="hidden" value="<s:property value='D2' />" name="lstData[<s:property value='%{#rowstatus.index}' />].D2"/>
                 <input type="hidden" value="<s:property value='D3' />" name="lstData[<s:property value='%{#rowstatus.index}' />].D3"/>
@@ -255,7 +247,9 @@
             <td class="number2"><s:property value="D14"/></td>
 
             <td class="number"><s:property value="D15"/></td>
-            <td class="number"><s:property value="D16"/></td>
+            <td class="number2"><s:property value="D16"/></td>
+            <td class="number"><s:property value="D17"/></td>
+            <td class="number2"><s:property value="D18"/></td>
 
         </tr>
     </s:iterator>

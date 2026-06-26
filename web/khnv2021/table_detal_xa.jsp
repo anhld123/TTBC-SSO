@@ -107,7 +107,7 @@
                 <tr>
                     <th rowspan="3" class="TD_STT D0">STT</th>
                     <th rowspan="3" class="TD_CHITIEU D0">CHỈ TIÊU</th>
-                    <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
+                    <!--<th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>-->
                     <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                     <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                     <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_2"/></th>
@@ -123,7 +123,7 @@
                     <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2"/></th>
                     <th rowspan="2" class="D0">Tổng số</th>
                     <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_3"/></th>
-                    <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2pre"/></th>
+                    <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
 
                 </tr>
                 <tr>
@@ -140,7 +140,7 @@
                 </tr>
 
                 <tr>
-                    <s:iterator begin="1" end="18" status="st">
+                    <s:iterator begin="1" end="17" status="st">
                         <th style="color:#000;font-style:italic;font-size:xx-small;padding:2px 0;line-height:12px;">
                             (<s:property value="#st.count"/>)
                         </th>
@@ -155,18 +155,18 @@
                         <td class="number"> <s:property value="D2"/></td>
                         <td class="number"> <s:property value="D3"/></td>
                         <td class="number2"> <s:property value="D4"/></td>
-                        <td class="number2"> <s:property value="D5"/></td>
+                        <td class="number"> <s:property value="D5"/></td>
                         <td class="number"> <s:property value="D6"/></td>
                         <td class="number2"> <s:property value="D7"/></td>
-                        <td class="number2"> <s:property value="D8"/></td> 
+                        <td class="number"> <s:property value="D8"/></td> 
                         <td class="number"> <s:property value="D9"/></td> 
                         <td class="number2"> <s:property value="D10"/></td> 
-                        <td class="number2"> <s:property value="D11"/></td> 
+                        <td class="number"> <s:property value="D11"/></td> 
                         <td class="number"> <s:property value="D12"/></td> 
                         <td class="number2"> <s:property value="D13"/></td> 
-                        <td class="number2"> <s:property value="D14"/></td> 
+                        <td class="number"> <s:property value="D14"/></td> 
                         <td class="number2"> <s:property value="D15"/></td> 
-                        <td class="number2"> <s:property value="D16"/></td> 
+                        <!--<td class="number2"> <s:property value="D16"/></td>--> 
                     </tr>
                 </s:iterator>
             </table>

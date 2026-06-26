@@ -74,6 +74,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
 import java.sql.Array;
+import java.sql.PreparedStatement;
 import java.sql.Struct;
 import oracle.jdbc.OracleConnection;
 
@@ -1714,8 +1715,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
 //        long tCfg = System.currentTimeMillis();
         String start_end = dao.getStartEndCel(Key);
-//        System.out.println("getStartEndCel = "
-//                + (System.currentTimeMillis() - tCfg) + " ms");
+//        System.out.println("getStartEndCel = " + (System.currentTimeMillis() - tCfg) + " ms");
 
         int startrow = 0, startcell = 0, endcell = 0;
 
@@ -1730,15 +1730,13 @@ public class ActionChtrinhcnMain extends ActionSupport {
             FileInputStream fis = new FileInputStream(fileUpload);
             Workbook workbook = new XSSFWorkbook(fis);
 
-//            System.out.println("Open XSSFWorkbook = "
-//                    + (System.currentTimeMillis() - tOpenExcel) + " ms");
+//            System.out.println("Open XSSFWorkbook = " + (System.currentTimeMillis() - tOpenExcel) + " ms");
             Sheet sheet = workbook.getSheetAt(0);
 
-//            long tConn = System.currentTimeMillis();
+            long tConn = System.currentTimeMillis();
             conn = new DaoConnect().getConnect();
 
-//            System.out.println("Get Connection = "
-//                    + (System.currentTimeMillis() - tConn) + " ms");
+//            System.out.println("Get Connection = " + (System.currentTimeMillis() - tConn) + " ms");
             // ===== READ EXCEL =====
 //            long tReadExcel = System.currentTimeMillis();
             List<String[]> excelData = new ArrayList<>();
@@ -1781,8 +1779,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
 //            System.out.println("INSERT_REPORT_DATA = " + (System.currentTimeMillis() - tInsert) + " ms");
 //            long tEven = System.currentTimeMillis();
-            callEvenExcel(conn, Key, fileName, ngaybc);
-
+//            callEvenExcel(conn, Key, fileName, ngaybc);
 //            System.out.println("EVEN_EXCEL = " + (System.currentTimeMillis() - tEven) + " ms");
 //            long tSave = System.currentTimeMillis();
             saveUploadedFile(fileUpload, fileName);
@@ -1793,29 +1790,19 @@ public class ActionChtrinhcnMain extends ActionSupport {
 //            System.out.println("TOTAL UPLOAD = " + (System.currentTimeMillis() - totalStart) + " ms");
             addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
             return SUCCESS;
-
         } catch (SQLException e) {
-
             String err = e.getMessage();
-
             if (err != null && err.contains("ORA-00600")) {
                 addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
             } else {
                 addActionError("Lỗi khi xử lý file: " + err);
             }
-
             return ERROR;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             addActionError("Có lỗi không xác định: " + e.getMessage());
-
             return ERROR;
-
         } finally {
-
             if (conn != null) {
                 try {
                     conn.close();
@@ -1825,120 +1812,136 @@ public class ActionChtrinhcnMain extends ActionSupport {
         }
     }
 
-    public void callInsertReportData(
-            Connection conn,
-            List<String[]> excelData,
-            String fileName,
-            String key,
-            String user,
-            String ngaybc,
-            int startrow,
-            int startcell,
-            int endcell) throws Exception {
-
-        OracleConnection oraConn
-                = conn.unwrap(OracleConnection.class);
-
-        int colCount = endcell - startcell;
-
-        Struct[] structArray = new Struct[excelData.size()];
-
-        for (int i = 0; i < excelData.size(); i++) {
-
-            String[] row = excelData.get(i);
-
-            Object[] attrs = new Object[colCount];
-
-            for (int c = 0; c < colCount; c++) {
-                attrs[c] = (c < row.length) ? row[c] : null;
-            }
-
-            structArray[i]
-                    = oraConn.createStruct(
-                            "TYPE_UPLOAD_EXCEL",
-                            attrs);
-        }
-
-        Array oracleArray
-                = oraConn.createOracleArray(
-                        "TAB_UPLOAD_EXCEL",
-                        structArray);
-
-        try (CallableStatement cs
-                = conn.prepareCall(
-                        "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
-
-            cs.setArray(1, oracleArray);
-            cs.setString(2, fileName);
-            cs.setString(3, key);
-            cs.setString(4, user);
-            cs.setString(5, ngaybc);
-
-            cs.execute();
-
-            System.out.println("INSERT_REPORT_DATA executed OK!");
-        }
-    }
-//    public void callInsertReportData(Connection conn,
-//            List<String[]> excelData,
-//            String fileName,
-//            String key,
-//            String user,
-//            String ngaybc,
-//            int startrow,
-//            int startcell,
-//            int endcell) throws Exception {
-//        StructDescriptor structDesc = ActionChtrinhcnMain.getStructDesc();
-//        ArrayDescriptor arrayDesc = ActionChtrinhcnMain.getArrayDesc();
+//    public void callInsertReportData(Connection conn, List<String[]> excelData, String fileName, String key, String user,
+//            String ngaybc, int startrow, int startcell, int endcell) throws Exception {
 //
+//        OracleConnection oraConn = conn.unwrap(OracleConnection.class);
 //        int colCount = endcell - startcell;
-//        STRUCT[] structArray = new STRUCT[excelData.size()];
-//
-//        // 2. Convert List<String[]> thành mảng STRUCT
+//        Struct[] structArray = new Struct[excelData.size()];
 //        for (int i = 0; i < excelData.size(); i++) {
 //            String[] row = excelData.get(i);
-//            Object[] attributes = new Object[colCount];
-//
+//            Object[] attrs = new Object[colCount];
 //            for (int c = 0; c < colCount; c++) {
-//                int excelIndex = startcell + c;
-//                attributes[c] = row[c];
+//                attrs[c] = (c < row.length) ? row[c] : null;
 //            }
-//
-//            structArray[i] = new STRUCT(structDesc, conn, attributes);
+//            structArray[i] = oraConn.createStruct("TYPE_UPLOAD_EXCEL", attrs);
 //        }
+//        Array oracleArray = oraConn.createOracleArray("TAB_UPLOAD_EXCEL", structArray);
+//        try (CallableStatement cs = conn.prepareCall("{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
 //
-//        // 3. Tạo ARRAY để truyền vào thủ tục
-//        ARRAY oracleArray = new ARRAY(arrayDesc, conn, structArray);
-//
-//        // 4. Gọi stored procedure
-//        try (CallableStatement cs = conn.prepareCall(
-//                "{ call VBSP_IMS_CHTRINHCN.INSERT_REPORT_DATA(?, ?, ?, ?, ?) }")) {
 //            cs.setArray(1, oracleArray);
 //            cs.setString(2, fileName);
 //            cs.setString(3, key);
 //            cs.setString(4, user);
 //            cs.setString(5, ngaybc);
+//
 //            cs.execute();
+//
 //            System.out.println("INSERT_REPORT_DATA executed OK!");
 //        }
 //    }
+    public void callInsertReportData(Connection conn, List<String[]> excelData, String fileName, String key,
+            String user, String ngaybc, int startrow, int startcell, int endcell) throws Exception {
 
-    public void callEvenExcel(Connection conn, String key, String fileName, String ngaybc) {
-        try (CallableStatement csEven = conn.prepareCall(
-                "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?, ?, ?, ?, ?) }")) {
-            csEven.setString(1, key);
-            csEven.setString(2, fileName);
-            csEven.setString(3, ngaybc);
-            csEven.setString(4, "");
-            csEven.setString(5, "");
-            csEven.setString(6, "");
-            csEven.execute();
-            System.out.println("EVEN_EXCEL executed OK for file: " + fileName);
-        } catch (Exception exEven) {
-            exEven.printStackTrace();
-            addActionMessage("Upload thành công, nhưng xử lý EVEN_EXCEL bị lỗi: " + exEven.getMessage());
+        String sessionId = java.util.UUID.randomUUID().toString();
+
+        conn.setAutoCommit(false);
+
+        try (PreparedStatement log = conn.prepareStatement(
+                "INSERT INTO UPLOAD_EXCEL_HIST "
+                + "(SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC, D1) "
+                + "VALUES (?,?,?,?,?,?)")) {
+
+            log.setString(1, sessionId);
+            log.setString(2, key);
+            log.setString(3, fileName);
+            log.setString(4, user);
+            log.setString(5, ngaybc);
+            log.setString(6, "LOG_SAVE");
+
+            log.executeUpdate();
         }
+
+        try (PreparedStatement del = conn.prepareStatement(
+                "DELETE FROM UPLOAD_EXCEL_HIST WHERE FILE_KEY = ? AND NVL(D1,'X') <> 'LOG_SAVE'")) {
+
+            del.setString(1, key);
+            del.executeUpdate();
+        }
+
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("INSERT INTO UPLOAD_EXCEL_HIST (").append("SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC");
+
+        for (int i = 1; i <= 100; i++) {
+            sql.append(",D").append(i);
+        }
+        sql.append(") VALUES (?,?,?,?,?");
+
+        for (int i = 1; i <= 100; i++) {
+            sql.append(",?");
+        }
+
+        sql.append(")");
+        try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            for (String[] row : excelData) {
+
+                int idx = 1;
+                ps.setString(idx++, sessionId);
+                ps.setString(idx++, key);
+                ps.setString(idx++, fileName);
+                ps.setString(idx++, user);
+                ps.setString(idx++, ngaybc);
+
+                // D1 → D100
+                for (int i = 0; i < 100; i++) {
+                    ps.setString(idx++,
+                            (i < row.length ? row[i] : null));
+                }
+
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+        }
+        try (CallableStatement cs = conn.prepareCall(
+                "{ call VBSP_IMS_CHTRINHCN.START_EVEN_EXCEL(?,?,?,?,?) }")) {
+
+            cs.setString(1, sessionId);
+            cs.setString(2, key);
+            cs.setString(3, fileName);
+            cs.setString(4, user);
+            cs.setString(5, ngaybc);
+            cs.execute();
+        }
+        conn.commit();
     }
+//        try (CallableStatement cs = conn.prepareCall(
+//                "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?) }")) {
+//
+//            cs.setString(1, sessionId);
+//            cs.setString(2, key);
+//
+//            cs.execute();
+//        }
+//    }
+//
+//    public void callEvenExcel(Connection conn, String key, String fileName, String ngaybc) {
+//        try (CallableStatement csEven = conn.prepareCall("{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?, ?, ?, ?, ?) }")) {
+//            csEven.setString(1, key);
+//            csEven.setString(2, fileName);
+//            csEven.setString(3, ngaybc);
+//            csEven.setString(4, "");
+//            csEven.setString(5, "");
+//            csEven.setString(6, "");
+//            csEven.execute();
+//            System.out.println("EVEN_EXCEL executed OK for file: " + fileName);
+//        } catch (Exception exEven) {
+//            exEven.printStackTrace();
+//            addActionMessage("Upload thành công, nhưng xử lý EVEN_EXCEL bị lỗi: " + exEven.getMessage());
+//        }
+//    }
 
     public void saveUploadedFile(File sourceFile, String fileName) {
         try {

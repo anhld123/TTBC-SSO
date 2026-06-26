@@ -54,28 +54,40 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <script>
-            var popWindow;
-            var max_row = 0;
             function initSubForm() {
-                $('input.number').css({"text-align": "right"});
                 $('.D0').css({"text-align": "center"});
-                $('input.number2').css({"text-align": "right"});
-                $(".STT1").css({"width": "5%"});
-                $(".STT2").css({"width": "15%"});
-                $(".STT4").css({"width": "5%"});
-                //Cac truong bang so --> se co so truong = 0
-//                $('.number').number(true, 0).css({"text-align": "right"});
-                //            //Cac truong bang so --> se co so truong = 0
-                $('.number2').number(true, 0);
+                $('.Bold_1').css({"font-weight": "bold"});
+                $('.Italic_1').css({"font-style": "italic"});
+                $(".TD_STT").css({"width": "30px"});
+                $(".TD_GIATRI").css({"width": "100px"});
+                $(".TD_TEN").css({"width": "80px"});
+                $(".TD_CHITIEU").css({"width": "20%"});
                 $('.number').each(function () {
-                    var value = $(this).text().trim();
-
-                    if (value !== '') {
-                        $(this).text($.number(Number(value), 2));
+                    var number = parseFloat($(this).text().trim());
+                    if (!isNaN(number)) {
+                        var roundedNumber = Math.abs(Math.round(number));
+                        var formattedNumber = roundedNumber.toLocaleString('en-US'); // Sử dụng dấu phân tách hàng nghìn là ","
+                        if (number < 0) {
+                            $(this).text("-" + formattedNumber);
+                        } else {
+                            $(this).text(formattedNumber);
+                        }
                     }
-                }).css({"text-align": "right"});
+                });
+                $('.number, .number2').css({
+                    'text-align': 'right'
+                });
+                $('.number2').each(function () {
+                    var number = parseFloat($(this).text().trim());
+                    if (!isNaN(number)) {
+                        var formattedNumber = number.toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        });
+                        $(this).text(formattedNumber);
+                    }
+                });
             }
-
             initSubForm();
 
         </script>      
@@ -95,14 +107,16 @@
                 <tr>
                     <th rowspan="3" class="TD_STT D0">STT</th>
                     <th rowspan="3" class="TD_CHITIEU D0">CHỈ TIÊU</th>
-                    <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
-                    <th rowspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
+                    <th rowspan="3" class="TD_GIATRI D0">Thực hiện đến 31/12/<s:property value="namBc_2pre"/></th>
+                    <th colspan="3" class="TD_GIATRI D0">Ước thực hiện đến 31/12/<s:property value="namBc_pre"/></th>
                     <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc"/></th>
                     <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_2"/></th>
                     <th colspan="3" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_3"/></th>
                     <th colspan="5" class="D0">Kế hoạch tín dụng năm <s:property value="namBc_4"/></th>
                 </tr>
                 <tr>
+                    <th rowspan="2" class="D0">Tổng số</th>
+                    <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2pre"/></th>
                     <th rowspan="2" class="D0">Tổng số</th>
                     <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
                     <th rowspan="2" class="D0">Tổng số</th>
@@ -111,7 +125,7 @@
                     <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2"/></th>
                     <th rowspan="2" class="D0">Tổng số</th>
                     <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_3"/></th>
-                    <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_2pre"/></th>
+                    <th colspan="2" class="D0">Tăng, giảm so với 31/12/<s:property value="namBc_pre"/></th>
 
                 </tr>
                 <tr>
@@ -125,10 +139,12 @@
                     <th class="D0">Số tương đối (%)</th>
                     <th class="D0">Số tuyệt đối (+/-)</th>
                     <th class="D0">Số tương đối (%)</th>
+                    <th class="D0">Số tuyệt đối (+/-)</th>
+                    <th class="D0">Số tương đối (%)</th>
                 </tr>
 
                 <tr>
-                    <s:iterator begin="1" end="18" status="st">
+                    <s:iterator begin="1" end="20" status="st">
                         <th style="color:#000;font-style:italic;font-size:xx-small;padding:2px 0;line-height:12px;">
                             (<s:property value="#st.count"/>)
                         </th>
@@ -142,19 +158,21 @@
                         <td class="number"> <s:property value="D1"/></td>
                         <td class="number"> <s:property value="D2"/></td>
                         <td class="number"> <s:property value="D3"/></td>
-                        <td class="number"> <s:property value="D4"/></td>
+                        <td class="number2"> <s:property value="D4"/></td>
                         <td class="number"> <s:property value="D5"/></td>
                         <td class="number"> <s:property value="D6"/></td>
-                        <td class="number"> <s:property value="D7"/></td>
+                        <td class="number2"> <s:property value="D7"/></td>
                         <td class="number"> <s:property value="D8"/></td> 
                         <td class="number"> <s:property value="D9"/></td> 
-                        <td class="number"> <s:property value="D10"/></td> 
+                        <td class="number2"> <s:property value="D10"/></td> 
                         <td class="number"> <s:property value="D11"/></td> 
                         <td class="number"> <s:property value="D12"/></td> 
-                        <td class="number"> <s:property value="D13"/></td> 
+                        <td class="number2"> <s:property value="D13"/></td> 
                         <td class="number"> <s:property value="D14"/></td> 
                         <td class="number"> <s:property value="D15"/></td> 
-                        <td class="number"> <s:property value="D16"/></td> 
+                        <td class="number2"> <s:property value="D16"/></td> 
+                        <td class="number"> <s:property value="D17"/></td> 
+                        <td class="number2"> <s:property value="D18"/></td> 
                     </tr>
                 </s:iterator>
             </table>

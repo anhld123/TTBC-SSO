@@ -2489,7 +2489,7 @@ public class ExcelExport {
         }
     }
 
-    public FileExportInfo xuatExcel_Mau02_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath, String commune, String subcommune) throws SQLException {
+    public FileExportInfo xuatExcel_Mau02_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath, String commune, String subcommune, String title_1) throws SQLException {
         String filePath = "";
         String fileName = "";
 
@@ -2532,7 +2532,7 @@ public class ExcelExport {
                 XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
                 // 1. Điền thông tin tiêu đề báo cáo
-                fillReportTitles(sheet, lstTitleData, pos, namBc, "2");
+                fillReportTitles(sheet, lstTitleData, pos, namBc, "2", title_1);
 
                 // 2. Điền và cấu hình Style cho toàn bộ Cell dữ liệu
                 fillReportData(sheet, lstData, "2");
@@ -2541,7 +2541,7 @@ public class ExcelExport {
                 cleanAndFormatFooter(sheet, lstData.size());
 
                 // 4. Tạo khu vực chữ ký phía dưới
-                createSignatures(sheet, lstTitleData, lstData.size(), "2", posFlag);
+                createSignatures(sheet, lstTitleData, lstData.size(), "2", posFlag, "S");
 
                 // Tính toán lại công thức và bảo mật sheet
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
@@ -2568,7 +2568,7 @@ public class ExcelExport {
         }
     }
 
-    public FileExportInfo xuatExcel_Mau03_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath) throws SQLException {
+    public FileExportInfo xuatExcel_Mau03_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath, String capBc) throws SQLException {
         List<String> lstOfTextFile = new ArrayList<>();
         List<DownloadFileInfor> filesList = new ArrayList<>();
         List<String> zipFileList = new ArrayList<>();
@@ -2607,7 +2607,7 @@ public class ExcelExport {
                     XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
                     // 4. Điền tiêu đề báo cáo
-                    fillReportTitles(sheet, lstTitleData, pos, namBc, "1");
+                    fillReportTitles(sheet, lstTitleData, pos, namBc, "1", "");
 
                     // 5. Điền dữ liệu vào bảng
                     fillReportData(sheet, lstData, "1");
@@ -2616,7 +2616,7 @@ public class ExcelExport {
                     cleanAndFormatFooter(sheet, lstData.size());
 
                     // 7. Tạo phần ký tên (Chữ ký cuối bài)
-                    createSignatures(sheet, lstTitleData, lstData.size(), "1", posFlag);
+                    createSignatures(sheet, lstTitleData, lstData.size(), "1", posFlag, capBc);
 
                     // 8. Tính toán lại công thức và bảo mật sheet
                     FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
@@ -2664,7 +2664,7 @@ public class ExcelExport {
     /**
      * Hàm điền toàn bộ thông tin tiêu đề động dựa vào năm báo cáo
      */
-    private void fillReportTitles(XSSFSheet sheet, List<String> lstTitleData, POSModel pos, String namBc, String type) {
+    private void fillReportTitles(XSSFSheet sheet, List<String> lstTitleData, POSModel pos, String namBc, String type, String title_1) {
         if (type.equals("1")) {
             String strTitle1 = "NHCSXH " + lstTitleData.get(1).toUpperCase();
             String strTitle2 = lstTitleData.get(0).toUpperCase();
@@ -2676,22 +2676,33 @@ public class ExcelExport {
 
             String strPosTitle = pos.getDesc().toUpperCase();
             fillTitle(sheet.getRow(2).getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), strPosTitle);
+            fillTitle(sheet.getRow(7).getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 2));
+            fillTitle(sheet.getRow(7).getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 1));
+            fillTitle(sheet.getRow(8).getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 2));
+            fillTitle(sheet.getRow(7).getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + namBc);
+            fillTitle(sheet.getRow(8).getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1));
+            fillTitle(sheet.getRow(7).getCell(10, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 1));
+            fillTitle(sheet.getRow(8).getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + namBc);
+            fillTitle(sheet.getRow(7).getCell(13, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 2));
+            fillTitle(sheet.getRow(8).getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 1));
+            fillTitle(sheet.getRow(7).getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 3));
+            fillTitle(sheet.getRow(8).getCell(17, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 2));
+            fillTitle(sheet.getRow(8).getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1));
         } else if (type.equals("2")) {
-            fillTitle(sheet.getRow(2).getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "NHCSXH " + lstTitleData.get(1).toUpperCase());
-            fillTitle(sheet.getRow(3).getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), lstTitleData.get(0).toUpperCase());
-            fillTitle(sheet.getRow(5).getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "KẾ HOẠCH TÍN DỤNG GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 3));
-            fillTitle(sheet.getRow(2).getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), pos.getDesc().toUpperCase());
+            fillTitle(sheet.getRow(4).getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "TỔNG HỢP NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 3));
+            fillTitle(sheet.getRow(5).getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), title_1.toUpperCase());
+            fillTitle(sheet.getRow(7).getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 1));
+            fillTitle(sheet.getRow(7).getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Năm " + namBc);
+            fillTitle(sheet.getRow(8).getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1));
+            fillTitle(sheet.getRow(7).getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Năm " + (Integer.parseInt(namBc) + 1));
+            fillTitle(sheet.getRow(8).getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + namBc);
+            fillTitle(sheet.getRow(7).getCell(10, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Năm " + (Integer.parseInt(namBc) + 2));
+            fillTitle(sheet.getRow(8).getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 1));
+            fillTitle(sheet.getRow(7).getCell(13, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Năm " + (Integer.parseInt(namBc) + 3));
+            fillTitle(sheet.getRow(8).getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 2));
+            fillTitle(sheet.getRow(7).getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Năm " + (Integer.parseInt(namBc) + 4));
+            fillTitle(sheet.getRow(8).getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1));
         }
-        fillTitle(sheet.getRow(7).getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 2));
-        fillTitle(sheet.getRow(7).getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Ước thực hiện đến 31/12/" + (Integer.parseInt(namBc) - 1));
-        fillTitle(sheet.getRow(7).getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + namBc);
-        fillTitle(sheet.getRow(8).getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) - 1));
-        fillTitle(sheet.getRow(8).getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + namBc);
-        fillTitle(sheet.getRow(7).getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 2));
-        fillTitle(sheet.getRow(8).getCell(12, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 1));
-        fillTitle(sheet.getRow(7).getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 3));
-        fillTitle(sheet.getRow(8).getCell(15, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Tăng, giảm so với 31/12/" + (Integer.parseInt(namBc) + 2));
-        fillTitle(sheet.getRow(7).getCell(17, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK), "Kế hoạch tín dụng năm " + (Integer.parseInt(namBc) + 4));
     }
 
     /**
@@ -2746,16 +2757,16 @@ public class ExcelExport {
             switch (type) {
                 case "1":
                     _arrIncludeCol = new int[]{3, 4};
-                    _arrExcludeCol = new int[]{6, 7, 9, 10, 12, 13, 15, 16, 17, 18};
-                    _arrLockRow = new int[]{0, 1, 2, 3, 7, 8, 32, 48};
-                    _arrPercentCol = new int[]{7, 10, 13, 16, 18};
+                    _arrExcludeCol = new int[]{5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 19, 20};
+                    _arrLockRow = new int[]{0, 1, 2, 3, 7, 8, 28, 44};
+                    _arrPercentCol = new int[]{6, 9, 12, 15, 18, 20};
                     _arrAbsoluteCol = new int[]{0};
                     break;
                 case "2":
                     _arrIncludeCol = new int[]{3, 4};
-                    _arrExcludeCol = new int[]{6, 7, 9, 10, 12, 13, 15, 16, 17, 18};
-                    _arrLockRow = new int[]{0, 1, 3, 4, 28, 43};
-                    _arrPercentCol = new int[]{7, 10, 13, 16, 18};
+                    _arrExcludeCol = new int[]{5, 6, 8, 9, 11, 12, 14, 15, 16, 17};
+                    _arrLockRow = new int[]{0, 1, 21, 36, 50};
+                    _arrPercentCol = new int[]{6, 9, 12, 15};
                     _arrAbsoluteCol = new int[]{0};
                     break;
                 default:
@@ -2802,10 +2813,11 @@ public class ExcelExport {
             xssfCell01.setCellValue(item.getTEN());
 
             // Đổ các cột số từ cột 3 đến cột 18
-            for (int ii = 3; ii < 19; ii++) {
+            int max = type.equals("1") ? 21 : 18;
+
+            for (int ii = 3; ii < max; ii++) {
                 XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                boolean isExcludedOrLocked = inArray(_arrExcludeCol, ii) || inArray(_arrLockRow, i)
-                        || (i == 28 && i == 43 && !inArray(_arrIncludeCol, ii));
+                boolean isExcludedOrLocked = inArray(_arrExcludeCol, ii) || inArray(_arrLockRow, i);
 
                 switch (item.getKIEUIN()) {
                     case 1:
@@ -2870,7 +2882,8 @@ public class ExcelExport {
                 // Dùng Reflection lấy dữ liệu từ D1 -> D15 tương ứng cột số
                 try {
                     int dIndex = ii - 2;
-                    if (dIndex > 15) {
+                    int data = type.equals("1") ? 18 : 15;
+                    if (dIndex > data) {
                         break;
                     }
                     Method method = item.getClass().getMethod("getD" + dIndex);
@@ -2944,7 +2957,7 @@ public class ExcelExport {
      * Hàm tạo thông tin liên lưu, ngày tháng năm và khu vực chữ ký giám
      * đốc/trưởng ban
      */
-    private void createSignatures(XSSFSheet sheet, List<String> lstTitleData, int dataSize, String type, String posFlag) {
+    private void createSignatures(XSSFSheet sheet, List<String> lstTitleData, int dataSize, String type, String posFlag, String capBc) {
 
         XSSFWorkbook xssfWorkbook = sheet.getWorkbook();
         int startRowNum = dataSize + 13;
@@ -2957,6 +2970,7 @@ public class ExcelExport {
 
         XSSFCell noteCell = row5.createCell(0);
         XSSFCell dateCell = row1.createCell(15);
+        XSSFCell dateCell1 = row2.createCell(15);
         XSSFCell leftTitleCell = row2.createCell(2);
         XSSFCell leftSignCell = row3.createCell(2);
         XSSFCell rightTitleCell = row2.createCell(15);
@@ -2965,28 +2979,27 @@ public class ExcelExport {
         XSSFCell rightFooterCell = row4.createCell(15);
 
         if ("1".equals(type)) {
-
             noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu, 01 liên gửi NHCSXH cấp trên.");
+            if ("M".equals(capBc)) {
+                dateCell.setCellValue("…, ngày … tháng … năm ……");
+                rightTitleCell.setCellValue("TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + lstTitleData.get(1).toUpperCase());
+                leftSignCell.setCellValue("GIÁM ĐỐC");
+                rightSignCell.setCellValue("TRƯỞNG BAN");
+            } else {
+                dateCell1.setCellValue("…, ngày … tháng … năm ……");
+                leftSignCell.setCellValue("LẬP BIỂU");
+                rightSignCell.setCellValue("GIÁM ĐỐC");
 
-            rightTitleCell.setCellValue("TM. BĐD HĐQT NHCSXH " + lstTitleData.get(1).toUpperCase());
-
+            }
         } else if ("2".equals(type)) {
-
-            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu tại Phòng giao dịch NHCSXH, 01 liên gửi chi nhánh NHCSXH cấp tỉnh.");
-
+            leftTitleCell.setCellValue("PHÒNG GIAO DỊCH NHCSXH");
+            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu tại Phòng giao dịch Ngân hàng Chính sách xã hội (NHCSXH), 01 liên gửi chi nhánh NHCSXH cấp tỉnh.");
+            dateCell.setCellValue("…, ngày … tháng … năm ……");
             rightTitleCell.setCellValue("TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + posFlag.toUpperCase());
+            leftSignCell.setCellValue("GIÁM ĐỐC");
+            rightSignCell.setCellValue("TRƯỞNG BAN");
         }
-
-        dateCell.setCellValue("…, ngày … tháng … năm ……");
-
-        leftTitleCell.setCellValue(
-                lstTitleData.get(0).toUpperCase());
-
-        leftSignCell.setCellValue("GIÁM ĐỐC");
-
-        rightSignCell.setCellValue("TRƯỞNG BAN");
-
-        leftFooterCell.setCellValue("(Ký tên)");
+        leftFooterCell.setCellValue("(Ký, ghi rõ họ tên)");
 
         rightFooterCell.setCellValue("(Ký tên, đóng dấu)");
 
@@ -3024,12 +3037,12 @@ public class ExcelExport {
         italicStyle.setAlignment(HorizontalAlignment.CENTER);
 
         dateCell.setCellStyle(italicStyle);
+        dateCell1.setCellStyle(italicStyle);
         leftFooterCell.setCellStyle(italicStyle);
         rightFooterCell.setCellStyle(italicStyle);
 
         // Style ghi chú
-        XSSFCellStyle italicLeftStyle
-                = xssfWorkbook.createCellStyle();
+        XSSFCellStyle italicLeftStyle = xssfWorkbook.createCellStyle();
 
         italicLeftStyle.cloneStyleFrom(italicStyle);
         italicLeftStyle.setAlignment(HorizontalAlignment.LEFT);
@@ -3092,7 +3105,7 @@ public class ExcelExport {
             // Refresh công thức và bảo mật sheet
             FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
             formulaEvaluator.evaluateAll();
-            sheet.protectSheet("khnv2024");
+            sheet.protectSheet("khnv202469");
 
             // Ghi dữ liệu ngược lại file
             try (java.io.FileOutputStream out = new java.io.FileOutputStream(fileName)) {
@@ -3102,21 +3115,16 @@ public class ExcelExport {
     }
 
     public void fillReportTitles(XSSFSheet sheet, String name_subcommune, String namBc, List<String> lstTitleData) {
-        String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH TẠI " + name_subcommune.toUpperCase();
-        String strTitle4 = "GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 3);
+        String strTitle = "NHU CẦU VAY VỐN TÍN DỤNG CHÍNH SÁCH TẠI GIAI ĐOẠN " + namBc + " - " + (Integer.parseInt(namBc) + 3);
+        String strTitle2 = name_subcommune.toUpperCase();
 
         fillTitle(sheet.getRow(4).getCell(0, Row.CREATE_NULL_AS_BLANK), strTitle);
-        fillTitle(sheet.getRow(5).getCell(0, Row.CREATE_NULL_AS_BLANK), strTitle4);
+        fillTitle(sheet.getRow(5).getCell(0, Row.CREATE_NULL_AS_BLANK), strTitle2);
 
-        String strTitle1 = "NHCSXH " + lstTitleData.get(1).toUpperCase();
-        String strTitle2 = lstTitleData.get(0).toUpperCase();
-
-        fillTitle(sheet.getRow(1).getCell(0, Row.CREATE_NULL_AS_BLANK), strTitle1);
-        fillTitle(sheet.getRow(2).getCell(0, Row.CREATE_NULL_AS_BLANK), strTitle2);
     }
 
     public void fillDynamicColumns(XSSFRow xssfRow, DULIEU_NT_100 dataItem, XSSFCellStyle numberStyle, XSSFCellStyle codeStyle) {
-        for (int ii = 5; ii < 24; ii++) {
+        for (int ii = 5; ii < 22; ii++) {
             XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
             if (dataItem.getKIEUIN() == 0) {
@@ -3197,13 +3205,61 @@ public class ExcelExport {
 
         // Thêm nội dung phần cuối (Chữ ký)
         int startRowNum = dataSize + 13;
-        XSSFRow row1 = sheet.createRow(startRowNum);
-        XSSFRow row2 = sheet.createRow(startRowNum + 1);
+        XSSFRow row = sheet.createRow(startRowNum);
+        XSSFRow row0 = sheet.createRow(startRowNum + 1);
+        XSSFRow row1 = sheet.createRow(startRowNum + 2);
+        XSSFRow row2 = sheet.createRow(startRowNum + 3);
 
-        XSSFCell cell1_1 = row1.createCell(20);
-        cell1_1.setCellValue("Cán bộ tín dụng");
-        XSSFCell cell2_1 = row2.createCell(20);
-        cell2_1.setCellValue("(Ký, ghi rõ họ và tên)");
+        int r0 = startRowNum + 1;
+        int r1 = startRowNum + 2;
+        int r2 = startRowNum + 3;
+
+        XSSFCell noteCell = row.createCell(0);
+        noteCell.setCellValue("Mẫu biểu được lập 01 liên lưu tại Phòng giao dịch Ngân hàng Chinh sách xã hội (NHCSXH)");
+        // merger
+        sheet.addMergedRegion(new CellRangeAddress(r0, r0, 0, 7));
+        sheet.addMergedRegion(new CellRangeAddress(r0, r0, 8, 21));
+        sheet.addMergedRegion(new CellRangeAddress(r1, r1, 0, 3));
+        sheet.addMergedRegion(new CellRangeAddress(r1, r1, 4, 7));
+        sheet.addMergedRegion(new CellRangeAddress(r1, r1, 8, 15));
+        sheet.addMergedRegion(new CellRangeAddress(r1, r1, 16, 21));
+        sheet.addMergedRegion(new CellRangeAddress(r2, r2, 0, 3));
+        sheet.addMergedRegion(new CellRangeAddress(r2, r2, 4, 7));
+        sheet.addMergedRegion(new CellRangeAddress(r2, r2, 8, 15));
+        sheet.addMergedRegion(new CellRangeAddress(r2, r2, 16, 21));
+
+        // Tiêu đề
+        XSSFCell leftTitle = row0.createCell(0);
+        leftTitle.setCellValue("PHÒNG GIAO DỊCH NHCSXH");
+
+        XSSFCell rightTitle = row0.createCell(8);
+        rightTitle.setCellValue("TM. BAN ĐẠI DIỆN HỘI ĐỒNG QUẢN TRỊ NHCSXH XÃ/PHƯỜNG/ĐẶC KHU");
+
+// Chức danh
+        XSSFCell canBo = row1.createCell(0);
+        canBo.setCellValue("Cán bộ");
+
+        XSSFCell giamDoc = row1.createCell(4);
+        giamDoc.setCellValue("Giám đốc");
+
+        XSSFCell ubmttq = row1.createCell(8);
+        ubmttq.setCellValue("Ủy ban Mặt trận Tổ quốc");
+
+        XSSFCell phongVH = row1.createCell(16);
+        phongVH.setCellValue("Phòng văn hóa, xã hội hoặc kinh tế, hạ tầng, đô thị");
+
+        // Ký tên
+        XSSFCell kyCanBo = row2.createCell(0);
+        kyCanBo.setCellValue("(Ký và ghi rõ họ tên)");
+
+        XSSFCell kyGiamDoc = row2.createCell(4);
+        kyGiamDoc.setCellValue("(Ký và ghi rõ họ tên)");
+
+        XSSFCell kyUbmttq = row2.createCell(8);
+        kyUbmttq.setCellValue("(Ký và ghi rõ họ tên)");
+
+        XSSFCell kyPhongVH = row2.createCell(16);
+        kyPhongVH.setCellValue("(Ký và ghi rõ họ tên)");
 
         // Style Chữ ký đậm
         XSSFCellStyle signatureStyle = xssfWorkbook.createCellStyle();
@@ -3213,8 +3269,14 @@ public class ExcelExport {
         signatureBoldFont.setFontName("Times New Roman");
         signatureStyle.setFont(signatureBoldFont);
         signatureStyle.setAlignment(HorizontalAlignment.CENTER);
-        cell1_1.setCellStyle(signatureStyle);
 
+        leftTitle.setCellStyle(signatureStyle);
+        rightTitle.setCellStyle(signatureStyle);
+
+        canBo.setCellStyle(signatureStyle);
+        giamDoc.setCellStyle(signatureStyle);
+        ubmttq.setCellStyle(signatureStyle);
+        phongVH.setCellStyle(signatureStyle);
         // Style Chữ ký nghiêng
         XSSFCellStyle italicStyle = xssfWorkbook.createCellStyle();
         XSSFFont italicFont = xssfWorkbook.createFont();
@@ -3223,7 +3285,17 @@ public class ExcelExport {
         italicFont.setFontName("Times New Roman");
         italicStyle.setFont(italicFont);
         italicStyle.setAlignment(HorizontalAlignment.CENTER);
-        cell2_1.setCellStyle(italicStyle);
+        kyCanBo.setCellStyle(italicStyle);
+        kyGiamDoc.setCellStyle(italicStyle);
+        kyUbmttq.setCellStyle(italicStyle);
+        kyPhongVH.setCellStyle(italicStyle);
+
+        XSSFCellStyle italicLeftStyle = xssfWorkbook.createCellStyle();
+
+        italicLeftStyle.cloneStyleFrom(italicStyle);
+        italicLeftStyle.setAlignment(HorizontalAlignment.LEFT);
+
+        noteCell.setCellStyle(italicLeftStyle);
     }
 
     public void handleZipFile(List<String> fullPathList, String zipPath, String zipFile, List<String> zipFileList) {

@@ -542,10 +542,10 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             String maxa = hmParameter.get("commune_cd").toString();
             String mathon = "000000".equals(maxa) ? "000000" : hmParameter.get("subcommune_cd").toString();
             if (maxa.equals("000000") || maxa.equals(NONE)) {
-                addActionError("Bạn chưa chọn mã xã!");
+                addActionError("Bạn chưa chọn xã/phường/đặc khu");
                 return ERROR;
             }
-            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, "");
+            ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(maxa, "KHNV1");
             String tenthon = listxa.get(0).getDesc();
 
             FileExportInfo fileInfo = excelExport.xuatExcel_Mau01_2026(pos_cd_username, maxa, mathon, tenthon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
@@ -580,13 +580,15 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             }
             ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(commune_cd, "");
             ten_thon = listxa.get(0).getDesc();
+            ArrayList<POSModel> listxa1 = daoXdkh.getNameSubCommune(commune_cd, "KHNV1");
+            String title_1 = listxa1.get(0).getDesc();
             String message = daoXdkh.getCheck_2026(maBc, namBc, dotBc, pos_cd_username, "", userId, commune_cd, subcommune_cd);
 
             if (message.endsWith("AAA1")) {
                 addActionError("Bạn chưa Upload đủ dữ liệu 'Tổ dân phố' hoặc 'Thôn' thuộc " + ten_thon);
                 return ERROR;
             }
-            FileExportInfo fileInfo = excelExport.xuatExcel_Mau02_2026(pos, ten_thon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir, commune_cd, pos_cd_username);
+            FileExportInfo fileInfo = excelExport.xuatExcel_Mau02_2026(pos, ten_thon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir, commune_cd, pos_cd_username, title_1);
             if (fileInfo != null) {
                 fileNamelocal = fileInfo.fileName;
                 filereport = fileInfo.filePath;
@@ -611,14 +613,17 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
-            maBc = "KHNV_03_PGD";
-            String message = daoXdkh.getCheck_2026(maBc, namBc, dotBc, pos_cd_username, reportGrade, userId, "", "");
-            if (message.endsWith("AAA2")) {
-                addActionError("Bạn chưa Upload đủ dữ liệu các xã/phường/đặc khu");
-                return ERROR;
+            String capBc = maCn.equals(pos_cd_username) ? "M" : "S";
+            maBc = "KHNV_03_PGD_EXCEL";
+            if (!pos_cd_username.equals("000101")) {
+                String message = daoXdkh.getCheck_2026(maBc, namBc, dotBc, pos_cd_username, reportGrade, userId, "", "");
+                if (message.endsWith("AAA2")) {
+                    addActionError("Bạn chưa Upload đủ dữ liệu các xã/phường/đặc khu");
+                    return ERROR;
+                }
             }
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
-            FileExportInfo fileInfo = excelExport.xuatExcel_Mau03_2026(pos, "N", new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir);
+            FileExportInfo fileInfo = excelExport.xuatExcel_Mau03_2026(pos, "N", new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir, capBc);
             if (fileInfo != null) {
                 fileNamelocal = fileInfo.fileName;
                 filereport = fileInfo.filePath;

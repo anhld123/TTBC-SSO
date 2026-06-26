@@ -84,11 +84,11 @@
                 Đơn vị: triệu đồng.
             </div>
             <table border="1" class="editDelete" id="subTable" align="center" style="padding-top: 10px"> 
-                
+
                 <tr>
                     <th class="STT2" rowspan="3">CHỈ TIÊU</th>
                     <th class="STT4" rowspan="3">TỔNG NHU CẦU VỐN TÍN DỤNG</th>
-                    <th class="STT4" colspan="18">Các chương trình tín dụng</th>
+                    <th class="STT4" colspan="17">Các chương trình tín dụng</th>
                 </tr>
 
                 <tr>
@@ -106,20 +106,16 @@
                     <th class="STT4" rowspan="2">Nước sạch và vệ sinh môi trường nông thôn</th>
                     <th class="STT4" rowspan="2">Nhà ở xã hội</th>
                     <th class="STT4" rowspan="2">Vốn nước ngoài</th>
-                    <th class="STT4" colspan="4">
-                        Các chương trình đã hết thời hạn giải ngân và chương trình khác
-                    </th>
+                    <th class="STT4" rowspan="2">Các chương trình đã hết thời hạn giải ngân và chương trình khác</th>
+                    <th class="STT4" rowspan="2">Khác</th>
                 </tr>
                 <tr>
+                    <th class="STT4">Tổng số</th>
                     <th class="STT4">Tr/đó: HSSV STEM</th>
-                    <th class="STT4">Hộ nghèo về nhà ở</th>
-                    <th class="STT4">Nhà ở ĐBSCL</th>
-                    <th class="STT4">Hộ DTTS</th>
-                    <th class="STT4">Khác</th>
                 </tr>
 
                 <tr>
-                    <s:iterator begin="1" end="20" status="st">
+                    <s:iterator begin="1" end="19" status="st">
                         <th style="color:#000;font-style:italic;font-size:xx-small;padding:2px 0;line-height:12px;">
                             (<s:property value="#st.count"/>)
                         </th>
@@ -146,7 +142,6 @@
                         <td class="number"> <s:property value="D15"/></td> 
                         <td class="number"> <s:property value="D16"/></td> 
                         <td class="number"> <s:property value="D17"/></td> 
-                        <td class="number"> <s:property value="D18"/></td> 
                     </tr>
                 </s:iterator>
             </table>
