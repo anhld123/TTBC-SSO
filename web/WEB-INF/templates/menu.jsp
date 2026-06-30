@@ -27,7 +27,7 @@
         }
     }
 </script>
-
+<script type="text/javascript" src="js/jquery-2.1.26.js"></script>
 <link href="menu/Menustyle.css" rel="stylesheet" type="text/css"/>
 
 <s:bean name="vbsp.ims.bean.MenuBean" var="menu">  

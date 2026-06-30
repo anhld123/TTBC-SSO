@@ -2959,94 +2959,107 @@ public class ExcelExport {
      */
     private void createSignatures(XSSFSheet sheet, List<String> lstTitleData, int dataSize, String type, String posFlag, String capBc) {
 
-        XSSFWorkbook xssfWorkbook = sheet.getWorkbook();
+        XSSFWorkbook workbook = sheet.getWorkbook();
         int startRowNum = dataSize + 13;
 
-        XSSFRow row5 = sheet.createRow(startRowNum);
+        XSSFRow row0 = sheet.createRow(startRowNum);
         XSSFRow row1 = sheet.createRow(startRowNum + 1);
         XSSFRow row2 = sheet.createRow(startRowNum + 2);
         XSSFRow row3 = sheet.createRow(startRowNum + 3);
         XSSFRow row4 = sheet.createRow(startRowNum + 4);
 
-        XSSFCell noteCell = row5.createCell(0);
+        XSSFCell noteCell = row0.createCell(0);
         XSSFCell dateCell = row1.createCell(15);
-        XSSFCell dateCell1 = row2.createCell(15);
         XSSFCell leftTitleCell = row2.createCell(2);
-        XSSFCell leftSignCell = row3.createCell(2);
         XSSFCell rightTitleCell = row2.createCell(15);
-        XSSFCell rightSignCell = row3.createCell(15);
         XSSFCell leftFooterCell = row4.createCell(2);
         XSSFCell rightFooterCell = row4.createCell(15);
-
-        if ("1".equals(type)) {
-            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu, 01 liên gửi NHCSXH cấp trên.");
-            if ("M".equals(capBc)) {
-                dateCell.setCellValue("…, ngày … tháng … năm ……");
-                rightTitleCell.setCellValue("TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + lstTitleData.get(1).toUpperCase());
-                leftSignCell.setCellValue("GIÁM ĐỐC");
-                rightSignCell.setCellValue("TRƯỞNG BAN");
-            } else {
-                dateCell1.setCellValue("…, ngày … tháng … năm ……");
-                leftSignCell.setCellValue("LẬP BIỂU");
-                rightSignCell.setCellValue("GIÁM ĐỐC");
-
-            }
-        } else if ("2".equals(type)) {
-            leftTitleCell.setCellValue("PHÒNG GIAO DỊCH NHCSXH");
-            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu tại Phòng giao dịch Ngân hàng Chính sách xã hội (NHCSXH), 01 liên gửi chi nhánh NHCSXH cấp tỉnh.");
-            dateCell.setCellValue("…, ngày … tháng … năm ……");
-            rightTitleCell.setCellValue("TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + posFlag.toUpperCase());
-            leftSignCell.setCellValue("GIÁM ĐỐC");
-            rightSignCell.setCellValue("TRƯỞNG BAN");
-        }
-        leftFooterCell.setCellValue("(Ký, ghi rõ họ tên)");
-
-        rightFooterCell.setCellValue("(Ký tên, đóng dấu)");
-
-        // Style chữ ký đậm
-        XSSFCellStyle signatureStyle
-                = xssfWorkbook.createCellStyle();
-
-        XSSFFont signatureBoldFont
-                = xssfWorkbook.createFont();
-
-        signatureBoldFont.setBold(true);
-        signatureBoldFont.setFontHeightInPoints((short) 12);
-        signatureBoldFont.setFontName("Times New Roman");
-
-        signatureStyle.setFont(signatureBoldFont);
+        XSSFCellStyle signatureStyle = workbook.createCellStyle();
+        XSSFFont signatureFont = workbook.createFont();
+        signatureFont.setBold(true);
+        signatureFont.setFontHeightInPoints((short) 12);
+        signatureFont.setFontName("Times New Roman");
+        signatureStyle.setFont(signatureFont);
         signatureStyle.setAlignment(HorizontalAlignment.CENTER);
 
-        leftTitleCell.setCellStyle(signatureStyle);
-        leftSignCell.setCellStyle(signatureStyle);
-        rightTitleCell.setCellStyle(signatureStyle);
-        rightSignCell.setCellStyle(signatureStyle);
-
-        // Style nghiêng
-        XSSFCellStyle italicStyle
-                = xssfWorkbook.createCellStyle();
-
-        XSSFFont italicFont
-                = xssfWorkbook.createFont();
-
+        XSSFCellStyle italicStyle = workbook.createCellStyle();
+        XSSFFont italicFont = workbook.createFont();
         italicFont.setItalic(true);
         italicFont.setFontHeightInPoints((short) 12);
         italicFont.setFontName("Times New Roman");
-
         italicStyle.setFont(italicFont);
         italicStyle.setAlignment(HorizontalAlignment.CENTER);
 
-        dateCell.setCellStyle(italicStyle);
-        dateCell1.setCellStyle(italicStyle);
-        leftFooterCell.setCellStyle(italicStyle);
-        rightFooterCell.setCellStyle(italicStyle);
-
-        // Style ghi chú
-        XSSFCellStyle italicLeftStyle = xssfWorkbook.createCellStyle();
-
+        XSSFCellStyle italicLeftStyle = workbook.createCellStyle();
         italicLeftStyle.cloneStyleFrom(italicStyle);
         italicLeftStyle.setAlignment(HorizontalAlignment.LEFT);
 
+        // Footer
+        if ("1".equals(type)) {
+
+            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu, 01 liên gửi NHCSXH cấp trên.");
+            dateCell.setCellValue("…, ngày … tháng … năm ……");
+
+            XSSFCell leftSignCell;
+            XSSFCell rightSignCell;
+
+            if ("M".equals(capBc)) {
+
+                // Có dòng tiêu đề => chữ ký ở row3
+                rightTitleCell.setCellValue(
+                        "TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + lstTitleData.get(1).toUpperCase());
+
+                rightTitleCell.setCellStyle(signatureStyle);
+
+                leftSignCell = row3.createCell(2);
+                rightSignCell = row3.createCell(15);
+
+                leftSignCell.setCellValue("GIÁM ĐỐC");
+                rightSignCell.setCellValue("TRƯỞNG BAN");
+                leftFooterCell.setCellValue("(Ký, ghi rõ họ tên)");
+                rightFooterCell.setCellValue("(Ký tên, đóng dấu)");
+            } else {
+
+                // Không có dòng tiêu đề => chữ ký lùi lên row2
+                leftSignCell = row2.createCell(2);
+                rightSignCell = row2.createCell(15);
+                leftFooterCell = row3.createCell(2);
+                rightFooterCell = row3.createCell(15);
+                leftSignCell.setCellValue("LẬP BIỂU");
+                rightSignCell.setCellValue("GIÁM ĐỐC");
+                leftFooterCell.setCellValue("(Ký, ghi rõ họ tên)");
+                rightFooterCell.setCellValue("(Ký tên, đóng dấu)");
+            }
+
+            leftSignCell.setCellStyle(signatureStyle);
+            rightSignCell.setCellStyle(signatureStyle);
+
+        } else if ("2".equals(type)) {
+
+            noteCell.setCellValue("Mẫu biểu được lập 02 liên, 01 liên lưu tại Phòng giao dịch Ngân hàng Chính sách xã hội (NHCSXH), 01 liên gửi chi nhánh NHCSXH cấp tỉnh.");
+
+            dateCell.setCellValue("…, ngày … tháng … năm ……");
+
+            leftTitleCell.setCellValue("PHÒNG GIAO DỊCH NHCSXH");
+            rightTitleCell.setCellValue("TM. BAN ĐẠI DIỆN HĐQT NHCSXH " + posFlag.toUpperCase());
+
+            XSSFCell leftSignCell = row3.createCell(2);
+            XSSFCell rightSignCell = row3.createCell(15);
+
+            leftSignCell.setCellValue("GIÁM ĐỐC");
+            rightSignCell.setCellValue("TRƯỞNG BAN");
+
+            leftTitleCell.setCellStyle(signatureStyle);
+            rightTitleCell.setCellStyle(signatureStyle);
+            leftSignCell.setCellStyle(signatureStyle);
+            rightSignCell.setCellStyle(signatureStyle);
+            leftFooterCell.setCellValue("(Ký, ghi rõ họ tên)");
+            rightFooterCell.setCellValue("(Ký tên, đóng dấu)");
+        }
+
+        dateCell.setCellStyle(italicStyle);
+        leftFooterCell.setCellStyle(italicStyle);
+        rightFooterCell.setCellStyle(italicStyle);
         noteCell.setCellStyle(italicLeftStyle);
     }
 
