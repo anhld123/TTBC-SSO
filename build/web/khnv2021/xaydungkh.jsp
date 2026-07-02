@@ -72,6 +72,15 @@
         iframe{
             border:none
         }
+        body {
+            background-image: url('img/backgroud_logo.jpg');
+            background-size: 40% auto;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-blend-mode: multiply;
+            background-position: center 120px;
+        }
     </style>
     <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
     <SCRIPT language="javascript">
@@ -169,14 +178,20 @@
                            onCompleteTopics="completediv_send" class="cmd"/>
 
                 &nbsp;&nbsp;|&nbsp;&nbsp;
-                <s:url id="idExpEcelKhnv02_2026" action="khnv/dk/ExpExcelKhnv02_2026.action"></s:url>                                      
+                <%--<s:url id="idExpEcelKhnv02_2026" action="khnv/dk/ExpExcelKhnv02_2026.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp02_2026" name="nameSend02_2026" href="%{idExpEcelKhnv02_2026}" value="Xuất xls mẫu 02 (Xã)" targets="divKhDetail"
                            onBeforeTopics="beforediv_send"
-                           onCompleteTopics="completediv_send" class="cmd"/>
+                           onCompleteTopics="completediv_send" class="cmd"/>--%>
+                <input type="button" id="idBtnFakeM02" value="Xuất xls mẫu 02 (Xã)" class="cmd" />
+
+                <s:url id="idExpEcelKhnv02_2026" action="khnv/dk/ExpExcelKhnv02_2026.action"></s:url>                                      
+                <sj:submit id="idExpEcelKhnvtmp02_2026" href="%{idExpEcelKhnv02_2026}" onBeforeTopics="beforediv_send"
+                           targets="divKhDetail" onCompleteTopics="completediv_send" 
+                           style="display:none;" />
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <s:url id="idExpEcelKhnv03_2026" action="khnv/dk/ExpExcelKhnv03_2026.action"></s:url>                                      
                 <sj:submit id="idExpEcelKhnvtmp03_2026" name="nameSend03_2026" href="%{idExpEcelKhnv03_2026}" value="Xuất xls mẫu 03" targets="divKhDetail"
-                           onBeforeTopics="beforediv_send"
+                           onBeforeTopics="beforediv_send" 
                            onCompleteTopics="completediv_send" class="cmd"/>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <!--<input type="button" class="cmd" onclick="callDirectLink('khvn_open_upload?');" value="Upload Excel">-->
@@ -190,6 +205,7 @@
             <div id="divKhDetail">
             </div>
         </div>
+
     </s:form>
     <script>
         $(document).ready(function () {
@@ -251,6 +267,71 @@
                 filterSubCommune();
             });
         });
+
+        $(document).ready(function () {
+
+            // Khi người dùng click nút hiển thị công khai ban đầu
+            $("#idBtnFakeM02").click(function (e) {
+                e.preventDefault();
+                $("#customConfirmModal").css("display", "flex"); // Hiện hộp thoại
+            });
+
+            // Chọn CÓ -> Gán type = 1 và xuất file
+            $("#btnConfirmYes").click(function () {
+                $("#customConfirmModal").css("display", "none");
+                thucHienXuatExcel("1");
+            });
+
+            // Chọn KHÔNG -> Gán type = 2 và xuất file
+            $("#btnConfirmNo").click(function () {
+                $("#customConfirmModal").css("display", "none");
+                thucHienXuatExcel("2");
+            });
+
+            // Chọn THOÁT -> Chỉ ẩn hộp thoại, DỪNG xuất file
+            $("#btnConfirmCancel").click(function () {
+                $("#customConfirmModal").css("display", "none");
+            });
+
+            // Hàm xử lý điền form và click nút xuất thật
+            function thucHienXuatExcel(typeValue) {
+                var $form = $("#idBtnFakeM02").closest('form');
+                var typeInput = $form.find("input[name='type']");
+
+                if (typeInput.length === 0) {
+                    $form.append('<input type="hidden" name="type" value="' + typeValue + '" />');
+                } else {
+                    typeInput.val(typeValue);
+                }
+
+                // Kích hoạt nút xuất file ẩn
+                $("#idExpEcelKhnvtmp02_2026").click();
+            }
+        });
     </script>
+    <div id="customConfirmModal" style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); justify-content: center; align-items: center; transition: all 0.3s ease;">
+        <div style="background: #fff; padding: 35px 30px; border-radius: 12px; width: 420px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); font-family: 'Segoe UI', Arial, sans-serif;">
+
+            <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px; font-weight: 600;">Bạn có muốn xuất mẫu 02 theo công thức?</h3>
+
+            <div style="font-size: 18px; line-height: 1.8; margin: 0 0 30px 0; text-align: left; padding: 0 20px;">
+                <p style="color: #2ecc71; margin: 0 0 8px 0;">
+                    - Nếu <strong>đã upload</strong> mẫu 01: Chọn <strong style="text-transform: uppercase;">Có</strong>
+                </p>
+
+                <p style="color: #c0392b; margin: 0;">
+                    - Nếu <strong>chưa upload</strong> mẫu 01: Chọn <strong style="text-transform: uppercase;">Không</strong>
+                </p>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 12px;">
+                <button type="button" id="btnConfirmNo" style="background: #e74c3c; color: white; border: none; padding: 11px 0; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; flex: 1; transition: background 0.2s;">Không</button>
+
+                <button type="button" id="btnConfirmCancel" style="background: #6e7881; color: white; border: none; padding: 11px 0; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; flex: 1; transition: background 0.2s;">Thoát</button>
+
+                <button type="button" id="btnConfirmYes" style="background: #2ecc71; color: white; border: none; padding: 11px 0; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; flex: 1; transition: background 0.2s;">Có</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

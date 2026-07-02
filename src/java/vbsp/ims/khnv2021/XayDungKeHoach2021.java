@@ -15,6 +15,8 @@ import vbsp.ims.khnv2021.excel.ExcelExport;
 import vbsp.ims.khnv2021.model.FileExportInfo;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.khnv.POSModel;
+import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListOfValue;
 
 /**
  *
@@ -32,7 +34,25 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
     private String namBc_4;
     private String check_count;
     private String ten_thon;
+    private List<ListOfValue> lstDmKhac;
+    DuLieuNTService _serverAPI = new DuLieuNTService();
 //<editor-fold defaultstate="collapsed" desc="khai báo get,set">
+
+    public DuLieuNTService getServerAPI() {
+        return _serverAPI;
+    }
+
+    public void setServerAPI(DuLieuNTService _serverAPI) {
+        this._serverAPI = _serverAPI;
+    }
+
+    public List<ListOfValue> getLstDmKhac() {
+        return lstDmKhac;
+    }
+
+    public void setLstDmKhac(List<ListOfValue> lstDmKhac) {
+        this.lstDmKhac = lstDmKhac;
+    }
 
     public String getTen_thon() {
         return ten_thon;
@@ -108,6 +128,11 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 addActionError("Chức năng này chỉ thực hiện cho cấp PGD");
                 return ERROR;
             }
+            lstDmKhac = _serverAPI.getListOfValue("196", "KHNV");
+            if (lstDmKhac.get(0).getValue().equals("1")) {
+                addActionError("Chương trình hiện tại chưa được quyền khai thác!");
+                return ERROR;
+            }
             posList = daoXdkh.getPosList(pos_cd_username, maCn, reportGrade);
             custCommuneList = daoXdkh.getPosList(pos_cd_username, maCn, reportGrade);
             custSubCommuneList = daoXdkh.getSubCommuneList(pos_cd_username, commune_cd, reportGrade);
@@ -141,7 +166,6 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
             setNamBc_4(String.valueOf(Integer.parseInt(namBc) + 3));
             setReasonReject(daoXdkh.getReason(maBc, namBc, dotBc, pos_cd_username, reportGrade));
 //            2026
-
             if (maBc.equals("KHNV_01_THON")) {
                 if (commune_cd == null || "000000".equals(commune_cd.trim())) {
                     showError("Bạn chưa chọn xã/phường/đặc khu");
@@ -568,9 +592,9 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
         try {
             getInfo();
             HashMap hmParameter = getParameter();
+            request = ServletActionContext.getRequest();
             setCommune_cd(hmParameter.get("commune_cd").toString());
             setSubcommune_cd("000000".equals(commune_cd) ? "000000" : hmParameter.get("subcommune_cd").toString());
-            request = ServletActionContext.getRequest();
             String savedDir = !request.getRealPath("/").endsWith("/") ? request.getRealPath("/") + "/" : request.getRealPath("/");
             ExcelExport excelExport = new ExcelExport();
             POSModel pos = daoXdkh.getPosByCode(pos_cd_username);
@@ -578,17 +602,17 @@ public class XayDungKeHoach2021 extends ActionMainKHNV {
                 addActionError("Bạn chưa chọn xã/phường/đặc khu");
                 return ERROR;
             }
+            String types = request.getParameter("type");
             ArrayList<POSModel> listxa = daoXdkh.getNameSubCommune(commune_cd, "");
             ten_thon = listxa.get(0).getDesc();
             ArrayList<POSModel> listxa1 = daoXdkh.getNameSubCommune(commune_cd, "KHNV1");
             String title_1 = listxa1.get(0).getDesc();
             String message = daoXdkh.getCheck_2026(maBc, namBc, dotBc, pos_cd_username, "", userId, commune_cd, subcommune_cd);
-
-            if (message.endsWith("AAA1")) {
+            if (types.equals("1") && message.endsWith("AAA1")) {
                 addActionError("Bạn chưa Upload đủ dữ liệu 'Tổ dân phố' hoặc 'Thôn' thuộc " + ten_thon);
                 return ERROR;
             }
-            FileExportInfo fileInfo = excelExport.xuatExcel_Mau02_2026(pos, ten_thon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir, commune_cd, pos_cd_username, title_1);
+            FileExportInfo fileInfo = excelExport.xuatExcel_Mau02_2026(pos, ten_thon, new Utilities().fnc_getDateBC(namBc, dotBc), namBc, dotBc, savedDir, commune_cd, pos_cd_username, title_1, types);
             if (fileInfo != null) {
                 fileNamelocal = fileInfo.fileName;
                 filereport = fileInfo.filePath;

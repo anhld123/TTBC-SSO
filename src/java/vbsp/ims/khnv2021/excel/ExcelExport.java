@@ -16,10 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +51,6 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -68,6 +65,13 @@ import vbsp.ims.khnv2021.model.DistrictInfo;
 import vbsp.ims.model.khnv.POSModel;
 import vbsp.ims.nhaptaycn.action.QT_DULIEU_NT_50;
 import vbsp.ims.nhaptaycn.dao.DaoNhaptaycnMain;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
+import org.apache.poi.ss.usermodel.ConditionalFormatting;
+import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
+import org.apache.poi.ss.util.CellRangeAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -2489,7 +2493,7 @@ public class ExcelExport {
         }
     }
 
-    public FileExportInfo xuatExcel_Mau02_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath, String commune, String subcommune, String title_1) throws SQLException {
+    public FileExportInfo xuatExcel_Mau02_2026(POSModel pos, String posFlag, String reportDate, String namBc, String dotBc, String savedDirPath, String commune, String subcommune, String title_1, String type) throws SQLException {
         String filePath = "";
         String fileName = "";
 
@@ -2535,7 +2539,7 @@ public class ExcelExport {
                 fillReportTitles(sheet, lstTitleData, pos, namBc, "2", title_1);
 
                 // 2. Điền và cấu hình Style cho toàn bộ Cell dữ liệu
-                fillReportData(sheet, lstData, "2");
+                fillReportData(sheet, lstData, "2", type);
 
                 // 3. Dọn dẹp hàng thừa và xử lý format dòng cuối
                 cleanAndFormatFooter(sheet, lstData.size());
@@ -2610,7 +2614,7 @@ public class ExcelExport {
                     fillReportTitles(sheet, lstTitleData, pos, namBc, "1", "");
 
                     // 5. Điền dữ liệu vào bảng
-                    fillReportData(sheet, lstData, "1");
+                    fillReportData(sheet, lstData, "1", "1");
 
                     // 6. Xóa các dòng thừa phía dưới và định dạng lại dòng cuối
                     cleanAndFormatFooter(sheet, lstData.size());
@@ -2708,10 +2712,8 @@ public class ExcelExport {
     /**
      * Hàm duyệt danh sách đổ dữ liệu và gán CellStyle tương ứng cho từng ô
      */
-    private void fillReportData(XSSFSheet sheet, List<DULIEU_NT_100> lstData, String type) {
+    private void fillReportData(XSSFSheet sheet, List<DULIEU_NT_100> lstData, String type, String types) {
         XSSFWorkbook workbook = (XSSFWorkbook) sheet.getWorkbook();
-
-        // Tạo các Style mẫu
         XSSFCellStyle boldStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
         XSSFCellStyle leftStyle = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.LEFT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
         XSSFCellStyle codeStyleSTT = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.CENTER, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
@@ -2721,32 +2723,26 @@ public class ExcelExport {
 
         XSSFCellStyle numberStyle = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
         XSSFCellStyle numberStylep = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, true, true);
-        XSSFCellStyle numberStylea = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
+
+        XSSFCellStyle numberStyle2 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
 
         XSSFCellStyle numberStyle1 = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
         XSSFCellStyle numberStyle1p = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, false);
-        XSSFCellStyle numberStyle1a = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-
-        XSSFCellStyle numberStyle2 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-        XSSFCellStyle numberStyle2p = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
-        XSSFCellStyle numberStyle2a = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), false, false, true);
 
         XSSFCellStyle numberStyle00 = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
         XSSFCellStyle numberStyle00p = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
-        XSSFCellStyle numberStyle00a = createCellStyle(workbook, false, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
 
         XSSFCellStyle numberStyle11 = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
         XSSFCellStyle numberStyle11p = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
-        XSSFCellStyle numberStyle11a = createCellStyle(workbook, true, false, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
 
         XSSFCellStyle numberStyle22 = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
-        XSSFCellStyle numberStyle22p = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, false);
-        XSSFCellStyle numberStyle22a = createCellStyle(workbook, false, true, (short) 12, "Times New Roman", HorizontalAlignment.RIGHT, IndexedColors.AUTOMATIC.getIndex(), true, false, true);
+
         int[] _arrIncludeCol;
         int[] _arrExcludeCol;
         int[] _arrLockRow;
         int[] _arrPercentCol;
         int[] _arrAbsoluteCol;
+
         if (null == type) {
             _arrIncludeCol = new int[]{0};
             _arrExcludeCol = new int[]{0};
@@ -2763,11 +2759,23 @@ public class ExcelExport {
                     _arrAbsoluteCol = new int[]{0};
                     break;
                 case "2":
-                    _arrIncludeCol = new int[]{3, 4};
-                    _arrExcludeCol = new int[]{5, 6, 8, 9, 11, 12, 14, 15, 16, 17};
-                    _arrLockRow = new int[]{0, 1, 21, 36, 50};
-                    _arrPercentCol = new int[]{6, 9, 12, 15};
-                    _arrAbsoluteCol = new int[]{0};
+                    switch (types) {
+                        case "1":
+                            _arrIncludeCol = new int[]{3, 4};
+                            _arrExcludeCol = new int[]{5, 6, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21};
+                            _arrLockRow = new int[]{0, 1, 2, 3, 4, 5, 7, 8, 10, 12, 13, 14, 15, 16, 17, 20, 35, 21, 36, 50};
+                            _arrPercentCol = new int[]{6, 9, 12, 15};
+                            _arrAbsoluteCol = new int[]{0};
+                            break;
+                        case "2":
+                        default:
+                            _arrIncludeCol = new int[]{3, 4};
+                            _arrExcludeCol = new int[]{5, 6, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21};
+                            _arrLockRow = new int[]{0, 1, 21, 36, 50};
+                            _arrPercentCol = new int[]{6, 9, 12, 15};
+                            _arrAbsoluteCol = new int[]{0};
+                            break;
+                    }
                     break;
                 default:
                     _arrIncludeCol = new int[]{0};
@@ -2778,6 +2786,7 @@ public class ExcelExport {
                     break;
             }
         }
+
         for (int i = 0; i < lstData.size(); i++) {
             XSSFRow xssfRow = sheet.getRow(i + 12);
             if (xssfRow == null) {
@@ -2812,66 +2821,64 @@ public class ExcelExport {
             xssfCell02.setCellValue(item.getMA());
             xssfCell01.setCellValue(item.getTEN());
 
-            // Đổ các cột số từ cột 3 đến cột 18
-            int max = type.equals("1") ? 21 : 18;
+            // Đổ các cột số từ cột 3
+            int max = type.equals("1") ? 21 : 22;
 
             for (int ii = 3; ii < max; ii++) {
                 XSSFCell xssfCell = xssfRow.getCell(ii, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                boolean isExcludedOrLocked = inArray(_arrExcludeCol, ii) || inArray(_arrLockRow, i);
+                boolean isExcludedOrLocked;
+                if ("2".equals(type) && ii == 3 && "1".equals(types)) {
+                    int[] specificLockRows = new int[]{0, 1, 21, 36, 50};
+                    isExcludedOrLocked = inArray(specificLockRows, i);
+                } else {
+                    isExcludedOrLocked = inArray(_arrExcludeCol, ii) || inArray(_arrLockRow, i);
+                }
 
+                if ("2".equals(types)) {
+                    int[] targetColsForRow12 = new int[]{3, 4, 7, 10, 13};
+
+                    if (i == 12 && inArray(targetColsForRow12, ii)) {
+                        // Gọi hàm xóa định dạng có điều kiện cho ô này
+                        removeConditionalFormattingForCell(sheet, i, ii);
+
+                    }
+                }
+                // Áp dụng Style số sau khi gộp trùng
                 switch (item.getKIEUIN()) {
-                    case 1:
+                    case 1: // Chữ Đậm
                         if (isExcludedOrLocked) {
                             if (inArray(_arrPercentCol, ii)) {
                                 xssfCell.setCellStyle(numberStyle11p);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle11a);
                             } else {
                                 xssfCell.setCellStyle(numberStyle11);
                             }
                         } else {
                             if (inArray(_arrPercentCol, ii)) {
                                 xssfCell.setCellStyle(numberStyle1p);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle1a);
                             } else {
                                 xssfCell.setCellStyle(numberStyle1);
                             }
                         }
                         break;
-                    case 2:
+
+                    case 2: // Chữ Nghiêng
                         if (isExcludedOrLocked) {
-                            if (inArray(_arrPercentCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle22p);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle22a);
-                            } else {
-                                xssfCell.setCellStyle(numberStyle22);
-                            }
+                            xssfCell.setCellStyle(numberStyle22);
                         } else {
-                            if (inArray(_arrPercentCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle2p);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle2a);
-                            } else {
-                                xssfCell.setCellStyle(numberStyle2);
-                            }
+                            xssfCell.setCellStyle(numberStyle2);
                         }
                         break;
-                    default:
+
+                    default: // Mặc định
                         if (isExcludedOrLocked) {
                             if (inArray(_arrPercentCol, ii)) {
                                 xssfCell.setCellStyle(numberStyle00p);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStyle00a);
                             } else {
                                 xssfCell.setCellStyle(numberStyle00);
                             }
                         } else {
                             if (inArray(_arrPercentCol, ii)) {
                                 xssfCell.setCellStyle(numberStylep);
-                            } else if (inArray(_arrAbsoluteCol, ii)) {
-                                xssfCell.setCellStyle(numberStylea);
                             } else {
                                 xssfCell.setCellStyle(numberStyle);
                             }
@@ -2879,15 +2886,24 @@ public class ExcelExport {
                         break;
                 }
 
-                // Dùng Reflection lấy dữ liệu từ D1 -> D15 tương ứng cột số
                 try {
                     int dIndex = ii - 2;
-                    int data = type.equals("1") ? 18 : 15;
-                    if (dIndex > data) {
-                        break;
+                    if ("2".equals(type)) {
+                        if (dIndex >= 16) {
+                            dIndex += 4;
+                        }
+                        if (dIndex > 23) {
+                            break;
+                        }
+                    } else {
+                        if (dIndex > 18) {
+                            break;
+                        }
                     }
+
                     Method method = item.getClass().getMethod("getD" + dIndex);
                     Object value = method.invoke(item);
+
                     if (value != null) {
                         try {
                             xssfCell.setCellValue(new BigDecimal(value.toString()).doubleValue());
@@ -2897,6 +2913,59 @@ public class ExcelExport {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void removeConditionalFormattingForCell(Sheet sheet, int rowIdx, int colIdx) {
+        SheetConditionalFormatting sheetCF = sheet.getSheetConditionalFormatting();
+        int numCF = sheetCF.getNumConditionalFormattings();
+
+        // Duyệt ngược từ cuối danh sách lên đầu để tránh lỗi lệch chỉ số khi xóa các Rule
+        for (int i = numCF - 1; i >= 0; i--) {
+            ConditionalFormatting cf = sheetCF.getConditionalFormattingAt(i);
+            CellRangeAddress[] ranges = cf.getFormattingRanges();
+
+            List<CellRangeAddress> newRanges = new ArrayList<CellRangeAddress>();
+            boolean hasChanged = false;
+
+            for (int r = 0; r < ranges.length; r++) {
+                CellRangeAddress range = ranges[r];
+
+                // Kiểm tra thủ công xem ô có nằm trong vùng Conditional Formatting này không
+                if (rowIdx >= range.getFirstRow() && rowIdx <= range.getLastRow()
+                        && colIdx >= range.getFirstColumn() && colIdx <= range.getLastColumn()) {
+
+                    hasChanged = true;
+
+                    // Nếu vùng lớn hơn 1 ô, ta cần "tách" ô hiện tại ra khỏi vùng này.
+                    // Đối với NetBeans 8, cách đơn giản và an toàn nhất là bỏ qua ô này
+                    // (đồng nghĩa với việc xóa ô này khỏi định dạng), và giữ nguyên vùng còn lại.
+                    continue;
+                }
+                newRanges.add(range);
+            }
+
+            // Nếu phát hiện ô này nằm trong vùng áp dụng Conditional Formatting
+            if (hasChanged) {
+                // Bước 1: Lấy lại tất cả các Rules (luật định dạng) của định dạng cũ để tái sử dụng
+                int numRules = cf.getNumberOfRules();
+                ConditionalFormattingRule[] rules = new ConditionalFormattingRule[numRules];
+                for (int j = 0; j < numRules; j++) {
+                    rules[j] = cf.getRule(j);
+                }
+
+                // Bước 2: Xóa bỏ hoàn toàn định dạng cũ tại vị trí index `i` để giải phóng vùng bị lỗi
+                sheetCF.removeConditionalFormatting(i);
+
+                // Bước 3: Tạo lại định dạng với các vùng áp dụng mới đã loại bỏ ô chỉ định, giữ nguyên các Rule
+                if (!newRanges.isEmpty()) {
+                    CellRangeAddress[] updatedRanges = new CellRangeAddress[newRanges.size()];
+                    updatedRanges = newRanges.toArray(updatedRanges);
+
+                    // Thêm lại vào sheet với các Rule cũ nhưng vùng áp dụng mới đã được sửa
+                    sheetCF.addConditionalFormatting(updatedRanges, rules);
                 }
             }
         }
@@ -3118,7 +3187,7 @@ public class ExcelExport {
             // Refresh công thức và bảo mật sheet
             FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
             formulaEvaluator.evaluateAll();
-            sheet.protectSheet("khnv202469");
+//            sheet.protectSheet("khnv202469");
 
             // Ghi dữ liệu ngược lại file
             try (java.io.FileOutputStream out = new java.io.FileOutputStream(fileName)) {

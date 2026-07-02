@@ -482,6 +482,10 @@ public class DaoMau02 {
                     item.setD17(cursor.getString("D17"));
                     item.setD18(cursor.getString("D18"));
                     item.setD19(cursor.getString("D19"));
+                    item.setD20(cursor.getString("D20"));
+                    item.setD21(cursor.getString("D21"));
+                    item.setD22(cursor.getString("D22"));
+                    item.setD23(cursor.getString("D23"));
                     lstData.add(item);
                 }
 

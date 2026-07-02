@@ -1682,8 +1682,8 @@ public class ActionChtrinhcnMain extends ActionSupport {
 //    }
     public String dtwUploadExcel() throws SQLException {
 
-//        long totalStart = System.currentTimeMillis();
-//        System.out.println("===== START UPLOAD =====");
+//      long totalStart = System.currentTimeMillis();
+//      System.out.println("===== START UPLOAD =====");
         if (fileUpload == null) {
             addActionError("Chưa chọn file Excel!");
             return ERROR;
@@ -1713,9 +1713,9 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
         DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
 
-//        long tCfg = System.currentTimeMillis();
+//      long tCfg = System.currentTimeMillis();
         String start_end = dao.getStartEndCel(Key);
-//        System.out.println("getStartEndCel = " + (System.currentTimeMillis() - tCfg) + " ms");
+//      System.out.println("getStartEndCel = " + (System.currentTimeMillis() - tCfg) + " ms");
 
         int startrow = 0, startcell = 0, endcell = 0;
 
@@ -1724,38 +1724,48 @@ public class ActionChtrinhcnMain extends ActionSupport {
             startcell = Integer.parseInt(start_end.split("-")[1]);
             endcell = Integer.parseInt(start_end.split("-")[2]);
         }
+
+        FileInputStream fis = null;
+        Workbook workbook = null;
+
         try {
+//          long tOpenExcel = System.currentTimeMillis();
+            fis = new FileInputStream(fileUpload);
+            workbook = new XSSFWorkbook(fis);
 
-//            long tOpenExcel = System.currentTimeMillis();
-            FileInputStream fis = new FileInputStream(fileUpload);
-            Workbook workbook = new XSSFWorkbook(fis);
-
-//            System.out.println("Open XSSFWorkbook = " + (System.currentTimeMillis() - tOpenExcel) + " ms");
+//          System.out.println("Open XSSFWorkbook = " + (System.currentTimeMillis() - tOpenExcel) + " ms");
             Sheet sheet = workbook.getSheetAt(0);
 
             long tConn = System.currentTimeMillis();
             conn = new DaoConnect().getConnect();
 
-//            System.out.println("Get Connection = " + (System.currentTimeMillis() - tConn) + " ms");
+//          System.out.println("Get Connection = " + (System.currentTimeMillis() - tConn) + " ms");
             // ===== READ EXCEL =====
-//            long tReadExcel = System.currentTimeMillis();
-            List<String[]> excelData = new ArrayList<>();
+//          long tReadExcel = System.currentTimeMillis();
+            List<String[]> excelData = new ArrayList<String[]>(); // Cú pháp chuẩn Java 7/8 cho NetBeans 8
 
             for (int i = startrow; i <= sheet.getLastRowNum(); i++) {
-
                 Row row = sheet.getRow(i);
-
                 if (row == null) {
                     continue;
                 }
 
                 boolean hasData = false;
-
                 String[] rowValues = new String[endcell - startcell];
 
                 for (int c = startcell; c < endcell; c++) {
+                    String cellValue = "";
 
-                    String cellValue = getCellValueAsString(row.getCell(c));
+                    try {
+                        cellValue = getCellValueAsString(row.getCell(c));
+                    } catch (IllegalStateException e) {
+                        // Chuyển đổi số cột (0 -> A, 1 -> B, 2 -> C...) để hiển thị cảnh báo
+                        String colLetter = org.apache.poi.ss.util.CellReference.convertNumToColString(c);
+                        int rowNumberExcel = i + 1; // Excel bắt đầu từ dòng 1
+
+                        addActionError("Sai dữ liệu tại dòng " + rowNumberExcel + ", cột " + colLetter + " (Định dạng ô không hợp lệ, vui lòng kiểm tra lại kiểu dữ liệu Số/Text)");
+                        return ERROR; // Dừng chương trình ngay lập tức, trả lỗi về giao diện
+                    }
 
                     if (cellValue != null && !cellValue.trim().isEmpty()) {
                         hasData = true;
@@ -1771,38 +1781,50 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
             uploadedRows = excelData.size();
 
-//            System.out.println("Read Excel Data = " + (System.currentTimeMillis() - tReadExcel) + " ms");
-//            System.out.println("Total rows = " + uploadedRows);
+//          System.out.println("Read Excel Data = " + (System.currentTimeMillis() - tReadExcel) + " ms");
+//          System.out.println("Total rows = " + uploadedRows);
             // ===== INSERT_REPORT_DATA =====
-//            long tInsert = System.currentTimeMillis();
+//          long tInsert = System.currentTimeMillis();
             callInsertReportData(conn, excelData, fileName, Key, sUserName, ngaybc, startrow, startcell, endcell);
 
-//            System.out.println("INSERT_REPORT_DATA = " + (System.currentTimeMillis() - tInsert) + " ms");
-//            long tEven = System.currentTimeMillis();
-//            callEvenExcel(conn, Key, fileName, ngaybc);
-//            System.out.println("EVEN_EXCEL = " + (System.currentTimeMillis() - tEven) + " ms");
-//            long tSave = System.currentTimeMillis();
+//          System.out.println("INSERT_REPORT_DATA = " + (System.currentTimeMillis() - tInsert) + " ms");
+//          long tEven = System.currentTimeMillis();
+//          callEvenExcel(conn, Key, fileName, ngaybc);
+//          System.out.println("EVEN_EXCEL = " + (System.currentTimeMillis() - tEven) + " ms");
+//          long tSave = System.currentTimeMillis();
             saveUploadedFile(fileUpload, fileName);
 
-//            System.out.println("SAVE_FILE = " + (System.currentTimeMillis() - tSave) + " ms");
-            workbook.close();
-            fis.close();
-//            System.out.println("TOTAL UPLOAD = " + (System.currentTimeMillis() - totalStart) + " ms");
+//          System.out.println("SAVE_FILE = " + (System.currentTimeMillis() - tSave) + " ms");
+//          System.out.println("TOTAL UPLOAD = " + (System.currentTimeMillis() - totalStart) + " ms");
             addActionMessage("Upload thành công file: " + fileName + " với " + uploadedRows + " dòng dữ liệu.");
             return SUCCESS;
+
         } catch (SQLException e) {
             String err = e.getMessage();
             if (err != null && err.contains("ORA-00600")) {
                 addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
             } else {
-                addActionError("Lỗi khi xử lý file: " + err);
+                addActionError("Lỗi SQL khi xử lý file: " + err);
             }
             return ERROR;
         } catch (Exception e) {
             e.printStackTrace();
-            addActionError("Có lỗi không xác định: " + e.getMessage());
+            addActionError("Có lỗi hệ thống: " + e.getMessage());
             return ERROR;
         } finally {
+            // Giải phóng tài nguyên Excel an toàn ở khối finally
+            if (workbook != null) {
+                try {
+                    workbook.close();
+                } catch (Exception ignored) {
+                }
+            }
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (Exception ignored) {
+                }
+            }
             if (conn != null) {
                 try {
                     conn.close();
@@ -1844,78 +1866,103 @@ public class ActionChtrinhcnMain extends ActionSupport {
             String user, String ngaybc, int startrow, int startcell, int endcell) throws Exception {
 
         String sessionId = java.util.UUID.randomUUID().toString();
-
+        boolean oldAutoCommit = conn.getAutoCommit();
         conn.setAutoCommit(false);
 
-        try (PreparedStatement log = conn.prepareStatement(
-                "INSERT INTO UPLOAD_EXCEL_HIST "
-                + "(SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC, D1) "
-                + "VALUES (?,?,?,?,?,?)")) {
+        try {
+            try (PreparedStatement log = conn.prepareStatement(
+                    "INSERT INTO UPLOAD_EXCEL_HIST "
+                    + "(SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC, D1) "
+                    + "VALUES (?,?,?,?,?,?)")) {
 
-            log.setString(1, sessionId);
-            log.setString(2, key);
-            log.setString(3, fileName);
-            log.setString(4, user);
-            log.setString(5, ngaybc);
-            log.setString(6, "LOG_SAVE");
+                log.setString(1, sessionId);
+                log.setString(2, key);
+                log.setString(3, fileName);
+                log.setString(4, user);
+                log.setString(5, ngaybc);
+                log.setString(6, "LOG_SAVE");
 
-            log.executeUpdate();
-        }
-
-        try (PreparedStatement del = conn.prepareStatement(
-                "DELETE FROM UPLOAD_EXCEL_HIST WHERE FILE_KEY = ? AND NVL(D1,'X') <> 'LOG_SAVE'")) {
-
-            del.setString(1, key);
-            del.executeUpdate();
-        }
-
-        StringBuilder sql = new StringBuilder();
-
-        sql.append("INSERT INTO UPLOAD_EXCEL_HIST (").append("SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC");
-
-        for (int i = 1; i <= 100; i++) {
-            sql.append(",D").append(i);
-        }
-        sql.append(") VALUES (?,?,?,?,?");
-
-        for (int i = 1; i <= 100; i++) {
-            sql.append(",?");
-        }
-
-        sql.append(")");
-        try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
-
-            for (String[] row : excelData) {
-
-                int idx = 1;
-                ps.setString(idx++, sessionId);
-                ps.setString(idx++, key);
-                ps.setString(idx++, fileName);
-                ps.setString(idx++, user);
-                ps.setString(idx++, ngaybc);
-
-                // D1 → D100
-                for (int i = 0; i < 100; i++) {
-                    ps.setString(idx++,
-                            (i < row.length ? row[i] : null));
-                }
-
-                ps.addBatch();
+                log.executeUpdate();
             }
 
-            ps.executeBatch();
-        }
-        try (CallableStatement cs = conn.prepareCall(
-                "{ call VBSP_IMS_CHTRINHCN.START_EVEN_EXCEL(?,?,?,?,?) }")) {
+            try (PreparedStatement del = conn.prepareStatement(
+                    "DELETE FROM UPLOAD_EXCEL_HIST WHERE FILE_KEY = ? AND NVL(D1,'X') <> 'LOG_SAVE'")) {
+                del.setString(1, key);
+                del.executeUpdate();
+            }
 
-            cs.setString(1, sessionId);
-            cs.setString(2, key);
-            cs.setString(3, fileName);
-            cs.setString(4, user);
-            cs.setString(5, ngaybc);
-            cs.execute();
+            // 3. Chuẩn bị SQL động để chèn dữ liệu
+            StringBuilder sql = new StringBuilder();
+            sql.append("INSERT INTO UPLOAD_EXCEL_HIST (").append("SESSION_ID, FILE_KEY, FILE_NAME, I_USER, NGAYBC");
+
+            for (int i = 1; i <= 100; i++) {
+                sql.append(",D").append(i);
+            }
+            sql.append(") VALUES (?,?,?,?,?");
+
+            for (int i = 1; i <= 100; i++) {
+                sql.append(",?");
+            }
+            sql.append(")");
+
+            // 4. Đẩy dữ liệu excel vào bảng tạm theo Batch
+            try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+                for (String[] row : excelData) {
+                    int idx = 1;
+                    ps.setString(idx++, sessionId);
+                    ps.setString(idx++, key);
+                    ps.setString(idx++, fileName);
+                    ps.setString(idx++, user);
+                    ps.setString(idx++, ngaybc);
+
+                    // D1 → D100
+                    for (int i = 0; i < 100; i++) {
+                        ps.setString(idx++, (i < row.length ? row[i] : null));
+                    }
+
+                    ps.addBatch();
+                }
+
+                ps.executeBatch();
+            }
+
+            // 5. Gọi Store Procedure xử lý dữ liệu
+            try (CallableStatement cs = conn.prepareCall("{ call VBSP_IMS_CHTRINHCN.START_EVEN_EXCEL(?,?,?,?,?) }")) {
+
+                cs.setString(1, sessionId);
+                cs.setString(2, key);
+                cs.setString(3, fileName);
+                cs.setString(4, user);
+                cs.setString(5, ngaybc);
+                cs.execute();
+            }
+
+            // Nếu mọi thứ chạy mượt mà, thực hiện commit dữ liệu
+            conn.commit();
+            System.out.println("=== Upload file thành công. SessionId: " + sessionId + " ===");
+
+        } catch (Exception e) {
+
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (Exception ex) {
+                    System.err.println("Không thể rollback connection: " + ex.getMessage());
+                }
+            }
+            System.err.println("File Name: " + fileName + " | Key: " + key + " | User: " + user);
+            System.err.println("SessionId lỗi: " + sessionId);
+
+            e.printStackTrace();
+            throw e;
+
+        } finally {
+            try {
+                conn.setAutoCommit(oldAutoCommit);
+            } catch (Exception ex) {
+            }
         }
-        conn.commit();
     }
 //        try (CallableStatement cs = conn.prepareCall(
 //                "{ call VBSP_IMS_CHTRINHCN.EVEN_EXCEL(?, ?) }")) {
