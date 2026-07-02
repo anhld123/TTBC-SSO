@@ -2550,7 +2550,7 @@ public class ExcelExport {
                 // Tính toán lại công thức và bảo mật sheet
                 FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                 formulaEvaluator.evaluateAll();
-                sheet.protectSheet("khnv20246");
+                sheet.protectSheet("khnv3112ducanh");
 
                 // Ghi dữ liệu ra file thực tế
                 try (java.io.FileOutputStream out = new java.io.FileOutputStream(fileName)) {
@@ -2625,7 +2625,7 @@ public class ExcelExport {
                     // 8. Tính toán lại công thức và bảo mật sheet
                     FormulaEvaluator formulaEvaluator = xssfWorkbook.getCreationHelper().createFormulaEvaluator();
                     formulaEvaluator.evaluateAll();
-                    sheet.protectSheet("khnv20246");
+                    sheet.protectSheet("khnv3112ducanh");
 
                     // 9. Ghi file ra ổ đĩa
                     try (FileOutputStream out = new FileOutputStream(fileName)) {
