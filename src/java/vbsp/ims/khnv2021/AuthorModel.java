@@ -82,7 +82,7 @@ public class AuthorModel {
                 // 2. Đọc dữ liệu từ ResultSet
                 try (ResultSet rs = (ResultSet) st.getObject(10)) {
                     boolean isSpecialCase = !"1".equals(cboDot) && !"5".equals(cboDot);
-                    boolean isTongHopAndCap2 = "Y".equals(cboTonghop) && "2".equals(CapBC);
+                    boolean isTongHopAndCap2 = !"1".equals(CapBC);
 
                     while (rs.next()) {
                         DULIEU_NT item;

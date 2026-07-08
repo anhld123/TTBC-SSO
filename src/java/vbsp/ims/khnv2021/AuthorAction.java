@@ -437,12 +437,12 @@ public class AuthorAction extends ActionSupport {
             } catch (Exception e) {
                 chotsl = "0";
             }
-            if ("1".equals(chotsl)) {
+            if ("2".equals(chotsl)) {
                 mapStatusSend.put(main_pos_username, 5);
                 setLstViewSend(getViewStatus(lstPos, mapStatusSend));
                 return;
             }
-            lstData = daoMain.getData("2", TenDN, main_pos_username, cboNam, cboDot, "Y", strNguyennhan);
+            lstData = daoMain.getData("4", TenDN, main_pos_username, cboNam, cboDot, "Y", strNguyennhan);
             if (lstData == null || lstData.isEmpty()) {
                 mapStatusSend.put(main_pos_username, 6);
                 setLstViewSend(getViewStatus(lstPos, mapStatusSend));
@@ -674,10 +674,10 @@ public class AuthorAction extends ActionSupport {
                         modelview.setMota_loi("Gửi dữ liệu bị lỗi");
                         break;
                     case 4:
-                        modelview.setMota_loi("Thành công");
+                        modelview.setMota_loi("Thành công"); 
                         break;
                     case 5:
-                        modelview.setMota_loi("Phòng giao dịch này bị khóa");
+                        modelview.setMota_loi("TW đã khoá gửi dữ liệu");
                         break;
                     case 6:
                         modelview.setMota_loi("CN chưa lưu dữ liệu tổng hợp");
