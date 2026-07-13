@@ -1697,8 +1697,19 @@ public class ActionChtrinhcnMain extends ActionSupport {
             return SUCCESS;
 
         } catch (SQLException e) {
+
+            int code = e.getErrorCode();
             String err = e.getMessage();
-            if (err != null && err.contains("ORA-00600")) {
+
+            // Lỗi nghiệp vụ từ Oracle: RAISE_APPLICATION_ERROR(-20xxx, ...)
+            if (code >= 20000 && code <= 20999) {
+                String msg = err.replaceFirst("ORA-\\d+:\\s*", "");
+                int idx = msg.indexOf("ORA-06512");
+                if (idx > 0) {
+                    msg = msg.substring(0, idx).trim();
+                }
+                addActionError(msg);
+            } else if (err != null && err.contains("ORA-00600")) {
                 addActionError("Hệ thống gặp lỗi nội bộ (ORA-600). Vui lòng chờ sau đó thử lại.");
             } else {
                 addActionError("Lỗi SQL khi xử lý file: " + err);
@@ -1709,6 +1720,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
             addActionError("Có lỗi hệ thống: " + e.getMessage());
             return ERROR;
         } finally {
+
             if (workbook != null) {
                 try {
                     workbook.close();
@@ -1721,6 +1733,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
                 } catch (Exception ignored) {
                 }
             }
+
             if (conn != null) {
                 try {
                     conn.close();

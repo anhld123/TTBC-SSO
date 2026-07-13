@@ -82,7 +82,6 @@ public class AuthorModel {
                 // 2. Đọc dữ liệu từ ResultSet
                 try (ResultSet rs = (ResultSet) st.getObject(10)) {
                     boolean isSpecialCase = !"1".equals(cboDot) && !"5".equals(cboDot);
-                    boolean isTongHopAndCap2 = !"1".equals(CapBC);
 
                     while (rs.next()) {
                         DULIEU_NT item;
@@ -93,13 +92,9 @@ public class AuthorModel {
                         } else {
                             // Trường hợp cboDot bằng 1 hoặc 5
                             item = DULIEU_NT.newInstance();
-
-                            if (isTongHopAndCap2) {
-                                mapFullFields(item, rs);
-                            } else {
-                                mapShortFields(item, rs);
-                            }
+                            mapShortFields(item, rs);
                         }
+
                         lst.add(item);
                     }
                 }
