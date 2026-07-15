@@ -79,18 +79,18 @@ public class AuthorModel {
 
                 st.execute();
 
-                // 2. Đọc dữ liệu từ ResultSet
                 try (ResultSet rs = (ResultSet) st.getObject(10)) {
+
                     boolean isSpecialCase = !"1".equals(cboDot) && !"5".equals(cboDot);
+                    boolean isFullFields = isSpecialCase || "4".equals(CapBC);
 
                     while (rs.next()) {
                         DULIEU_NT item;
 
-                        if (isSpecialCase) {
-                            DULIEU_NT obj = new DULIEU_NT();
-                            item = new getDULIEU_NT().getData(obj, rs);
+                        if (isFullFields) {
+                            item = DULIEU_NT.newInstance();
+                            mapFullFields(item, rs);
                         } else {
-                            // Trường hợp cboDot bằng 1 hoặc 5
                             item = DULIEU_NT.newInstance();
                             mapShortFields(item, rs);
                         }
