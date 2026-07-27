@@ -1,11 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sjt" uri="/struts-jquery-tree-tags"%>
-<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <s:head/>
 <sj:head/>
@@ -14,142 +11,111 @@
 <script src="js/InputMask.js"></script>
 <script src="js/Parsers.js"></script>
 <script src="js/Checkdate.js"></script>
-<script>
 
-    function js_changetopic() {
-        var e = document.getElementById("selectedReport");
-        var report = e.options[e.selectedIndex].value;
-        if (report === "EX010001") {
-            $("#js_select_id").show();
+<script>
+    function handleReportChange() {
+        const report = $("#selectedReport").val();
+        $("#js_select_id").toggle(report === "EX010001");
+        $("#to2sbvchkid").toggle(report === "EX220002");
+
+        if (report === 'EX050001') {
+            $("#title_1, #title_3").hide();
+            $("#title_2").show();
+        } else if (['EX010060', 'EX010061', 'EX010062'].includes(report)) {
+            $("#title_2").hide();
+            $("#title_1, #title_3").show();
         } else {
-            $("#js_select_id").hide();
-        }
-        if (report === "EX220002") {
-            $("#to2sbvchkid").show();
-        } else {
-            $("#to2sbvchkid").hide();
+            $("#title_2, #title_3").hide();
+            $("#title_1").show();
         }
     }
 
     function openSelectWindow() {
-        var ht1 = screen.availHeight - 100;
-        var wt1 = 600;
-        var left1 = (screen.width / 2) - (wt1 / 2);
-        var top1 = 10;
-        var e = document.getElementById("reportPeriod");
-        var strPeriod = e.options[e.selectedIndex].value;
-        var period = 4;
-        if (strPeriod === "NULL")
-        {
+        const strPeriod = document.getElementById("reportPeriod").value;
+        if (strPeriod === "NULL") {
             alert('(Msg)Bạn chưa chọn kỳ báo cáo.');
-            event.preventDefault();
-        } else {
-            if (strPeriod === "D")
-                period = 1;
-            else if (strPeriod === "10D")
-                period = 2;
-            else if (strPeriod === "15D")
-                period = 3;
-            else if (strPeriod === "M")
-                period = 4;
-            else if (strPeriod === "Q")
-                period = 5;
-            else if (strPeriod === "Y")
-                period = 6;
-            else
-                period = 0;
-            window.open('selectIndicator.action?reportPeriod=' + period, 'IMS_REPORTS',
-                    "height=" + ht1 + ",width=" + wt1 + ",left=" + left1 + ",top=" + top1
-                    + ",directories=no,status=no,menubar=no,personalbar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no");
+            if (window.event)
+                window.event.preventDefault();
+            return;
         }
+
+        const periodMap = {"D": 1, "10D": 2, "15D": 3, "M": 4, "Q": 5, "Y": 6};
+        const period = periodMap[strPeriod] !== undefined ? periodMap[strPeriod] : 0;
+
+        const ht1 = screen.availHeight - 100;
+        const wt1 = 600;
+        const left1 = (screen.width / 2) - (wt1 / 2);
+
+        window.open('selectIndicator.action?reportPeriod=' + period, 'IMS_REPORTS',
+                `height=${ht1},width=${wt1},left=${left1},top=10,directories=no,status=no,menubar=no,resizable=no,location=no,scrollbars=yes,toolbar=no,border=no`);
     }
 
-    $.subscribe('beforediv1', function (event, data) {
-        $("#contentDiv").empty();
-        $("#contentDiv").hide();
+    // Đăng ký AJAX Topics
+    $.subscribe('beforediv1', function () {
+        $("#contentDiv").empty().hide();
         $("#loadingImageDiv").show();
     });
 
-    $.subscribe('completediv1', function (event, data) {
+    $.subscribe('completediv1', function () {
         com.mudrick.onPeopleTableLoad();
         $("#loadingImageDiv").hide();
         $("#contentDiv").show();
-        //$("#contentDiv").slideDown('slow');
     });
 
     function clk_glkhtd() {
-        var lstPos = "";
-        $('#treeView').jstree("get_checked", null, true).each(
-                function () {
-                    lstPos = lstPos + this.id + ',';
-                });
+        let lstPos = "";
+        $('#treeView').jstree("get_checked", null, true).each(function () {
+            lstPos += this.id + ',';
+        });
         document.getElementById("selectedPos").value = lstPos;
     }
+
+    // Khởi tạo Dom Ready
     $(function () {
         new DateMask("dd/MM/yyyy", "reportDate");
+
+        // Gắn sự kiện change cho báo cáo
+        $("#selectedReport").on("change", handleReportChange);
+        handleReportChange(); // Chạy load ban đầu
     });
 
-    if (!com)
-        var com = {};
+    // Đối tượng Quản lý Table Ajax
+    var com = com || {};
     com.mudrick = {
         onPeopleTableLoad: function () {
-            // Gets called when the data loads
-            $("#studentTable th.sortable").each(function () {
-                // Iterate over each column header containing the sortable class, so
-                // we can setup overriding click handlers to load via ajax, rather than
-                // allowing the browser to follow a normal link
-                $(this).click(function () {
-                    // "this" is scoped as the sortable th element
-                    var link = $(this).find("a").attr("href");
-                    $("#contentDiv").load(link, {}, com.mudrick.onPeopleTableLoad);
-                    // Stop event propagation, i.e. tell browser not to follow the clicked link
-                    return false;
-                });
+            // Xử lý sự kiện click Header để Sort
+            $("#studentTable th.sortable").off('click').click(function () {
+                const link = $(this).find("a").attr("href");
+                $("#contentDiv").load(link, {}, com.mudrick.onPeopleTableLoad);
+                return false;
             });
 
-            $("#contentDiv .pagelinks a").each(function () {
-                // Iterate over the pagination-generated links to override also
-                $(this).click(function () {
-                    var link = $(this).attr("href");
-                    var rplink = link.replace("gennew=Y", "gennew=N");
-                    $("#contentDiv").load(rplink, {}, com.mudrick.onPeopleTableLoad);
-                    return false;
-                });
+            // Xử lý Phân trang
+            $("#contentDiv .pagelinks a").off('click').click(function () {
+                const link = $(this).attr("href");
+                const rplink = link.replace("gennew=Y", "gennew=N");
+                $("#contentDiv").load(rplink, {}, com.mudrick.onPeopleTableLoad);
+                return false;
             });
 
+            // Format text phân trang
             $("#contentDiv .pagelinks strong").each(function () {
-                var htmlString = $(this).html();
-                $(this).text("Trang " + htmlString);
+                $(this).text("Trang " + $(this).html());
             });
         }
     };
-
-//    $(document).ready(function() {
-//        // Load the initial rendering when the dom is ready.  Assuming you are injecting into a div
-//        // with id "peopleData" that exists in the page.    
-//        alert('a');
-//        $("#contentDiv").load("http://localhost:8080/IMS_REPORTS/displayStudentList.action",{},com.mudrick.onPeopleTableLoad);
-//    });
 </script>
 
-<%
-    session.setAttribute("startTreeGLKHTDRecursive", null);
-%>  
+<% session.setAttribute("startTreeGLKHTDRecursive", null);%>  
+
 <div style="padding-left: 10px;">
-    <div  style="
-          float: top;          
-          z-index:1;">    
-        <p style="text-decoration: underline;padding-left: 5px;font-size: 12pt;font-weight: bold;"> 
+    <div>    
+        <p style="text-decoration: underline; padding-left: 5px; font-size: 12pt; font-weight: bold;"> 
             Chức năng xuất Text/Excel
         </p>                
     </div>
-    <div  style="
-          float: left;
-          height:500px;
-          width: 20%;
-          z-index:1;
-          overflow:scroll;"
-          id="balancemainviewdiv">
+
+    <div style="float: left; height:500px; width: 20%; overflow:scroll;" id="balancemainviewdiv">
         <s:url var="echoO" action="buildPosTreeView"/>
         <sjt:tree  
             id="treeView"
@@ -162,15 +128,15 @@
             checkbox="true"
             />        
     </div>     
-    <div  style="float: right;height:500px; width: 80%; z-index:2;" >          
+
+    <div style="float: right; height:500px; width: 80%;">          
         <s:form id="export2sbvform" theme="simple">
             <div>           
-                <table style="border:solid 3px #cccccc;width: 75%; padding: 5px 5px 10px 5px;"
-                       CELLSPACING="5px">
+                <table style="border:solid 3px #cccccc; width: 75%; padding: 5px 5px 10px 5px;" cellspacing="5px">
                     <tr>
                         <td>Báo cáo: </td>
                         <td>
-                            <s:url var="buildComboUrl1" action="buildReportGroupCombo"></s:url>
+                            <s:url var="buildComboUrl1" action="buildReportGroupCombo"/>
                             <sj:select href="%{buildComboUrl1}" 
                                        name="selectedReport"
                                        id="selectedReport"
@@ -180,27 +146,21 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       onchange="js_changetopic();"
-                                       headerValue="--- Chọn báo cáo ---" theme="simple"
-                                       ></sj:select>   
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Ngày báo cáo: 
-                            </td>
-                            <td>                        
-                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}"  onblur="validatedate(this.value)"
+                                       headerValue="--- Chọn báo cáo ---" 
+                                       />   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ngày báo cáo: </td>
+                        <td>                        
+                            <sj:datepicker name="reportDate" value="%{new java.util.Date()}" onblur="validatedate(this.value)"
                                            placeholder="DD/MM/YYYY" changeYear="true" changeMonth="true" displayFormat="dd/mm/yy"
                                            id="selectedrptDate" size="15"/>
                         </td>                    
                     </tr>
                     <tr id="title_1">
-                        <td>
-                            Kỳ báo cáo: 
-                        </td>
+                        <td>Kỳ báo cáo: </td>
                         <td>                        
-                            <s:url var="buildComboUrl2" action="buildReportPeriodCombo"></s:url>
                             <sj:select href="%{buildComboUrl1}" 
                                        name="reportPeriod"
                                        id="reportPeriod"
@@ -210,14 +170,13 @@
                                        listValue="sDesc"
                                        emptyOption="false" 
                                        headerKey="NULL"
-                                       headerValue="--- Chọn kỳ báo cáo ---" theme="simple"
-                                       ></sj:select>
-                            </td>                    
-                        </tr>
-                        <tr id="title_2">
-                            <td>Tên file:</td>
-                            <td>                        
-                            <s:url var="buildComboUrl3" action="buildPara"></s:url>
+                                       />
+                        </td>                    
+                    </tr>
+                    <tr id="title_2">
+                        <td>Tên file:</td>
+                        <td>                        
+                            <s:url var="buildComboUrl3" action="buildPara"/>
                             <sj:select href="%{buildComboUrl3}" 
                                        name="txtGetData"
                                        id="txtGetData"
@@ -227,75 +186,59 @@
                                        listValue="sDesc"
                                        emptyOption="false"
                                        headerKey="NULL"
-                                       headerValue="--- Chọn file báo cáo ---"
-                                       theme="simple" />
+                                       headerValue="--- Chọn file báo cáo ---" 
+                                       />
                         </td>
-                        <!--                        <tr>
-                                                    <td colspan="2"><br/></td>
-                                                </tr>-->
+                    </tr>
+                    <tr id="title_3">
+                        <td>Hình thức báo cáo:</td>
+                        <td>  
+                            <select name="sbvSendIndiGroup" id="sbvSendIndiGroup">                                                    
+                                <option value="01">GLD - Gửi lần đầu</option>                                                    
+                                <option value="02">GLA - Gửi lại</option>
+                                <option value="03">GBS - Gửi bổ sung</option>
+                            </select> </td>  
+                    </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <a href="#" onclick="javascript:openSelectWindow();"
-                               style="display:none;" id="js_select_id">
+                            <a href="#" onclick="openSelectWindow();" style="display:none;" id="js_select_id">
                                 <u><b>&gt;&gt;Gửi lại PN</b></u>
                             </a>        
                             <p id="to2sbvchkid" style="display:none;">
-                                <s:checkbox name="send2sbv"
-                                            fieldValue="true" />
-                                <b>Gửi NHNN</b>
-
-                                <s:checkbox name="send9acc"
-                                            fieldValue="true" />
-                                <b>Gửi ngoại bảng</b>
+                                <s:checkbox name="send2sbv" fieldValue="true" /> <b>Gửi NHNN</b>
+                                <s:checkbox name="send9acc" fieldValue="true" /> <b>Gửi ngoại bảng</b>
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <hr/>
-                        </td>
+                        <td colspan="2"><hr/></td>
                     </tr>                    
                     <tr>
                         <td></td>
                         <td align="left">
                             <div class="clicklink">
-                                <s:url var="exportUrl" action="exportText2Sbv.action"></s:url>                                                                              
-                                <sj:a id="export2Sbv"  href="%{exportUrl}" targets="contentDiv"
+                                <s:url var="exportUrl" action="exportText2Sbv.action"/>                                                                                                                
+                                <sj:a id="export2Sbv" href="%{exportUrl}" targets="contentDiv"
                                       formIds="export2sbvform" 
                                       onBeforeTopics="beforediv1"
                                       onclick="clk_glkhtd();"
-                                      onCompleteTopics="completediv1"                                  
+                                      onCompleteTopics="completediv1"                                      
                                       ><u>&gt;&gt;Xuất File</u></sj:a> 
                                 </div>
                             </td>
                         </tr>
                     </table> 
+
                 <s:hidden name="selectedPos" id="selectedPos" value=""/> 
                 <s:hidden name="gennew" id="gennew" value="Y"/> 
                 <s:hidden name="sbvSendIndiGroup" id="ji_indigroup" value=""/>
+
                 <div id="loadingImageDiv" style="display: none;">
-                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                    <img id="loadingImage" src='img/loading.gif' border='0' alt="loading">
                 </div>
                 <div id="contentDiv" style="width: 75%;"></div>                       
             </div>        
         </s:form>
     </div>    
 </div>
-<script>
-    function toggleTitles() {
-        const report = $("#selectedReport").val();
-        if (report === 'EX050001') {
-            $("#title_1").hide();
-            $("#title_2").show();
-        } else {
-            $("#title_2").hide();
-            $("#title_1").show();
-        }
-    }
-
-    $(document).ready(function () {
-        $("#selectedReport").on("change", toggleTitles);
-        toggleTitles(); // chạy lúc load
-    });
-</script>

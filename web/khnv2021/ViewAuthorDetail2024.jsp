@@ -228,24 +228,24 @@
             <td class="number"><s:property value="D1"/></td>
             <td class="number"><s:property value="D2"/></td>
             <td class="number"><s:property value="D3"/></td>
-            <td class="number"><s:property value="D4"/></td>
+            <td class="number2"><s:property value="D4"/></td>
 
-            <td class="number2"><s:property value="D5"/></td>
+            <td class="number"><s:property value="D5"/></td>
 
             <td class="number"><s:property value="D6"/></td>
-            <td class="number"><s:property value="D7"/></td>
+            <td class="number2"><s:property value="D7"/></td>
 
-            <td class="number2"><s:property value="D8"/></td>
+            <td class="number"><s:property value="D8"/></td>
 
             <td class="number"><s:property value="D9"/></td>
-            <td class="number"><s:property value="D10"/></td>
+            <td class="number2"><s:property value="D10"/></td>
 
-            <td class="number2"><s:property value="D11"/></td>
+            <td class="number"><s:property value="D11"/></td>
 
             <td class="number"><s:property value="D12"/></td>
-            <td class="number"><s:property value="D13"/></td>
+            <td class="number2"><s:property value="D13"/></td>
 
-            <td class="number2"><s:property value="D14"/></td>
+            <td class="number"><s:property value="D14"/></td>
 
             <td class="number"><s:property value="D15"/></td>
             <td class="number2"><s:property value="D16"/></td>

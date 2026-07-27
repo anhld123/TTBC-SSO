@@ -130,6 +130,19 @@
         <action  name="loadTree" class="vbsp.ims.action.BalanceSheetAction" >
             <result name="success">balanceqry.jsp </result>  
         </action>
+        
+        <action name="Chat" class="vbsp.ims.chatbox.ChatAction" method="openChat">
+            <result>/chatbox/chatbox.jsp</result>
+        </action>
+        <action name="checkMachineAction" class="vbsp.ims.chatbox.ChatAction" method="checkMachine">
+
+            <result type="stream">
+                <param name="contentType">text/plain</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+        <action name="askAIAction" class="vbsp.ims.chatbox.ChatAction" method="askAI">
+        </action>
     </package>
     
     <package name="callreport"  extends="struts-default">
@@ -322,8 +335,8 @@
         </action>
         
         <action name="doGroupReportFilterAPI"  
-                 class="vbsp.ims.action.ReportGroupComboAction" 
-                 method="builCombo">
+                class="vbsp.ims.action.ReportGroupComboAction" 
+                method="builCombo">
             <result name="success" type="json"></result>
         </action>
         

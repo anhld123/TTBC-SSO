@@ -140,6 +140,11 @@ public class ExportText2SbvManager {
                     case "TT31_B20TM":
                     case "TT31_B29TM":
                     case "B65_NHNN":
+                        textFilePath = templateExport.generateExcelFile(mapReport, pos_cd,
+                                considateFlag, reportDate, period,
+                                Define.M_ROOT + Define.M_REPORT_XLS);
+                        zipPath = Define.M_ROOT + Define.M_REPORT_XLS + zipFile;
+                        break;
                     case "PHI":
                     case "HOA_HONG":
                         SimpleDateFormat src = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
@@ -163,12 +168,7 @@ public class ExportText2SbvManager {
                                     commisionData = new ArrayList<>();
                                 }
 
-                                textFilePath = templateExport.generateExcelFromCommisionModel(
-                                        commisionData,
-                                        pos,
-                                        considateFlag,
-                                        reportDate,
-                                        period,
+                                textFilePath = templateExport.generateExcelFromCommisionModel( commisionData, pos, considateFlag, reportDate, period,
                                         Define.M_ROOT + Define.M_REPORT_XLS
                                 );
 
@@ -229,14 +229,7 @@ public class ExportText2SbvManager {
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
                     default:
-                        textFilePath = exportDao.getDataExportFile(
-                                mapReport,
-                                pos_cd,
-                                considateFlag,
-                                reportDate,
-                                period,
-                                sbvSendIndiGroup,
-                                Define.M_ROOT + Define.M_REPORT_TXT);
+                        textFilePath = exportDao.getDataExportFile(mapReport, pos_cd, considateFlag, reportDate, period, sbvSendIndiGroup, Define.M_ROOT + Define.M_REPORT_TXT);
                         zipPath = Define.M_ROOT + Define.M_REPORT_TXT + zipFile;
                         break;
                 }
