@@ -107,6 +107,7 @@ public class ActionChtrinhcnMain extends ActionSupport {
     private static ArrayDescriptor arrayDesc;
     private static boolean warmedUp = false;
     private String type;
+    private DuLieuNTService _serverAPI = new DuLieuNTService();
 
     public String getType() {
         return type;
@@ -1613,13 +1614,17 @@ public class ActionChtrinhcnMain extends ActionSupport {
 
         Map session = ActionContext.getContext().getSession();
         String sUserName = session.get("username").toString();
+        lstDmKhac = _serverAPI.getListOfValue("92", Key);
+        String start_end;
+        if (lstDmKhac == null || lstDmKhac.isEmpty()
+                || lstDmKhac.get(0).getValue() == null
+                || lstDmKhac.get(0).getValue().trim().isEmpty()) {
 
-        DaoChtrinhcnMain dao = new DaoChtrinhcnMain();
-        String start_end = dao.getStartEndCel(Key);
-
-        int startrow = 0;
-        int startcell = 0;
-        int endcell = 0;
+            addActionError("Định dạng file chưa được cấu hình.");
+            return ERROR;
+        }
+        start_end = lstDmKhac.get(0).getValue().trim();
+        int startrow = 0, startcell = 0, endcell = 0;
 
         if (!"AAA".equals(start_end)) {
             startrow = Integer.parseInt(start_end.split("-")[0]);
