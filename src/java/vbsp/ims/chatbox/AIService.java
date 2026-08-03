@@ -71,7 +71,6 @@ public class AIService {
         String result = PromptAI.callAI(userQuestion, code, value, description, url, apiKey);
 
 //        System.out.println("Response AI [" + code + "]: " + result);
-
         if (result != null && !result.trim().isEmpty()) {
             System.out.println("Kết nối thành công AI: " + code);
             return result.trim();
