@@ -83,49 +83,69 @@ public class tracuuinfo_ActionSupport extends ActionSupport {
     }
 
     public String ShowList() throws SQLException {
-        //Thực hiện lấy toàn bộ các trường ra List
         Connection conn = null;
         conn = new DaoConnect().getConnect();
-        Integer maxitem = ListDK.size();
+
+        int maxitem = (ListDK != null) ? ListDK.size() : 0;
         String dieukien = "";
 
         if (loaitc.equals("DTTN")) {
-            for (int i = 0; i < maxitem; i++) {
-                dieukien = dieukien + ListVal.get(i) + "$";
-            }
-            String[] values = dieukien != null ? dieukien.split("\\$") : new String[0];
-            String v0 = values.length > 0 && !values[0].trim().isEmpty()
-                    ? values[0].trim().toUpperCase()
-                    : null;
-            String v1 = values.length > 1 && !values[1].trim().isEmpty()
-                    ? values[1].trim().toUpperCase()
-                    : null;
-            String kh_cmt = v0 != null ? v0 : v1;
-//            System.out.println("v0 = " + v0 + ", v1 = " + v1);
-            System.out.println("kh_cmt truyền API = " + kh_cmt);
-            if (kh_cmt != null) {
-                List<CustomerBlackList> srcList = _serverAPI.getCustomerBlackList(kh_cmt);
+//            System.out.println("vao` 111");
+            List<String> searchKeys = new ArrayList<>();
 
-                System.out.println("data = " + srcList.size());
-
-                List<CustomerBlackList> resultList = new ArrayList<>();
-
-                for (CustomerBlackList item : srcList) {
-                    CustomerBlackList row = convertPLN_T(item);
-                    resultList.add(row);
+            if (ListVal != null) {
+                int limit = Math.min(10, ListVal.size());
+                for (int i = 0; i < limit; i++) {
+                    Object obj = ListVal.get(i);
+                    if (obj != null) {
+                        String val = obj.toString();
+                        if (!val.trim().isEmpty()) {
+                            searchKeys.add(val.trim().toUpperCase());
+                        }
+                    }
                 }
+            }
 
-                lstCustomerBlackList = resultList;
+//            System.out.println("Danh sách truyền API = " + searchKeys);
+            if (!searchKeys.isEmpty()) {
+                List<CustomerBlackList> srcList = _serverAPI.getCustomerBlackLists(searchKeys);
 
+                if (srcList != null) {
+                    System.out.println("data = " + srcList.size());
+
+                    List<CustomerBlackList> resultList = new ArrayList<>();
+                    for (CustomerBlackList item : srcList) {
+                        CustomerBlackList row = convertPLN_T(item);
+                        resultList.add(row);
+                    }
+                    lstCustomerBlackList = resultList;
+                } else {
+                    System.out.println("API trả về null hoặc lỗi.");
+                    lstCustomerBlackList = new ArrayList<>();
+                }
             } else {
                 System.out.println("Không có điều kiện hợp lệ để gọi API");
+                lstCustomerBlackList = new ArrayList<>();
             }
+
             return "Apithanhcong";
         } else {
-            for (int i = 0; i < maxitem; i++) {
-                dieukien = dieukien + ListVal.get(i) + "/TV/";
+            if ((loaitc.equals("KHUQ") || loaitc.equals("KHVV"))&& ListVal != null && !ListVal.isEmpty()) {
+                for (int i = 0; i < ListVal.size(); i++) {
+                    Object obj = ListVal.get(i);
+                    if (obj != null && !obj.toString().trim().isEmpty()) {
+                        dieukien = dieukien + obj.toString().trim() + "/TV/";
+                    }
+                }
+            } else {
+                for (int i = 0; i < maxitem; i++) {
+                    dieukien = dieukien + ListDK.get(i) + "/TV/";
+                }
             }
-            dieukien = dieukien.substring(0, dieukien.length() - 4);
+
+            if (!dieukien.isEmpty()) {
+                dieukien = dieukien.substring(0, dieukien.length() - 4);
+            }
             if (chkexcel == null) {
                 chkexcel = "OFF";
             }

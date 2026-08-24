@@ -374,3 +374,7 @@ body {
 .right .update-list::-webkit-scrollbar-thumb:hover {
     background: rgba(76,175,80,0.45);
 }
+
+html, body {
+    overflow-y: hidden !important;
+}

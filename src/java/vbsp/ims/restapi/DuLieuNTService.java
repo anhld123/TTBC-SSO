@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import org.glassfish.jersey.client.ClientConfig;
 import vbsp.ims.model.DcplnModel;
 
 /**
@@ -2192,6 +2193,27 @@ public class DuLieuNTService extends ReportService {
             CustomerBlackList dulieuNTResp = response.readEntity(CustomerBlackList.class);
             ArrayList<CustomerBlackList> listOfRow = dulieuNTResp.result;
             return listOfRow;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<CustomerBlackList> getCustomerBlackLists(List<String> searchKeys) {
+        ClientConfig config = new ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+
+   
+        WebTarget target = client.target(getBaseURI()).path("pcrt-black-list-customer-search-list");
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        // Đổi sang phương thức POST và truyền body là danh sách từ khóa (searchKeys)
+        Entity<List<String>> entity = Entity.entity(searchKeys, MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.post(entity);
+
+        if (response.getStatus() == 200) {
+            CustomerBlackList dulieuNTResp = response.readEntity(CustomerBlackList.class);
+            return dulieuNTResp.result;
         } else {
             return null;
         }
