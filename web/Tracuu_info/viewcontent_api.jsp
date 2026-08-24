@@ -1,12 +1,8 @@
 <%-- 
-    Document   : viewcontent
-    Created on : Oct 8, 2015, 10:00:23 AM
-    Author     : Administrator
+    Document   : viewcontent anhld
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>-->
 <style>
     #subTable {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -14,31 +10,59 @@
         width: 100%;
         margin-left: 5px;
     }
-
     #subTable td, #subTable th {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 6px 8px;
         font-size: 9px;
     }
-
-    #subTable tr:nth-child(even){background-color: #f2f2f2;}
-
-    #subTable tr:hover {background-color: #ddd;}
-
+    #subTable tr:nth-child(even) { background-color: #f2f2f2; }
+    #subTable tr:hover { background-color: #ddd; }
     #subTable th {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding-top: 8px;
+        padding-bottom: 8px;
         text-align: left;
         background-color: #4CAF50;
         color: white;
     }
+    .pagination-wrapper {
+        margin: 8px 5px;
+        font-family: tahoma;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        user-select: none;
+    }
+    .pg-btn {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        color: #333;
+        padding: 3px 8px;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 11px;
+    }
+    .pg-btn:hover { background-color: #e9ecef; border-color: #ccc; }
+    .pg-btn:active { background-color: #dee2e6; }
+    .pg-info { font-weight: bold; color: #2e7d32; padding: 0 2px; }
 </style>
-<button type="button" style="margin: 5px;"
-        onclick="this.form.action = 'exportExcel_DTTN.action'; this.form.submit();">
-    Xuất Excel
-</button>
+<div style="margin: 5px; display: flex; align-items: center;">
+    <button type="button" id="btnExport" style="margin-right: 10px;" onclick="exportExcelWithLoading();">
+        Xuất Excel
+    </button>
+    <span id="exportLoading" style="display: none; color: #d32f2f; font-weight: bold; font-size: 12px;">
+        <img src='imgs/Preloader_3.gif' style="width: 14px; height: 14px; vertical-align: middle;" /> Đang chuẩn bị file Excel, vui lòng chờ...
+    </span>
+</div>
+<div class="pagination-wrapper" id="customPagerNav">
+    <button type="button" class="pg-btn" onclick="customPager.prev()">&laquo; Trước</button>
+    <span>Trang</span>
+    <span id="currentPgText" class="pg-info">1</span>
+    <span>/</span>
+    <span id="totalPgText" class="pg-info">1</span>
+    <button type="button" class="pg-btn" onclick="customPager.next()">Sau &raquo;</button>
+</div>
 <table border="1" class="editDelete" id="subTable">  
-
     <tr class="D0">
         <th style="text-align:center;font-weight:bold">HỌ TÊN</th>
         <th style="text-align:center;font-weight:bold">NGÀY SINH</th>
@@ -109,34 +133,64 @@
             <td><s:property value="hcNoiCap"/></td>
         </tr>
     </s:iterator>
-
 </table>
-<script>
-//    function exportExcel() {
-//        var table = document.getElementById("subTable");
-//        var wb = XLSX.utils.table_to_book(table, {
-//            sheet: "BlackList",
-//            raw: true
-//        });
-//
-//        // Ép tất cả cell về string
-//        wb.Sheets["BlackList"] = forceString(wb.Sheets["BlackList"]);
-//
-//        XLSX.writeFile(wb, "customer_blacklist.xlsx");
-//    }
-//
-//    function forceString(sheet) {
-//        Object.keys(sheet).forEach(function (cell) {
-//            if (cell[0] !== '!') {
-//                sheet[cell].t = 's'; // string
-//            }
-//        });
-//        return sheet;
-//    }
-
-    $("#exportExcel").click(function () {
-        var sdata = $("#id_khnv2021").serialize();
+<iframe id="downloadFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    function CustomPager(tableName, itemsPerPage) {
+        this.tableName = tableName;
+        this.itemsPerPage = itemsPerPage;
+        this.currentPage = 1;
+        this.pages = 0;
+        this.inited = false;
+        this.showRecords = function (from, to) {
+            var rows = document.getElementById(tableName).rows;
+            for (var i = 1; i < rows.length; i++) {
+                if (i < from || i > to) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        };
+        this.showPage = function (pageNumber) {
+            if (!this.inited) return;
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageNumber > this.pages) pageNumber = this.pages;
+            this.currentPage = pageNumber;
+            var from = (pageNumber - 1) * this.itemsPerPage + 1;
+            var to = from + this.itemsPerPage - 1;
+            this.showRecords(from, to);
+            document.getElementById("currentPgText").innerText = this.currentPage;
+            document.getElementById("totalPgText").innerText = this.pages;
+        };
+        this.prev = function () {
+            if (this.currentPage > 1) { this.showPage(this.currentPage - 1); }
+        };
+        this.next = function () {
+            if (this.currentPage < this.pages) { this.showPage(this.currentPage + 1); }
+        };
+        this.init = function () {
+            var rows = document.getElementById(tableName).rows;
+            var records = rows.length - 1;
+            this.pages = Math.ceil(records / this.itemsPerPage);
+            if (this.pages < 1) this.pages = 1;
+            this.inited = true;
+            this.showPage(1);
+        };
+    }
+    var customPager = new CustomPager('subTable', 20);
+    customPager.init();
+    function exportExcelWithLoading() {
+        var $loading = $("#exportLoading");
+        var $btn = $("#btnExport");
+        $loading.show();
+        $btn.prop("disabled", true);
+        var sdata = $("#frmmain").serialize();
         var url = "exportExcel_DTTN.action?" + sdata;
         document.getElementById("downloadFrame").src = url;
-    });
+        setTimeout(function() {
+            $loading.hide();
+            $btn.prop("disabled", false);
+        }, 3000);
+    }
 </script>
