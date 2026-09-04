@@ -129,8 +129,7 @@
                                 $('#tt_dautu_' + num_id).focus();
                                 $('#tt_dautu_' + num_id).css({"background-color": "#ffff99"});
                                 flag_data_dt = true;
-                            }
-                            else
+                            } else
                                 $('#tt_dautu_' + num_id).css({"background-color": "#FFCCBA"});
                         }
 
@@ -144,14 +143,12 @@
                             $('#nn_lech_' + num_id).focus();
                             $('#nn_lech_' + num_id).css({"background-color": "#ffff99"});
                             flag_data_nn = true;
-                        }
-                        else
+                        } else
                             $('#nn_lech_' + num_id).css({"background-color": "#FFCCBA"});
 //                      
 //                        //duno_lech_0, lai_lech_0,casa_lech_0,nn_lech_0,tt_dautu_0
 //                        console.log($(this).val());
-                    }
-                    else
+                    } else
                     {
                         $('#nn_lech_' + num_id).css({"background-color": "#FFCCBA"});
                         $('#tt_dautu_' + num_id).css({"background-color": "#FFCCBA"});
@@ -170,8 +167,7 @@
                     {
                         $("#idSaveDcNo")[0].click();
                     }
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
@@ -247,8 +243,7 @@
                     $("#loadsubmitform")[0].click();
                     loadData = true;
                     return true;
-                }
-                else
+                } else
                     return false;
             }
             var vitri_tr = '';
@@ -282,9 +277,9 @@
 //                 
 //            }
 
-           
-            
-        
+
+
+
         </script>
 
         <style>
@@ -379,7 +374,7 @@
             .datepicker{
             }
 
-           
+
         </style>
 
     </head>
@@ -414,7 +409,7 @@
                                    onCompleteTopics="myCompleteTopics__dvut">                    
                         </sj:select>
                         <!--&nbsp;-->
-                        
+
                         <s:label value="Tổ trưởng:" cssStyle="color: #029c44;" />
                         <sj:select href="%{reloadData}" 
                                    reloadTopics="reloadTotruong"
@@ -430,8 +425,10 @@
                                    onCompleteTopics="myCompleteTopics" >                    
                         </sj:select>
                         <s:label value="Trạng thái:" cssStyle="color: #029c44;" />
-                        <s:select id="trangthai" name="trangthai" list="#{'N':'Chưa đối chiếu','A':'Đã đối chiếu'}"
-                                  cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                        <select id="trangthai" name="trangthai" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                            <option value="N">Chưa đối chiếu</option>
+                            <option value="A">Đã đối chiếu</option>
+                        </select>
                         <s:label value="Nguồn vốn:" cssStyle="color: #029c44;" />
                         <s:select
                             id="nguon_von"

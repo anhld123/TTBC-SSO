@@ -112,22 +112,24 @@
                                              name="rptGrade" cssClass="font_lable" cssStyle="font-size: larger;font-weight:"></s:checkboxlist>
                             </td>
                         </tr>
-                        <s:if test="module.equalsIgnoreCase('SBV')">
-                            
-                        </s:if>
-                        <s:else>
-                            <tr>
+                    <s:if test="module.equalsIgnoreCase('SBV')">
+
+                    </s:if>
+                    <s:else>
+                        <tr>
                             <td style="width: 200px; height: 10px;">                            
                                 <label id="mota_lbl" class="font_lable">Xử lý công thức:</label>
                             </td>
                             <td style="width: 650px; height: 10px;font-size: small;font-weight: bold;" >
-                               <s:select id="ID_TT" name="id" list="#{'N':'Để nguyên công thức excel tự xử lý','Y':'Xử lý công thức theo Fill dữ liệu'}"
-                                      cssStyle="font-weight: bold;width: 350px; vertical-align: middle;" cssClass="font_lable"/>
-                                </td>
-                            </tr>
-                        </s:else>
-                        <tr>
-                            <td colspan="2" align="center">
+                                <select id="ID_TT" name="id" style="font-weight: bold; width: 350px; vertical-align: middle;" class="font_lable">
+                                    <option value="N">Để nguyên công thức excel tự xử lý</option>
+                                    <option value="Y">Xử lý công thức theo Fill dữ liệu</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </s:else>
+                    <tr>
+                        <td colspan="2" align="center">
                             <sj:submit id="luubc" targets="Parameter_div" value="lưu báo cáo" cssClass="font_lable"/>
                             <%--<s:submit id="test" value="thunhe" />--%>
                         </td>

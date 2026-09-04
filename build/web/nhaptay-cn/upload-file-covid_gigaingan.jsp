@@ -39,7 +39,7 @@
             {
                 $('#message_suc_err').empty();
                 $('#divExportReport').empty();
-                
+
 //                var ngay_bc = $("#ngay_bc").val();
 //                
 //                
@@ -50,47 +50,49 @@
 //                    alert("Bạn cần chọn ngày cuối tháng để upload file");                    
 //                        return false;
 //                }   
-                
+
                 $("#idTransGN")[0].click();
-            };
-            
+            }
+            ;
+
             function getDaysOfMonth(month, year) {
-        switch (month) {
-            case 1:
-                return 31;
-            case 2:
-                if (year % 4 === 0)
-                    return 29;
-                else
-                    return 28;
-            case 3:
-                return 31;
-            case 4:
-                return 30;
-            case 5:
-                return 31;
-            case 6:
-                return 30;
-            case 7:
-                return 31;
-            case 8:
-                return 31;
-            case 9:
-                return 30;
-            case 10:
-                return 31;
-            case 11:
-                return 30;
-            case 12:
-                return 31;
-        }
-    };
+                switch (month) {
+                    case 1:
+                        return 31;
+                    case 2:
+                        if (year % 4 === 0)
+                            return 29;
+                        else
+                            return 28;
+                    case 3:
+                        return 31;
+                    case 4:
+                        return 30;
+                    case 5:
+                        return 31;
+                    case 6:
+                        return 30;
+                    case 7:
+                        return 31;
+                    case 8:
+                        return 31;
+                    case 9:
+                        return 30;
+                    case 10:
+                        return 31;
+                    case 11:
+                        return 30;
+                    case 12:
+                        return 31;
+                }
+            }
+            ;
         </script>
     </head>
     <body>
         <div id="main_screen_div" align="center" class="main_div">   
             <s:form id="loadAllBCCovidGN" action="saveUploadDataCovid"  theme="simple">
-               
+
                 <input type="hidden" name="startrow" value="10" id="id_startrow">
                 <input type="hidden" name="endcell" value="35" id="id_endcell">
                 <s:hidden name="ngay_bc" id="ngay_bc"/>
@@ -108,8 +110,11 @@
                             <p class="normal_font">Lần giải ngân:</p>
                         </td>
                         <td>
-                             <s:select id="langiangan" name="langiangan" list="#{'1':'Lần 1','2':'Lần 2', '3':'Lần 3'}"
-                                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                            <select id="langiangan" name="langiangan" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                                <option value="1">Lần 1</option>
+                                <option value="2">Lần 2</option>
+                                <option value="3">Lần 3</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -123,7 +128,7 @@
 
                     <tr>
                         <td colspan="2" align="right">
-                            
+
                             &nbsp;&nbsp;
                             <s:url id="idTransGNDataGN" action="uploadCoVid_GN.action"></s:url>                                      
                             <sj:submit id="idTransGN" name="nameTrans" href="%{idTransGNDataGN}" value="Upload dữ liệu" targets="upload_result_div"

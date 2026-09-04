@@ -243,8 +243,7 @@
                             if (sChar.length == null)
                             {
                                 zChar = new Array(sChar);
-                            }
-                            else
+                            } else
                                 zChar = sChar;
 
                             for (i = 0; i < zChar.length; i++)
@@ -275,12 +274,13 @@
                 <td>
                     Trạng thái:
                 </td>
-                <td>
-                    <s:select headerKey="-1"
-                              list="#{'A':'A - Hoạt động','C':'C - Đóng'}"
-                              name="customer.status" 
-                              />
 
+                <td>
+                    <select name="customer.status">
+                        <option value="-1">-- Chọn trạng thái --</option>
+                        <option value="A">A - Hoạt động</option>
+                        <option value="C">C - Đóng</option>
+                    </select>
                 </td>
             </tr>
 

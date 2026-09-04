@@ -172,21 +172,22 @@
                                             onCompleteTopics="myCompleteTopics" cssStyle="font-weight: bold;vertical-align: middle;"></sj:select>                              
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td width="10%">Tổng hợp: </td>
-                                <td width="40%">       
-                                 <s:select id="idtype_bcqt" name="tonghop" 
-                                       list="#{'N':'Không','Y':'Có'}"
-                                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>                            
+                                <td width="40%">
+                                    <select id="idtype_bcqt" name="tonghop" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                                        <option value="N">Không</option>
+                                        <option value="Y">Có</option>
+                                    </select>
                                 </td>
                             </tr>
-                        <img id="loadingImage-next" src="img/loaderB32.gif" style="display:none"/>
-                        <div id="loadingImageDiv_rpt" style="display: none;">
-                            <img id="loadingImage_rpt" src='img/loading.gif' border='0'>
-                        </div>
-                        <tr>
-                            <td></td>
-                            <td>
+                            <img id="loadingImage-next" src="img/loaderB32.gif" style="display:none"/>
+                            <div id="loadingImageDiv_rpt" style="display: none;">
+                                <img id="loadingImage_rpt" src='img/loading.gif' border='0'>
+                            </div>
+                            <tr>
+                                <td></td>
+                                <td>
                                 <sj:submit id="exportReport" value="Tiếp theo" targets="divParams" indicator="loadingImage-next" onBeforeTopics="beforeClick" style="display:none"/>
                             </td>                    
                         </tr>

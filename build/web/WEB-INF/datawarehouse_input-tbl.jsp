@@ -34,7 +34,7 @@
         font-family:  Arial;
         font-size:  11pt;
     }
-    //         For odd and even row decoration 
+    /*//         For odd and even row decoration*/ 
     table.dtw_table_style tr.odd 
     {
         background-color: #00ffffff;
@@ -44,7 +44,7 @@
     {
         background-color: azure;
     }
-    //Css for table elements 
+    /*//Css for table elements*/ 
     table.dtw_table_style th
     {
         padding: 2px 4px 2px 4px;
@@ -70,7 +70,7 @@
     {
         background-color: palegreen;
     }
-    //         For changing the background colour while sorting 
+    /*//         For changing the background colour while sorting*/ 
     table.dtw_table_style th.sorted 
     {
         background-color: #1392e9;

@@ -193,18 +193,19 @@
                         </tr>
                         <tr>
                             <td width="10%">Tổng hợp: </td>
-                            <td width="40%">       
-                            <s:select id="idtype_bcqt" name="tonghop" 
-                                      list="#{'N':'Không','Y':'Có'}"
-                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>                            
-                        </td>
-                    </tr>
+                            <td width="40%">
+                                <select id="idtype_bcqt" name="tonghop" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                                    <option value="N">Không</option>
+                                    <option value="Y">Có</option>
+                                </select>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>
+                        <tr>
+                            <td>
 
-                        </td>
-                        <td>
+                            </td>
+                            <td>
                             <sj:submit id="exportReport" value="Tiếp theo" targets="divParams" indicator="loadingImage-next" onBeforeTopics="beforeClick" style="display:none"/>
                         </td>                    
                     </tr>

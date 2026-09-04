@@ -496,17 +496,15 @@
                                                    }"
                                                    />-->
                             </td>
-<!--                            <td align = "right" class="TD_COMBOBOX">
-                                <s:select id="tochuhop" name="lstDulieuNt[%{#rowstatus.index}].D2"
-                                              list="#{'1':'Đúng','0':'Không đúng'}"
-                                              cssStyle="width: 100%; height: 100%; vertical-align: middle; background-color: #fdf5ce;" />
-                            </td>-->
+
                             
-                            <td align = "right" class="TD_COMBOBOX">
-                                <s:select id="hinhthuchop" name="lstDulieuNt[%{#rowstatus.index}].D4"
-                                              list="#{'1':'Xin ý kiến','0':'Tổ chức họp','2':'--Chọn--'}"
-                                              cssStyle="width: 100%; height: 100%; vertical-align: middle; background-color: #fdf5ce;" />
-                            </td>
+                            <td align="right" class="TD_COMBOBOX">
+    <select id="hinhthuchop" name="lstDulieuNt[<s:property value="#rowstatus.index"/>].D4" style="width: 100%; height: 100%; vertical-align: middle; background-color: #fdf5ce;">
+        <option value="2" <s:if test="D4 == '2'">selected="selected"</s:if>>--Chọn--</option>
+        <option value="1" <s:if test="D4 == '1'">selected="selected"</s:if>>Xin ý kiến</option>
+        <option value="0" <s:if test="D4 == '0'">selected="selected"</s:if>>Tổ chức họp</option>
+    </select>
+</td>
                             
                             <td align = "right" class="TD_CHUCVU">
                                 <input type="text" style="text-align: right;color: #000;" value="<s:property  value="D6" />" id="D6"

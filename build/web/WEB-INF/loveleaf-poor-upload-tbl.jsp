@@ -32,7 +32,7 @@
         font-family:  Arial;
         font-size:  10pt;
     }
-    //         For odd and even row decoration 
+    /*//         For odd and even row decoration*/ 
     table.loveleaf_table_style tr.odd 
     {
         background-color: #00ffffff;
@@ -42,7 +42,7 @@
     {
         background-color: azure;
     }
-    //Css for table elements 
+    /*//Css for table elements*/ 
     table.loveleaf_table_style th
     {
         padding: 2px 4px 2px 4px;
@@ -64,7 +64,7 @@
     {
         background-color: palegreen;
     }
-    //         For changing the background colour while sorting 
+    /*//         For changing the background colour while sorting*/ 
     table.loveleaf_table_style th.sorted 
     {
         background-color: #1392e9;

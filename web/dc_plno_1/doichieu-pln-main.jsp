@@ -91,13 +91,13 @@
         </style>
 
         <script>
-            $.subscribe("myBeforeHandler", function(event, data) {
+            $.subscribe("myBeforeHandler", function (event, data) {
                 $("#loadingImageDiv").show();
             });
-            $.subscribe("myCompleteTopics", function(event, data) {
+            $.subscribe("myCompleteTopics", function (event, data) {
                 $("#loadingImageDiv").hide();
             });
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
             });
             function getposfromtreecheck()
@@ -136,13 +136,13 @@
                 }
             }
             var bsubmit = false;
-            $.subscribe('beforediv1', function(event, data) {
+            $.subscribe('beforediv1', function (event, data) {
                 $("#divExportReport").empty();
                 $("#divExportReport").hide();
                 $("#loadingImageDiv").show();
             });
 
-            $.subscribe('completediv1', function(event, data) {
+            $.subscribe('completediv1', function (event, data) {
                 $("#loadingImageDiv").hide();
                 $("#divExportReport").show();
             });
@@ -184,8 +184,7 @@
                     $("#loadsubmitform")[0].click();
                     loadData = true;
                     return true;
-                }
-                else
+                } else
                     return false;
             }
 
@@ -194,7 +193,7 @@
                 var iSuccess = 0;
                 $("#containParm").hide();
                 $("#loadingImageDiv").show();
-                $("#frmDataDc input[type=checkbox]").each(function()
+                $("#frmDataDc input[type=checkbox]").each(function ()
                 {
                     var num_id = this.id;
                     var soku = $.trim($(this).val());
@@ -262,20 +261,19 @@
                     if (validateRequiredFields()) {
                         $("#idSaveDcNo")[0].click();
                     }
-                }
-                else {
+                } else {
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
-                setTimeout(setTime,1000);   
+                setTimeout(setTime, 1000);
             }
-            function setTime(){
+            function setTime() {
                 //Đoạn này chỉ để chứng minh đã xử lý xong phần load Image loading
                 $("#loadingImageDiv").hide();
                 $("#containParm").show();
             }
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
-                $(".number2").each(function(index) {
+                $(".number2").each(function (index) {
                     var value = $(this).val();
                     value = value.replace(/,/g, "");
                     if (parseFloat(value) > 999999999999) {
@@ -287,7 +285,7 @@
                 return result;
             }
             function keyPressEvent() {
-                $('#idsearch_soku').keypress(function(e) {
+                $('#idsearch_soku').keypress(function (e) {
                     if (e.keyCode == 13) {  // Detect the enter key
                         document.getElementById('idSearch').click();
                     }
@@ -353,9 +351,12 @@
                                     </sj:select>
                                     &nbsp;
                                     <s:label value="Trạng thái " cssStyle="color: #029c44;" />
-                                    <s:select id="trangthai" name="trangthai" list="#{'N':'Chưa đối chiếu','R':'Không đối chiếu được','S':'Đã đối chiếu'}"
-                                              cssStyle="width: 103px; vertical-align: middle;"/>
-                                    &nbsp;
+                                    <select id="trangthai" name="trangthai" style="width: 103px; vertical-align: middle;">
+                                        <option value="N" <s:if test="trangthai == 'N'">selected="selected"</s:if>>Chưa đối chiếu</option>
+                                        <option value="R" <s:if test="trangthai == 'R'">selected="selected"</s:if>>Không đối chiếu được</option>
+                                        <option value="S" <s:if test="trangthai == 'S'">selected="selected"</s:if>>Đã đối chiếu</option>
+                                        </select>
+                                        &nbsp;
                                     <s:label value="Nguồn vốn " cssStyle="color: #029c44;" />
                                     <s:select
                                         id="ngvon_dcpln"
@@ -434,7 +435,7 @@
         </div>
     </p>
     <script>
-        $(document).ready(function () {            
+        $(document).ready(function () {
 //            $("#ngay_dcpln").val("31/12/2021");
             document.getElementById('ngay_dcpln').value = "31/12/2021";
         })

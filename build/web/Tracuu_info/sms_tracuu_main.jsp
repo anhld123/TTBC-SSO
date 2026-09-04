@@ -95,7 +95,7 @@
             .report_group_form{
                 width: 100%;
             }
-            
+
             #navParam{
                 height: 35px;
                 padding:0px;
@@ -128,26 +128,26 @@
                 padding-bottom: 0px;
                 padding-top: 0px;
             }
-            
-                #divTitle{
+
+            #divTitle{
                 font: 14px Arial, Helvetica, sans-serif;
                 font-weight: bold;
                 color: #0077b3;
-/*                text-align: center;*/
+                /*                text-align: center;*/
             }
-            
+
             .field_set1{
                 /*border-color: #9999FF;*/
                 border-style: solid;
                 background: #f7f7f7;
                 border-radius: 5px;
-              }
-              .field_set{
+            }
+            .field_set{
                 /*border-color: #9999FF;*/
                 border-style: solid;
                 border-radius: 5px;
                 overflow:scroll;
-              }
+            }
         </style>
         <script>
             var bsubmit = false;
@@ -170,9 +170,9 @@
                 $("#loadData")[0].click();
                 bsubmit = true;
 //                return true;
-            }           
+            }
 
-        
+
 
 
             // TRUNG BO SUNG PHAN THUYET MINH
@@ -280,7 +280,7 @@
                         <a class="tooltipIcon" href="">
                             <img src="img/report_in.png"/>
                         </a>
-                         Báo cáo danh sách SMS
+                        Báo cáo danh sách SMS
                     </legend>
                     <div id="navParam" >      
                         <!--<div id="navParam3">-->     
@@ -315,7 +315,7 @@
                                 <td colspan="2">
                                     <input type="text" style="text-align:right;width: 100px;  border-radius: 5px" value="" id="sodienthoai" name="sodienthoai" class="" placeholder="<s:property value="label"/>"/>
                                 </td>
-                                
+
                                 <td >
                                     Mã khách hàng: 
                                 </td>
@@ -329,10 +329,13 @@
                                     Trạng thái: 
                                 </td>
                                 <td >
-                                    <s:select id="trangthai" name="trangthai" list="#{'':'Tất cả','1':'Thành công','2':'Không thành công'}"
-                                                      cssStyle="width: 130px; vertical-align: middle;"/>
+                                    <select id="trangthai" name="trangthai" style="width: 130px; vertical-align: middle;">
+                                        <option value="">Tất cả</option>
+                                        <option value="1">Thành công</option>
+                                        <option value="2">Không thành công</option>
+                                    </select>
                                 </td>
-                                
+
                                 <td style="width: 10px">
 
                                 </td>
@@ -342,7 +345,7 @@
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
                                     <input type="button" style="background: #C0C0C0; width: 80px" id="loadDatatmp" name="nameloadDatatmp"  onclick="onLoadData()" value="Tra cứu"/>                                                                    
                                 </td>
-                                
+
                                 <td>
                                     <div id="loadingImageDiv_data" style="margin-left: 20px;display: none;" >
                                         <img id="loadingImage" src='img/loading.gif' border='0' >

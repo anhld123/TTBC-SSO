@@ -5,17 +5,18 @@
     list-style: none;
 }
 
-/* Tổng thể */
 #cssmenu {
     background: #ffffff;
-    border: 1px solid #e5e7eb;
-    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-bottom: 2px solid #cbd5e1; 
+    /*margin-bottom: 10px;*/ 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: inline-block;
+    width: 100%;
 }
 
-/* Menu cấp 1 */
 #cssmenu > ul {
     display: flex;
+    flex-wrap: wrap;
 }
 
 #cssmenu > ul > li {
@@ -23,97 +24,140 @@
 }
 
 #cssmenu > ul > li > a {
+    position: relative;
     display: block;
-    padding: 14px 22px;
-    color: #374151;
-    font-size: 14px;
-    font-weight: 500;
+    padding: 14px 20px;
     text-decoration: none;
-    transition: all 0.25s ease;
 }
 
-/* Hover cấp 1 */
-#cssmenu > ul > li:hover > a {
-    background: #f1f5f9;
-    color: #2563eb;
+#cssmenu > ul > li > a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #2563eb;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
 }
 
-/* SUB MENU */
+#cssmenu > ul > li:hover > a::before,
+#cssmenu > ul > li.active > a::before {
+    transform: scaleX(1);
+}
+
 #cssmenu ul ul {
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 300px;
-
+    min-width: 290px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-
-    /* không xuống dòng */
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.15), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
     white-space: nowrap;
-
-    /* animation */
     opacity: 0;
     visibility: hidden;
     transform: translateY(8px);
-    transition: all 0.25s ease;
-
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 999;
+    padding: 8px;
 }
 
-/* Hiện submenu */
+/* Thanh gradient trang trí đỉnh menu con */
+#cssmenu ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #38bdf8);
+    border-radius: 3px 3px 0 0;
+}
+
 #cssmenu li:hover > ul {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-/* Item submenu */
 #cssmenu ul ul li {
     position: relative;
-    background: #e5e7eb;
-    border-bottom: 1px solid #d1d5db;
-}
-
-/* bỏ border cuối */
-#cssmenu ul ul li:last-child {
+    background: #ffffff;
+    border-radius: 6px;
+    margin-bottom: 2px;
     border-bottom: none;
 }
 
-/* Link submenu */
+/* Đánh màu so le (Zebra Striping) cho menu con */
+#cssmenu ul ul li:nth-child(even) {
+    background: #f8fafc;
+}
+
+#cssmenu ul ul li:last-child {
+    margin-bottom: 0;
+}
+
 #cssmenu ul ul li a {
-    display: block;
-    padding: 12px 18px;
-    color: #374151;
-    font-size: 13.5px;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: all 0.2s ease;
+    display: block !important;
+    padding: 10px 14px !important;
+    color: #334155 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    border-radius: 6px;
+    transition: all 0.15s ease;
 }
 
-/* Hover submenu */
+#cssmenu ul ul li:hover,
+#cssmenu ul ul li:nth-child(even):hover {
+    background: #eff6ff;
+}
+
 #cssmenu ul ul li a:hover {
-    background: #d1d5db;
-    color: #2563eb;
-    padding-left: 22px;
+    color: #1d4ed8 !important;
+    font-weight: 500 !important;
+    padding-left: 18px !important;
 }
 
-/* Cấp 3 */
 #cssmenu ul ul ul {
-    top: 0;
-    left: 100%;
+    top: -8px;
+    left: calc(100% + 6px);
 }
 
-/* Arrow */
-#cssmenu li:has(ul) > a::after {
-    content: "\032C";
+/* Mũi tên cấp 1 */
+#cssmenu > ul > li:has(ul) > a::after {
+    content: "\25BE"; 
     font-size: 10px;
     margin-left: 6px;
-    color: #9ca3af;
+    color: #94a3b8;
     transition: transform 0.2s ease;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-#cssmenu li:hover > a::after {
+#cssmenu > ul > li:hover > a::after {
+    color: #2563eb;
     transform: rotate(180deg);
 }
+
+/* Mũi tên cấp 2 trở đi */
+#cssmenu ul ul li:has(ul) > a::after {
+    content: "\00a0\00a0\203A"; 
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 1px;
+    color: #94a3b8;
+}
+
+#cssmenu ul ul li:has(ul):hover > a::after {
+    color: #1d4ed8;
+}
+
+/*html, body {
+    overflow-y: hidden !important;
+}*/

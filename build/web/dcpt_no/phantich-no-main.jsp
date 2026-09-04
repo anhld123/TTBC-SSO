@@ -29,7 +29,7 @@
 //                 alert("I'm raised before the loading of the SelectBox ! Data is : myCompleteTopics" );
                 $("#loadingImageDiv").hide();
             });
-            
+
             $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
                 $("#date_sl").css("display", "none");
@@ -52,7 +52,7 @@
                 }
                 return pos_cd;
             }
-           
+
             function onReloadGroup()
             {
                 $('#divExportReport').empty();
@@ -100,8 +100,7 @@
                 {
 //                    alert('Bạn chỉ phê duyệt được dữ liệu khi chọn trạng thái chờ phê duyệt');
                     bsubmit = false;
-                }
-                else
+                } else
                 {
                     bsubmit = true;
                 }
@@ -122,13 +121,12 @@
                     {
                         $("#idSavePtNo")[0].click();
                     }
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn khách hàng cần đối chiếu trước khi lưu dữ liệu!");
                 }
-                
+
             }
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
@@ -181,26 +179,26 @@
                 if ((evt.keyCode == 13) && (node.type == "text")) {
                     return false;
                 }
-            }           
+            }
             document.onkeypress = stopRKey;
-            var loadData=false;
+            var loadData = false;
             function onLoadData()
             {
-                if(!loadData)
+                if (!loadData)
                 {
                     $("#loadsubmitform")[0].click();
-                    loadData=true;
+                    loadData = true;
                     return true;
                 }
                 var r = confirm("Bạn có thật sự muốn tải lại dữ liệu không ? OK : Đồng ý, Cancel : Hủy bỏ");
                 if (r == true) {
-                     $("#loadsubmitform")[0].click();
-                     loadData=true;
+                    $("#loadsubmitform")[0].click();
+                    loadData = true;
                     return true;
-                } 
-                else return false;
+                } else
+                    return false;
             }
-          
+
         </script>
 
         <style>
@@ -298,21 +296,21 @@
     </head>
     <body topmargin="0" leftmargin="5">        
         <div id="container" >
-             
+
             <s:form id="formMainPt"  name="formMainPt" var="test" action="loadDataPtNo.action" theme="simple">
                 <div id="navParam" >
                     <div id="navParam2">                        
-                            <!--</p>-->
-                            <s:url id="reloadData" action="reloadDvut" includeParams="post"></s:url>
+                        <!--</p>-->
+                        <s:url id="reloadData" action="reloadDvut" includeParams="post"></s:url>
                             <div id="date_sl">
-                        <s:label value="Ngày SL:" cssStyle="color: #029c44;" />
-                        <sj:datepicker name="ngay_dcpt" id="ngay_dcpt"
-                                       value="%{new java.util.Date()}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
-                                       placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
-                                       cssStyle="font-weight: bold;vertical-align: middle;"/>  
+                            <s:label value="Ngày SL:" cssStyle="color: #029c44;" />
+                            <sj:datepicker name="ngay_dcpt" id="ngay_dcpt"
+                                           value="%{new java.util.Date()}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
+                                           placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
+                                           cssStyle="font-weight: bold;vertical-align: middle;"/>  
                         </div>
                         <s:label value="Tổ chức hội:" cssStyle="color: #029c44;" />
-                       
+
                         <sj:select href="%{reloadData}" 
                                    onChangeTopics="reloadTotruong"                                                     
                                    onchange="onReloadGroup()"
@@ -325,7 +323,7 @@
                                    headerValue="-- Chọn --" 
                                    cssStyle="font-weight: bold;vertical-align: middle;width: 100px;"
                                    onBeforeTopics="myBeforeHandler_dvut" 
-                                    onCompleteTopics="myCompleteTopics__dvut">                    
+                                   onCompleteTopics="myCompleteTopics__dvut">                    
                         </sj:select>
                         <!--&nbsp;-->
                         <s:label value="Tổ trưởng:" cssStyle="color: #029c44;" />
@@ -342,20 +340,22 @@
                                    onBeforeTopics="myBeforeHandler" 
                                    onCompleteTopics="myCompleteTopics" >                    
                         </sj:select>
-                         <s:label value="Trạng thái:" cssStyle="color: #029c44;" />
-                        <s:select id="trangthai" name="trangthai" list="#{'N':'Chưa phân tích','A':'Đã phân tích'}"
-                                  cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
-                       <s:label value="Nguồn vốn:" cssStyle="color: #029c44;" />
-                            <s:select
-                                id="nguon_von"
-                                name="nguon_von"
-                                list="lstNguonvon" 
-                                listKey="sKey"
-                                listValue="sDesc" 
-                                headerKey=""
-                                headerValue="-- Chọn --"
-                                cssStyle="font-weight: bold;width: 90px; vertical-align: middle;">                    
-                            </s:select>
+                        <s:label value="Trạng thái:" cssStyle="color: #029c44;" />
+                        <select id="trangthai" name="trangthai" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                            <option value="N">Chưa phân tích</option>
+                            <option value="A">Đã phân tích</option>
+                        </select>
+                        <s:label value="Nguồn vốn:" cssStyle="color: #029c44;" />
+                        <s:select
+                            id="nguon_von"
+                            name="nguon_von"
+                            list="lstNguonvon" 
+                            listKey="sKey"
+                            listValue="sDesc" 
+                            headerKey=""
+                            headerValue="-- Chọn --"
+                            cssStyle="font-weight: bold;width: 90px; vertical-align: middle;">                    
+                        </s:select>
                         <s:label value="Chương trình:" cssStyle="color: #029c44;" />
                         <s:select  
                             id="chuongtrinh"
@@ -368,10 +368,10 @@
                             cssStyle="font-weight: bold;width: 200px; vertical-align: middle;">                    
                         </s:select>
 
-                          <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+                        <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1" cssStyle="display: none"/>
-                        
+
                         <input type="button" id="loaddata" name="loaddata" onclick="onLoadData()" value="Tải dữ liệu"/>
                         <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Lưu dữ liệu" targets="divExportReport"
                                    onBeforeTopics="beforediv1"
@@ -383,17 +383,17 @@
                         <!--style="padding:8px;"-->
                         <!--</br>-->
                         <div  id="divSearch1" style="padding:0px;" >
-                                <s:url id="idurlSearch" action="searchCustomerPt.action"></s:url>
-                                <s:label value="Mã khoản vay:" id="namesoku" cssStyle="color: #029c44;"> </s:label>
-                                    <!--<input type="text" id="idsearch_soku" style="margin:0 auto;" value="" name="search_soku" onfocus="this.select()" readonly="true" />-->
-                                <s:textfield id="idsearch_soku" name="soku"  onkeypress="javascript:keyPressEvent();" 
-                                             style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 150px; background: white;"></s:textfield>
-                                <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch}" value="Tìm kiếm" targets="divExportReport"
-                                           onBeforeTopics="beforediv1"
-                                           onCompleteTopics="completediv1" onclick="onFindStatus()"/>
-                                <input type="button" id="idReturn" name="nameReturn" 
-                                       onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
-                            </div>
+                            <s:url id="idurlSearch" action="searchCustomerPt.action"></s:url>
+                            <s:label value="Mã khoản vay:" id="namesoku" cssStyle="color: #029c44;"> </s:label>
+                                <!--<input type="text" id="idsearch_soku" style="margin:0 auto;" value="" name="search_soku" onfocus="this.select()" readonly="true" />-->
+                            <s:textfield id="idsearch_soku" name="soku"  onkeypress="javascript:keyPressEvent();" 
+                                         style="border: 1px solid rgba(81, 203, 238, 1);margin:0 auto;width: 150px; background: white;"></s:textfield>
+                            <sj:submit id="idSearch" name="nameSearch" href="%{idurlSearch}" value="Tìm kiếm" targets="divExportReport"
+                                       onBeforeTopics="beforediv1"
+                                       onCompleteTopics="completediv1" onclick="onFindStatus()"/>
+                            <input type="button" id="idReturn" name="nameReturn" 
+                                   onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
+                        </div>
                     </div>
 
                 </div>

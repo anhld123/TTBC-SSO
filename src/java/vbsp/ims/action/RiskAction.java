@@ -81,7 +81,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
     private String soku_reject;
     private String search_soku;
     private String soku;
-    
+    private String user;
     
     
     //Xử lý check trạng thái dữ liệu theo đợt và năm
@@ -2585,7 +2585,7 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             }
             //lay ra user
             String sUserName = session.get("username").toString();
-
+            setUser(sUserName);
 //            System.err.println("execute sUserName=" + sUserName);
 
             if (sUserName == null || sUserName.isEmpty()) {
@@ -3380,6 +3380,14 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
 
     public void setPageResult(InputStream pageResult) {
         this.pageResult = pageResult;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     

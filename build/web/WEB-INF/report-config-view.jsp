@@ -88,7 +88,7 @@
     }    
 </style>
 <script>
-    $.subscribe('before-next', function(event, data) {
+    $.subscribe('before-next', function (event, data) {
         alert('clicked');
     });
 </script>
@@ -118,25 +118,31 @@
                                 <s:textfield name="reportTerm" />
                             </td>
                             <td>Phân loại báo cáo(*):                                     
-                                <s:select headerKey="-1"
-                                          list="#{'1':'01','2':'02','3':'03'}" 
-                                          name="reportType" 
-                                          value="%{getMappingCode(reportType,2)}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3"> Mô tả(*): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                             
+                                <select name="reportType">
+                                    <option value="-1"></option>
+                                    <option value="1" <s:if test="getMappingCode(reportType,2) == '1'">selected="selected"</s:if>>01</option>
+                                    <option value="2" <s:if test="getMappingCode(reportType,2) == '2'">selected="selected"</s:if>>02</option>
+                                    <option value="3" <s:if test="getMappingCode(reportType,2) == '3'">selected="selected"</s:if>>03</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"> Mô tả(*): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                             
                                 <s:textfield name="reportDescript" size="100"/>
                             </td>                            
                             <td>Cấp báo cáo(*):        
-                                <s:select headerKey="-1"
-                                          list="#{'1':'/01/','2':'/02/','3':'/03/',
-                                                  '4':'/01/02/','5':'/02/03/','6':'/01/02/03/'}" 
-                                          name="reportGrade" 
-                                          value="%{getMappingCode(reportGrade,3)}"/>
-                            </td>
-                            <td>
-                                Tên file sử dụng(*): &nbsp;&nbsp;
+                                <select name="reportGrade">
+                                    <option value="-1"></option>
+                                    <option value="1" <s:if test="getMappingCode(reportGrade,3) == '1'">selected="selected"</s:if>>/01/</option>
+                                    <option value="2" <s:if test="getMappingCode(reportGrade,3) == '2'">selected="selected"</s:if>>/02/</option>
+                                    <option value="3" <s:if test="getMappingCode(reportGrade,3) == '3'">selected="selected"</s:if>>/03/</option>
+                                    <option value="4" <s:if test="getMappingCode(reportGrade,3) == '4'">selected="selected"</s:if>>/01/02/</option>
+                                    <option value="5" <s:if test="getMappingCode(reportGrade,3) == '5'">selected="selected"</s:if>>/02/03/</option>
+                                    <option value="6" <s:if test="getMappingCode(reportGrade,3) == '6'">selected="selected"</s:if>>/01/02/03/</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    Tên file sử dụng(*): &nbsp;&nbsp;
                                 <s:textfield name="generatedName" />
                             </td>
                         </tr>

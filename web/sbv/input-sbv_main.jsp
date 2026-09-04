@@ -116,11 +116,6 @@
                                 onBeforeTopics="BeforeHandler_loaibc" 
                                 onCompleteTopics="myCompleteTopics1"></sj:select>
                             </td>
-<!--                            <td>
-                             <s:select id="idtype_bcqt" name="type_bcqt" 
-                                       list="#{'D':'Ngày','3D':'2 Kỳ/Tháng','3D':'3 Kỳ/Tháng','M':'Tháng','Q':'Quý','6M':'6 Tháng','Y':'Năm'}"
-                                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
-                            </td>-->
                         </tr>
                         <tr>
                             <td>

@@ -66,7 +66,11 @@
     <tr>
         <td>Loại chỉ tiêu</td> 
         <!--,'2':'Chỉ tiêu cha'-->
-        <td><s:select id="loaict" name="loai_ct" list="#{'1':'Chỉ tiêu con'}" value="1" theme="simple"/></td>
+        <td>
+            <select id="loaict" name="loai_ct">
+                <option value="1" selected="selected">Chỉ tiêu con</option>
+            </select>
+        </td>
     </tr>
     <tr>
         <td colspan="2">

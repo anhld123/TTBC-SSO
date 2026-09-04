@@ -207,32 +207,6 @@
                                         onCompleteTopics="myCompleteTopics" cssStyle="font-weight: bold;vertical-align: middle;"></sj:select>                              
                             </td>
                         </tr>
-<!--                        <tr>
-                            <td width="4%">Chọn chi nhánh: </td>
-                            <td width="40%">       
-                            <sj:select  href="%{remoteurl}" 
-                                        id="idmacn"
-                                        reloadTopics="reloadGroupList" 
-                                        name="macn"
-                                        list="lstMacn" 
-                                        listKey="sKey"
-                                        listValue="sDesc"
-                                        value="000100"
-                                        emptyOption="true" 
-                                        headerKey="-1"
-                                        headerValue="---Mã chi nhánh--"
-                                        onBeforeTopics="myBeforeTopics"
-                                        onCompleteTopics="myCompleteTopics" cssStyle="font-weight: bold;vertical-align: middle;"></sj:select>                              
-                            </td>
-                        </tr>-->
-<!--                        <tr>
-                            <td width="4%">Tổng hợp: </td>
-                            <td width="40%">       
-                            <s:select id="idtype_bcqt" name="tonghop" 
-                                      list="#{'N':'Không','Y':'Có'}"
-                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>                            
-                        </td>
-                    </tr>-->
 
                     <tr>
                         <td>

@@ -45,9 +45,11 @@
     <tr>
         <td>-->
 Loại truy vấn
-<s:select id="idtypeFind" name="typeFind" 
-          list="#{'1':'Truy vấn theo mã khách hàng','2':'Truy vấn theo chứng minh thư','3':'Truy vấn theo số điện thoại'}"
-          onchange="renameCustid()"/>
+<select id="idtypeFind" name="typeFind" onchange="renameCustid()">
+    <option value="1">Truy vấn theo mã khách hàng</option>
+    <option value="2">Truy vấn theo chứng minh thư</option>
+    <option value="3">Truy vấn theo số điện thoại</option>
+</select>
 &nbsp;&nbsp;|
 <span id="id_custid">Mã khách hàng</span> &nbsp;
 <input type="text" value="" name="custId" id="idcustId" placeholder="Mã khách hàng" />

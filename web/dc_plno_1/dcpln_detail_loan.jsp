@@ -96,7 +96,7 @@
         <script src="js/jquery.number.js"></script>
         <script src="js/format_num.js"></script>
         <script language="javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
                 //Cac truong bang so --> se co so truong = 0
@@ -104,7 +104,7 @@
                 //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
 
-                $("#idRejecttmp").click(function()
+                $("#idRejecttmp").click(function ()
                 {
                     $('#divBrowseRisk').empty();
                     var params = {};
@@ -127,7 +127,7 @@
                         $("#sNogoc_Clech").css({"background-color": "#ffff99"});
                         return;
                     }
-                    if (parseFloat(bNolai_Clech) > parseFloat(bTonglaiton) && parseFloat(bTonglaiton)>0) {
+                    if (parseFloat(bNolai_Clech) > parseFloat(bTonglaiton) && parseFloat(bTonglaiton) > 0) {
                         alert('Nợ lãi chênh lệch không thể lớn hơn lãi tồn của món vay. Vui lòng kiểm tra lại!');
                         $("#sNolai_Clech").focus();
                         $("#sNolai_Clech").css({"background-color": "#ffff99"});
@@ -139,7 +139,7 @@
                         $("#sNgnhan_Clech").css({"background-color": "#ffff99"});
                         return;
                     }
-                    if ((parseFloat(bNogoc_Clech) + parseFloat(bNolai_Clech) <= 0 && sNgnhan_Clech.length > 0) && sTrangthai!='R') {
+                    if ((parseFloat(bNogoc_Clech) + parseFloat(bNolai_Clech) <= 0 && sNgnhan_Clech.length > 0) && sTrangthai != 'R') {
                         alert('Nguyên nhân chênh lệch không hợp lệ do Không có chênh lệch nợ gốc hoặc nợ lãi. Vui lòng kiểm tra lại!');
                         $("#sNgnhan_Clech").val('');
                         $("#sNgnhan_Clech").focus();
@@ -170,19 +170,18 @@
                         contentType: 'application/json',
                         type: 'POST',
                         async: true,
-                        success: function(data) {
+                        success: function (data) {
                             try {
                                 alert("Bạn đã lưu dữ liệu về thông tin đối chiếu, phân loại nợ thành công!");
-                                window.onunload = function(e) {
+                                window.onunload = function (e) {
                                     opener.reLoadForm('Tham số không cần thiết khi ReLoad lại giao diện chính!');
                                 };
                                 window.close();
-                            }
-                            catch (e) {
+                            } catch (e) {
                                 alert(e.toString());
                             }
                         },
-                        error: function(data) {
+                        error: function (data) {
                             alert('Bạn lưu dữ liệu lỗi xin liên hệ với quản trị để được hỗ trợ ');
                             $('#divBrowseRisk').html("<h2 style='color: red'>Bạn lưu dữ liệu lỗi xin liên hệ với quản trị để được hỗ trợ ! </h2>");
                         }
@@ -208,8 +207,7 @@
                     alert('Bạn nhập không đúng kiểu số xin nhập lại dữ liệu');
                     focus();
                     return false;
-                }
-                else {
+                } else {
                     //Neu la kieu so --> Kiem tra xem kieu nhap co < 9999999999
                     if (parseFloat(value) > 999999999999) {
                         result = false;
@@ -325,8 +323,7 @@
 //                        document.getElementById("dukhong_kntn_" + id.toString()).value = tongduno;
 //                        return;
 //                    }
-                }
-                catch (e) {
+                } catch (e) {
                     alert('Lỗi thực hiện gán giá trị khi Phân loại khả năng trả nợ của Khách hàng: ' + e.toString());
                 }
             }
@@ -434,24 +431,26 @@
                                                    }
                                                    isNumber(this.value); on_valib()" onfocus="this.select()" style="background-color: #FFCCBA"/>
                                 </td>
-                                <td align = "left" class="TD_SOKU">
-                                    <s:select id="trangthai" name="lstSavePln[%{#rowstatus.index}].sTrangthai"
-                                              list="#{'S':'Đã đối chiếu','R':'Không đối chiếu được','N':'Chưa đối chiếu'}"
-                                              cssStyle="width: 190px; vertical-align: middle; background-color: #FFCCBA;" />
-                                </td>
-                            </tr>
-                        </table>
-                        <hr/>
-                        <table class="tableNguyenNhan" align="center">
-                            <tr align="center">
-                                <td colspan="2" align="center">
-                                    <span id="idTitle">Nguyên nhân chênh lệch hoặc nguyên nhân không đối chiếu được</span>
-                                </td>
-                            </tr>
+                                <td align="left" class="TD_SOKU">
+                                    <select id="trangthai" name="lstSavePln[<s:property value="#rowstatus.index"/>].sTrangthai" style="width: 190px; vertical-align: middle; background-color: #FFCCBA;">
+                                        <option value="S" <s:if test="sTrangthai == 'S'">selected="selected"</s:if>>Đã đối chiếu</option>
+                                        <option value="R" <s:if test="sTrangthai == 'R'">selected="selected"</s:if>>Không đối chiếu được</option>
+                                        <option value="N" <s:if test="sTrangthai == 'N'">selected="selected"</s:if>>Chưa đối chiếu</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr/>
+                            <table class="tableNguyenNhan" align="center">
+                                <tr align="center">
+                                    <td colspan="2" align="center">
+                                        <span id="idTitle">Nguyên nhân chênh lệch hoặc nguyên nhân không đối chiếu được</span>
+                                    </td>
+                                </tr>
 
-                            <tr align="center">
-                                <td  colspan="2" align="center" class="TD_NGUYEN_NHAN_KHOANH">
-                                    <textarea id="sNgnhan_Clech" form="frmdataDcNo" value="<s:property value='sNgnhan_Clech'/>"
+                                <tr align="center">
+                                    <td  colspan="2" align="center" class="TD_NGUYEN_NHAN_KHOANH">
+                                        <textarea id="sNgnhan_Clech" form="frmdataDcNo" value="<s:property value='sNgnhan_Clech'/>"
                                               name="lstSavePln[<s:property  value="%{#rowstatus.index}" />].sNgnhan_Clech"
                                               style="width: 99%;background-color: #FFCCBA;" rows="6"><s:property value='sNgnhan_Clech'/></textarea>
                                 </td>

@@ -22,11 +22,11 @@
         /*padding-bottom: 2px;*/
         height: 350px;
         background: #c1e2b3;
-         margin: 5px 5px 10px 10px;
+        margin: 5px 5px 10px 10px;
         /*overflow: scroll;*/
         /*display: block;*/
         /*position: absolute;*/
-        
+
     }
 </style>
 <script>
@@ -38,25 +38,28 @@
 
     <body>
         <div align="center">
-            <s:form id="id_themchitieu" action="saveChitieunhaptay.action" theme="simple">
-                <s:hidden name="khoa" id="id_khoamau"/>
+            <form id="id_themchitieu" action="saveChitieunhaptay.action">
+                <input type="hidden" name="khoa" id="id_khoamau" value="<s:property value="khoa"/>" />
 
                 <h2 style="color: green">Cấu hình mẫu biểu nhập tay</h2>
-                <s:hidden name="loaimau_daluu" id="id_loaimau_daluu" />
-                <s:radio label="Loại mẫu: " name="loai_chitieu" list="#{'CT':'Loại chỉ tiêu','TB':'Loại cột dữ liệu','QR':'Loại truy vấn'}"   
-                         value="macdinh_chitieu" id="id_loaichitieu" onchange="$('#id_message').empty();onchangeRadio()" cssStyle="display: none;"/>
-                <%--<sj:radio name="loai_chitieu" list="#{'CT':'Loại chỉ tiêu','TB':'Loại cột dữ liệu'}" value="macdinh_chitieu" id="id_loaichitieu" onchange="$('#id_message').empty();onchangeRadio()" onBeforeTopics="beforediv" onCompleteTopics="completediv"/>--%>
-                <hr>
+                <input type="hidden" name="loaimau_daluu" id="id_loaimau_daluu" value="<s:property value="loaimau_daluu"/>" />
+                <div id="id_loaichitieu" style="display: none;">
+                    <label>Loại mẫu: </label>
+                    <input type="radio" name="loai_chitieu" value="CT" <s:if test="macdinh_chitieu == 'CT'">checked="checked"</s:if> onchange="$('#id_message').empty();onchangeRadio()" /> Loại chỉ tiêu
+                    <input type="radio" name="loai_chitieu" value="TB" <s:if test="macdinh_chitieu == 'TB'">checked="checked"</s:if> onchange="$('#id_message').empty();onchangeRadio()" /> Loại cột dữ liệu
+                    <input type="radio" name="loai_chitieu" value="QR" <s:if test="macdinh_chitieu == 'QR'">checked="checked"</s:if> onchange="$('#id_message').empty();onchangeRadio()" /> Loại truy vấn
+                </div>
+                <br/>
                 <div id="input_chitieu">
                 </div>
                 <div id="input_bangdl" align="center">
                 </div>
-                <hr>
+                <br/>
                 <!--<div id="id_save">-->
-                    <sj:submit value="Lưu chỉ tiêu" cssClass="metroButtonStyle" onclick="$('#id_message').empty();" targets="id_message" onBeforeTopics="beforediv" onCompleteTopics="completediv"/>
+                <button type="submit" class="metroButtonStyle" onclick="$('#id_message').empty();">Lưu chỉ tiêu</button>
                 <!--</div>-->
-                
-            </s:form>
+
+            </form>
         </div>
         <div id="id_message" style="margin: 10px;">
 

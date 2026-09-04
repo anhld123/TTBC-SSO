@@ -63,11 +63,17 @@
                                     <table>
                                         <tr>
                                             <td width="100"><s:label value="Đơn vị tính: "/></td>
-                                        <td width="200"><s:select name="donvitinh" list="#{'1':'Đồng','1000':'Ngàn đồng','1000000':'Triệu đồng','1000000000':'Tỷ đồng'}"
-                                                  id="id_donvitinh"></s:select> </td>
-                                            <td width="50" align="right">
+                                        <td width="200">
+                                            <select name="donvitinh" id="id_donvitinh">
+                                                <option value="1">Đồng</option>
+                                                <option value="1000">Ngàn đồng</option>
+                                                <option value="1000000">Triệu đồng</option>
+                                                <option value="1000000000">Tỷ đồng</option>
+                                            </select>
+                                        </td>
+                                        <td width="50" align="right">
 
-                                                <input type="checkbox" id="sysnc_id" name="dongbo_dl" <s:if test="%{#dongbo_dl == true}">checked="true"</s:if> </>
+                                            <input type="checkbox" id="sysnc_id" name="dongbo_dl" <s:if test="%{#dongbo_dl == true}">checked="true"</s:if> </>
 
                                             </td>
                                             <td width="200" align="left"><s:label value="Đồng bộ dữ liệu về TW" cssStyle="color:red"/></td>
@@ -98,19 +104,23 @@
                                 <s:label value="Mô tả tham số:"/>&nbsp;&nbsp; 
                                 <s:textfield id="MOTA_ID_0" name="MOTA_THAMSO_0" size="50" placeholder="Nhập tên hiển thị cho tham số" cssClass="motathamsoclass"></s:textfield>
                                 <s:label value="Chọn loại tham số:"/>&nbsp;&nbsp; 
-                                <s:select name="LOAITSO_0" list="#{'D':'D -> Ngày tháng năm','L':'L -> Danh mục','N':'N -> Kiểu số','T':'T -> Kiểu text'}"
-                                          id="LOAITSO_ID_0" onchange="addRowPara('LOAITSO_ID_0',0,this.parentNode.parentNode.rowIndex,'HIDDEN_ID_0')"></s:select>   
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr  style="background: peachpuff">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td align="center"> <input type="button" value="Thêm tham số" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="metroButtonStyle"/></td>
-                            </tr>
-                        </table>
+                                <select name="LOAITSO_0" id="LOAITSO_ID_0" onchange="addRowPara('LOAITSO_ID_0', 0, this.parentNode.parentNode.rowIndex, 'HIDDEN_ID_0')">
+                                    <option value="D">D -&gt; Ngày tháng năm</option>
+                                    <option value="L">L -&gt; Danh mục</option>
+                                    <option value="N">N -&gt; Kiểu số</option>
+                                    <option value="T">T -&gt; Kiểu text</option>
+                                </select>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr  style="background: peachpuff">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td align="center"> <input type="button" value="Thêm tham số" onclick="addRow(this.parentNode.parentNode.rowIndex)" class="metroButtonStyle"/></td>
+                        </tr>
+                    </table>
                 </s:if>
                 <s:else>
                     <h2 style="color: indigo">Sửa mẫu báo cáo nhập tay</h2>
@@ -153,35 +163,39 @@
                             <tr>
 <!--                                <td ><s:label value="Đơn vị tính: "/></td>
                             <td>
-                                <%--<s:property  value="donvitinh" />--%>
-                                <select name="donvitinh" id="id_donvitinh">
-                                    <option value="1" <s:if test="donvitinh.equalsIgnoreCase('1')"> selected </s:if> >Đồng</option>
-                                    <option value="1000" <s:if test="donvitinh.equalsIgnoreCase('1000')"> selected </s:if>>Ngàn đồng</option>
-                                    <option value="1000000" <s:if test="donvitinh.equalsIgnoreCase('1000000')"> selected </s:if>>Triệu đồng</option>
-                                    <option value="1000000000" <s:if test="donvitinh.equalsIgnoreCase('1000000000')"> selected </s:if>>Tỷ đồng</option>
-                                    </select>
-                                </td>-->
-                                
-                                 <td colspan="2">
+                            <%--<s:property  value="donvitinh" />--%>
+                            <select name="donvitinh" id="id_donvitinh">
+                                <option value="1" <s:if test="donvitinh.equalsIgnoreCase('1')"> selected </s:if> >Đồng</option>
+                                <option value="1000" <s:if test="donvitinh.equalsIgnoreCase('1000')"> selected </s:if>>Ngàn đồng</option>
+                                <option value="1000000" <s:if test="donvitinh.equalsIgnoreCase('1000000')"> selected </s:if>>Triệu đồng</option>
+                                <option value="1000000000" <s:if test="donvitinh.equalsIgnoreCase('1000000000')"> selected </s:if>>Tỷ đồng</option>
+                                </select>
+                            </td>-->
+
+                                <td colspan="2">
                                     <table>
                                         <tr>
                                             <td width="100"><s:label value="Đơn vị tính: "/></td>
                                         <td width="200">
-                                            <s:select name="donvitinh" list="#{'1':'Đồng','1000':'Ngàn đồng','1000000':'Triệu đồng','1000000000':'Tỷ đồng'}"
-                                                  id="id_donvitinh"></s:select> 
+                                            <select name="donvitinh" id="id_donvitinh">
+                                                <option value="1">Đồng</option>
+                                                <option value="1000">Ngàn đồng</option>
+                                                <option value="1000000">Triệu đồng</option>
+                                                <option value="1000000000">Tỷ đồng</option>
+                                            </select>
                                         </td>
-                                            <td width="50" align="right">
+                                        <td width="50" align="right">
 
-                                                <input type="checkbox" id="sysnc_id" name="dongbo_dl" <s:if test="dongbo_dl">checked</s:if>/>
+                                            <input type="checkbox" id="sysnc_id" name="dongbo_dl" <s:if test="dongbo_dl">checked</s:if>/>
 
                                             </td>
                                             <td width="200" align="left"><s:label value="Đồng bộ dữ liệu về TW" cssStyle="color:red"/></td>
                                     </tr>
                                 </table>
                             </td>
-                            </tr>
-                            <tr style="margin: 20px; height: 45px;">
-                                <td><s:label value="Cấp nhập liệu: "/></td>
+                        </tr>
+                        <tr style="margin: 20px; height: 45px;">
+                            <td><s:label value="Cấp nhập liệu: "/></td>
                             <td>
                                 <s:checkboxlist list="lstGrade" value="defaultGrade" listKey="sKey" listValue="sDesc"
                                                 name="rptGrade"></s:checkboxlist>
@@ -246,7 +260,7 @@
 
                 <!--</div>-->     
                 <INPUT TYPE="button" VALUE="Lưu báo cáo"  onClick="isCheckInput();" class="metroButtonStyle" >
- 
+
             </s:form>   
             <div id="ContentDatain">
                 <div id="divExportReportQuery"></div>

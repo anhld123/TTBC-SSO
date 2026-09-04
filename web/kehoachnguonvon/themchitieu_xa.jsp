@@ -44,38 +44,37 @@
             $(".status").html("Bạn phải điền mã chỉ tiêu để kiểm tra");
         }
     }
-    
+
     function onChangeChitieu()
     {
         try
         {
-            var loai_nv=$("#idloai_nv").val();
-            var ma_chitieu_cha=$("#idchitieucha").val();
+            var loai_nv = $("#idloai_nv").val();
+            var ma_chitieu_cha = $("#idchitieucha").val();
 //            alert(loai_nv+' '+ma_chitieu_cha);
-            
-            $.getJSON('load_Chitieu_chacon', {
-                        loai_nv: loai_nv,
-                        ma_chitieu_cha: ma_chitieu_cha
-                    }, function (jsonResponse) {
-                        //reload lai du lieu cho select option
-                        var idchitieutruoc = $('#idchitieutruoc');
-                        idchitieutruoc.find('option').remove();
-                        $('<option>').val('1').text('-- Chỉ tiêu --').appendTo(idchitieutruoc);
-                        $('<option>').val('').text('').appendTo(idchitieutruoc);
-                        $.each(jsonResponse.chitieuconmap, function (key, value) {
-                            $('<option>').val(key).text(value).appendTo(idchitieutruoc);
-//                            alert(value);
-                        });
 
-                       
-                        if (jsonResponse.message != null)
-                        {
+            $.getJSON('load_Chitieu_chacon', {
+                loai_nv: loai_nv,
+                ma_chitieu_cha: ma_chitieu_cha
+            }, function (jsonResponse) {
+                //reload lai du lieu cho select option
+                var idchitieutruoc = $('#idchitieutruoc');
+                idchitieutruoc.find('option').remove();
+                $('<option>').val('1').text('-- Chỉ tiêu --').appendTo(idchitieutruoc);
+                $('<option>').val('').text('').appendTo(idchitieutruoc);
+                $.each(jsonResponse.chitieuconmap, function (key, value) {
+                    $('<option>').val(key).text(value).appendTo(idchitieutruoc);
+//                            alert(value);
+                });
+
+
+                if (jsonResponse.message != null)
+                {
 //                            alert(jsonResponse.message);
-                            $('#message_suc_err').text(jsonResponse.message);
-                        }
-                    });
-        }
-        catch(e)
+                    $('#message_suc_err').text(jsonResponse.message);
+                }
+            });
+        } catch (e)
         {
             alert(e.toString());
         }
@@ -92,83 +91,87 @@
         </td>
         <td style="width: 220px">
             <s:select theme="simple"
-                       id="idchitieucha"
-                       name="ma_chitieu_cha"
-                       list="lstDmChitieu" 
-                       listKey="sKey"
-                       listValue="sDesc"
-                       emptyOption="true" 
-                       headerKey="-1"
-                       headerValue="-- Chọn chỉ tiêu gốc --"
-                       cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"
-                       onchange="onChangeChitieu()"></s:select>
-        </td>
+                      id="idchitieucha"
+                      name="ma_chitieu_cha"
+                      list="lstDmChitieu" 
+                      listKey="sKey"
+                      listValue="sDesc"
+                      emptyOption="true" 
+                      headerKey="-1"
+                      headerValue="-- Chọn chỉ tiêu gốc --"
+                      cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"
+                      onchange="onChangeChitieu()"></s:select>
+            </td>
         </tr>
         <tr>
             <td>Thêm trước chỉ tiêu</td>
             <td>                
-                     <s:select theme="simple"
-                       id="idchitieutruoc"
-                       name="ma_ct_truoc"
-                       list="lstDmChitieu_truoc" 
-                       listKey="sKey"
-                       listValue="sDesc"
-                       emptyOption="true" 
-                       headerKey="-1"
-                       headerValue="-- Chỉ tiêu --"
-                       cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"></s:select>
+            <s:select theme="simple"
+                      id="idchitieutruoc"
+                      name="ma_ct_truoc"
+                      list="lstDmChitieu_truoc" 
+                      listKey="sKey"
+                      listValue="sDesc"
+                      emptyOption="true" 
+                      headerKey="-1"
+                      headerValue="-- Chỉ tiêu --"
+                      cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"></s:select>
             </td>
         </tr>
-         <tr>
+        <tr>
             <td>Quyết định</td>
             <td>                
-                     <s:select theme="simple"
-                       id="idMaquyetdinh"
-                       name="ma_quyetdinh"
-                       list="lstQuyetdinh" 
-                       listKey="sKey"
-                       listValue="sDesc"
-                       emptyOption="true" 
-                       headerKey=""
-                       headerValue="-- Quyết định --"
-                       cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"></s:select>
+            <s:select theme="simple"
+                      id="idMaquyetdinh"
+                      name="ma_quyetdinh"
+                      list="lstQuyetdinh" 
+                      listKey="sKey"
+                      listValue="sDesc"
+                      emptyOption="true" 
+                      headerKey=""
+                      headerValue="-- Quyết định --"
+                      cssStyle="font-weight: bold;width: 300px; vertical-align: middle;"></s:select>
             </td>
         </tr>
         <tr>
             <td>Mã chỉ tiêu</td>
             <td><s:textfield id="idma_chitieu" name="ma_chitieu" theme="simple" onchange="checkmachitieu()"/>
-                <img id="loadingImage_check" src="img/loading.gif" style="display:none"/><span style="color: red;font: bold" class="status"></span></td>
-        </tr>
-        <tr>
-            <td>Ký tự hiển thị</td>
-            <td><s:textfield id="idtt_ht" name="kytu_hienthi" theme="simple"/></td>
-        </tr>
-        <tr>
-            <td>Tên chỉ tiêu</td>
-            <td><s:textfield id="idtenct" name="ten_chitieu" theme="simple" size="100"/></td>
-        </tr>
-        <tr>
-            <td>Loại chỉ tiêu</td> 
-            <!--,'2':'Chỉ tiêu cha'-->
-            <td><s:select id="loaict" name="loai_ct" list="#{'1':'Chỉ tiêu con'}" value="1" theme="simple"/></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr>
-            </td>
-        </tr>
-        <tr>   
-            <td colspan="2" align="center">
-                <s:url id="saveChitieuAdd" action="saveChitieuAdd.action"/>
-                <sj:submit id="idsaveAdd" formIds="idchitieuxa" value="Lưu chỉ tiêu"
-                           targets="message_suc_err" indicator="loadingImage_next" href="%{saveChitieuAdd}" onBeforeTopics="before-next" 
-                           onCompleteTopics="after-next"/>
-            </td>
+            <img id="loadingImage_check" src="img/loading.gif" style="display:none"/><span style="color: red;font: bold" class="status"></span></td>
+    </tr>
+    <tr>
+        <td>Ký tự hiển thị</td>
+        <td><s:textfield id="idtt_ht" name="kytu_hienthi" theme="simple"/></td>
+    </tr>
+    <tr>
+        <td>Tên chỉ tiêu</td>
+        <td><s:textfield id="idtenct" name="ten_chitieu" theme="simple" size="100"/></td>
+    </tr>
+    <tr>
+        <td>Loại chỉ tiêu</td> 
+        <!--,'2':'Chỉ tiêu cha'-->
+        <td>
+            <select id="loaict" name="loai_ct">
+                <option value="1" selected="selected">Chỉ tiêu con</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <hr>
+        </td>
+    </tr>
+    <tr>   
+        <td colspan="2" align="center">
+            <s:url id="saveChitieuAdd" action="saveChitieuAdd.action"/>
+            <sj:submit id="idsaveAdd" formIds="idchitieuxa" value="Lưu chỉ tiêu"
+                       targets="message_suc_err" indicator="loadingImage_next" href="%{saveChitieuAdd}" onBeforeTopics="before-next" 
+                       onCompleteTopics="after-next"/>
+        </td>
 
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div id="message_suc_err"></div>
-            </td>
-        </tr>
-    </table>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="message_suc_err"></div>
+        </td>
+    </tr>
+</table>

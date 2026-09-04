@@ -133,8 +133,7 @@
                         $("#dmxa").show();
 //                        $("#pos_cd").attr('disabled', true);
 //                        alert('if '+val);
-                    }
-                    else
+                    } else
                     {
                         //alert('else '+val);
                         $("#dmxa").hide();
@@ -183,7 +182,8 @@
                                         </td>
                                         <td>
                                             <b>Xây dựng kế hoạch theo:</b>
-                                            <s:radio id="xa_pgd" name="xa_pgd" list="#{'1':'Xã','2':'Phòng giao dịch'}" value="1" onclick="disable()"/>
+                                            <input type="radio" id="xa_pgd_1" name="xa_pgd" value="1" checked="checked" onclick="disable()" /> Xã
+                                            <input type="radio" id="xa_pgd_2" name="xa_pgd" value="2" onclick="disable()" /> Phòng giao dịch
                                         </td>
                                     </s:if>
                                     <s:else>

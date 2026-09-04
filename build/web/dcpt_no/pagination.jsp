@@ -1,15 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="vbsp.ims.model.Pagination"%>
 <%
-                                        Pagination pagination = (Pagination) request.getAttribute("pagination");
-                                        boolean previous = false;
-                                        if(pagination.getPage_number() > 1){
-                                                previous = true;
-                                        }
-                                        boolean next = true;
-                                        if(pagination.getTotal_pages() == pagination.getPage_number()){
-                                                next = false;
-                                        }                                        
+    Pagination pagination = (Pagination) request.getAttribute("pagination");
+    boolean previous = false;
+    if (pagination.getPage_number() > 1) {
+        previous = true;
+    }
+    boolean next = true;
+    if (pagination.getTotal_pages() == pagination.getPage_number()) {
+        next = false;
+    }
 %>
 <input type="text" style="display: none;" name="pagination.sortColumn" id="sortColumn" value="<%=pagination.getSortColumn()%>"/>
 
@@ -24,64 +24,73 @@
         </td>
         <td>&nbsp</td>
         <td class="pagination-label" width="100%" nowrap="nowrap">
-            <%=pagination.getPage_records() %> Rows dữ liệu
+            <%=pagination.getPage_records()%> Rows dữ liệu
         </td>
         <td>
-            <%if(previous){%>
+            <%if (previous) {%>
             <a href="#" onclick="fnPagination(4,<%=pagination.getTotal_pages()%>);hoanthanh();">
                 <img src="imgs/left_end.gif" alt="Go to first page" width="15" height="19"/>
             </a>
-            <%}else{ %>
+            <%} else { %>
             <img src="imgs/left_end_gray.gif" alt="Go to first page" width="15" height="19"/>
             <%} %>
         </td>
         <td>
-            <%if(previous){%>
+            <%if (previous) {%>
             <a href="#" onclick="fnPagination(3,<%=pagination.getTotal_pages()%>);hoanthanh();">
                 <img src="imgs/left.gif" alt="Go to first page" width="15" height="19"/>
             </a>
-            <%}else{ %>
+            <%} else { %>
             <img src="imgs/left_gray.gif" alt="Go to first page" width="15" height="19"/>
             <%} %>
         </td>
         <td class="pagination-label" nowrap="nowrap">Trang:</td>
         <td>
             <input name="pagination.page_number" id="page_number" class="pagination-textbox" 
-                   <%if(!previous && !next) {%>readonly="readonly"<%}%>
+                   <%if (!previous && !next) {%>readonly="readonly"<%}%>
                    style="width: 30px;" maxlen="4" value="<%=pagination.getPage_number()%>" 
                    type="text" onblur="fnPagination(7,<%=pagination.getTotal_pages()%>);hoanthanh()"/></td>
-        
-        <!--onclick="fnPagination(7,<%=pagination.getTotal_pages()%>);hoanthanh();" onblur=" //hoanthanh()"-->
 
-<!--        targets="divExportReport"
-                                   onBeforeTopics="beforediv1"
-                                   onCompleteTopics="completediv1"-->
+<!--onclick="fnPagination(7,<%=pagination.getTotal_pages()%>);hoanthanh();" onblur=" //hoanthanh()"-->
+
+        <!--        targets="divExportReport"
+                                           onBeforeTopics="beforediv1"
+                                           onCompleteTopics="completediv1"-->
         <td class="pagination-label" nowrap="nowrap">Của <%=pagination.getTotal_pages()%> trang</td>
 
         <td>
-            <% if(next){ %>
+            <% if (next) {%>
             <a href="#" onclick="fnPagination(1,<%=pagination.getTotal_pages()%>);hoanthanh();">
                 <img src="imgs/right.gif" alt="Go to next page" border="0" width="15" height="19"/>
             </a>
-            <%}else{ %>
+            <%} else { %>
             <img src="imgs/right_gray.gif" alt="Go to next page" border="0" width="15" height="19"/>
             <%} %>
         </td>
-        <td><% if(next){ %>
+        <td><% if (next) {%>
             <a href="#" onclick="fnPagination(2,<%=pagination.getTotal_pages()%>);hoanthanh();">
                 <img src="imgs/right_end.gif" alt="Go to next page" border="0" width="15" height="19"/>
             </a>
-            <%}else{ %>
+            <%} else { %>
             <img src="imgs/right_end_gray.gif" alt="Go to next page" border="0" width="15" height="19"/>
-            <%} %>
+            <%}%>
         </td>
         <td>&nbsp;</td>
         <td class="pagination-label" nowrap="nowrap">Hiển thị:</td>
         <td class="pagination-linkoff" style="" nowrap="nowrap">
-    <s:select onchange="fnPagination(5, 0);hoanthanh();" list="#{'10':'10','20':'20','30':'30','40':'40','50':'50','60':'60','70':'70','80':'80','90':'90','100':'100'}" 
-              theme="simple" name="pagination.page_size" 
-              id="page_size" value="#request.pagination.page_size" /> Rows
-</td>
-<td class="pagination-label" width="100%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-</tr>
+            <select onchange="fnPagination(5, 0);hoanthanh();" name="pagination.page_size" id="page_size">
+                <option value="10" <s:if test="#request.pagination.page_size == 10">selected="selected"</s:if>>10</option>
+                <option value="20" <s:if test="#request.pagination.page_size == 20">selected="selected"</s:if>>20</option>
+                <option value="30" <s:if test="#request.pagination.page_size == 30">selected="selected"</s:if>>30</option>
+                <option value="40" <s:if test="#request.pagination.page_size == 40">selected="selected"</s:if>>40</option>
+                <option value="50" <s:if test="#request.pagination.page_size == 50">selected="selected"</s:if>>50</option>
+                <option value="60" <s:if test="#request.pagination.page_size == 60">selected="selected"</s:if>>60</option>
+                <option value="70" <s:if test="#request.pagination.page_size == 70">selected="selected"</s:if>>70</option>
+                <option value="80" <s:if test="#request.pagination.page_size == 80">selected="selected"</s:if>>80</option>
+                <option value="90" <s:if test="#request.pagination.page_size == 90">selected="selected"</s:if>>90</option>
+                <option value="100" <s:if test="#request.pagination.page_size == 100">selected="selected"</s:if>>100</option>
+            </select> Rows
+        </td>
+        <td class="pagination-label" width="100%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
 </table>

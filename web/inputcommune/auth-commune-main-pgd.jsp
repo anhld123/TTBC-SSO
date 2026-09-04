@@ -147,7 +147,7 @@
             #navParam{
                 height: 30px;
                 border: 1px solid;  
-                border-radius: 10px; //bo tron goc
+                border-radius: 10px; 
                 -moz-border-radius: 10px;
                 margin:5px;
                 padding:5px;

@@ -138,13 +138,13 @@
                 $("#navParam2").empty();
                 $("#navParam2").text('');
             }
-                $.subscribe('onClickDel', function () {
-        var r = confirm("Bạn có thật sự muốn xóa chỉ tiêu này không ? OK : Đồng ý, Cancel : Hủy bỏ");
-        if (r == true) {
-            return true;
-        } else
-            return false;
-    });
+            $.subscribe('onClickDel', function () {
+                var r = confirm("Bạn có thật sự muốn xóa chỉ tiêu này không ? OK : Đồng ý, Cancel : Hủy bỏ");
+                if (r == true) {
+                    return true;
+                } else
+                    return false;
+            });
         </script>
     </head>
     <body>
@@ -154,7 +154,7 @@
         <hr>
         <div id="container" >
             <s:form id="idchitieuxa" action="chitieuxa" theme="simple">
-                
+
                 <div id="containParm" >
                     <div id="chitieu"  align="center">
                         <table border="0">
@@ -163,13 +163,10 @@
                                     Loại chỉ tiêu:
                                 </td>
                                 <td style="width: 160px">
-                                    <s:select  
-                                        id="idloai_nv"
-                                        name="loai_nv"
-                                        list="#{'XDKH_XA':'Xây dựng kế hoạch','GIAO_DC_PGD':'Giao, điều chỉnh kế hoạch'}" 
-                                        value="GIAO_DC_PGD"
-                                        cssStyle="font-weight: bold;width: 150px; vertical-align: middle;">                    
-                                    </s:select>
+                                    <select id="idloai_nv" name="loai_nv" style="font-weight: bold; width: 150px; vertical-align: middle;">
+                                        <option value="XDKH_XA">Xây dựng kế hoạch</option>
+                                        <option value="GIAO_DC_PGD" selected="selected">Giao, điều chỉnh kế hoạch</option>
+                                    </select>
                                 </td>
                                 <s:url id="addChitieu" action="addChitieuxa" />
                                 <td style="width: 100px">

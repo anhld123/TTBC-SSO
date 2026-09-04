@@ -212,8 +212,7 @@
                 {
                     alert(khoa);
                     $("#" + khoa)[0].click();
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn phòng giao dịch cần mở khóa !");
@@ -238,46 +237,45 @@
                 if ($('#' + idform + ' input:checkbox:checked').length > 0)
                 {
                     $("#" + khoa)[0].click();
-                }
-                else
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn phòng giao dịch cần mở khóa !");
 //                    $('#divExportReport').html("<h2 style='color: red'>Bạn phải chọn phòng giao dịch cần mở khóa !</h2>");
                 }
             }
-            
+
             function getDaysOfMonth(month, year) {
-            switch (month) {
-                case 1:
-                    return 31;
-                case 2:
-                    if (year % 4 === 0)
-                        return 29;
-                    else
-                        return 28;
-                case 3:
-                    return 31;
-                case 4:
-                    return 30;
-                case 5:
-                    return 31;
-                case 6:
-                    return 30;
-                case 7:
-                    return 31;
-                case 8:
-                    return 31;
-                case 9:
-                    return 30;
-                case 10:
-                    return 31;
-                case 11:
-                    return 30;
-                case 12:
-                    return 31;
+                switch (month) {
+                    case 1:
+                        return 31;
+                    case 2:
+                        if (year % 4 === 0)
+                            return 29;
+                        else
+                            return 28;
+                    case 3:
+                        return 31;
+                    case 4:
+                        return 30;
+                    case 5:
+                        return 31;
+                    case 6:
+                        return 30;
+                    case 7:
+                        return 31;
+                    case 8:
+                        return 31;
+                    case 9:
+                        return 30;
+                    case 10:
+                        return 31;
+                    case 11:
+                        return 30;
+                    case 12:
+                        return 31;
+                }
             }
-        }
         </script>
     </head>
 
@@ -338,12 +336,14 @@
                                     <%--</s:else>--%>
                                 </td>
                                 <td>
-                                    <s:label id="lb_idtt_khoa" value="Chọn:" cssStyle="color: #029c44;" />
-                                    <s:select id="idtt_khoa" name="tt_khoa" list="#{'OK':'Đã gửi dữ liệu','SEND':'Đã xác nhận số liệu'}"
-                                              cssStyle="font-weight: bold;width: 150px; vertical-align: middle;"/>
-                                </td>
-                                <td>
-                                    &nbsp;&nbsp;&nbsp;
+                                    <label id="lb_idtt_khoa" style="color: #029c44;">Chọn:</label>
+                                    <select id="idtt_khoa" name="tt_khoa" style="font-weight: bold; width: 150px; vertical-align: middle;">
+                                        <option value="OK" <s:if test="tt_khoa == 'OK'">selected="selected"</s:if>>Đã gửi dữ liệu</option>
+                                        <option value="SEND" <s:if test="tt_khoa == 'SEND'">selected="selected"</s:if>>Đã xác nhận số liệu</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        &nbsp;&nbsp;&nbsp;
                                     <sj:submit id="loadOpenData" name="loadOpenData" value="Tải dữ liệu" targets="divExportReport"
                                                onBeforeTopics="beforediv_data"
                                                onCompleteTopics="completediv_data" cssStyle="display:none"/>
@@ -382,33 +382,33 @@
                 <div id="divExportReport"></div>
             </div>
         </div>
-        
+
         <script>
             //CuongBM: 31Jul14
             //Desc: Xu truong hop dat gia tri mac dich cho combox Quy (Quater), la quy hien tai
             //      Cac bao cao Quy phai co id la PARA_QUY           
             // TrungNT88 sua
-           
-            var date = new Date(); 
-            
-                                   
+
+            var date = new Date();
+
+
             var month = date.getMonth();
             var year = date.getFullYear(); //nam
-            if (month===0)
+            if (month === 0)
             {
                 month = 12;
-                year = year -1;
+                year = year - 1;
             }
-            var day = getDaysOfMonth(month,year)
-            
+            var day = getDaysOfMonth(month, year)
+
             var daynow = day + "/" + month + "/" + year;
-            
+
             document.getElementById("ngay_bc_DATE").value = daynow;
             //Gan quy mac dinh
 //            $("#ngay_bc_DATE").val(day + "/" + month + "/" + year);
-            
-            
-            
+
+
+
         </script>
     </body>
 </html>

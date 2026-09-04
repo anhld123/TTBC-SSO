@@ -31,11 +31,11 @@
             function onclear()
             {
                 $("#divMessage").empty();
-                
+
 //                $("#idButtondonvi").click();
             }
 
-            
+
 
             function onReturn()
             {
@@ -49,28 +49,26 @@
 //                alert('Vao khoa toan bo chi nhanh');
                 if ($("#formviewHistory input:checkbox:checked").length > 0)
                 {
-                  
 
-                        $("#idBockAll")[0].click();
-                }
-                else
+
+                    $("#idBockAll")[0].click();
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn chi nhánh cần khóa!");
                 }
             }
-            
-             function onclickOpenAll()
+
+            function onclickOpenAll()
             {
                 $("#divMessage").empty();
 //                alert('Vao khoa toan bo chi nhanh');
                 if ($("#formviewHistory input:checkbox:checked").length > 0)
                 {
-                  
 
-                        $("#idOpenAll")[0].click();
-                }
-                else
+
+                    $("#idOpenAll")[0].click();
+                } else
                 {
                     // none is checked
                     alert("Bạn phải chọn chi nhánh cần mở!");
@@ -118,9 +116,9 @@
                 overflow: scroll;
                 /*border: 1px solid;*/
                 /*text-align:center*/
-/*                margin-left: auto;
-                margin-right: auto;
-                width: 6em*/
+                /*                margin-left: auto;
+                                margin-right: auto;
+                                width: 6em*/
             }
 
             .ui-datepicker{
@@ -133,7 +131,7 @@
             }
 
             #navParam{
-/*                width: 90%;*/
+                /*                width: 90%;*/
                 height: 26px;
                 padding:8px;
 
@@ -167,11 +165,11 @@
                 /*border: 1px solid;*/     
                 /*width: 40%;*/
                 /*float: right;*/
-/*                padding:3px; 
-                border: 1px solid;
-                position: fixed;*/
+                /*                padding:3px; 
+                                border: 1px solid;
+                                position: fixed;*/
                 /*background: brown;*/
-                 /*height: 28px;*/
+                /*height: 28px;*/
                 /*border: 1px solid;*/     
                 width: 40%;
                 float: right;
@@ -221,7 +219,7 @@
                                   headerKey="-1"
                                   headerValue="-- Chọn --" cssStyle="color: red;vertical-align: middle;">                    
                         </s:select>
-                        
+
                         <s:label value="Năm XL:" cssStyle="color: #029c44;" />
                         <s:select id="nam_xlrr" 
                                   name="nam_xlrr"
@@ -254,15 +252,18 @@
                         <sj:submit id="idSubmit" name="loadsubmitform" value="Xem dữ liệu" targets="divExportReport" onclick="onclear()"
                                    onBeforeTopics="beforediv1"
                                    onCompleteTopics="completediv1" />
-                        
-                        <input type="button" id="idButton" name="idButton" onclick="onclickBlockAll()" value="Khóa chi nhánh"/>
-                         <input type="button" id="idOpenButton" name="idOpenButton" onclick="onclickOpenAll()" value="Mở chi nhánh"/>
+                        <s:if test="user.equalsIgnoreCase('VANHTT_QLN') 
+                              || user.equalsIgnoreCase('TUANNA_QLN') 
+                              || user.equalsIgnoreCase('DUNGNX_QLN')">
+                            <input type="button" id="idButton" name="idButton" onclick="onclickBlockAll()" value="Khóa chi nhánh"/>
+                            <input type="button" id="idOpenButton" name="idOpenButton" onclick="onclickOpenAll()" value="Mở chi nhánh"/>
+                        </s:if>
                         <div id="divbutton">
-                              <input type="button" id="idReturn" name="nameReturn" 
-                               onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
+                            <input type="button" id="idReturn" name="nameReturn" 
+                                   onclick="onReturn()" value="Quay ra" style="float: right; height:28px;width:95px;"/>
                         </div>
                         <div id="divMessage" >
-                          
+
                         </div>
                     </div>
 

@@ -469,9 +469,11 @@
                                             <input type="button" id="idSendLocktmp" name="nameidSendLocktmp"  onclick="onSentLockData()" value="Xác nhận số liệu"/>
 
                                             <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
-                                                <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
-                                                <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
-                                                          cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                                                <label style="color: #029c44;">Chọn loại để gửi:</label>
+                                                <select id="idtype_bcqt" name="type_bcqt" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                                                    <option value="NT" <s:if test="type_bcqt == 'NT'">selected="selected"</s:if>>Nhập tay</option>
+                                                    <option value="TM" <s:if test="type_bcqt == 'TM'">selected="selected"</s:if>>Thuyết minh</option>
+                                                    </select>
                                             </s:if>
                                             <s:else>
                                                 <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>
@@ -481,9 +483,11 @@
                                         <s:else>
                                             <s:if test="!khoa_bcqt.equalsIgnoreCase('BCQT_HOAHONG') && !khoa_bcqt.equalsIgnoreCase('BCQT_LAITONAM')">
                                                 <s:if test="isDisplayTM.equalsIgnoreCase('Y')">
-                                                    <s:label value="Chọn loại để gửi:" cssStyle="color: #029c44;" />
-                                                    <s:select id="idtype_bcqt" name="type_bcqt" list="#{'NT':'Nhập tay','TM':'Thuyết minh'}"
-                                                              cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
+                                                    <label style="color: #029c44;">Chọn loại để gửi:</label>
+                                                    <select id="idtype_bcqt" name="type_bcqt" style="font-weight: bold; width: 100px; vertical-align: middle;">
+                                                        <option value="NT" <s:if test="type_bcqt == 'NT'">selected="selected"</s:if>>Nhập tay</option>
+                                                        <option value="TM" <s:if test="type_bcqt == 'TM'">selected="selected"</s:if>>Thuyết minh</option>
+                                                        </select>
                                                 </s:if>
                                                 <s:else>
                                                     <input type="hidden" id="idtype_bcqt" name="type_bcqt" value="NT"/>

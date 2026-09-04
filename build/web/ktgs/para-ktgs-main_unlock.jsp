@@ -305,10 +305,12 @@
                                     <%--</s:else>--%>
                                 </td>
                                 <td>
-                                    <s:label id="lb_idtt_khoa" value="Chọn:" cssStyle="color: #029c44;" />
-                                    <s:select id="idtt_khoa" name="tt_khoa" list="#{'OK':'Đã gửi dữ liệu','SEND':'Đã xác nhận số liệu'}"
-                                              cssStyle="font-weight: bold;width: 150px; vertical-align: middle;"/>
-                                </td>
+    <s:label id="lb_idtt_khoa" value="Chọn:" cssStyle="color: #029c44;" />
+    <select id="idtt_khoa" name="tt_khoa" style="font-weight: bold; width: 150px; vertical-align: middle;">
+        <option value="OK">Đã gửi dữ liệu</option>
+        <option value="SEND">Đã xác nhận số liệu</option>
+    </select>
+</td>
                                 <td>
                                     &nbsp;&nbsp;&nbsp;
                                     <sj:submit id="loadOpenData" name="loadOpenData" value="Tải dữ liệu" targets="divExportReport"

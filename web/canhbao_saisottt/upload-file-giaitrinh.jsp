@@ -103,15 +103,6 @@
                         <font size="1"> </font></b></p>                                      
                 <table border="1" cellspacing="0" style="border-collapse: collapse" 
                        bordercolor="#CCCCCC" width="80%" cellpadding="10" bgcolor="honeydew">        
-<!--                    <tr>
-                        <td>
-                            <p class="normal_font">Lần giải ngân:</p>
-                        </td>
-                        <td>
-                             <s:select id="langiangan" name="langiangan" list="#{'1':'Lần 1','2':'Lần 2', '3':'Lần 3'}"
-                                                      cssStyle="font-weight: bold;width: 100px; vertical-align: middle;"/>
-                        </td>
-                    </tr>-->
                     <tr>
                         <td>
                             <p class="normal_font">File báo cáo:</p>

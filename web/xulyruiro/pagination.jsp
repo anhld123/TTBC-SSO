@@ -80,12 +80,21 @@
         <td>&nbsp;</td>
         <td class="pagination-label" nowrap="nowrap">Hiển thị:</td>
         <td class="pagination-linkoff" style="" nowrap="nowrap">
-    <s:select onchange="fnPagination(5, 0);hoanthanh();" list="#{'10':'10','20':'20','30':'30','40':'40','50':'50','60':'60','70':'70','80':'80','90':'90','100':'100'}" 
-              theme="simple" name="pagination.page_size" 
-              id="page_size" value="#request.pagination.page_size" /> Rows
-</td>
-<td class="pagination-label" width="100%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-</tr>
+            <select onchange="fnPagination(5, 0);hoanthanh();" name="pagination.page_size" id="page_size">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+            </select> Rows
+        </td>
+        <td class="pagination-label" width="100%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
 </table>
 <script type="text/javascript">
     (function () {

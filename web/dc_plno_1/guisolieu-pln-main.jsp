@@ -33,7 +33,7 @@
 
             $(document).ready(function () {
                 $(".NGAY_SL").css({"width": "80px"});
-                 $("#date_sl").css("display", "none");
+                $("#date_sl").css("display", "none");
             });
 
             //list tat ca cac pos khi check tren treeview
@@ -119,8 +119,8 @@
                 alert('Giá trị bạn nhập vượt quá giới hạn!');
                 $("#idLockSend")[0].click();
             }
-            
-            
+
+
             function validateRequiredFields() {
                 var result = true; //Luu ket qua kiem tra kieu so co dung khong
 
@@ -274,8 +274,8 @@
             }
             input[type=text]:focus, textarea:focus {
                 box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-/*                padding: 3px 0px 3px 3px;
-                margin: 5px 1px 3px 0px;*/
+                /*                padding: 3px 0px 3px 3px;
+                                margin: 5px 1px 3px 0px;*/
                 border: 1px solid rgba(81, 203, 238, 1);
             }
             .datepicker{
@@ -287,105 +287,107 @@
         <div id="container" >
             <s:form id="formMainSendPLN"  name="formMainSendPLN" var="test" action="loadDataViewSendPLN.action" theme="simple">
                 <!--<fieldset>-->
-                    <div id="navParam" >
-                        <div id="navParam2">                        
-                            <!--</p>-->
-                            <s:url id="reloadData" action="reloadDvutSendPln" includeParams="post"></s:url>
-                            <s:label value="Ngày SL:" cssStyle="color: #029c44;" />
-                            <sj:datepicker name="ngay_dcpt" id="ngay_dcpt"
-                                           value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
-                                           placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
-                                           cssStyle="font-weight: bold;vertical-align: middle;"/>                             
-                            <s:label value="Tổ chức hội:" cssStyle="color: #029c44;" />
+                <div id="navParam" >
+                    <div id="navParam2">                        
+                        <!--</p>-->
+                        <s:url id="reloadData" action="reloadDvutSendPln" includeParams="post"></s:url>
+                        <s:label value="Ngày SL:" cssStyle="color: #029c44;" />
+                        <sj:datepicker name="ngay_dcpt" id="ngay_dcpt"
+                                       value="%{'31/12/2021'}" onblur="validatedate(this.value)" cssClass="NGAY_SL"
+                                       placeholder="DD/MM/YYYY" changeYear="true"  changeMonth="true" displayFormat="dd/mm/yy" 
+                                       cssStyle="font-weight: bold;vertical-align: middle;"/>                             
+                        <s:label value="Tổ chức hội:" cssStyle="color: #029c44;" />
 
-                            <sj:select href="%{reloadData}" 
-                                       onChangeTopics="reloadTotruong"                                                     
-                                       onchange="onReloadGroup()"
-                                       id="dvut_dcpt" 
-                                       name="dvut_dcpt"
-                                       list="lstDvutDcpt" 
-                                       listKey="sKey"
-                                       listValue="sDesc"           
-                                       headerKey="-1"
-                                       headerValue="-- Chọn --" 
-                                       cssStyle="font-weight: bold;vertical-align: middle;width: 100px;"
-                                       onBeforeTopics="myBeforeHandler_dvut" 
-                                       onCompleteTopics="myCompleteTopics__dvut">                    
-                            </sj:select>
-                            <!--&nbsp;-->
-                            <s:label value="Tổ trưởng:" cssStyle="color: #029c44;" />
-                            <sj:select href="%{reloadData}" 
-                                       reloadTopics="reloadTotruong"
-                                       id="totruong_dcpt" 
-                                       name="totruong_dcpt"
-                                       list="lstTotruongDcpt" 
-                                       listKey="sKey"
-                                       listValue="sDesc" 
-                                       headerKey="-1"
-                                       headerValue="-- Chọn --" 
-                                       cssStyle="font-weight: bold;vertical-align: middle;width: 130px;"
-                                       onBeforeTopics="myBeforeHandler" 
-                                       onCompleteTopics="myCompleteTopics" >                    
-                            </sj:select>
+                        <sj:select href="%{reloadData}" 
+                                   onChangeTopics="reloadTotruong"                                                     
+                                   onchange="onReloadGroup()"
+                                   id="dvut_dcpt" 
+                                   name="dvut_dcpt"
+                                   list="lstDvutDcpt" 
+                                   listKey="sKey"
+                                   listValue="sDesc"           
+                                   headerKey="-1"
+                                   headerValue="-- Chọn --" 
+                                   cssStyle="font-weight: bold;vertical-align: middle;width: 100px;"
+                                   onBeforeTopics="myBeforeHandler_dvut" 
+                                   onCompleteTopics="myCompleteTopics__dvut">                    
+                        </sj:select>
+                        <!--&nbsp;-->
+                        <s:label value="Tổ trưởng:" cssStyle="color: #029c44;" />
+                        <sj:select href="%{reloadData}" 
+                                   reloadTopics="reloadTotruong"
+                                   id="totruong_dcpt" 
+                                   name="totruong_dcpt"
+                                   list="lstTotruongDcpt" 
+                                   listKey="sKey"
+                                   listValue="sDesc" 
+                                   headerKey="-1"
+                                   headerValue="-- Chọn --" 
+                                   cssStyle="font-weight: bold;vertical-align: middle;width: 130px;"
+                                   onBeforeTopics="myBeforeHandler" 
+                                   onCompleteTopics="myCompleteTopics" >                    
+                        </sj:select>
 
-                           &nbsp;
-                                    <s:label value="Trạng thái " cssStyle="color: #029c44;" />
-                                    <s:select id="trangthai" name="trangthai" list="#{'0':'Chưa gửi','1':'Đã gửi'}"
-                                              cssStyle="width: 103px; vertical-align: middle;"/>
-                                    &nbsp;
+                        &nbsp;
+                        <s:label value="Trạng thái " cssStyle="color: #029c44;" />
+                        <select id="trangthai" name="trangthai" style="width: 103px; vertical-align: middle;">
+                            <option value="0" <s:if test="trangthai == '0'">selected="selected"</s:if>>Chưa gửi</option>
+                            <option value="1" <s:if test="trangthai == '1'">selected="selected"</s:if>>Đã gửi</option>
+                            </select>
+                            &nbsp;
 
-                            <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
-                                       onBeforeTopics="beforediv1"
-                                       onCompleteTopics="completediv1" />
-                            <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Gửi dữ liệu" targets="divExportReport"
-                                       onBeforeTopics="beforediv1"
-                                       onCompleteTopics="completediv1" 
-                                       cssStyle="display: none"/>
-                            <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Gửi dữ liệu"/>
-                            <s:url id="idurlLock" action="LockDataDcpt.action"></s:url>
-                            <sj:submit style="display:none;" id="idLock" name="nameLock" href="%{idurlLock}" value="Chốt số liệu" targets="divExportReport" onclick="onclear()"
-                                       />
-                            
-                        
+                        <sj:submit id="loadsubmitform" name="loadsubmitform" value="Tải dữ liệu" targets="divExportReport" onclick="onclear()"
+                                   onBeforeTopics="beforediv1"
+                                   onCompleteTopics="completediv1" />
+                        <sj:submit id="idButtondonvi" name="nameButtondonvi" value="Gửi dữ liệu" targets="divExportReport"
+                                   onBeforeTopics="beforediv1"
+                                   onCompleteTopics="completediv1" 
+                                   cssStyle="display: none"/>
+                        <input type="button" id="idButtondonvitmp" name="nameButtondonvitmp" onclick="submitloadData()" value="Gửi dữ liệu"/>
+                        <s:url id="idurlLock" action="LockDataDcpt.action"></s:url>
+                        <sj:submit style="display:none;" id="idLock" name="nameLock" href="%{idurlLock}" value="Chốt số liệu" targets="divExportReport" onclick="onclear()"
+                                   />
 
-                            <!--<input type="button" id="idButtondonvi" name="nameButtondonvi"  value="Phê Duyệt"/> cssStyle="display: none"-->
-                            <hr>
-                            <!--style="padding:8px;"-->
-                            <!--</br>-->
-                          
-                        </div>
+
+
+                        <!--<input type="button" id="idButtondonvi" name="nameButtondonvi"  value="Phê Duyệt"/> cssStyle="display: none"-->
+                        <hr>
+                        <!--style="padding:8px;"-->
+                        <!--</br>-->
 
                     </div>
-                    <div id="containTree">
-                        <sjt:tree
-                            name="poscd"
-                            id="treeDynamicCheckboxes"
-                            jstreetheme="apple"
-                            rootNode="nodes_pos"
-                            childCollectionProperty="children"
-                            nodeTitleProperty="title"
-                            nodeIdProperty="id"
-                            openAllOnLoad="true"
-                            checkbox="true"
-                            showThemeDots="false"
-                            showThemeIcons="true" 
-                            />
-                    </div>
-                    <%--<sj:submit onClickTopics="checkAllNodesTopic" value="Check all Nodes" button="true" onclick="onReloadGroup()" />--%>
-                    <div id="loadingImageDiv" style="display: none;">
-                        <h2 style='color: red'>Xin chờ đang tải dữ liệu ! </h2>
-                        </br>
-                        <img id="loadingImage" src='img/loading.gif' border='0' >
-                    </div>
 
-                    <div id="containParm" align="center">
-                        <div id="divExportReport"></div>
-                    </div>
-                     <!--</fieldset>-->
-                </s:form>
+                </div>
+                <div id="containTree">
+                    <sjt:tree
+                        name="poscd"
+                        id="treeDynamicCheckboxes"
+                        jstreetheme="apple"
+                        rootNode="nodes_pos"
+                        childCollectionProperty="children"
+                        nodeTitleProperty="title"
+                        nodeIdProperty="id"
+                        openAllOnLoad="true"
+                        checkbox="true"
+                        showThemeDots="false"
+                        showThemeIcons="true" 
+                        />
+                </div>
+                <%--<sj:submit onClickTopics="checkAllNodesTopic" value="Check all Nodes" button="true" onclick="onReloadGroup()" />--%>
+                <div id="loadingImageDiv" style="display: none;">
+                    <h2 style='color: red'>Xin chờ đang tải dữ liệu ! </h2>
+                    </br>
+                    <img id="loadingImage" src='img/loading.gif' border='0' >
+                </div>
+
+                <div id="containParm" align="center">
+                    <div id="divExportReport"></div>
+                </div>
+                <!--</fieldset>-->
+            </s:form>
 
         </div>
-   
-</p>
+
+    </p>
 </body>
 </html>

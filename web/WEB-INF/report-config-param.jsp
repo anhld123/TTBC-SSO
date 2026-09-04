@@ -112,7 +112,7 @@
     .alignCenter {
         text-align: center;
     }    
-    
+
     .readonly {
         background-color: #d0e9c6;
     }
@@ -157,19 +157,20 @@
                     </td>
                     <td>
                         <s:textfield key="paramName"
-                                    id="para%{#stat.count}0"
-                                    readonly="true"
-                                    cssClass="readonly"
-                                    />
+                                     id="para%{#stat.count}0"
+                                     readonly="true"
+                                     cssClass="readonly"
+                                     />
                     </td>
                     <td>
-                        <s:select headerKey="-1"
-                                  list="#{'1':'T','2':'L','3':'D'}" 
-                                  name="corespondParamType" 
-                                  value="%{getMappingCode(corespondParamType,4)}" 
-                                  id="para%{#stat.count}1"/>
-                    </td>
-                    <td>
+                        <select name="corespondParamType" id="para<s:property value="#stat.count"/>1">
+                            <option value="-1"></option>
+                            <option value="1" <s:if test="getMappingCode(corespondParamType,4) == '1'">selected="selected"</s:if>>T</option>
+                            <option value="2" <s:if test="getMappingCode(corespondParamType,4) == '2'">selected="selected"</s:if>>L</option>
+                            <option value="3" <s:if test="getMappingCode(corespondParamType,4) == '3'">selected="selected"</s:if>>D</option>
+                            </select>
+                        </td>
+                        <td>
                         <s:textfield key="paramDescript"
                                      id="para%{#stat.count}2"/>
                     </td>
@@ -199,15 +200,15 @@
                     </td>
                 </tr>
             </s:iterator>
-            
+
             <s:hidden value="%{#rowtotal}" id="rowtotal"/>
             <s:hidden id="paramDataArray" value="" name="paramDataArray"/>
-            
+
             <s:hidden name="selectedGroup"/>
             <s:hidden name="autoGenerateRptCode"/>
             <s:hidden name="selectedReport"/>
-            
-            
+
+
             <s:hidden name="reportUpdateManager.reportInfor.reportCode"/>
             <s:hidden name="reportUpdateManager.reportInfor.reportGroupCode"/>
             <s:hidden name="reportUpdateManager.reportInfor.shortcutName"/>
@@ -218,8 +219,8 @@
             <s:hidden name="reportUpdateManager.reportInfor.reportGrade"/>
             <s:hidden name="reportUpdateManager.reportInfor.jaserFileName"/>
             <s:hidden name="reportUpdateManager.reportInfor.generatedName"/>
-            
-            
+
+
             <tr><td style="border: 0;" colspan="10">&nbsp;</td></tr>
             <tr style="border: 0;">
                 <td style="border: 0;" colspan="5">

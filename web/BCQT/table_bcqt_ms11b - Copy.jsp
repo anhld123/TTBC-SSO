@@ -23,10 +23,10 @@
                 $(".datepick").datepicker({dateFormat: 'dd/mm/yy'});
                 $('#ui-datepicker-div').css('clip', 'auto');
                 //Cac truong bang so --> se co so truong = 0
-    //                $('.number').number(true, 0);
-    //            //Cac truong bang so --> se co so truong = 0
+                //                $('.number').number(true, 0);
+                //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
-    //                $(".TD_TEN_KH").css({"width": "30px"});
+                //                $(".TD_TEN_KH").css({"width": "30px"});
                 $(".TEN_KH").css({"width": "100%"});
             });
             $('.TEN_KH').focus(function () {
@@ -41,12 +41,12 @@
                 var rowCount = table.rows.length - 1; //Dem so dong cua bang
                 if (max_row < rowCount)
                     max_row = rowCount;
-    //                alert('max_row='+max_row+' rowCount='+rowCount);
+                //                alert('max_row='+max_row+' rowCount='+rowCount);
                 table.deleteRow(indx);
             }
 
             function addRow(indx) {
-    //                sleep(1000);
+                //                sleep(1000);
                 var index = parseInt(indx); //ko hieu so vao vong for lai mat index nen phai luu lai o day
                 var table = document.getElementById("table12a");
                 var rowCount = table.rows.length - 1; //Dem so dong cua bang
@@ -57,8 +57,8 @@
                     max_row++;
                     rowCount = max_row;
                 }
-                var idDate="date"+ rowCount;
-                var idChtrinh="Chtrinh_vay_"+ rowCount;
+                var idDate = "date" + rowCount;
+                var idChtrinh = "Chtrinh_vay_" + rowCount;
                 var newTr = '<tr>\n\
                             <td ><input type="text" value="" id="ma" name="lstDulieuNt[' + rowCount + '].MA" class="TEN_KH" onfocus="this.select();" />\n\
                             <td ><input type="text" value="" id="Ten" name="lstDulieuNt[' + rowCount + '].TEN" class="TEN_KH" onfocus="this.select();" />\n\
@@ -68,7 +68,7 @@
                             <td><select name="lstDulieuNt[' + rowCount + '].D4" id="idmacd" style="font-weight: bold;width: 155px; vertical-align: middle;">\n\
                             <option value="01">Tổ trưởng tổ TK&amp;VV</option>\n\
                             <option value="02">Tổ chức hội</option><option value="03" selected="selected">Khác</option></select></td>\n\
-                            <td><select name="lstDulieuNt[' + rowCount + '].D11" id="'+idChtrinh+'">\n\
+                            <td><select name="lstDulieuNt[' + rowCount + '].D11" id="' + idChtrinh + '">\n\
                             <option value="1">---Chọn khóa cho group---</option></select></td>\n\
                             <td ><input type="text" value="0" id="D6" name="lstDulieuNt[' + rowCount + '].D5" class="TEN_KH number2" onfocus="this.select();"/></td>\n\
                             <td ><input type="text" value="0" id="D7" name="lstDulieuNt[' + rowCount + '].D6" class="TEN_KH number2" onfocus="this.select();"/></td>\n\
@@ -78,7 +78,7 @@
                             </tr>';
                 $($('table#table12a tr')[index]).before(newTr);
 
-    //                $(".TD_TEN_KH").css({"width": "30px"});
+                //                $(".TD_TEN_KH").css({"width": "30px"});
                 $(".TEN_KH").css({"width": "100%"});
                 $('input.number').css({"text-align": "right"});
                 $('input.number2').css({"text-align": "right"});
@@ -88,35 +88,35 @@
                 $('.TEN_KH').blur(function () {
                     $(this).closest('tr').removeClass('highlight_row');
                 });
-    //                $('.number').number(true, 0);
-    //            //Cac truong bang so --> se co so truong = 0
+                //                $('.number').number(true, 0);
+                //            //Cac truong bang so --> se co so truong = 0
                 $('.number2').number(true, 0);
 
-                    $('#'+idDate).datepicker({dateFormat: "dd/mm/yy"});
-                    
-                 $.getJSON('loadDMChtrinh',{
-                        Message: 'fileTemplate',
-                        khoa_bcqt: 'khoa_bcqt'
-                    }, function (jsonResponse) {
-                        //reload lai du lieu cho select option
-                        alert('Vao goi json idChtrinh='+idChtrinh);
-                        //var group_key = $('#group_key');
-                        idChtrinh.find('option').remove();
-//                        $('<option>').val('1').text('---Chọn chương trình vay---').appendTo(idChtrinh);
-                        $('<option>').val('').text('').appendTo(idChtrinh);
-                        
-                        $.each(jsonResponse.dmChtrinh, function (key, value) {
-                            alert('Vao goi json value='+value);
-                            $('<option>').val(key).text(value).appendTo(idChtrinh);
-                        });
+                $('#' + idDate).datepicker({dateFormat: "dd/mm/yy"});
 
-                      
-                        if (jsonResponse.Message != null)
-                        {
-                            alert(jsonResponse.Message);
-                            $('#Message').text(jsonResponse.Message);
-                        }
+                $.getJSON('loadDMChtrinh', {
+                    Message: 'fileTemplate',
+                    khoa_bcqt: 'khoa_bcqt'
+                }, function (jsonResponse) {
+                    //reload lai du lieu cho select option
+                    alert('Vao goi json idChtrinh=' + idChtrinh);
+                    //var group_key = $('#group_key');
+                    idChtrinh.find('option').remove();
+//                        $('<option>').val('1').text('---Chọn chương trình vay---').appendTo(idChtrinh);
+                    $('<option>').val('').text('').appendTo(idChtrinh);
+
+                    $.each(jsonResponse.dmChtrinh, function (key, value) {
+                        alert('Vao goi json value=' + value);
+                        $('<option>').val(key).text(value).appendTo(idChtrinh);
                     });
+
+
+                    if (jsonResponse.Message != null)
+                    {
+                        alert(jsonResponse.Message);
+                        $('#Message').text(jsonResponse.Message);
+                    }
+                });
 
             }
         </script>
@@ -175,12 +175,15 @@
                             <td>
                                 <input type="text" name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D3"  class="TEN_KH" id="ngxtcd<s:property  value="%{#rowstatus.index}" />" value="<s:property  value="NG_CHIEMDUNG" />"/>
                             </td>
-                             <td>
-                                 <s:select id="idmacd" name="lstDulieuNt[%{#rowstatus.index}].D4" list="#{'01':'Tổ trưởng tổ TK&VV','02':'Tổ chức hội','03':'Khác'}" 
-                                           value="%{MA_CHIEMDUNG}" cssStyle="font-weight: bold;width: 155px; vertical-align: middle;"/>
-                            </td>
                             <td>
-                                <input type="text" value="<s:property  value="SOTIEN_GOC_NT" />" id="D5"
+                                <select id="idmacd" name="lstDulieuNt[<s:property value="#rowstatus.index"/>].D4" style="font-weight: bold; width: 155px; vertical-align: middle;">
+                                    <option value="01" <s:if test="MA_CHIEMDUNG == '01'">selected="selected"</s:if>>Tổ trưởng tổ TK&amp;VV</option>
+                                    <option value="02" <s:if test="MA_CHIEMDUNG == '02'">selected="selected"</s:if>>Tổ chức hội</option>
+                                    <option value="03" <s:if test="MA_CHIEMDUNG == '03'">selected="selected"</s:if>>Khác</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" value="<s:property  value="SOTIEN_GOC_NT" />" id="D5"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number2" onfocus="this.select();"/>
                             </td>
                             <td>
@@ -258,8 +261,8 @@
                                 <input type="text" value="<s:property  value="SOTIEN_LAI_NT" />" id="D6"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D5" class="TEN_KH number2" onfocus="this.select();" readonly="true"/>
                             </td>
-                            
-                            
+
+
                             <td>
                                 <input type="text" value="<s:property  value="GOC_CANDOI_NT" />" id="D7"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D6" class="TEN_KH number2" onfocus="this.select();" readonly="true"/>
@@ -268,17 +271,17 @@
                                 <input type="text" value="<s:property  value="LAI_CANDOI_NT" />" id="D8"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D7" class="TEN_KH number2" onfocus="this.select();" readonly="true"/>
                             </td>
-                            
-                            
+
+
                             <td>
                                 <input type="text" value="<s:property  value="SOTIEN_GOC" />" id="D9"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D9" class="TEN_KH number2" onfocus="this.select();" readonly="true"/>
                             </td>
-                              <td>
+                            <td>
                                 <input type="text" value="<s:property  value="SOTIEN_LAI" />" id="D9"
                                        name="lstDulieuNt[<s:property  value="%{#rowstatus.index}" />].D10" class="TEN_KH number2" onfocus="this.select();" readonly="true"/>
                             </td>
-                            
+
                         </tr>
                     </s:iterator>
                 </table>
