@@ -4086,7 +4086,7 @@ public class DaoProcessRisk {
     public boolean updateInfoLoan(String strUserName, String sGrade, ArrayList<String> lstArrPoscd,
             String sNambc, String sDotrr, String sNhomrr, String sChuongtrinh, String sSoku, String sKhoa,
             String sTenkh, String sNgayvay, String dbMdthiethai, String sNgayrr, String dbDnghi_Tg, String dbPduyet_Tg,
-            String dbHt_Dno, String dbHt_Lai, String dbDnghi_Lai, String sNguyennhan, String dbDnghi_Dno) {
+            String dbHt_Dno, String dbHt_Lai, String dbDnghi_Lai, String sNguyennhan, String dbDnghi_Dno, String sMotann) {
         //Duyet list dua ra danh sach main pos la dang "000314","000401","000501"....
         String strStringPosCd = "";
         for (int i = 0; i < lstArrPoscd.size(); i++) {
@@ -4103,7 +4103,7 @@ public class DaoProcessRisk {
             conn = daoconnect.getConnect();
             CallableStatement calstatement = null;
             //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{ call vbsp_ims_risk.SP_UPDATE_INFO_RISK(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String strStoreproce = "{ call vbsp_ims_risk.SP_UPDATE_INFO_RISK(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             ResultSet reset = null;
 
             calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -4131,6 +4131,7 @@ public class DaoProcessRisk {
             calstatement.setString(20, dbDnghi_Lai);
             calstatement.setString(21, sNguyennhan);
             calstatement.setString(22, dbDnghi_Dno);
+            calstatement.setString(23, sMotann);
 //            calstatement.setString(21, dbDnghi_Lai);
 //                calstatement.setString(2, strCommuneFlg);
             calstatement.execute();

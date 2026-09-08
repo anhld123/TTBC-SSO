@@ -135,6 +135,7 @@
                     var poscd = $('#poscd').val();
                     var sNguyennhan = $("#sNguyennhan").val();
                     var dbDnghi_Dno = $.trim($("#dbDnghi_Dno").val());
+                    var sMotann = $("#sMotann").val();
 
                     var data1 = {
                         soku_reject: soku,
@@ -157,7 +158,8 @@
                         dbSolanxl: dbSolanxl,
                         dbDnghi_Lai: dbDnghi_Lai,
                         sNguyennhan: sNguyennhan,
-                        dbDnghi_Dno: dbDnghi_Dno
+                        dbDnghi_Dno: dbDnghi_Dno,
+                        sMotann: sMotann
                     };
 
                     $.ajax({
@@ -208,7 +210,7 @@
                     <span id="idTitle">Thông tin chi tiết khách hàng xử lý rủi ro</span>
                     <hr/>
                     <%--<s:property value="reportGrade"/>--%>
-<!--màn hình ban rủi ro-->
+                    <!--màn hình ban rủi ro-->
                     <s:iterator value="lstTableRiskObj">
                         <table>
 
@@ -358,10 +360,16 @@
                                         <option value="112"<s:if test="sNguyennhan.equalsIgnoreCase('112')"> selected </s:if>>112 - Nợ nhận bàn giao (QĐ 62)</option>
                                         </select></td>
                                 </tr> 
-                                <tr class="cscontent">
-                                    <td><input type="text" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
-                                    <!--<td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>-->
-                                    <td class="maPGD" style="padding-left: 10px"><s:property value='sMotann'/></td>
+                                <!--                                <tr class="cscontent">
+                                                                    <td><input type="text" style="color: red" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                                                    <td><input type="text" value="" name="tenPGD" class="tenPGD" onfocus="this.select()" readonly="readonly"/></td>
+                                                                    <td class="maPGD" style="padding-left: 10px"><s:property value='sMotann'/></td>
+                                                                 </tr>-->
+                            <tr class="cscontent">
+                                <td><input type="text" style="color: red" value="Mô tả nguyên nhân" name="maPGD" class="maPGD" readonly="readonly"/></td>
+                                <td><textarea name="tenPGD" id="sMotann" class="tenPGD" maxlength="500"
+                                              style="color: red; width: 98%; height: 98%; box-sizing: border-box;" 
+                                              onfocus="this.select()"><s:property value='sMotann'/></textarea></td>
                             </tr>
                             <tr class="cscontent">
                                 <td><input type="text" value="Trạng thái bản ghi" name="maPGD" class="maPGD" readonly="readonly"/></td>

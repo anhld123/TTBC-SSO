@@ -1315,8 +1315,9 @@ public class RiskAction extends ActionSupport implements ModelDriven<ModelRiskPr
             dbDnghi_Lai = request.getParameter("dbDnghi_Lai");
             String sNguyennhan = request.getParameter("sNguyennhan");
             String dbDnghi_Dno = request.getParameter("dbDnghi_Dno");
+            String sMotann = request.getParameter("sMotann");
             if (new DaoProcessRisk().updateInfoLoan(sUserName, reportGrade, ArrlstPosCd, nam_xlrr, dot_xlrr, nhom_xlrr, chuongtrinh, soku_reject,  vb_xlrr,
-                    sTenkh,sNgayvay,dbMdthiethai,sNgayrr,dbDnghi_Tg,dbPduyet_Tg,dbHt_Dno,dbHt_Lai,dbDnghi_Lai,sNguyennhan,dbDnghi_Dno)) {
+                    sTenkh,sNgayvay,dbMdthiethai,sNgayrr,dbDnghi_Tg,dbPduyet_Tg,dbHt_Dno,dbHt_Lai,dbDnghi_Lai,sNguyennhan,dbDnghi_Dno,sMotann)) {
                 setMessage("Bạn đã từ chối thành công khoản vay " + soku_reject);
             } else {
                 setMessage("Bạn chưa từ chối được khoản vay này " + soku_reject);
