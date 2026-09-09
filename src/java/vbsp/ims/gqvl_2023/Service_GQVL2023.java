@@ -190,8 +190,8 @@ public class Service_GQVL2023 {
             return null;
         }
     }
-    
-      public  CicGenFile_Tmp xuatfileExcel_cic(String kye, String posCode, String posFlag,String reportDate) {
+
+    public CicGenFile_Tmp xuatfileExcel_cic(String kye, String posCode, String posFlag, String reportDate) {
 
         try {
             final String _fromDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -202,8 +202,8 @@ public class Service_GQVL2023 {
             return null;
         }
     }
-    
-    public int saveQLNK(String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+
+    public int saveQLNK(String key, String posCode, String posFlag, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -221,7 +221,7 @@ public class Service_GQVL2023 {
                 for (int i = 0; i < data.size(); i++) {
                     DuLieuNTRowX _normalizeItem = new DuLieuNTRowX();
 
-                    _normalizeItem.setKey("01_QLNK");
+                    _normalizeItem.setKey(key);
                     _normalizeItem.setOrderValue(i + 1);
                     _normalizeItem.setOrderDescription(String.format("%d", i + 1));
                     _normalizeItem.setName(data.get(i).getName());
@@ -268,7 +268,7 @@ public class Service_GQVL2023 {
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.updateKTKSNB("01_QLNK", posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
+                return _service.updateKTKSNB(key, posCode, posFlag, _reportDate, makerId, authoriseId, _lstNormalizeData);
 
             }
         } catch (Exception e) {
@@ -277,7 +277,7 @@ public class Service_GQVL2023 {
         return 0;
     }
 
-    public int deleteQLNK(String posCode, String posFlag,String soku ,String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
+    public int deleteQLNK(String posCode, String posFlag, String soku, String reportDate, String makerId, String authoriseId, List<DuLieuNTRow> data, String sourceFlag) {
         try {
 
             final String _reportDate = new SimpleDateFormat("yyyyMMdd").format(new SimpleDateFormat("dd-MMM-yyyy").parse(reportDate));
@@ -342,7 +342,7 @@ public class Service_GQVL2023 {
 
                     _lstNormalizeData.add(_normalizeItem);
                 }
-                return _service.deleteTDNN_2024("01_QLNK", posCode, posFlag, soku ,_reportDate, "", "", _lstNormalizeData);
+                return _service.deleteTDNN_2024("01_QLNK", posCode, posFlag, soku, _reportDate, "", "", _lstNormalizeData);
 
             }
         } catch (Exception e) {

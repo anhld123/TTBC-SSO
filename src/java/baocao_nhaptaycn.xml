@@ -20,7 +20,7 @@
             <result name="CHART_001">/nhaptay-cn/para-nhaptaycn-main_chart.jsp</result>
             <result name="KSNB_02">/nhaptay-cn/para-nhaptaycn-main_ktnb02.jsp</result>
             <result name="return-cic">/nhaptay-cn/para_baocao_cic.jsp</result>
-            <result name="QLNK_2023">/GQVL2023/para_baocao.jsp</result> 
+            <result name="QLNK_2023">/quanly_nokhoanh/para_baocao.jsp</result> 
             <result name="HUYDONG_2024">/GQVL2023/para_huydong.jsp</result> 
             <result name="CIC_002">/CIC_2024/para_cic.jsp</result>
             <result name="KTTC_MUASAM_01">/muasam_taisan_2024/para_muasamts_2024.jsp</result> 
@@ -62,8 +62,8 @@
             <result name="success">/CIC_2024/popupfile.jsp</result>
         </action>
           <action name="QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="load">
-            <result name="success">/GQVL2023/01_QLNK.jsp</result> 
-            <result name="success_1">/GQVL2023/01_QLNK_unlock.jsp</result>                              
+            <result name="success">/quanly_nokhoanh/01_QLNK.jsp</result> 
+            <result name="success_1">/quanly_nokhoanh/01_QLNK_unlock.jsp</result>                              
             <result name="error">/nhaptay-cn/success.jsp</result>       
         </action>
         <action name="unlock_QLNK_2023" class="vbsp.ims.gqvl_2023.QLNK_2023"  method="unlock">

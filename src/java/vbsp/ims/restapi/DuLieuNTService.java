@@ -2117,7 +2117,7 @@ public class DuLieuNTService extends ReportService {
             e.printStackTrace();
         }
         Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        System.out.println("Response code API: " + response.getStatus());
+//        System.out.println("Response code API: " + response.getStatus());
         return response.getStatus();
     }
 
