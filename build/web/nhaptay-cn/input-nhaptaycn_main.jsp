@@ -152,6 +152,17 @@
                     });
                 }
             });
+            
+             var blueKeys = ["QLNK_2023"];
+
+            $("#khoa_nhaptaycn option").each(function () {
+                if (blueKeys.includes($(this).val())) {
+                    $(this).css({
+                        "color": "red",
+                        "font-weight": "bold"
+                    });
+                }
+            });
         }
 
         $.subscribe("myCompleteTopics", function () {

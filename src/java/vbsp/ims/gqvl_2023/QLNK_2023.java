@@ -256,8 +256,7 @@ public class QLNK_2023 extends ActionNhaptaycnMain implements NhaptaycnFunction 
                 }
 
                 _leaveHomeService = new Service_GQVL2023();
-                int status = 200;
-//                        _leaveHomeService.saveQLNK(skye, pos_cd_username, "S", Ngaybc, "", "", lstUpdateDateForCurrentKey, "1");
+                int status = _leaveHomeService.saveQLNK(skye, pos_cd_username, "S", Ngaybc, "", "", lstUpdateDateForCurrentKey, "1");
                 if (status == 200) {
                     String matoValue = hmParameter.get("mato").toString().split("_")[1];
                     if ("0000000".equals(matoValue)) {
