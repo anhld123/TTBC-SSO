@@ -6,60 +6,45 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.ListOfValue;
 
 public class SsoMenuAction {
 
-    private DuLieuNTService _serverAPI = new DuLieuNTService();
-
     public String getUserInfo(String accessToken) {
         try {
-            // 1. Lấy cấu hình từ Database (Mã "306", nhóm "MenuSso")
-            List<ListOfValue> lstConfig = _serverAPI.getListOfValue("306", "MenuSso");
-            if (lstConfig == null || lstConfig.isEmpty()) {
-                System.err.println("Không tìm thấy cấu hình MenuSso!");
+            // 1. Lấy cấu hình trực tiếp từ SsoConfig
+            String permissionsUrl = SsoConfig.PERMISSIONS_ENDPOINT;
+            String clientId = SsoConfig.CLIENT_ID;
+            String authPrefix = "Bearer";
+            String cookieSession = SsoConfig.COOKIE_SESSION;
+
+            if (permissionsUrl == null || permissionsUrl.isEmpty()) {
+                System.err.println("URL cấu hình Permissions/Menu đang bị rỗng!");
                 return null;
             }
 
-            // 2. Đưa vào Map để dễ quản lý
-            Map<String, String> configMap = new HashMap<>();
-            for (ListOfValue item : lstConfig) {
-                if (item.getValue() != null) {
-                    configMap.put(item.getValue().trim(), item.getDescription() != null ? item.getDescription().trim() : "");
-                }
-            }
-
-            String userInfoUrl = configMap.getOrDefault("url", "");
-            String clientId = configMap.getOrDefault("client-id", "");
-            String authPrefix = configMap.getOrDefault("Authorization", "Bearer");
-            String cookieSession = configMap.getOrDefault("Cookie", "");
-
-            // 3. Xây dựng URL hoàn chỉnh trước khi khởi tạo đối tượng URL
-            StringBuilder fullUrl = new StringBuilder(userInfoUrl);
-            if (!clientId.isEmpty()) {
-                // Kiểm tra xem URL đã có dấu '?' hay chưa
-                if (!userInfoUrl.contains("?")) {
+            // 2. Xây dựng URL hoàn chỉnh kèm theo query parameter client-id
+            StringBuilder fullUrl = new StringBuilder(permissionsUrl);
+            if (clientId != null && !clientId.isEmpty()) {
+                if (!permissionsUrl.contains("?")) {
                     fullUrl.append("?");
                 } else {
-                    // Nếu URL đã có sẵn tham số trước đó thì nối bằng dấu '&'
-                    if (!userInfoUrl.endsWith("&") && !userInfoUrl.endsWith("?")) {
+                    if (!permissionsUrl.endsWith("&") && !permissionsUrl.endsWith("?")) {
                         fullUrl.append("&");
                     }
                 }
                 fullUrl.append("client-id=").append(clientId);
             }
 
+            // 3. Thiết lập kết nối HTTP GET
             URL url = new URL(fullUrl.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(10000);
 
             // 4. Đính kèm các Header
             conn.setRequestProperty("Authorization", authPrefix + " " + accessToken);
-            if (!cookieSession.isEmpty()) {
+            if (cookieSession != null && !cookieSession.isEmpty()) {
                 conn.setRequestProperty("Cookie", cookieSession);
             }
 

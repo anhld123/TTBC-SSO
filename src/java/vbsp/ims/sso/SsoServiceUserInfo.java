@@ -6,56 +6,35 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.ListOfValue;
 
 public class SsoServiceUserInfo {
 
-    private DuLieuNTService _serverAPI = new DuLieuNTService();
-
     public String getUserInfo(String accessToken) {
         try {
-            // 1. Lấy cấu hình từ Database (Mã "306", nhóm "UserSso")
-            List<ListOfValue> lstConfig = _serverAPI.getListOfValue("306", "UserSso");
-            if (lstConfig == null || lstConfig.isEmpty()) {
-                System.err.println("Không tìm thấy cấu hình UserSso!");
+            // 1. Lấy cấu hình trực tiếp từ SsoConfig
+            String userInfoUrl = SsoConfig.USERINFO_ENDPOINT;
+            String authPrefix = "Bearer"; // Hoặc có thể định nghĩa thêm trong SsoConfig nếu cần
+            String cookieSession = SsoConfig.COOKIE_SESSION;
+
+            if (userInfoUrl == null || userInfoUrl.isEmpty()) {
+                System.err.println("URL cấu hình UserInfo đang bị rỗng!");
                 return null;
             }
 
-            // 2. Đưa vào Map để dễ quản lý
-            Map<String, String> configMap = new HashMap<>();
-            for (ListOfValue item : lstConfig) {
-                if (item.getValue() != null) {
-                    configMap.put(item.getValue().trim(), item.getDescription() != null ? item.getDescription().trim() : "");
-                }
-            }
-
-            String userInfoUrl = configMap.getOrDefault("url", "");
-            String authPrefix = configMap.getOrDefault("Authorization", "Bearer");
-            String cookieSession = configMap.getOrDefault("Cookie", "");
-
-            if (userInfoUrl.isEmpty()) {
-                System.err.println("URL cấu hình UserSso đang bị rỗng!");
-                return null;
-            }
-
-            // 3. Thiết lập kết nối HTTP GET
+            // 2. Thiết lập kết nối HTTP GET
             URL url = new URL(userInfoUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(10000); // Timeout kết nối 10 giây
             conn.setReadTimeout(10000);    // Timeout đọc 10 giây
 
-            // 4. Đính kèm các Header giống hệt trên Postman
+            // 3. Đính kèm các Header giống hệt trên Postman
             conn.setRequestProperty("Authorization", authPrefix + " " + accessToken);
-            if (!cookieSession.isEmpty()) {
+            if (cookieSession != null && !cookieSession.isEmpty()) {
                 conn.setRequestProperty("Cookie", cookieSession);
             }
 
-            // 5. Đọc kết quả trả về từ SSO Server
+            // 4. Đọc kết quả trả về từ SSO Server
             int responseCode = conn.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {

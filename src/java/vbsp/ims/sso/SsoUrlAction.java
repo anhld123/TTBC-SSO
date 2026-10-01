@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpSession;
 
-public class SsoConfigAction extends ActionSupport {
+public class SsoUrlAction extends ActionSupport {
 
     private String ssoUrlResponse;
 
@@ -27,7 +27,6 @@ public class SsoConfigAction extends ActionSupport {
         try {
             HttpSession session = ServletActionContext.getRequest().getSession();
             
-            // Lấy thông tin cấu hình trực tiếp từ SsoConfig
             String authUrl = SsoConfig.AUTH_ENDPOINT;
             String responseType = SsoConfig.RESPONSE_TYPE;
             String clientId = SsoConfig.CLIENT_ID;

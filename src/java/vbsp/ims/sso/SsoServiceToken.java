@@ -7,57 +7,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import vbsp.ims.restapi.DuLieuNTService;
-import vbsp.ims.restapi.ListOfValue;
 
 public class SsoServiceToken {
 
-    private DuLieuNTService _serverAPI = new DuLieuNTService();
-
     public String exchangeCodeForToken(String code) {
         try {
-            // 1. Gọi API lấy cấu hình từ Database
-            List<ListOfValue> lstConfig = _serverAPI.getListOfValue("306", "TokenSSo");
-            if (lstConfig == null || lstConfig.isEmpty()) {
-                System.err.println("[SsoServiceToken] Không tìm thấy cấu hình TokenSSo trong Database!");
-                return null;
-            }
+            // 1. Lấy giá trị cấu hình trực tiếp từ SsoConfig
+            String tokenUrl = SsoConfig.TOKEN_ENDPOINT;
+            String grantType = SsoConfig.GRANT_TYPE;
+            String clientId = SsoConfig.CLIENT_ID;
+            String clientSecret = SsoConfig.CLIENT_SECRET;
+            String redirectUri = SsoConfig.REDIRECT_URI;
+            String codeVerifier = SsoConfig.CODE_VERIFIER;
+            String cookieSession = SsoConfig.COOKIE_SESSION;
 
-            // 2. Map trường "value" làm Key và "description" làm Value
-            Map<String, String> configMap = new HashMap<>();
-            for (ListOfValue item : lstConfig) {
-                if (item.getValue() != null) {
-                    configMap.put(item.getValue(), item.getDescription());
-                }
-            }
-
-            // 3. Lấy giá trị cấu hình
-            String tokenUrl = configMap.getOrDefault("token_url", "").trim();
-            String grantType = configMap.getOrDefault("grant_type", "").trim();
-            String clientId = configMap.getOrDefault("client_id", "").trim();
-            String clientSecret = configMap.getOrDefault("client_secret", "").trim();
-            String redirectUri = configMap.getOrDefault("redirect_uri", "").trim();
-            String codeVerifier = configMap.getOrDefault("code_verifier", "").trim();
-            String cookieSession = configMap.getOrDefault("cookie_session", "").trim();
-
-            // Log kiểm tra các tham số lấy từ DB
-//            System.out.println("=== SSO CONFIG DEBUG ===");
-//            System.out.println("tokenUrl: " + tokenUrl);
-//            System.out.println("grantType: " + grantType);
-//            System.out.println("clientId: " + clientId);
-//            System.out.println("redirectUri: " + redirectUri);
-//            System.out.println("Received Code: " + code);
-//            System.out.println("========================");
-
-            if (tokenUrl.isEmpty() || code == null || code.isEmpty()) {
+            if (tokenUrl == null || tokenUrl.isEmpty() || code == null || code.isEmpty()) {
                 System.err.println("[SsoServiceToken] Thiếu tokenUrl hoặc authorization code!");
                 return null;
             }
 
-            // 4. Xây dựng các tham số Body chuẩn x-www-form-urlencoded
+            // 2. Xây dựng các tham số Body chuẩn x-www-form-urlencoded
             StringBuilder params = new StringBuilder();
             params.append("grant_type=").append(URLEncoder.encode(grantType, "UTF-8"));
             params.append("&code=").append(URLEncoder.encode(code, "UTF-8"));
@@ -66,9 +35,7 @@ public class SsoServiceToken {
             params.append("&client_secret=").append(URLEncoder.encode(clientSecret, "UTF-8"));
             params.append("&code_verifier=").append(URLEncoder.encode(codeVerifier, "UTF-8"));
 
-//            System.out.println("[SsoServiceToken] Request Body gửi đi: " + params.toString());
-
-            // 5. Thiết lập kết nối HTTP POST tới SSO Server
+            // 3. Thiết lập kết nối HTTP POST tới SSO Server
             URL url = new URL(tokenUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -89,9 +56,8 @@ public class SsoServiceToken {
                 os.write(input, 0, input.length);
             }
 
-            // 6. Nhận phản hồi từ SSO Server
+            // 4. Nhận phản hồi từ SSO Server
             int responseCode = conn.getResponseCode();
-//            System.out.println("[SsoServiceToken] HTTP Response Code từ SSO: " + responseCode);
 
             StringBuilder response = new StringBuilder();
             if (responseCode >= 200 && responseCode < 300) {
@@ -111,9 +77,7 @@ public class SsoServiceToken {
                 System.err.println("[SsoServiceToken] Lỗi từ SSO Server: " + response.toString());
             }
 
-            String finalResponse = response.toString();
-//            System.out.println("[SsoServiceToken] Raw Response từ SSO: " + finalResponse);
-            return finalResponse;
+            return response.toString();
 
         } catch (Exception e) {
             e.printStackTrace();
