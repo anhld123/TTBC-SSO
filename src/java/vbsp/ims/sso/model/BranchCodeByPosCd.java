@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vbsp.ims.sso;
+package vbsp.ims.sso.model;
 
 import java.util.ArrayList;
 

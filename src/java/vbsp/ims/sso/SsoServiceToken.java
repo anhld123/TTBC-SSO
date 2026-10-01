@@ -44,13 +44,13 @@ public class SsoServiceToken {
             String cookieSession = configMap.getOrDefault("cookie_session", "").trim();
 
             // Log kiểm tra các tham số lấy từ DB
-            System.out.println("=== SSO CONFIG DEBUG ===");
-            System.out.println("tokenUrl: " + tokenUrl);
-            System.out.println("grantType: " + grantType);
-            System.out.println("clientId: " + clientId);
-            System.out.println("redirectUri: " + redirectUri);
-            System.out.println("Received Code: " + code);
-            System.out.println("========================");
+//            System.out.println("=== SSO CONFIG DEBUG ===");
+//            System.out.println("tokenUrl: " + tokenUrl);
+//            System.out.println("grantType: " + grantType);
+//            System.out.println("clientId: " + clientId);
+//            System.out.println("redirectUri: " + redirectUri);
+//            System.out.println("Received Code: " + code);
+//            System.out.println("========================");
 
             if (tokenUrl.isEmpty() || code == null || code.isEmpty()) {
                 System.err.println("[SsoServiceToken] Thiếu tokenUrl hoặc authorization code!");
@@ -66,7 +66,7 @@ public class SsoServiceToken {
             params.append("&client_secret=").append(URLEncoder.encode(clientSecret, "UTF-8"));
             params.append("&code_verifier=").append(URLEncoder.encode(codeVerifier, "UTF-8"));
 
-            System.out.println("[SsoServiceToken] Request Body gửi đi: " + params.toString());
+//            System.out.println("[SsoServiceToken] Request Body gửi đi: " + params.toString());
 
             // 5. Thiết lập kết nối HTTP POST tới SSO Server
             URL url = new URL(tokenUrl);
@@ -91,7 +91,7 @@ public class SsoServiceToken {
 
             // 6. Nhận phản hồi từ SSO Server
             int responseCode = conn.getResponseCode();
-            System.out.println("[SsoServiceToken] HTTP Response Code từ SSO: " + responseCode);
+//            System.out.println("[SsoServiceToken] HTTP Response Code từ SSO: " + responseCode);
 
             StringBuilder response = new StringBuilder();
             if (responseCode >= 200 && responseCode < 300) {
@@ -112,7 +112,7 @@ public class SsoServiceToken {
             }
 
             String finalResponse = response.toString();
-            System.out.println("[SsoServiceToken] Raw Response từ SSO: " + finalResponse);
+//            System.out.println("[SsoServiceToken] Raw Response từ SSO: " + finalResponse);
             return finalResponse;
 
         } catch (Exception e) {

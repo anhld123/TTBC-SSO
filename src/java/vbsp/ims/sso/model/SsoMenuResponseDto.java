@@ -1,4 +1,4 @@
-package vbsp.ims.sso;
+package vbsp.ims.sso.model;
 
 import java.util.List;
 import java.util.Map;

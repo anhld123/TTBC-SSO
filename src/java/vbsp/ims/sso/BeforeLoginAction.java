@@ -1,5 +1,9 @@
 package vbsp.ims.sso;
 
+import vbsp.ims.sso.model.BranchCodeByPosCd;
+import vbsp.ims.sso.model.SsoMenuResponseDto;
+import vbsp.ims.sso.model.MenuDataDto;
+import vbsp.ims.sso.model.SsoUserDto;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import javax.servlet.http.HttpSession;
@@ -13,7 +17,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Arrays;
-import vbsp.ims.sso.SsoUserDto.AppDto;
+import vbsp.ims.sso.model.SsoUserDto.AppDto;
 import vbsp.ims.restapi.DuLieuNTService;
 
 public class BeforeLoginAction extends ActionSupport {
@@ -22,7 +26,6 @@ public class BeforeLoginAction extends ActionSupport {
 
     private DuLieuNTService _serverAPI = new DuLieuNTService();
     private MenuBuildingService menuBuildingService = new MenuBuildingService();
-    private List<SessionDto> lstToken;
     private SsoServiceToken ssoService = new SsoServiceToken();
     private SsoServiceUserInfo userInfoService = new SsoServiceUserInfo();
     private SsoMenuAction menuActionService = new SsoMenuAction();
@@ -47,7 +50,7 @@ public class BeforeLoginAction extends ActionSupport {
 
         // 1. Đổi code lấy Token
         String tokenJsonResponse = ssoService.exchangeCodeForToken(code);
-        System.out.println("tokenJsonResponse từ SSO: " + tokenJsonResponse);
+//        System.out.println("tokenJsonResponse từ SSO: " + tokenJsonResponse);
         if (tokenJsonResponse == null || tokenJsonResponse.isEmpty()) {
             addActionError("Đổi mã Token thất bại từ hệ thống SSO!");
             return ERROR;
@@ -86,20 +89,6 @@ public class BeforeLoginAction extends ActionSupport {
             saveUserSessionAttributes(session, userDto);
 
             String refreshToken = tokenJson.has("refresh_token") ? tokenJson.get("refresh_token").getAsString() : "";
-
-            ArrayList<SessionUpdateDto> lstUpdateDate = new ArrayList<>();
-            {
-                SessionUpdateDto dto = new SessionUpdateDto();
-                dto.setUserCode(code);
-                dto.setAccessToken(accessToken);
-                dto.setRefreshToken(refreshToken);
-                String currentTime = Instant.now().toString();
-                dto.setExpiresAt(currentTime);
-                dto.setLoginTime(currentTime);
-                dto.setStatus(1);
-                lstUpdateDate.add(dto);
-            }
-            _serverAPI.callSessionUpdateApi(code, lstUpdateDate);
 
             // Xử lý danh sách user_level
             userLevels = extractUserLevels(userDto);

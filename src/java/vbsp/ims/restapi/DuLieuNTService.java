@@ -27,12 +27,10 @@ import java.util.Date;
 import java.util.List;
 import org.glassfish.jersey.client.ClientConfig;
 import vbsp.ims.model.DcplnModel;
-import vbsp.ims.sso.BranchCodeByPosCd;
-import vbsp.ims.sso.BranchCodeByPosCd.BranchCodeByPosCdResp;
-import vbsp.ims.sso.MenuDataDto;
-import vbsp.ims.sso.MenuDataDto.MenuDataDtoResp;
-import vbsp.ims.sso.SessionDto;
-import vbsp.ims.sso.SessionUpdateDto;
+import vbsp.ims.sso.model.BranchCodeByPosCd;
+import vbsp.ims.sso.model.BranchCodeByPosCd.BranchCodeByPosCdResp;
+import vbsp.ims.sso.model.MenuDataDto;
+import vbsp.ims.sso.model.MenuDataDto.MenuDataDtoResp;
 
 /**
  *
@@ -2275,41 +2273,4 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
-    public int callSessionUpdateApi(String UserCode, List<SessionUpdateDto> data) {
-        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
-        Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("session-login-sso-update-data")
-                .queryParam("UserCode", UserCode);
-        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
-
-        String json = "";
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(Include.NON_NULL);
-        try {
-            json = mapper.writeValueAsString(data);
-            System.out.println("ResultingJSONstring = " + json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
-        System.out.println("Response code API: " + response.getStatus());
-        return response.getStatus();
-    }
-
-    public ArrayList<SessionDto> getSessionDatas(String UserCode) {
-        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
-        Client client = ClientBuilder.newClient(config);
-        WebTarget target = client.target(getBaseURI()).path("get-session-login-sso")
-                .queryParam("UserCode", UserCode);
-        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
-        Response response = invocationBuilder.get();
-        if (response.getStatus() == 200) {
-            SessionDto data = response.readEntity(SessionDto.class);
-            ArrayList<SessionDto> listOfRow = data.result;
-            return listOfRow;
-        } else {
-            return null;
-        }
-    }
 }
