@@ -27,6 +27,12 @@ import java.util.Date;
 import java.util.List;
 import org.glassfish.jersey.client.ClientConfig;
 import vbsp.ims.model.DcplnModel;
+import vbsp.ims.sso.BranchCodeByPosCd;
+import vbsp.ims.sso.BranchCodeByPosCd.BranchCodeByPosCdResp;
+import vbsp.ims.sso.MenuDataDto;
+import vbsp.ims.sso.MenuDataDto.MenuDataDtoResp;
+import vbsp.ims.sso.SessionDto;
+import vbsp.ims.sso.SessionUpdateDto;
 
 /**
  *
@@ -1480,8 +1486,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -1510,8 +1516,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -1540,8 +1546,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -1589,8 +1595,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -1620,8 +1626,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
                 .queryParam("customerCode", customerCode)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.delete();
 //        System.out.println("Response code API: " + response.getStatus());
@@ -1637,8 +1643,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId)
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId)
                 .queryParam("data", data == null);
 
         String json = "";
@@ -1694,8 +1700,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId)
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId)
                 .queryParam("customerCode", customerCode)
                 .queryParam("feedback", feedback);
 
@@ -1927,7 +1933,7 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-province-list")
-                .queryParam("provinceCode", provinceCode == null || provinceCode == "" ? "" : provinceCode);
+                .queryParam("provinceCode", provinceCode == null || "".equals(provinceCode) ? "" : provinceCode);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
@@ -1944,9 +1950,9 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("txn-infor-search")
-                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode)
-                .queryParam("posFlag", posFlag == null || posFlag == "" ? "" : posFlag)
-                .queryParam("keyword", keyword == null || keyword == "" ? "" : keyword);
+                .queryParam("posCode", posCode == null || "".equals(posCode) ? "" : posCode)
+                .queryParam("posFlag", posFlag == null || "".equals(posFlag) ? "" : posFlag)
+                .queryParam("keyword", keyword == null || "".equals(keyword) ? "" : keyword);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
@@ -1963,8 +1969,8 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-pos-list")
-                .queryParam("mainPos", mainPos == null || mainPos == "" ? "" : mainPos)
-                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode);
+                .queryParam("mainPos", mainPos == null || "".equals(mainPos) ? "" : mainPos)
+                .queryParam("posCode", posCode == null || "".equals(posCode) ? "" : posCode);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
@@ -1981,10 +1987,10 @@ public class DuLieuNTService extends ReportService {
         org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
         Client client = ClientBuilder.newClient(config);
         WebTarget target = client.target(getBaseURI()).path("ims-lov-commune-list")
-                .queryParam("provinceCode", provinceCode == null || provinceCode == "" ? "" : provinceCode)
-                .queryParam("districtCode", districtCode == null || districtCode == "" ? "" : districtCode)
-                .queryParam("communeCode", communeCode == null || communeCode == "" ? "" : communeCode)
-                .queryParam("posCode", posCode == null || posCode == "" ? "" : posCode);
+                .queryParam("provinceCode", provinceCode == null || "".equals(provinceCode) ? "" : provinceCode)
+                .queryParam("districtCode", districtCode == null || "".equals(districtCode) ? "" : districtCode)
+                .queryParam("communeCode", communeCode == null || "".equals(communeCode) ? "" : communeCode)
+                .queryParam("posCode", posCode == null || "".equals(posCode) ? "" : posCode);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
@@ -2016,8 +2022,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -2044,8 +2050,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posCode", posCode)
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -2073,8 +2079,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("communeId", communeId)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -2102,8 +2108,8 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("communeId", communeId)
                 .queryParam("reportDate", reportDate)
-                .queryParam("makerId", makerId == null || makerId == "" ? "" : makerId)
-                .queryParam("authoriseId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("makerId", makerId == null || "".equals(makerId) ? "" : makerId)
+                .queryParam("authoriseId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
 
         String json = "";
@@ -2131,7 +2137,7 @@ public class DuLieuNTService extends ReportService {
                 .queryParam("posFlag", posFlag)
                 .queryParam("reportDate", reportDate)
                 .queryParam("dataFlag", dataFlag)
-                .queryParam("updateId", authoriseId == null || authoriseId == "" ? "" : authoriseId);
+                .queryParam("updateId", authoriseId == null || "".equals(authoriseId) ? "" : authoriseId);
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
         String json = "";
         //ObjectMapper mapper = new ObjectMapper();
@@ -2202,7 +2208,6 @@ public class DuLieuNTService extends ReportService {
         ClientConfig config = new ClientConfig();
         Client client = ClientBuilder.newClient(config);
 
-   
         WebTarget target = client.target(getBaseURI()).path("pcrt-black-list-customer-search-list");
 
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
@@ -2237,4 +2242,74 @@ public class DuLieuNTService extends ReportService {
         }
     }
 
+    public ArrayList<MenuDataDto> getMenuData() {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("menu-data-info");
+
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+        Response response = invocationBuilder.get();
+
+        if (response.getStatus() == 200) {
+            MenuDataDtoResp dulieuNTResp = response.readEntity(MenuDataDtoResp.class);
+            ArrayList<MenuDataDto> MenuDataDto = dulieuNTResp.result;
+            return MenuDataDto;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<BranchCodeByPosCd> getMainPos(String posCd) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("get-branch-code-by-poscd")
+                .queryParam("posCd", posCd);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+        if (response.getStatus() == 200) {
+            BranchCodeByPosCdResp BranchCodeByPosCdResp = response.readEntity(BranchCodeByPosCdResp.class);
+            ArrayList<BranchCodeByPosCd> BranchCodeByPosCds = BranchCodeByPosCdResp.result;
+            return BranchCodeByPosCds;
+        } else {
+            return null;
+        }
+    }
+
+    public int callSessionUpdateApi(String UserCode, List<SessionUpdateDto> data) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("session-login-sso-update-data")
+                .queryParam("UserCode", UserCode);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
+
+        String json = "";
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        try {
+            json = mapper.writeValueAsString(data);
+            System.out.println("ResultingJSONstring = " + json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        Response response = invocationBuilder.post(Entity.entity(json, MediaType.APPLICATION_JSON));
+        System.out.println("Response code API: " + response.getStatus());
+        return response.getStatus();
+    }
+
+    public ArrayList<SessionDto> getSessionDatas(String UserCode) {
+        org.glassfish.jersey.client.ClientConfig config = new org.glassfish.jersey.client.ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI()).path("get-session-login-sso")
+                .queryParam("UserCode", UserCode);
+        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_XML);
+        Response response = invocationBuilder.get();
+        if (response.getStatus() == 200) {
+            SessionDto data = response.readEntity(SessionDto.class);
+            ArrayList<SessionDto> listOfRow = data.result;
+            return listOfRow;
+        } else {
+            return null;
+        }
+    }
 }

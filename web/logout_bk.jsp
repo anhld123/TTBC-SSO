@@ -51,7 +51,7 @@
                 <tr>
                     <td colspan="2" align="right">
                         <p>
-                            <a href="login-redirect-sso.jsp">Đăng nhập bằng user khác</a>&nbsp;                            
+                            <a href="before-login_process.jsp">Đăng nhập bằng user khác</a>&nbsp;                            
                             <a href="javascript:closeWindow();">Đóng</a>&nbsp;                            
                         </p>
                     </td>

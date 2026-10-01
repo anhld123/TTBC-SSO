@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>   
 <%@ page import="java.io.*,java.util.*" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
@@ -22,15 +22,12 @@
         var ua = navigator.userAgent.toLowerCase(),
                 isIE = ua.indexOf('msie') !== -1,
                 version = parseInt(ua.substr(4, 2), 10);
-        // IE8 and lower
         if (isIE && version < 9) {
             var link = document.createElement('a');
             link.href = url;
             document.body.appendChild(link);
             link.click();
-        }
-        // All other browsers
-        else {
+        } else {
             window.location.href = url;
         }
     }
@@ -38,109 +35,53 @@
 <script type="text/javascript" src="js/jquery-2.1.26.js"></script>
 <link href="menu/Menustyle.css" rel="stylesheet" type="text/css"/>
 
-<s:bean name="vbsp.ims.bean.MenuBean" var="menu">  
-</s:bean>
-
-<div id="cssmenu">       
+<div id="cssmenu">        
     <ul>
-        <s:iterator value="#menu.menuItems" status="menu1" var="link">            
-            <s:if test="#link.parentId == 0 ">        
-                <li>     
-                    <s:url action="Menu_redirect.action" var="urlTag" escapeAmp="false">                
-                        <s:param name="menuUrl">${link.navigateUrl}</s:param>                                    
-                        <s:param name="menuId">${link.menuId}</s:param>  
-                        <s:param name="userName">${username}</s:param>  
-                    </s:url>
-                    <s:if test="#link.childTotal == 0 ">
-                        <a href="<s:property value="#urlTag" />" style="font-family: Arial; color: #666666;font-size: 12px;">${link.text}</a>                                
-                    </s:if>
-                    <s:else>
-                        <a href="#"  style="text-transform: uppercase; font-family: Arial; color: #06713F; font-size: 12px;">${link.text}</a>
-                    </s:else>
-                    <ul class="sub_menu">
-                        <s:iterator value="#menu.menuItems" status="menu2" var="link2">            
-                            <s:if test="#link2.parentId == #link.menuId ">        
-                                <li>     
-                                    <s:url action="Menu_redirect.action" var="urlTag" escapeAmp="false">                
-                                        <s:param name="menuUrl">${link2.navigateUrl}</s:param>                                    
-                                        <s:param name="menuId">${link2.menuId}</s:param>    
-                                        <s:param name="userName">${username}</s:param>  
-                                    </s:url>
-                                    <s:if test="#link2.childTotal == 0 ">
-                                        <a href="<s:property value="#urlTag" />" style="font-family: Arial; color: #666666;font-size: 12px;">${link2.text}</a>                                
-                                    </s:if>
-                                    <s:else>
-                                        <a href="#"  style="font-family: Arial; color: #666666; font-size: 12px;">${link2.text}</a>
-                                    </s:else>
-                                    <s:if test="#link2.childTotal > 0 ">  
-                                        <ul>
-                                            <s:iterator value="#menu.menuItems" status="menu3" var="link3">   
-                                                <s:if test="#link3.parentId == #link2.menuId "> 
-                                                    <li>
-                                                        <s:url action="Menu_redirect.action" var="urlTag" escapeAmp="false">                
-                                                            <s:param name="menuUrl">${link3.navigateUrl}</s:param>                                    
-                                                            <s:param name="menuId">${link3.menuId}</s:param>    
-                                                            <s:param name="userName">${username}</s:param>  
-                                                        </s:url>
-                                                        <a href="<s:property value="#urlTag" />"  style="font-family: Arial; color: #666666; font-size: 12px;" >${link3.text}</a>
-                                                    </li>
-                                                </s:if>
-                                            </s:iterator>
-                                        </ul>
-                                    </s:if>
-                                </li>        
-                            </s:if>
+        <s:iterator value="#session.USER_MENU_TREE_3LEVELS" var="parentEntry">
+            <li>
+                <s:url action="Menu_redirect.action" var="urlParent" escapeAmp="false">
+                    <s:param name="menuUrl">${parentEntry.key.navigateUrl}</s:param>                        
+                    <s:param name="menuId">${parentEntry.key.menuId}</s:param>  
+                    <s:param name="userName">${username}</s:param>  
+                </s:url>
+                <a href="<s:property value='#urlParent' />" style="text-transform: uppercase; font-family: Arial; color: #06713F; font-size: 12px;">
+                    <s:property value='#parentEntry.key.text' />
+                </a>
+                
+                <s:if test="#parentEntry.value != null && #parentEntry.value.size() > 0">
+                    <ul>
+                        <s:iterator value="#parentEntry.value" var="level1Entry">
+                            <li>
+                                <s:url action="Menu_redirect.action" var="urlLevel1" escapeAmp="false">
+                                    <s:param name="menuUrl">${level1Entry.key.navigateUrl}</s:param>                        
+                                    <s:param name="menuId">${level1Entry.key.menuId}</s:param>  
+                                    <s:param name="userName">${username}</s:param>  
+                                </s:url>
+                                <a href="<s:property value='#urlLevel1' />" style="font-family: Arial; color: #333333; font-size: 11px;">
+                                    <s:property value='#level1Entry.key.text' />
+                                </a>
+                                
+                                <s:if test="#level1Entry.value != null && #level1Entry.value.size() > 0">
+                                    <ul>
+                                        <s:iterator value="#level1Entry.value" var="level2Item">
+                                            <li>
+                                                <s:url action="Menu_redirect.action" var="urlLevel2" escapeAmp="false">
+                                                    <s:param name="menuUrl">${level2Item.navigateUrl}</s:param>                        
+                                                    <s:param name="menuId">${level2Item.menuId}</s:param>  
+                                                    <s:param name="userName">${username}</s:param>  
+                                                </s:url>
+                                                <a href="<s:property value='#urlLevel2' />" style="font-family: Arial; color: #666666; font-size: 11px;" >
+                                                    <s:property value='#level2Item.text' />
+                                                </a>
+                                            </li>
+                                        </s:iterator>
+                                    </ul>
+                                </s:if>
+                            </li>
                         </s:iterator>
                     </ul>
-                </li>        
-            </s:if>
+                </s:if>
+            </li>
         </s:iterator>
     </ul>  
 </div>
-<div id="ai-chat-icon" onclick="toggleAIChat(true)">
-    <img src="img/icon.png" alt="AI Assistant">
-</div>
-<div id="ai-chat-window">
-    <iframe src="Chat.action"></iframe>
-</div>
-
-<script>
-    function toggleAIChat() {
-        const icon = document.getElementById('ai-chat-icon');
-        const chatWindow = document.getElementById('ai-chat-window');
-
-        const isOpen = chatWindow.style.display === 'block';
-
-        if (isOpen) {
-            // Thu chat
-            chatWindow.style.display = 'none';
-
-            icon.style.display = 'flex';
-            icon.style.right = '25px';
-
-            const iframe = chatWindow.querySelector('iframe');
-
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.clearChat();
-            }
-
-        } else {
-            // Mở chat
-            chatWindow.style.display = 'block';
-
-            // Đẩy icon sang bên trái cửa sổ chat
-            icon.style.display = 'flex';
-            icon.style.right = '425px';
-
-            setTimeout(function () {
-                const iframe = chatWindow.querySelector('iframe');
-
-                if (iframe && iframe.contentWindow) {
-                    iframe.contentWindow.document
-                            .getElementById('message')
-                            .focus();
-                }
-            }, 200);
-        }
-    }
-</script>

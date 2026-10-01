@@ -7,7 +7,6 @@ package vbsp.ims.action;
 
 import vbsp.ims.ctieu.ChiTieu;
 import com.opensymphony.xwork2.ActionSupport;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;

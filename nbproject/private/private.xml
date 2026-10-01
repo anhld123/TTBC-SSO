@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/src/java/struts-dcpln.xml</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/src/java/vbsp/ims/action/DcplnAction.java</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/web/dc_plno/doichieu-pln-main.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/web/dc_plno/table_data_dcpln_search.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/web/dc_plno/table_data_dcpln.jsp</file>
-            <file>file:/D:/Project/GitHub/IMS_REPORTS_2025/IMS_REPORTS/src/java/vbsp/ims/dao/DaoDCPLNO.java</file>
+            <file>file:/D:/DucAnh/IMS_REPORTS-SSO/IMS_REPORTS/IMS_REPORTS/web/login-redirect-sso.jsp</file>
+            <file>file:/D:/DucAnh/IMS_REPORTS-SSO/IMS_REPORTS/IMS_REPORTS/src/java/vbsp/ims/sso/SsoServiceToken.java</file>
+            <file>file:/D:/DucAnh/IMS_REPORTS-SSO/IMS_REPORTS/IMS_REPORTS/src/java/vbsp/ims/sso/BeforeLoginAction.java</file>
+            <file>file:/D:/DucAnh/IMS_REPORTS-SSO/IMS_REPORTS/IMS_REPORTS/src/java/vbsp/ims/sso/SsoConfigAction.java</file>
         </group>
     </open-files>
 </project-private>

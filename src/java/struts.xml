@@ -453,5 +453,6 @@
     <include file ="huydongtk.xml"></include> 
     <include file="struts_nghiquyet11cp.xml"/>    
     <include file="struts_leavelocal.xml"/>  
-    <include file="struts_htls2023.xml"/>       
+    <include file="struts_htls2023.xml"/>   
+    <include file="struts_sso.xml"/>    
 </struts>

@@ -1,79 +1,88 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vbsp.ims.dao.khnv;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.opensymphony.xwork2.ActionContext;
 import java.util.ArrayList;
 import java.util.List;
-import vbsp.ims.dao.DaoConnect;
+import java.util.Map;
 import vbsp.ims.log.CoreLogger;
 import vbsp.ims.model.ktnb.PosMainModel;
 import vbsp.ims.report.fast.ListValue;
+import vbsp.ims.restapi.DuLieuNTService;
+import vbsp.ims.restapi.ListCommune;
 
 /**
- *
  * @author BAOANH
  */
 public class DaoListPosFromUser {
+
+    private List<ListCommune> lstXa_API;
+    private DuLieuNTService _serverAPI = new DuLieuNTService();
+
+    public List<ListCommune> getLstXa_API() {
+        return lstXa_API;
+    }
+
+    public void setLstXa_API(List<ListCommune> lstXa_API) {
+        this.lstXa_API = lstXa_API;
+    }
+
+    public DuLieuNTService getServerAPI() {
+        return _serverAPI;
+    }
+
+    public void setServerAPI(DuLieuNTService _serverAPI) {
+        this._serverAPI = _serverAPI;
+    }
+
+   
     public PosMainModel get_pos_main_pos(String userId, String capbc) {
         PosMainModel posMainModel = new PosMainModel();
+        
+        String sessionPosCode = "";
+        String sessionMainPosCode = "";
 
         try {
-            DaoConnect daoconnect = new DaoConnect();
-            Connection conn = null;
-            conn = daoconnect.getConnect();
-            CallableStatement calstatement = null;
-            //Khoi tao procedure cung voi tham so truyen vao la dau ?
-            String strStoreproce = "{call VBSP_RPT_KHNV.p_get_pos_cd(?, ?, ?,?,?)}";
-            ResultSet reset = null;
-            try {
-                //Khoi tao goi store
-                calstatement = conn.prepareCall(strStoreproce, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                //Tham so thu nhat module_id 
-                calstatement.setString(1, userId);
-                calstatement.setString(2, capbc);
-                calstatement.registerOutParameter(3, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
-                calstatement.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
+            // Tự động lấy Session từ ActionContext của Struts 2 mà không cần truyền tham số từ ngoài vào
+            Map<String, Object> session = ActionContext.getContext().getSession();
+            if (session != null) {
+                sessionPosCode = (String) session.get("POS_CODE");
+                sessionMainPosCode = (String) session.get("MA_CN");
+            }
+        } catch (Exception e) {
+            System.err.println("Warning: Không thể lấy session trong DAO (có thể chạy ngoài luồng Web): " + e.getMessage());
+        }
 
-                //Thuc hien execute lay du lieu
-                calstatement.execute();
+        posMainModel.setPosCd(sessionPosCode != null ? sessionPosCode : "");
+        posMainModel.setMainPosCd(sessionMainPosCode != null ? sessionMainPosCode : "");
 
-                //lay gia tri loi cho procedure (truong hop khi co loi say ra moi can dung den)
-                String posCd = calstatement.getString(3);
-                String mainPosCd = calstatement.getString(4);
-                
-                posMainModel.setPosCd(posCd);
-                posMainModel.setMainPosCd(mainPosCd);
-                reset=(ResultSet)calstatement.getObject(5);
-                List<ListValue> lstdata = new ArrayList<>();
-                while(reset.next())
-                {
-                    lstdata.add(new ListValue(reset.getString(2), reset.getString(3), reset.getString(1)));
-                }
-                posMainModel.setLstXa(lstdata);
-                if (calstatement != null) {
-                    calstatement.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                System.err.print(e.getMessage());
-                CoreLogger.error(this.getClass().getName() + " get_pos_main_pos -> " + e.getMessage());
+        try {
+            if (sessionPosCode != null && !sessionPosCode.isEmpty()) {
+                lstXa_API = _serverAPI.getListXa("", "", "", sessionPosCode);
+            } else {
+                lstXa_API = new ArrayList<>();
             }
 
-            return posMainModel;
+            List<ListValue> lstdata = new ArrayList<>();
+            if (lstXa_API != null) {
+                int stt = 1;
+                for (ListCommune item : lstXa_API) {
+                    String maXa = item.getCommuneCode(); 
+                    String tenXa = item.getCommuneName();
+                    
+                    // Định dạng hiển thị: MA -> TEN
+                    String displayTen = maXa + " -> " + tenXa;
+                    
+                    lstdata.add(new ListValue(String.valueOf(stt), displayTen, maXa));
+                    stt++;
+                }
+            }
+            posMainModel.setLstXa(lstdata);
+
         } catch (Exception e) {
-            System.err.println("Loi trong ham get_pos_main_pos " + e.getMessage());
-            CoreLogger.error(this.getClass().getName() + " get_pos_main_pos -> " + e.getMessage());
+            System.err.println("Loi khi goi API lay danh sach xa trong get_pos_main_pos: " + e.getMessage());
+            CoreLogger.error(this.getClass().getName() + " get_pos_main_pos API -> " + e.getMessage());
         }
+
         return posMainModel;
     }
 }

@@ -3,7 +3,7 @@
     <body style="height:100%;" topmargin="0" leftmargin="0">
         <table border="0" width="100%"  style="height:100%;" cellspacing="0" cellpadding="0">
             <tr>
-                <td colspan="3" valign="top"><%@include file="login-redirect.jsp" %></td>
+                <td colspan="3" valign="top"><%@include file="login-redirect-sso.jsp" %></td>
             </tr>
             <tr>
                 <td colspan="3" height="7px"  align="left" valign = "bottom">
