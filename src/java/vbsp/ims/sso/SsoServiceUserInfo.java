@@ -13,7 +13,7 @@ public class SsoServiceUserInfo {
         try {
             // 1. Lấy cấu hình trực tiếp từ SsoConfig
             String userInfoUrl = SsoConfig.USERINFO_ENDPOINT;
-            String authPrefix = "Bearer"; // Hoặc có thể định nghĩa thêm trong SsoConfig nếu cần
+            String authPrefix = "Bearer";
             String cookieSession = SsoConfig.COOKIE_SESSION;
 
             if (userInfoUrl == null || userInfoUrl.isEmpty()) {

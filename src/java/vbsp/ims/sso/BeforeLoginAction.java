@@ -41,7 +41,7 @@ public class BeforeLoginAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         HttpSession session = ServletActionContext.getRequest().getSession();
-        System.err.println("SSO clicked - Received code: " + code);
+//        System.err.println("SSO clicked - Received code: " + code);
         if (code == null || code.trim().isEmpty()) {
             addActionError("Không tìm thấy mã xác thực Authorization Code!");
             return ERROR;
